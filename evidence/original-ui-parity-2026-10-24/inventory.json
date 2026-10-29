@@ -1,0 +1,330 @@
+{
+  "treeSha": "e3500c8c81c3684556aa6c1a9679a2c7dd069428",
+  "files": [
+    {
+      "path": "basic-settings.html",
+      "status": "saved",
+      "bytes": 20913,
+      "sourceSha": "3f56a507d99ac0d5ef0044e128034f854029ee11"
+    },
+    {
+      "path": "1config.js",
+      "status": "saved",
+      "bytes": 298,
+      "sourceSha": "c5ee42696ffecd5dbb57bdefbafb9f8bf836776b"
+    },
+    {
+      "path": "available-actions.html",
+      "status": "saved",
+      "bytes": 17034,
+      "sourceSha": "8da62ad5e6acfa20da2a60577c88b4e7c8ed595d"
+    },
+    {
+      "path": "NFT-allocation.html",
+      "status": "saved",
+      "bytes": 9631,
+      "sourceSha": "518c6f0592802a3031033744a9969df5ba4edf17"
+    },
+    {
+      "path": "add-token.html",
+      "status": "saved",
+      "bytes": 10550,
+      "sourceSha": "b5027d9030f3575ed79ccc49b9aa6ab1e57a2b11"
+    },
+    {
+      "path": "create-miner.html",
+      "status": "saved",
+      "bytes": 13974,
+      "sourceSha": "cd829b10927d309bb2ecb7bc523616058084d3a1"
+    },
+    {
+      "path": "claim.html",
+      "status": "saved",
+      "bytes": 8198,
+      "sourceSha": "7f2acdc3cdb4be96342235286c54b8d4c5a4c780"
+    },
+    {
+      "path": "governor-tax.html",
+      "status": "saved",
+      "bytes": 10505,
+      "sourceSha": "c06ff500306bceec2d1ba1418357e08932daedbb"
+    },
+    {
+      "path": "delegate-vote.html",
+      "status": "saved",
+      "bytes": 13772,
+      "sourceSha": "3c9aeea86bacca0420b3abe4254ba962f14edab7"
+    },
+    {
+      "path": "index.html",
+      "status": "saved",
+      "bytes": 14690,
+      "sourceSha": "c3f4e2762a902371b4201e5b2a028189ae638178"
+    },
+    {
+      "path": "issue-miner.html",
+      "status": "saved",
+      "bytes": 8971,
+      "sourceSha": "1df2837007cd94527750a1f2c4ae109f4a1e9088"
+    },
+    {
+      "path": "js/NFT-allocation.js",
+      "status": "saved",
+      "bytes": 59988,
+      "sourceSha": "347a306003cb19a30ded0ed140f5fa4aba86b6c8"
+    },
+    {
+      "path": "js/addToken.js",
+      "status": "saved",
+      "bytes": 45846,
+      "sourceSha": "1b11b19c4492d5728447a17ed09a2f34218432cc"
+    },
+    {
+      "path": "js/allStakes.js",
+      "status": "saved",
+      "bytes": 251454,
+      "sourceSha": "fe5946c15c16ddbb3dfbd98f985bfbd2c9aeea69"
+    },
+    {
+      "path": "js/availableActions.js",
+      "status": "saved",
+      "bytes": 164124,
+      "sourceSha": "add0e143d2e3fc7904ff1ee3127d9ae948790c6d"
+    },
+    {
+      "path": "js/claim.js",
+      "status": "saved",
+      "bytes": 85491,
+      "sourceSha": "f1af9e9badfb4c7a24a1897f97c1e45ec19c51d9"
+    },
+    {
+      "path": "js/create-miner.js",
+      "status": "saved",
+      "bytes": 63573,
+      "sourceSha": "88fd384b840e36cf96d063d9575c2b9055bc06a9"
+    },
+    {
+      "path": "js/costToVote.js",
+      "status": "saved",
+      "bytes": 176632,
+      "sourceSha": "1fc3eab06b88e486352bee718bb3e110f609d9e7"
+    },
+    {
+      "path": "js/delegateVote.js",
+      "status": "saved",
+      "bytes": 49250,
+      "sourceSha": "947afce0b0599325f52a8eb80bc4716b42046076"
+    },
+    {
+      "path": "js/governorTax.js",
+      "status": "saved",
+      "bytes": 50836,
+      "sourceSha": "4c6e3350d4bf4276da2a284250b040b112a4b24c"
+    },
+    {
+      "path": "js/index.js",
+      "status": "saved",
+      "bytes": 33514,
+      "sourceSha": "a610b581a823c72150a47a47f8111739886d6ef3"
+    },
+    {
+      "path": "js/issueStake.js",
+      "status": "saved",
+      "bytes": 19198,
+      "sourceSha": "d01e329e545dd3e9eadc76a3061ed90d64be6780"
+    },
+    {
+      "path": "js/pigOffering.js",
+      "status": "saved",
+      "bytes": 21782,
+      "sourceSha": "7e66a25a4edd9c65aa500dc7cb6edf7df50939fe"
+    },
+    {
+      "path": "js/proposeUpgrade.js",
+      "status": "saved",
+      "bytes": 39197,
+      "sourceSha": "8709eab65711bf4ad49292d6972f101f231c12fe"
+    },
+    {
+      "path": "js/poolsFarms.js",
+      "status": "saved",
+      "bytes": 71934,
+      "sourceSha": "633e24f928468469f56ce6b64784f59333e13caa"
+    },
+    {
+      "path": "js/referral.js",
+      "status": "saved",
+      "bytes": 16792,
+      "sourceSha": "aaf8e718bc5443b37aeffcbdad6cceb75eefdb20"
+    },
+    {
+      "path": "js/pulseStakes.js",
+      "status": "saved",
+      "bytes": 125248,
+      "sourceSha": "b077c33a7c3fe54e18cdba1cec0c5c5fd47c54d8"
+    },
+    {
+      "path": "js/reward-boost.js",
+      "status": "saved",
+      "bytes": 104854,
+      "sourceSha": "0b1c7280dd52da2b6daf21fa7e6061360817b09a"
+    },
+    {
+      "path": "js/senate.js",
+      "status": "saved",
+      "bytes": 76663,
+      "sourceSha": "c5a864c60054539126c427f3e948bc3fccd9b94f"
+    },
+    {
+      "path": "js/pulseEco.js",
+      "status": "saved",
+      "bytes": 110876,
+      "sourceSha": "17d1b1ef2d08240a899c24cd59ac764a1581bc9d"
+    },
+    {
+      "path": "js/stakeVoting.js",
+      "status": "saved",
+      "bytes": 81135,
+      "sourceSha": "cc2b3d126f176fb7370e2bd489927bd5569e40f1"
+    },
+    {
+      "path": "js/treasuryDeposit.js",
+      "status": "saved",
+      "bytes": 46609,
+      "sourceSha": "58e7f3b365f33779fdb0c3af5a5cfa2bb5db11d6"
+    },
+    {
+      "path": "js/treasuryWithdraw.js",
+      "status": "saved",
+      "bytes": 43093,
+      "sourceSha": "43ddc2bc7ee26d0158f9cf2cfcfbd3533947c514"
+    },
+    {
+      "path": "js/tokenBurn.js",
+      "status": "saved",
+      "bytes": 51497,
+      "sourceSha": "5a58d50347d146a8325194cf53c3f329a79c8474"
+    },
+    {
+      "path": "js/stakeCards.js",
+      "status": "saved",
+      "bytes": 221435,
+      "sourceSha": "4780b509f71b8c0258276c3c81ac4f48ec6ee47b"
+    },
+    {
+      "path": "js/userProfile.js",
+      "status": "saved",
+      "bytes": 8824,
+      "sourceSha": "29f0731b06f4618a4c0f883f6e5f9964317e7d21"
+    },
+    {
+      "path": "latest-actions.html",
+      "status": "saved",
+      "bytes": 7847,
+      "sourceSha": "61d134e3a1129dc48f0693f9fe7fa11626af18a9"
+    },
+    {
+      "path": "miner-voting.html",
+      "status": "saved",
+      "bytes": 13999,
+      "sourceSha": "571271579b2df72e4278b7ec688ad4842b79094b"
+    },
+    {
+      "path": "js/voting-credit.js",
+      "status": "saved",
+      "bytes": 94795,
+      "sourceSha": "a17da66763872eee1fa29a7ece61033374b9d685"
+    },
+    {
+      "path": "pig-offering.html",
+      "status": "saved",
+      "bytes": 7433,
+      "sourceSha": "f1b43db6ccf3c8cb599ce5fd40c715d546e09e2e"
+    },
+    {
+      "path": "pools-farms.html",
+      "status": "saved",
+      "bytes": 10917,
+      "sourceSha": "38aa46dd32912deaf49ec6c45a58d6d3c0b66b0e"
+    },
+    {
+      "path": "referral.html",
+      "status": "saved",
+      "bytes": 8688,
+      "sourceSha": "16378f9240add781b3c0c68c9c76710e52718b3a"
+    },
+    {
+      "path": "propose-upgrade.html",
+      "status": "saved",
+      "bytes": 13464,
+      "sourceSha": "50e19c4d0f138b4d6eddd205c843cd45d7cbdccc"
+    },
+    {
+      "path": "pulse-ecosystem-mining.html",
+      "status": "saved",
+      "bytes": 24823,
+      "sourceSha": "356081589f21d0b46ccae04f313d7b69c7936143"
+    },
+    {
+      "path": "reward-boost.html",
+      "status": "saved",
+      "bytes": 18809,
+      "sourceSha": "abc57afb3ae55ca5a529eda134554f4cc02b2c98"
+    },
+    {
+      "path": "senate.html",
+      "status": "saved",
+      "bytes": 8354,
+      "sourceSha": "1079e50a74a79cb48940e8c6529d2e849676fe2c"
+    },
+    {
+      "path": "sidebar.html",
+      "status": "saved",
+      "bytes": 13553,
+      "sourceSha": "0b0b47b2755480be6d283717ab043d49733a7636"
+    },
+    {
+      "path": "treasury.html",
+      "status": "saved",
+      "bytes": 11516,
+      "sourceSha": "4260c0622895aad642f76bd4521e4513ba1b1af5"
+    },
+    {
+      "path": "treasury-deposit.html",
+      "status": "saved",
+      "bytes": 10518,
+      "sourceSha": "6d721c1628028a97fc2564851eee306930140631"
+    },
+    {
+      "path": "token-burn.html",
+      "status": "saved",
+      "bytes": 10162,
+      "sourceSha": "a5acd1110531a5053c2eb547d6004716db99c544"
+    },
+    {
+      "path": "view-all-miner.html",
+      "status": "saved",
+      "bytes": 7948,
+      "sourceSha": "056bf6cd78ca7b2f531cf076ed252bf1e3b0df48"
+    },
+    {
+      "path": "view-miner-card.html",
+      "status": "saved",
+      "bytes": 7902,
+      "sourceSha": "41b093043526c6c5314f978ee58271e9ce76bd70"
+    },
+    {
+      "path": "view-pulse-ecosystem-miners.html",
+      "status": "saved",
+      "bytes": 8011,
+      "sourceSha": "017f125225980584d630f702f27cc2304a9dbf71"
+    },
+    {
+      "path": "voting-credit.html",
+      "status": "saved",
+      "bytes": 9404,
+      "sourceSha": "f308aa6c1db70c6e66ad1084f3877a8e3b409eba"
+    }
+  ],
+  "retrievedAt": "2026-10-24T20:53:56.5898240Z"
+}

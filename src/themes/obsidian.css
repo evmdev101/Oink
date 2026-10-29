@@ -1,0 +1,57 @@
+/* Static stars: no canvas or animation work is needed. */
+body.bg-pattern-starlight {
+  --starlight-star: color-mix(in srgb, var(--bg-effect-color, var(--fg)) calc(48% * var(--bg-effect-intensity, 1)), transparent);
+  background-image:
+    radial-gradient(circle at 23px 41px, var(--starlight-star) 0.6px, transparent 1.3px),
+    radial-gradient(circle at 157px 113px, var(--starlight-star) 0.8px, transparent 1.6px),
+    radial-gradient(circle at 71px 227px, var(--starlight-star) 0.5px, transparent 1.2px),
+    radial-gradient(circle at 347px 67px, color-mix(in srgb, var(--accent) calc(35% * var(--bg-effect-intensity, 1)), transparent) 0.6px, transparent 1.4px),
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--fg) calc(4% * var(--bg-effect-intensity, 1)), transparent), transparent 65%);
+  background-size:
+    calc(227px * var(--bg-effect-size, 1)) calc(317px * var(--bg-effect-size, 1)),
+    calc(373px * var(--bg-effect-size, 1)) calc(419px * var(--bg-effect-size, 1)),
+    calc(557px * var(--bg-effect-size, 1)) calc(491px * var(--bg-effect-size, 1)),
+    calc(643px * var(--bg-effect-size, 1)) calc(593px * var(--bg-effect-size, 1)),
+    100% 100%;
+  background-attachment: fixed;
+}
+
+:root[data-theme="obsidian"] {
+  color-scheme: dark;
+  --muted: color-mix(in srgb, var(--fg) 70%, var(--panel));
+  --soft-text: color-mix(in srgb, var(--fg) 78%, var(--panel));
+  --muted-text: color-mix(in srgb, var(--fg) 65%, var(--panel));
+}
+
+[data-theme="obsidian"] .app-shell {
+  --label-dim: color-mix(in srgb, var(--fg) 65%, var(--bg));
+}
+
+[data-theme="obsidian"] .site-header:has(.site-header-inner) {
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  border-bottom-color: var(--border);
+  box-shadow: 0 8px 28px #0003;
+}
+
+[data-theme="obsidian"] .reference-panel {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+[data-theme="obsidian"] .oink-farms-page {
+  --farm-card: var(--panel);
+  --farm-metric: color-mix(in srgb, var(--bg) 85%, var(--panel));
+  --farm-muted: color-mix(in srgb, var(--fg) 65%, var(--bg));
+  --farm-border-soft: color-mix(in srgb, var(--fg) 11%, transparent);
+}
+
+[data-theme="obsidian"] .oink-farms-page .farms-shell {
+  background: transparent;
+}
+
+[data-theme="obsidian"] .oink-farms-page .bfc-deposit-review:not(:disabled) {
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 85%, var(--panel)));
+  border-color: var(--accent);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--accent) 15%, transparent);
+}

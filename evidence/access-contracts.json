@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-09-19T15:35:49.712Z",
+  "block": 27586407,
+  "blockHash": "0x9745e1e3875bb64b6dc6df3e088258ce97feafbf4e12aa912671b4a6aabc41f2",
+  "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.8.20+commit.a1b79de6.js",
+  "compilerHash": "0x3a420fa9963772eee5b9221ebb8cf9548eea8f88b09537390960ea9b440f333c",
+  "rows": [
+    {
+      "id": "t-share",
+      "address": "0x6b465C480CD590852f90c8f1b41Ab22922a1BF85",
+      "runtimeCodeHash": "0x75aeddca36cf87f55a75a1a04a99d5581d8d1ad6d400769e3004778fe1391aa8",
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x6b465C480CD590852f90c8f1b41Ab22922a1BF85",
+      "sourceHash": "0x8862129a4f4db7f476468fe302abb140a3951a93e64fb5ea5ff435dee4ae1893",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "executableMatches": true,
+      "reads": {
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "poolID": "10",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "hexC": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "safePeriod": "43200",
+        "maxStakes": "150",
+        "defaultDirectPayout": "50",
+        "totalTshares": "40299030159890557"
+      }
+    },
+    {
+      "id": "contributors",
+      "address": "0xE87C806f8AFA1cE543ab3C44D1c4b130B83574CE",
+      "runtimeCodeHash": "0x19d3b54826e7e9abc8769f2dd5551880489a6c3bc710343a833b356b7ddf8f71",
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0xE87C806f8AFA1cE543ab3C44D1c4b130B83574CE",
+      "sourceHash": "0xd5c22755a034eb1d67e42bbaee975e637b1d3d6211ee7008e51bd33484e57441",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "executableMatches": true,
+      "reads": {
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "merkleRoot": "0x975eba4e9e41f055593d5cbe5e8f4ac168d3b041fde5b63241434dd02fd9bc14",
+        "directPayout": "8000",
+        "owner": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "XPD": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "totalRedeemed": "594405616169788676578738176"
+      }
+    },
+    {
+      "id": "rewards",
+      "address": "0x51Aeb56C05a2BD781207B63D395475b7185c5fd7",
+      "runtimeCodeHash": "0x81cb306ac43a09943f0e3fe55f4ed6373d7511bdda5d49fe143ee9da991b755c",
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x51Aeb56C05a2BD781207B63D395475b7185c5fd7",
+      "sourceHash": "0x348e520c23a96e0f880d830a878668e0acb105989eb6774eba3d665388206bef",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "executableMatches": true,
+      "reads": {
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "merkleRoot": "0xe7f9f77ee201843b8f336261da4b4106db4e3ffc7c03cad99c5d5144d98d3491",
+        "startTime": "1695976455",
+        "CLAIM_PERIOD_DAYS": "180",
+        "directPayout": "250",
+        "owner": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "XPD": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "totalRedeemed": "22982753017531444899610624"
+      }
+    }
+  ],
+  "proofFiles": [
+    {
+      "file": "merkleContributionAddresses.txt",
+      "status": 200,
+      "bytes": 34228,
+      "firstLine": "0xaeda4088a73daa95642cda172caa5de181719146"
+    },
+    {
+      "file": "merkleContributionProofs.txt",
+      "status": 200,
+      "bytes": 546833,
+      "firstLine": "53690382691575976937127936,0x0a129febca1981c4fa7f3632857f64482c22a82c109f3a90483a01f024e67b75,0x383a5c26fa95f527207dbf7456d244d430e8ab2674b1a85e1a029879af856a77,0x299db2e3ac81c74f4a9f91b4f9546acdd5d0b"
+    },
+    {
+      "file": "merkleRewardAddresses.txt",
+      "status": 200,
+      "bytes": 150199,
+      "firstLine": "0x94461b668ff68c7e90686072E95386E42A0a1a6C"
+    },
+    {
+      "file": "merkleRewardProofs.txt",
+      "status": 200,
+      "bytes": 2857466,
+      "firstLine": "2985298728926000208412672,0x1186df891dfd452e54f1f54eda76d3d4f0ec3595c1b01df4690ae4a02fa238c9,0x7653103b76ac48a0a5f0dc5db8e6015dd3fd5e52caa8de82d7001524a353d428,0x416a492b62bffa16c487162cf216cc316d2a4d"
+    }
+  ]
+}

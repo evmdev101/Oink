@@ -1,0 +1,94 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { registerHooks } from 'node:module';
+import { Interface, keccak256, parseEther, toQuantity, getAddress, ZeroAddress } from 'ethers';
+registerHooks({resolve(s,c,n){try{return n(s,c)}catch(e){if(s.startsWith('.')&&!/\.[a-z]+$/i.test(s))return n(s+'.ts',c);throw e;}}});
+const { ORDINARY_DEPLOYMENTS }=await import('../src/config/ordinaryGovernanceVerification.ts');
+const { PARTICIPATION_CONTRACTS }=await import('../src/config/participationVerification.ts');
+const { VERIFIED_FARM_WRITES }=await import('../src/config/farmWriteVerification.ts');
+const { MINER_PREVIEW_SPECS }=await import('../src/config/minerPreviewVerification.ts');
+const { ordinaryCreateArguments, prepareOrdinaryProposal, ordinaryProposalAdapter, ORDINARY_MODELS, ordinaryReadAbi }=await import('../src/lib/ordinaryProposalActions.ts');
+const {prepareRewardMaintenance,rewardMaintenanceAdapter}=await import('../src/lib/rewardMaintenanceActions.ts');
+const {participationAbi}=await import('../src/lib/participationTransactions.ts');
+const extraAbi=new Interface(['function totalFibonacciEventsAfterGrand() view returns(uint256)']);
+const wallet='0x1111111111111111111111111111111111111111',code='0x60016000',runtime=keccak256(code),hash='0x'+'a'.repeat(64),common=VERIFIED_FARM_WRITES[0],credit=PARTICIPATION_CONTRACTS.credit;
+for(const c of Object.values(ORDINARY_DEPLOYMENTS))c.runtimeCodeHash=runtime;
+credit.runtimeCodeHash=runtime;PARTICIPATION_CONTRACTS.consensus.runtimeCodeHash=runtime;for(const k of ['governorRuntimeCodeHash','masterchefRuntimeCodeHash','rewardTokenRuntimeCodeHash'])common[k]=runtime;
+for(const miner of MINER_PREVIEW_SPECS)miner.runtimeCodeHash=runtime;
+function fixture(family,changes={}){
+ const m=ORDINARY_MODELS[family],d=ORDINARY_DEPLOYMENTS[m.deployment],abi=new Interface(d.abi),now=Math.floor(Date.now()/1000),timestamp=BigInt(now);
+ const row={newPool:common.address,valid:true,firstCallTimestamp:timestamp-1800n,delay:3600n,valueSacrificedForVote:parseEther('20'),valueSacrificedAgainst:parseEther('1'),proposedValue:100n,proposedType:0n,poolid:6n,newAllocation:100n,newDepositFee:0n,poolAddress:MINER_PREVIEW_SPECS[0].address,newBonus:100n,isBurn:false,startTimestamp:0n,rewardPerBlock:parseEther('1'),duration:100n,startTime:timestamp+100000n,...changes.row};
+ const rpc={async send(method,params){
+  if(method==='eth_chainId')return '0x171';
+  if(method==='eth_getBlockByNumber')return{number:'0x10',timestamp:toQuantity(timestamp),hash:changes.reorg&&params[0]!=='latest'?'0x'+'b'.repeat(64):hash};
+  if(method==='eth_getCode')return changes.runtimeChange?'0x6002':code;
+  if(method!=='eth_call')throw Error('Unexpected '+method);
+  const tx=params[0],target=tx.to.toLowerCase();let iface,parsed;for(const candidate of [ordinaryReadAbi,abi,participationAbi,extraAbi]){try{const p=candidate.parseTransaction(tx);if(p){iface=candidate;parsed=p;break}}catch{}}
+  if(!parsed)throw Error('Unknown call');const name=parsed.name;let value;
+  if(name===m.getter)return abi.encodeFunctionResult(name,abi.getFunction(name).outputs.map(o=>row[o.name]));
+  if(name==='consensusContract')value=PARTICIPATION_CONTRACTS.consensus.address;
+  else if(name==='expiredGrandFibonaccening')value=!!changes.grand;
+  else if(name==='calculateUpcomingRewardPerBlock')value=100n;
+  else if(name==='totalFibonacciEventsAfterGrand')value=changes.executed?3n:2n;
+  else if(name==='costToVote')value=changes.executed&&family==='Voting cost'?row.proposedValue:parseEther('1');else if(name==='delayBeforeEnforce')value=changes.executed&&family==='Enforcement delay'?row.proposedValue:3600n;
+  else if(name==='userCredit')value=changes.credit??parseEther('1000');
+  else if(name==='deductingContract'||name==='trustedContract')value=!changes.permissionChange;
+  else if(name==='owner')value=target===common.rewardToken.toLowerCase()?common.masterchef:common.governor;
+  else if(name==='token'||name==='dtx')value=common.rewardToken;
+  else if(name==='governor')value=common.governor;
+  else if(name==='masterchef')value=common.masterchef;
+  else if(name==='creditContract')value=credit.address;
+  else if(name==='basicContract')value=ORDINARY_DEPLOYMENTS.basic.address;
+  else if(name==='farmContract')value=ORDINARY_DEPLOYMENTS.farms.address;
+  else if(name==='fibonacceningContract')value=ORDINARY_DEPLOYMENTS.reward.address;
+  else if(name==='treasuryWallet')value=common.treasuryWallet;
+  else if(name==='thresholdFibonaccening')value=changes.executed&&family==='Reward-event threshold'?row.proposedValue:parseEther('10');
+  else if(name==='eventFibonacceningActive')value=!changes.ended&&!changes.inactive;
+  else if(name==='balanceOf')value=parseEther('100');
+  else if(name==='DTXPerBlock')value=changes.badRate?101n:100n;
+  else if(name==='fibonacceningActiveID')value=0n;
+  else if(name==='fibonacceningActivatedBlock')value=changes.zeroStart?0n:1n;
+  else if(name==='depositFee'||name==='fundingRate'||name==='referralBonus'||name==='governorFee'||name==='callFee')value=changes.badOutcome?row.proposedValue+1n:row.proposedValue;
+  else if(name==='getRollBonus')value=changes.badOutcome?row.newBonus+1n:row.newBonus;
+  else if(/^acPool[1-6]$/.test(name))value=MINER_PREVIEW_SPECS[Number(name.slice(-1))-1].address;
+  else if(name==='poolLength')value=changes.executed?26n:25n;
+  else if(name==='poolAllocationPercentage')value=changes.badOutcome?row.newAllocation+1n:row.newAllocation;
+  else if(name==='percentageAllocatedToPulseEcosystem')value=2000n;
+  else if(name==='poolInfo')return iface.encodeFunctionResult(name,[parsed.args[0]<6n?1000n:75n,0n,parsed.args[0]<6n?MINER_PREVIEW_SPECS[Number(parsed.args[0])].address:common.address]);
+  else throw Error('Missing fixture '+name);
+  return iface.encodeFunctionResult(name,[value]);
+ }};
+ return{rpc,abi,d,m,row,timestamp,changes};
+}
+const request=(action,id='1')=>({module:'reward-maintenance',action,args:{id}});
+const setup=(changes={})=>fixture('Reward boost',{...changes,row:{duration:15n,...changes.row}});
+test('ending allows the exact final block and encodes the deployed method',async()=>{
+ const f=setup(),quote=await prepareRewardMaintenance(f.rpc,wallet,request('end'));
+ assert.equal(f.abi.parseTransaction(quote).name,'endFibonaccening');
+ assert.match(quote.facts.map(v=>v.join(' ')).join(' '),/Next emission rate/);
+});
+for(const [settings,pattern] of [[{inactive:true},/no active/],[{row:{duration:16n}},/end block/],[{zeroStart:true},/end block/],[{runtimeChange:true},/runtime/],[{reorg:true},/block changed/]])test('end refuses '+pattern,async()=>assert.rejects(prepareRewardMaintenance(setup(settings).rpc,wallet,request('end')),pattern));
+test('cancellation requires a different, still-open proposal',async()=>{
+ const f=setup(),quote=await prepareRewardMaintenance(f.rpc,wallet,request('cancel'));
+ assert.equal(f.abi.parseTransaction(quote).name,'cancleFibonaccening');
+ await assert.rejects(prepareRewardMaintenance(f.rpc,wallet,request('cancel','0')),/active event/);
+ await assert.rejects(prepareRewardMaintenance(setup({row:{valid:false}}).rpc,wallet,request('cancel')),/already closed/);
+});
+test('ending receipt needs closure and both emission events at the actual rate',async()=>{
+ const f=setup(),r=request('end'),quote=await prepareRewardMaintenance(f.rpc,wallet,r),review={request:r,quote};
+ const event=(abi,address,name,args)=>({...abi.encodeEventLog(abi.getEvent(name),args),address});
+ const logs=[event(f.abi,f.d.address,'EndFibonaccening',[0,wallet]),event(ordinaryReadAbi,common.governor,'SetInflation',[100]),event(ordinaryReadAbi,common.masterchef,'UpdateEmissions',[wallet,100])];
+ assert.equal(await rewardMaintenanceAdapter.verify(f.rpc,review,{blockNumber:'0x10',logs}),false);
+ f.changes.ended=true;
+ assert.equal(await rewardMaintenanceAdapter.verify(f.rpc,review,{blockNumber:'0x10',logs}),true);
+ assert.equal(await rewardMaintenanceAdapter.verify(f.rpc,review,{blockNumber:'0x10',logs:logs.slice(0,2)}),false);
+ f.changes.badRate=true;assert.equal(await rewardMaintenanceAdapter.verify(f.rpc,review,{blockNumber:'0x10',logs}),false);
+});
+test('cancellation receipt cannot confirm another proposal or an unchanged valid flag',async()=>{
+ const f=setup(),r=request('cancel'),quote=await prepareRewardMaintenance(f.rpc,wallet,r),review={request:r,quote};
+ const logs=[{...f.abi.encodeEventLog(f.abi.getEvent('CancleFibonaccening'),[1,wallet]),address:f.d.address}];
+ assert.equal(await rewardMaintenanceAdapter.verify(f.rpc,review,{blockNumber:'0x10',logs}),false);
+ f.row.valid=false;assert.equal(await rewardMaintenanceAdapter.verify(f.rpc,review,{blockNumber:'0x10',logs}),true);
+ logs[0]={...f.abi.encodeEventLog(f.abi.getEvent('CancleFibonaccening'),[2,wallet]),address:f.d.address};
+ assert.equal(await rewardMaintenanceAdapter.verify(f.rpc,review,{blockNumber:'0x10',logs}),false);
+});

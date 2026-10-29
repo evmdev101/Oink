@@ -1,0 +1,67 @@
+{
+  "localOnly": true,
+  "endpoint": "http://127.0.0.1:8547",
+  "fixtures": "Local impersonation of token owner to mint test OINK. No public-network transactions.",
+  "results": [
+    {
+      "action": "credit-deposit",
+      "family": "participation",
+      "hash": "0xca65acdf81008b1c62d08a60b3a5297251be3af58962dea6877bd4594c0327d2",
+      "verified": true
+    },
+    {
+      "action": "create",
+      "family": "Voting cost",
+      "hash": "0x1e11ecd550cd654760daaad0f2e6c7e3474ab5b4bcdce8a83f1f76a9c248b0bb",
+      "verified": true
+    },
+    {
+      "action": "support",
+      "family": "Voting cost",
+      "hash": "0xd1151f429ac132f207f95abfccc22a4c436b5cfaec9b0264ee19721959cbe89d",
+      "verified": true
+    },
+    {
+      "action": "execute",
+      "family": "Voting cost",
+      "hash": "0x16f0194a45bc2a510a650b75df9e3986da41dc82a6309d8f91a5d3a973d58c72",
+      "verified": true
+    },
+    {
+      "action": "create",
+      "family": "Voting cost",
+      "hash": "0xdf301953a48033957bf9704f7143bb9bad4d66f835d46e2c45c09083520a05d9",
+      "verified": true
+    },
+    {
+      "action": "oppose",
+      "family": "Voting cost",
+      "hash": "0xc512393d590d4cfe34f0c96f68e45dea3a909ca681017db0057527bce65c5f21",
+      "verified": true
+    },
+    {
+      "action": "veto",
+      "family": "Voting cost",
+      "hash": "0xec987e423606c4fb0e3eb3e0a1640a12e1cf1ab61e874caa4c295a17b2b10ac1",
+      "verified": true
+    },
+    {
+      "action": "create",
+      "family": "Reward boost",
+      "hash": "0x278d8972f780486ffab9373ae876915082e9533c2a69cf9401a3b3e02ff5d2c1",
+      "verified": true
+    },
+    {
+      "action": "execute",
+      "family": "Reward boost",
+      "hash": "0x2a24de9444b4b1408c34aca37302901a951a3dab56aec66714e1558bd15e77cb",
+      "verified": true
+    },
+    {
+      "action": "end",
+      "family": "reward-maintenance",
+      "hash": "0xb45028ff2d9c6dbbeb973f03d157838cac3bbc7062a7160196208ff85d1dddaf",
+      "verified": true
+    }
+  ]
+}

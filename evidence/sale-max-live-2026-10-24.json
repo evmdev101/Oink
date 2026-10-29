@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-10-25T02:06:46.650Z",
+  "readOnly": true,
+  "account": "0xc684B8024A1A852F6707ba01081fB55ABCC5E74d",
+  "results": [
+    {
+      "asset": "PLS",
+      "block": 27884074,
+      "balance": "6821641.654962221638175567",
+      "maxReceive": "20318.713204656227722294",
+      "maxError": "",
+      "quote": {
+        "amount": "20318.713204656227722294",
+        "payment": "65347.902453926522561667",
+        "funded": true,
+        "balanceEnough": true,
+        "error": ""
+      }
+    },
+    {
+      "asset": "PLSX",
+      "block": 27884075,
+      "balance": "24131.358673705475930723",
+      "maxReceive": "5508.954542135429117542",
+      "maxError": "",
+      "quote": {
+        "amount": "5508.954542135429117542",
+        "payment": "24131.35867370547593072",
+        "funded": true,
+        "balanceEnough": true,
+        "error": ""
+      }
+    },
+    {
+      "asset": "INC",
+      "block": 27884075,
+      "balance": "0.33046808366721098",
+      "maxReceive": "4521.622763995215213914",
+      "maxError": "",
+      "quote": {
+        "amount": "4521.622763995215213914",
+        "payment": "0.33046808366721098",
+        "funded": true,
+        "balanceEnough": true,
+        "error": ""
+      }
+    },
+    {
+      "asset": "HEX",
+      "block": 27884075,
+      "balance": "182.27940755",
+      "maxReceive": "12961.995004627163673224",
+      "maxError": "",
+      "quote": {
+        "amount": "12961.995004627163673224",
+        "payment": "182.27940755",
+        "funded": true,
+        "balanceEnough": true,
+        "error": ""
+      }
+    }
+  ],
+  "failures": []
+}

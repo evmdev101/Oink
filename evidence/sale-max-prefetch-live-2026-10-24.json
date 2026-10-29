@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-10-25T03:22:56.651Z",
+  "readOnly": true,
+  "maximumMode": "inventory",
+  "account": "0xc684B8024A1A852F6707ba01081fB55ABCC5E74d",
+  "preloadedPairs": 16,
+  "prefetchMs": 6335,
+  "results": [
+    {
+      "asset": "PLS",
+      "block": 27884520,
+      "balance": "6821641.654962221638175567",
+      "maxReceive": "20318.713204656227722294",
+      "maxError": "",
+      "quote": {
+        "amount": "20318.713204656227722294",
+        "payment": "65347.902453926522561667",
+        "funded": true,
+        "balanceEnough": true,
+        "error": ""
+      }
+    },
+    {
+      "asset": "PLSX",
+      "block": 27884520,
+      "balance": "24131.358673705475930723",
+      "maxReceive": "20318.713204656227722294",
+      "maxError": "",
+      "quote": {
+        "amount": "20318.713204656227722294",
+        "payment": "88492.719788065052391343",
+        "funded": true,
+        "balanceEnough": false,
+        "error": ""
+      }
+    },
+    {
+      "asset": "INC",
+      "block": 27884520,
+      "balance": "0.33046808366721098",
+      "maxReceive": "20318.713204656227710261",
+      "maxError": "",
+      "quote": {
+        "amount": "20318.713204656227710261",
+        "payment": "1.482552715221148155",
+        "funded": true,
+        "balanceEnough": false,
+        "error": ""
+      }
+    },
+    {
+      "asset": "HEX",
+      "block": 27884520,
+      "balance": "182.27940755",
+      "maxReceive": "20318.713204329916179388",
+      "maxError": "",
+      "quote": {
+        "amount": "20318.713204329916179388",
+        "payment": "284.61718024",
+        "funded": true,
+        "balanceEnough": false,
+        "error": ""
+      }
+    }
+  ],
+  "failures": []
+}

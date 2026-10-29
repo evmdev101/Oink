@@ -1,0 +1,16 @@
+node_modules
+dist
+*.tsbuildinfo
+*.log
+.vite
+dist-*
+.claude/
+.env
+.env.*
+!.env.example
+.local-test-results.txt
+# Local screenshots, rendered previews and downloaded development tools.
+# Keep evidence JSON/Solidity fixtures used by the regression suite.
+/evidence/*.png
+/evidence/*.html
+/evidence/local-tools/

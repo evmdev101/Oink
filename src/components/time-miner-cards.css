@@ -1,0 +1,30 @@
+.time-miner-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 18px 0; font: 400 14px/1.5 "DM Sans", sans-serif; }
+.time-miner-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.oink-farms-page { font: 400 15px/1.6 "DM Sans", sans-serif; }
+.oink-farms-page h1 { font: 500 32px/1.2 "DM Sans", sans-serif; letter-spacing: -.03em; }
+.time-miner-card { padding: 28px; border: 1px solid var(--border); border-radius: 12px; background: var(--panel); font: 400 15px/1.6 "DM Sans", sans-serif; min-width: 0; }
+.time-miner-asset { color: var(--accent); font-size: 12px; letter-spacing: .08em; }
+.time-miner-card h3 { font-size: 28px; font-weight: 500; margin: 8px 0 28px; }
+.time-miner-card dl { display: grid; gap: 16px; }
+.time-miner-card dt { font-size: 13px; opacity: .8; }
+.time-miner-card dd { margin: 2px 0 0; font-size: 20px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.time-miner-note { font-size: 12px; opacity: .8; margin: 24px 0; }
+.time-miner-card button { width: 100%; margin-bottom: 16px; }
+.time-miner-card a { color: var(--accent); font-size: 13px; }
+.time-miner-card p, .wallet-pool p { overflow-wrap: anywhere; }
+.wallet-pool { padding: 24px 0; border-bottom: 1px solid var(--border); }
+.wallet-pool h3 a { margin-left: 12px; color: var(--accent); font-size: 13px; }
+.oink-mining-page .mining-workspace { display: flex; flex-direction: column-reverse; gap: 24px; }
+.oink-mining-page .workspace-main, .oink-mining-page .workspace-rail { width: 100%; position: static; }
+.oink-mining-page .page-intro h1 { font-size: 32px; }
+.time-miner-card dt,
+.time-miner-note,
+.time-miner-toolbar {
+  color: var(--label-dim);
+}
+.time-miner-card dd {
+  color: var(--value-bright);
+  font-weight: 800;
+}
+@media (max-width: 1000px) { .time-miner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .time-miner-grid { grid-template-columns: 1fr; } .time-miner-toolbar { align-items: flex-start; flex-direction: column; } }

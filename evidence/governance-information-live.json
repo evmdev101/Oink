@@ -1,0 +1,75 @@
+[
+  {
+    "kind": "metrics",
+    "data": {
+      "timestamp": 1789951555,
+      "block": 27597987,
+      "secondsPerBlock": 10.3,
+      "supply": "1068757633.485567624382084824",
+      "virtualSupply": "8588681583.189649510079912988",
+      "maxSupply": "21000000000.0",
+      "governorBalance": "279966192.248560246934189335",
+      "treasuryBalance": "173546118.697353347252638185",
+      "rate": "846.764",
+      "threshold": "27000000.0",
+      "active": false,
+      "endBlock": null,
+      "nextRate": null,
+      "allocation": "390485",
+      "miners": [
+        {
+          "id": "one-month",
+          "days": 30,
+          "balance": "69534654.028325731669951085",
+          "allocation": "582"
+        },
+        {
+          "id": "three-month",
+          "days": 91,
+          "balance": "41463899.118017076518629959",
+          "allocation": "520"
+        },
+        {
+          "id": "six-month",
+          "days": 181,
+          "balance": "71453802.056044815014446852",
+          "allocation": "1345"
+        },
+        {
+          "id": "one-year",
+          "days": 365,
+          "balance": "381993772.092209413670753398",
+          "allocation": "15974"
+        },
+        {
+          "id": "three-year",
+          "days": 1095,
+          "balance": "182793450.598483196332142452",
+          "allocation": "9934"
+        },
+        {
+          "id": "five-year",
+          "days": 1826,
+          "balance": "5630871857.40627619310192345",
+          "allocation": "353110"
+        }
+      ]
+    }
+  },
+  {
+    "kind": "nft",
+    "data": {
+      "rows": [],
+      "timestamp": 1789951555,
+      "block": 27597987
+    }
+  },
+  {
+    "kind": "senate",
+    "data": {
+      "rows": [],
+      "timestamp": 1789951555,
+      "block": 27597987
+    }
+  }
+]

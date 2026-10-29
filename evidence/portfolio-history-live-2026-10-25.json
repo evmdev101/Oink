@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-10-25T14:43:16.241Z",
+  "readOnly": true,
+  "ms": 8707,
+  "account": "0xc684B8024A1A852F6707ba01081fB55ABCC5E74d",
+  "rows": 150,
+  "failed": 0,
+  "capped": 0,
+  "sources": 22,
+  "toBlock": 27888470,
+  "totals": {
+    "deposited": "1740740.049192613272000559",
+    "withdrawn": "1024846.872387154418557408",
+    "harvested": "243798.638861351680990098",
+    "penalty": "6739.811212285491023825"
+  },
+  "categories": {
+    "miners": 87,
+    "farms": 62,
+    "hex": 1
+  },
+  "chartPoints": {
+    "deposited": 79,
+    "withdrawn": 5,
+    "harvested": 27
+  },
+  "progress": [
+    {
+      "ms": 6178,
+      "rows": 73,
+      "failed": 1
+    },
+    {
+      "ms": 8481,
+      "rows": 150,
+      "failed": 0
+    }
+  ],
+  "refresh": {
+    "ms": 1605,
+    "rows": 150,
+    "failed": 0,
+    "toBlock": 27888471
+  }
+}

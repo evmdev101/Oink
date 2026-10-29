@@ -1,0 +1,34 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {registerHooks} from 'node:module';
+import {Interface,keccak256} from 'ethers';
+registerHooks({resolve(s,c,n){try{return n(s,c)}catch(e){if(s.startsWith('.')&&!/\.[a-z]+$/i.test(s))return n(s+'.ts',c);throw e}}});
+const {rewardProjection}=await import('../src/lib/governanceMetrics.ts');
+const {governanceAvailability}=await import('../src/lib/governanceAvailability.ts');
+const {discoverGovernanceCandidates}=await import('../src/lib/governanceDiscovery.ts');
+const {NFT_ALLOCATION,NFT_ALLOCATION_ABI}=await import('../src/config/nftGovernanceVerification.ts');
+const metrics={secondsPerBlock:10,allocation:'100',virtualSupply:'1000000',miners:[{id:'one',days:30,balance:'10000',allocation:'10'}]};
+test('reward estimates use actual duration and simple annualized allocation',()=>{const r=rewardProjection(metrics,'2','100');assert.equal(r.emission,200);assert.equal(r.hours,1000/3600);assert.equal(r.shareOfSupply,.02);assert.equal(r.miners[0].eventReward,20);assert.ok(Math.abs(r.miners[0].apr-6307.2)<1e-8);});
+for(const [rate,duration] of [['-1','100'],['Infinity','100'],['1e10','100'],['2','2.5'],['2','0'],['2','9007199254740992']])test(`invalid estimate ${rate}/${duration}`,()=>assert.equal(rewardProjection(metrics,rate,duration),null));
+test('empty pool has no claimed yield',()=>assert.equal(rewardProjection({...metrics,miners:[{...metrics.miners[0],balance:'0'}]},'2','100').miners[0].apr,null));
+const s={blockTimestamp:1000,settings:{votingCost:'100',delaySeconds:50},walletCredit:'100',history:[{family:'Voting cost',key:'Voting cost-1',valid:true,votingDeadline:1050,support:'100',opposition:'0'}],senate:{count:0,walletIsMember:false},treasury:[]};
+const request=(action,args={})=>({module:'ordinary',action,args:{family:'Voting cost',id:'1',...args}});
+test('voting closes at equality; execution waits until after equality',()=>{assert.match(governanceAvailability(request('support'),s,null,1050),/ended/);assert.match(governanceAvailability(request('execute'),s,null,1050),/opens after/);assert.match(governanceAvailability(request('execute'),s,null,1051),/Review checks/);});
+test('stale values cannot imply current eligibility',()=>assert.match(governanceAvailability(request('execute'),s,null,2000),/Previously loaded/));
+test('insufficient credit visible before review',()=>assert.match(governanceAvailability(request('create',{credit:'101'}),s,null,1000),/Insufficient/));
+test('new pool requires 500 times credit cost',()=>assert.match(governanceAvailability(request('create',{family:'New pool',credit:'49999'}),{...s,walletCredit:'999999'},null,1000),/below/));
+const abi=new Interface(NFT_ALLOCATION_ABI),code='0x60016000';NFT_ALLOCATION.runtimeCodeHash=keccak256(code);
+const address='0x1111111111111111111111111111111111111111',hash='0x'+'a'.repeat(64);
+function fixture(options={}){const event=abi.encodeEventLog(abi.getEvent('NotifyVote'),[address,100n,address]);return{async send(method,params){if(method==='eth_chainId')return '0x171';if(method==='eth_getCode')return code;if(method==='eth_getBlockByNumber')return{number:'0x10',timestamp:'0x3e8',hash:options.reorg&&params[0]!=='latest'?'0x'+'b'.repeat(64):hash};if(method==='eth_getLogs'){if(options.error)throw Error('RPC history unavailable');return options.empty?[]:[{...event,address:options.wrongAddress?address:NFT_ALLOCATION.address,blockNumber:'0xf',removed:options.removed}];}if(method==='eth_call'){const p=abi.parseTransaction(params[0]);return abi.encodeFunctionResult(p.name,p.name==='allocationContract'?[!!options.approved]:[true,900n,100n]);}throw Error(method);}};}
+test('NFT discovery finds announced candidates and current pending state',async()=>{const r=await discoverGovernanceCandidates(fixture(),'nft');assert.equal(r.rows[0].address,address);assert.equal(r.rows[0].status,'Pending approval');});
+test('NFT discovery reports approved state',async()=>assert.equal((await discoverGovernanceCandidates(fixture({approved:true}),'nft')).rows[0].status,'Approved'));
+test('removed candidate logs ignored',async()=>assert.deepEqual((await discoverGovernanceCandidates(fixture({removed:true}),'nft')).rows,[]));
+test('empty history distinct from RPC failure',async()=>{assert.deepEqual((await discoverGovernanceCandidates(fixture({empty:true}),'nft')).rows,[]);await assert.rejects(discoverGovernanceCandidates(fixture({error:true}),'nft'),/unavailable/);});
+test('wrong event address rejected',async()=>assert.rejects(discoverGovernanceCandidates(fixture({wrongAddress:true}),'nft'),/mismatch/));
+test('discovery rejects changed snapshot',async()=>assert.rejects(discoverGovernanceCandidates(fixture({reorg:true}),'nft'),/changed/));
+const {SENATE_PIN,SENATE_ACTION_ABI,CONSENSUS_ACTION_ABI}=await import('../src/config/advancedGovernanceVerification.ts');
+SENATE_PIN.runtimeCodeHash=keccak256(code);const senateAbi=new Interface(SENATE_ACTION_ABI),consensusAbi=new Interface(CONSENSUS_ACTION_ABI);
+function senateFixture({member=false,removal=false,oldRemoval=false}={}){const ballot=BigInt(address)+(removal||oldRemoval?1n:0n),event=senateAbi.encodeEventLog(senateAbi.getEvent('AddVote'),[address,ballot]);return{async send(method,params){if(method==='eth_chainId')return '0x171';if(method==='eth_getCode')return code;if(method==='eth_getBlockByNumber')return{number:'0x10',timestamp:'0x3e8',hash};if(method==='eth_getLogs')return [{...event,address:SENATE_PIN.address,blockNumber:'0xf'}];if(method==='eth_call'){const p=senateAbi.parseTransaction(params[0]);if(!p){const f=consensusAbi.getFunction('proposalLengths');return consensusAbi.encodeFunctionResult(f,f.outputs.map(()=>0n));}let value;if(p.name==='viewSenators')value=member||removal?[address]:[];else if(p.name==='votesForProposal')value=2n;else if(p.name==='addedSenator')value=(member||removal||oldRemoval)&&p.args[0].toLowerCase()===address;else throw Error(p.name);return senateAbi.encodeFunctionResult(p.name,[value]);}throw Error(method);}};}
+test('Senate discovery finds addition ballots',async()=>{const r=await discoverGovernanceCandidates(senateFixture(),'senate');assert.equal(r.rows[0].kind,'add');assert.equal(r.rows[0].address,address);});
+test('Senate discovery identifies address+1 removal ballots',async()=>{const r=await discoverGovernanceCandidates(senateFixture({removal:true}),'senate');assert.equal(r.rows[0].kind,'member');assert.equal(r.rows[1].kind,'remove');assert.equal(r.rows[1].address,address);});
+test('historical removals are never shown as adjacent addition candidates',async()=>assert.deepEqual((await discoverGovernanceCandidates(senateFixture({oldRemoval:true}),'senate')).rows,[]));

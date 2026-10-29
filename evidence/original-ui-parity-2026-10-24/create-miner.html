@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Piggy Bank: Create Miner</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="siteFiles/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="siteFiles/vendors/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="siteFiles/css/vertical-layout-dark/style.css">
+  <!-- endinject -->
+  <link rel="stylesheet" href="siteFiles/vendors/font-awesome/css/font-awesome.min.css"/>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3@1.6.0/dist/web3.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.4/dist/index.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="js/walletlink.bundle.js"></script>
+<script src="js/ethers.js"></script>
+ <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script> 
+ <script src="1config.js"></script> 
+ </script>
+
+  <style>.web3modal-modal-lightbox { z-index: 9999 !important; }</style>
+
+<script>
+  fetch('sidebar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('sidebor').innerHTML = data;
+    });
+</script>
+
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="img/dtx-logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="favicon/favicon-32x32.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+
+        <ul class="navbar-nav navbar-nav-right">
+      
+          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link" href="#" id="userSettings">
+              <img src="img/profile.png" style="display: block;border-radius: 35px;border: 1px solid #9739C2;" alt="profile"/>
+            </a>
+          </li>
+          
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+        
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+	  
+
+<div id="sidebor"></div>
+
+	
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+ 
+
+		  
+		  
+      <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="container text-center pt-5">
+                    <h4 class="mb-3 mt-5">Commit Your Piggy Bank Currency(OINK) to a Time Miner and Earn Rewards</h4>
+</br>
+                    <div class="row pricing-table justify-content-center">
+					
+					 
+					  
+					  
+                      <div class="col-md-6 col-xl-4 grid-margin stretch-card pricing-card">
+                        <div class="card border-primary border pricing-card-body block-containing-element" style="padding: 0px;"><div class="block-holder"><div class="block">
+                          <div class="text-center pricing-card-head">
+                            <h3>1 Month Miner</h3>
+                           </br>
+                            <img src="img/dtx-logo.png" style="max-width: 75%">
+							  </br></br><p id="apy1">Estimated Annual Rewards: %</p>
+						 
+						   <p id="">Max Penalty: 25%</p>
+                          </div>
+                             </br>
+                          <div class="wrapper">
+                            <a href="#" class="btn btn-outline-primary btn-block" onclick="createStake(1);">Create OINK Miner</a>
+                          </div>
+                           </div> </div>
+                        </div>
+                      </div>
+					  
+					  
+					  				     <div class="col-md-6 col-xl-4 grid-margin stretch-card pricing-card">
+                        <div class="card border-primary border pricing-card-body block-containing-element" style="padding: 0px;"><div class="block-holder"><div class="block">
+                          <div class="text-center pricing-card-head">
+                            <h3>3 Month Miner</h3>
+                          </br>
+                            <img src="img/dtx-logo.png" style="max-width: 75%">
+							  </br></br><p id="apy2">Estimated Annual Rewards: %</p>
+						 
+						   <p id="">Max Penalty: 33%</p>
+                          </div>
+                                 </br>
+                          <div class="wrapper">
+                            <a href="#" class="btn btn-outline-primary btn-block" onclick="createStake(2);">Create OINK Miner</a>
+                          </div>
+                        </div> </div>
+                        </div>
+                      </div>
+					  
+					     <div class="col-md-6 col-xl-4 grid-margin stretch-card pricing-card">
+                        <div class="card border-primary border pricing-card-body block-containing-element" style="padding: 0px;"><div class="block-holder"><div class="block">
+                          <div class="text-center pricing-card-head">
+                            <h3>6 Month Miner</h3>
+                          </br>
+                            <img src="img/dtx-logo.png" style="max-width: 75%">
+							  </br></br><p id="apy3">Estimated Annual Rewards: %</p>
+						 
+						   <p id="">Max Penalty: 42%</p>
+                          </div>
+                            </br>
+                          <div class="wrapper">
+                            <a href="#" class="btn btn-outline-primary btn-block" onclick="createStake(3);">Create OINK Miner</a>
+                          </div>
+                        </div> </div>
+                        </div>
+                      </div>
+					  
+					  
+					  
+					  
+                      <div class="col-md-6 col-xl-4 grid-margin stretch-card pricing-card">
+                        <div class="card border-primary border pricing-card-body block-containing-element" style="padding: 0px;"><div class="block-holder"><div class="block">
+                          <div class="text-center pricing-card-head">
+                            <h3 class="text-success">1 Year Miner</h3>
+                          </br>
+                           <img src="img/dtx-logo.png" style="max-width: 75%">
+						     </br></br><p id="apy4">Estimated Annual Rewards: %</p>
+						 
+						   <p id="">Max Penalty: 50%</p>
+                          </div>
+                        </br>
+                          <div class="wrapper">
+                            <a href="#" class="btn btn-outline-primary btn-block" onclick="createStake(4);">Create OINK Miner</a>
+                          </div>
+                       </div> </div>
+                        </div>
+                      </div>
+                   
+	<div class="col-md-6 col-xl-4 grid-margin stretch-card pricing-card">
+                        <div class="card border-primary border pricing-card-body block-containing-element" style="padding: 0px;"><div class="block-holder"><div class="block">
+                          <div class="text-center pricing-card-head">
+              <h3 class="text-success">3 Year Miner</h3>
+                      </br>
+                            <img src="img/dtx-logo.png" style="max-width: 75%">
+							  </br></br><p id="apy5">Estimated Annual Rewards: %</p>
+						 
+						   <p id="">Max Penalty: 75%</p>
+                          </div>
+              </br>
+                          <div class="wrapper">
+                            <a href="#" class="btn btn-outline-primary btn-block" onclick="createStake(5);">Create OINK Miner</a>
+                          </div>
+                          </div> </div>
+                        </div>
+                      </div>
+					                     
+	<div class="col-md-6 col-xl-4 grid-margin stretch-card pricing-card">
+                        <div class="card border-primary border pricing-card-body block-containing-element" style="padding: 0px;"><div class="block-holder"><div class="block">
+                          <div class="text-center pricing-card-head">
+              <h3 class="text-success">5 Year Miner</h3>
+                  </br>
+                           <img src="img/dtx-logo.png" style="max-width: 75%">
+						   
+						   </br></br><p id="apy6">Estimated Annual Rewards: %</p>
+						 
+						   <p id="">Max Penalty: 82%</p>
+                          </div>
+             </br>
+                          <div class="wrapper">
+                            <a href="#" class="btn btn-outline-primary btn-block" onclick="createStake(6);">Create OINK Miner</a>
+                          </div>
+                          </div> </div>
+                        </div>
+                      </div>
+					  
+					  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+	
+		  
+
+          
+			
+			
+          
+
+          
+          
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright &#169; Piggy Bank OINK. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made with <i class="mdi mdi-heart-outline text-primary"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- base:js -->
+  <script src="siteFiles/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.pie.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="siteFiles/vendors/jqvmap/jquery.vmap.min.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.world.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="siteFiles/vendors/peity/jquery.peity.min.js"></script>
+  <script src="siteFiles/js/jquery.flot.dashes.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="siteFiles/js/off-canvas.js"></script>
+  <script src="siteFiles/js/hoverable-collapse.js"></script>
+  <script src="siteFiles/js/template.js"></script>
+  <script src="siteFiles/js/settings.js"></script>
+  <script src="siteFiles/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="siteFiles/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/userProfile.js"></script>
+   <script src="js/confetti.js"></script>
+  
+     <script src="js/create-miner.js"></script>
+    <script>
+  								Swal.fire({
+						  title: '<strong>Piggy Bank Time Miners</strong>',
+						  html: `
+Piggy Bank time miners are NOT investments. Piggy Bank miner is a trustless agreement between the user and smart contract on the blockchain. Miners mint their own rewards for securing the network. Rewards are paid from inflation.
+</br></br>
+Longer commitment to the protocol gives higher rewards. There is no central issuer and no insurance or warranty. There is no guarantee for future value of the tokens.
+</br></br>
+The rewards are earned in native currency Piggy Bank(OINK). The amount of rewards you earn could go up or down over time. The token is likely to be highly volatile and could go to 0.`,
+						  icon: 'info',
+						  focusConfirm: false,
+						allowOutsideClick: false,
+						  confirmButtonText:
+							'I understand the risks. Enter.'
+						})
+						</script>
+</body>
+
+</html>
+

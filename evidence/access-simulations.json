@@ -1,0 +1,261 @@
+{
+  "checkedAt": "2026-09-19T15:53:47.730Z",
+  "readOnly": true,
+  "rows": [
+    {
+      "module": "hex-shares",
+      "action": "claim",
+      "destination": "wallet",
+      "account": "0x73f8218d1cacfc8bdd19337ba73fa03cc9c3995d",
+      "block": 27586499,
+      "blockHash": "0xad683197648bf308f637f15ed044975c8bc430dccac4de2d1549535d15f9901f",
+      "simulated": true,
+      "gasEstimate": "185233",
+      "facts": [
+        [
+          "Registered T-shares",
+          "196.973720282102"
+        ],
+        [
+          "Gross OINK rewards",
+          "187.352233851816300404"
+        ],
+        [
+          "Reward destination",
+          "0x73f8218D1CAcFC8Bdd19337bA73Fa03Cc9c3995D"
+        ],
+        [
+          "Destination payout",
+          "0.5%"
+        ],
+        [
+          "OINK received",
+          "0.936761169259081502"
+        ],
+        [
+          "OINK deduction",
+          "186.415472682557218902"
+        ]
+      ]
+    },
+    {
+      "module": "hex-shares",
+      "action": "claim",
+      "destination": "five-year",
+      "account": "0x73f8218d1cacfc8bdd19337ba73fa03cc9c3995d",
+      "block": 27586500,
+      "blockHash": "0xb4f22989cc1f23f9ad0c6010ecdff8e0f253aef08a9603edf46e725765e61b04",
+      "simulated": true,
+      "gasEstimate": "397596",
+      "facts": [
+        [
+          "Registered T-shares",
+          "196.973720282102"
+        ],
+        [
+          "Gross OINK rewards",
+          "187.354290090158981416"
+        ],
+        [
+          "Reward destination",
+          "0xf3E82f4123d4262a2baEC25b03652f3932A91739"
+        ],
+        [
+          "Destination payout",
+          "100.0%"
+        ],
+        [
+          "OINK received",
+          "187.354290090158981416"
+        ],
+        [
+          "OINK deduction",
+          "0.0"
+        ],
+        [
+          "Miner duration",
+          "1826 days"
+        ],
+        [
+          "Mandatory service",
+          "365 days"
+        ]
+      ]
+    },
+    {
+      "module": "hex-shares",
+      "action": "unregister",
+      "destination": "wallet",
+      "account": "0x73f8218d1cacfc8bdd19337ba73fa03cc9c3995d",
+      "block": 27586501,
+      "blockHash": "0xbe3f154384b73d676f87975c60af944620afc6884e67a6b32bd496ecff54467d",
+      "simulated": true,
+      "gasEstimate": "200095",
+      "facts": [
+        [
+          "Registered T-shares",
+          "196.973720282102"
+        ],
+        [
+          "Gross OINK rewards",
+          "187.356346328501662625"
+        ],
+        [
+          "Reward destination",
+          "0x73f8218D1CAcFC8Bdd19337bA73Fa03Cc9c3995D"
+        ],
+        [
+          "Destination payout",
+          "0.5%"
+        ],
+        [
+          "OINK received",
+          "0.936781731642508313"
+        ],
+        [
+          "OINK deduction",
+          "186.419564596859154312"
+        ]
+      ]
+    },
+    {
+      "module": "hex-shares",
+      "action": "unregister",
+      "destination": "five-year",
+      "account": "0x73f8218d1cacfc8bdd19337ba73fa03cc9c3995d",
+      "block": 27586502,
+      "blockHash": "0xcc90abb5b399667cbefa624a1c31f27705b454ffe0926a5db65fe4d475e14835",
+      "simulated": true,
+      "gasEstimate": "412210",
+      "facts": [
+        [
+          "Registered T-shares",
+          "196.973720282102"
+        ],
+        [
+          "Gross OINK rewards",
+          "187.358402566844343834"
+        ],
+        [
+          "Reward destination",
+          "0xf3E82f4123d4262a2baEC25b03652f3932A91739"
+        ],
+        [
+          "Destination payout",
+          "100.0%"
+        ],
+        [
+          "OINK received",
+          "187.358402566844343834"
+        ],
+        [
+          "OINK deduction",
+          "0.0"
+        ],
+        [
+          "Miner duration",
+          "1826 days"
+        ],
+        [
+          "Mandatory service",
+          "365 days"
+        ]
+      ]
+    },
+    {
+      "module": "distribution",
+      "action": "claim",
+      "destination": "wallet",
+      "account": "0xaeda4088a73daa95642cda172caa5de181719146",
+      "block": 27586503,
+      "blockHash": "0xed138cee7497a5f8473af4da9091a068671fb91afa9025c5173d1a4784537461",
+      "simulated": true,
+      "gasEstimate": "163455",
+      "facts": [
+        [
+          "Distribution",
+          "Contributor distribution"
+        ],
+        [
+          "Allocation redeemed",
+          "1.0"
+        ],
+        [
+          "Remaining allocation after claim",
+          "381.691575976937127936"
+        ],
+        [
+          "Reward destination",
+          "0xAeDa4088A73daA95642cDa172CaA5DE181719146"
+        ],
+        [
+          "Destination payout",
+          "80.0%"
+        ],
+        [
+          "OINK received",
+          "0.8"
+        ],
+        [
+          "Payout reduction",
+          "0.2"
+        ]
+      ]
+    },
+    {
+      "module": "distribution",
+      "action": "claim",
+      "destination": "five-year",
+      "account": "0xaeda4088a73daa95642cda172caa5de181719146",
+      "error": "The claim is below this destination's minimum miner amount."
+    },
+    {
+      "module": "distribution",
+      "action": "claim",
+      "destination": "five-year",
+      "account": "0xaeda4088a73daa95642cda172caa5de181719146",
+      "block": 27586510,
+      "blockHash": "0x2ad9c9e653c68c7b0b654f8d466d268a9d8c945178887b6c73474b7a371658af",
+      "simulated": true,
+      "gasEstimate": "359505",
+      "facts": [
+        [
+          "Distribution",
+          "Contributor distribution"
+        ],
+        [
+          "Allocation redeemed",
+          "100.0"
+        ],
+        [
+          "Remaining allocation after claim",
+          "282.691575976937127936"
+        ],
+        [
+          "Reward destination",
+          "0xf3E82f4123d4262a2baEC25b03652f3932A91739"
+        ],
+        [
+          "Destination payout",
+          "100.0%"
+        ],
+        [
+          "OINK received",
+          "100.0"
+        ],
+        [
+          "Payout reduction",
+          "0.0"
+        ],
+        [
+          "Miner duration",
+          "1826 days"
+        ],
+        [
+          "Mandatory service",
+          "0 days"
+        ]
+      ]
+    }
+  ]
+}

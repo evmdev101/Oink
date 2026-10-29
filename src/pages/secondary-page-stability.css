@@ -1,0 +1,102 @@
+/* Reserve the actual data regions; slow reads should only replace their contents. */
+.resources-library .docs-content { min-width:0; }
+.resources-library .docs-read-status,
+.resources-library .access-read-status {
+  box-sizing:border-box;
+  height:51.2px;
+  overflow:auto;
+  margin:12px 0;
+  font-size:16px;
+  line-height:25.6px;
+}
+.resources-library .docs-treasury-snapshot {
+  box-sizing:border-box;
+  height:76.8px;
+  overflow:auto;
+  margin:12px 0;
+  font-size:12px;
+  line-height:19.2px;
+}
+.resources-library .docs-activity-check,
+.resources-library .access-read-note {
+  box-sizing:border-box;
+  height:38.4px;
+  overflow:auto;
+  margin:12px 0;
+  font-size:12px;
+  line-height:19.2px;
+}
+.resources-library .docs-activity-range {
+  box-sizing:border-box;
+  height:51.2px;
+  overflow:auto;
+  margin:16px 0;
+  font-size:16px;
+  line-height:25.6px;
+}
+.resources-library .docs-activity-feed {
+  box-sizing:border-box;
+  height:min(420px,55dvh);
+  overflow:auto;
+  scrollbar-gutter:stable;
+  margin:16px 0;
+}
+.resources-library .docs-activity-feed .resource-facts { margin-top:0; }
+.resources-library .docs-activity-feed .resource-facts > article { margin-bottom:12px; }
+.resources-library .docs-treasury-activity .offer-quote {
+  min-height:3.2em;
+  align-items:center;
+  font-variant-numeric:tabular-nums;
+}
+.resources-library :is(.maintenance-status-card,.distribution-status-card) .access-facts > div {
+  min-height:116px;
+  align-content:start;
+}
+.resources-library :is(.maintenance-status-card,.distribution-status-card) .access-facts strong {
+  box-sizing:border-box;
+  height:76.8px;
+  overflow:auto;
+  font-size:16px;
+  line-height:25.6px;
+}
+.resources-library :is(.maintenance-status-card,.distribution-status-card) .access-facts span { min-height:31.2px; font-size:12px; line-height:15.6px; }
+.resources-library .distribution-allocation-notes {
+  box-sizing:border-box;
+  height:128px;
+  overflow:auto;
+  scrollbar-gutter:stable;
+  margin:0;
+  font-size:16px;
+  line-height:25.6px;
+}
+.resources-library .distribution-allocation-notes p { margin:0 0 10px; font-size:16px; line-height:25.6px; }
+.resources-library .distribution-claim-controls {
+  margin:16px 0;
+  border-block:1px solid var(--border);
+  padding:12px 0;
+}
+.resources-library .distribution-claim-controls > summary { cursor:pointer; font-weight:600; }
+.resources-library .distribution-claim-controls fieldset { min-width:0; margin:0; padding:0; border:0; }
+.nft-projects-page .nft-reward-badge {
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:172px;
+  min-height:30px;
+  flex-shrink:0;
+  white-space:nowrap;
+}
+.nft-projects-page .nft-project-identity { min-height:48px; }
+.nft-projects-page .nft-project-badges { min-height:34px; }
+.nft-projects-page .nft-projects-header .bfc-sub { display:block; margin:0; font:400 12px/18px "DM Sans",sans-serif; }
+.nft-projects-page .nft-projects-header h2 { margin:6px 0; font:700 24px/30px "DM Sans",sans-serif; }
+.nft-projects-page .nft-projects-header p { margin:0; font:400 14px/21px "DM Sans",sans-serif; }
+.nft-projects-page .nft-project-count { font:400 12px/18px "DM Sans",sans-serif; }
+.nft-projects-page .nft-projects-toolbar { margin:24px 0; }
+.nft-projects-page .nft-projects-toolbar label { margin:0; font:400 12px/18px "DM Sans",sans-serif; }
+.nft-projects-page .nft-projects-toolbar input { box-sizing:border-box; min-height:47px; margin:0; padding:12px; font:400 14px/21px "DM Sans",sans-serif; }
+.nft-projects-page .nft-projects-toolbar button { box-sizing:border-box; min-height:40px; margin:0; padding:10px 14px; font:600 12px/18px "DM Sans",sans-serif; }
+.nft-projects-page .nft-projects-results { block-size:clamp(360px,72dvh,640px); overflow:auto; scrollbar-gutter:stable; }
+.nft-projects-page .nft-projects-results:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+@media(max-width:600px) { .nft-projects-page .nft-projects-header h2 { font-size:22px; line-height:28px; } }

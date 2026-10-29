@@ -1,0 +1,551 @@
+{
+  "checkedAt": "2026-10-10T15:48:19.459Z",
+  "readOnly": true,
+  "block": 27762865,
+  "timestamp": 1791647255,
+  "header": {
+    "supply": "1189582813.095488565545486215",
+    "treasuryOink": "173546118.697353347252638185",
+    "treasuryPls": "1455639177.17833322560258324",
+    "minerDurations": 6,
+    "linkedNftProjects": 1
+  },
+  "registry": {
+    "pools": 28,
+    "allocatedPools": 23,
+    "nftPools": 4,
+    "totalAllocation": "460347",
+    "allocations": [
+      {
+        "index": 0,
+        "address": "0x39b3E852D6fFA1aF6694Ef87C062450de6778da8",
+        "points": "559",
+        "percent": 0.12143013856938353
+      },
+      {
+        "index": 1,
+        "address": "0x9013B1067C52E897E713044dE36c56BfdA8Ec9B4",
+        "points": "526",
+        "percent": 0.11426163307244318
+      },
+      {
+        "index": 2,
+        "address": "0xb180450f064E79adBFD71Bc2fB086F9CD0Af0D67",
+        "points": "1484",
+        "percent": 0.3223655199230146
+      },
+      {
+        "index": 3,
+        "address": "0xc0483f1b0dcf601888fFD0d3A44b7124e80DB7D1",
+        "points": "16327",
+        "percent": 3.5466724014710644
+      },
+      {
+        "index": 4,
+        "address": "0x15b51Ece819f3B51ce814de67bB2419660701a3c",
+        "points": "10201",
+        "percent": 2.2159371083117736
+      },
+      {
+        "index": 5,
+        "address": "0xf3E82f4123d4262a2baEC25b03652f3932A91739",
+        "points": "351952",
+        "percent": 76.45363171694396
+      },
+      {
+        "index": 6,
+        "address": "0xE145932f6b010B0166aA6860D56b2730744B7d6f",
+        "points": "69080",
+        "percent": 15.00607150692847
+      },
+      {
+        "index": 7,
+        "address": "0x16233F6d7398f134EbCec11101e792c03ED296a4",
+        "points": "2302",
+        "percent": 0.5000575652714149
+      },
+      {
+        "index": 8,
+        "address": "0x852443CB5b5f5B10e514CA74104bBF2Cd6CeF868",
+        "points": "690",
+        "percent": 0.1498869331178437
+      },
+      {
+        "index": 9,
+        "address": "0x164D4C1fDd74A5b7256Fd9Eca958c9ff70617c03",
+        "points": "184",
+        "percent": 0.039969848831424994
+      },
+      {
+        "index": 10,
+        "address": "0x6b465C480CD590852f90c8f1b41Ab22922a1BF85",
+        "points": "230",
+        "percent": 0.04996231103928124
+      },
+      {
+        "index": 11,
+        "address": "0x140f16365d05DcC84Fa489194CD022d5CBee4cb2",
+        "points": "0",
+        "percent": 0
+      },
+      {
+        "index": 12,
+        "address": "0x9E70665aDee807f262Ae59Dc1f8D4Dd878320C21",
+        "points": "46",
+        "percent": 0.009992462207856248
+      },
+      {
+        "index": 13,
+        "address": "0x7c61919AccF037975bbD3a91b0F5811c640018b1",
+        "points": "46",
+        "percent": 0.009992462207856248
+      },
+      {
+        "index": 14,
+        "address": "0xc13b8974CD5caa67D7e539D2654C872b5AcA5105",
+        "points": "690",
+        "percent": 0.1498869331178437
+      },
+      {
+        "index": 15,
+        "address": "0x2057dd1687eafCD809386a41012748AC509df542",
+        "points": "92",
+        "percent": 0.019984924415712497
+      },
+      {
+        "index": 16,
+        "address": "0x96185280d32184C847580c35eaB77affaC835d98",
+        "points": "460",
+        "percent": 0.09992462207856248
+      },
+      {
+        "index": 17,
+        "address": "0xED1b56c799D28a988bd79BbF2F7E238c2Ba15C21",
+        "points": "46",
+        "percent": 0.009992462207856248
+      },
+      {
+        "index": 18,
+        "address": "0xf46810Ce204a9a85a673Ea9bbcc1bf5481EE1328",
+        "points": "46",
+        "percent": 0.009992462207856248
+      },
+      {
+        "index": 19,
+        "address": "0xc49EF441FFb79108047E4dF812F375A7E48FD3De",
+        "points": "46",
+        "percent": 0.009992462207856248
+      },
+      {
+        "index": 20,
+        "address": "0x1aB20028a50477e11bC4066047D8942De1375eF7",
+        "points": "0",
+        "percent": 0
+      },
+      {
+        "index": 21,
+        "address": "0x4441c3bDB96139A45dF653Ec0432d076631A6D9F",
+        "points": "460",
+        "percent": 0.09992462207856248
+      },
+      {
+        "index": 22,
+        "address": "0xa620473a3Eb138c43e1F7065bdA0Ded0e039d8fd",
+        "points": "230",
+        "percent": 0.04996231103928124
+      },
+      {
+        "index": 23,
+        "address": "0xCE34298e7456Fd748E432e02cc4f107aC864C739",
+        "points": "506",
+        "percent": 0.10991708428641872
+      },
+      {
+        "index": 24,
+        "address": "0x2e3f97dbff7EE9a82c60F9088C92833789589A23",
+        "points": "0",
+        "percent": 0
+      },
+      {
+        "index": 25,
+        "address": "0x4d1CF153b982466c8db3D41DBfAb15aBE12a9dFf",
+        "points": "0",
+        "percent": 0
+      },
+      {
+        "index": 26,
+        "address": "0x2EcB9c5460468e916FB8847CF5E903afc9aFE646",
+        "points": "0",
+        "percent": 0
+      },
+      {
+        "index": 27,
+        "address": "0x7B2DcC0D0180D6863e4D6Fa14903459638c5b45B",
+        "points": "4144",
+        "percent": 0.9001905084642672
+      }
+    ]
+  },
+  "participation": {
+    "senators": "0",
+    "minerAccounting": 6393481504.614958,
+    "minerTokenBalances": 1000,
+    "governanceAccounting": "6393481504.61495771255098527",
+    "governanceTokenBalance": "0.0",
+    "minerShares": 904499439.6594112,
+    "hexTshares": "40299.030059890557",
+    "governorProposals": "1"
+  },
+  "miners": [
+    {
+      "label": "1 month",
+      "address": "0x39b3E852D6fFA1aF6694Ef87C062450de6778da8",
+      "accounting": "67091140.089664658986109377",
+      "tokenBalance": "1000.0",
+      "shares": "50409531.441399618847099629",
+      "apr": "4.69",
+      "allocation": "559"
+    },
+    {
+      "label": "3 months",
+      "address": "0x9013B1067C52E897E713044dE36c56BfdA8Ec9B4",
+      "accounting": "42078516.038367499167952478",
+      "tokenBalance": "0.0",
+      "shares": "27392088.641119345137148282",
+      "apr": "7.03",
+      "allocation": "526"
+    },
+    {
+      "label": "6 months",
+      "address": "0xb180450f064E79adBFD71Bc2fB086F9CD0Af0D67",
+      "accounting": "79105161.275415375793178322",
+      "tokenBalance": "0.0",
+      "shares": "41589060.300473188144648071",
+      "apr": "10.56",
+      "allocation": "1484"
+    },
+    {
+      "label": "1 year",
+      "address": "0xc0483f1b0dcf601888fFD0d3A44b7124e80DB7D1",
+      "accounting": "391548824.965500115281029195",
+      "tokenBalance": "0.0",
+      "shares": "93853051.206129278593124654",
+      "apr": "23.48",
+      "allocation": "16327"
+    },
+    {
+      "label": "3 years",
+      "address": "0x15b51Ece819f3B51ce814de67bB2419660701a3c",
+      "accounting": "188141884.622392714675773618",
+      "tokenBalance": "0.0",
+      "shares": "29438165.327227904417909573",
+      "apr": "30.53",
+      "allocation": "10201"
+    },
+    {
+      "label": "5 years",
+      "address": "0xf3E82f4123d4262a2baEC25b03652f3932A91739",
+      "accounting": "5625515977.62361734864694228",
+      "tokenBalance": "0.0",
+      "shares": "661817542.743061766237313691",
+      "apr": "35.23",
+      "allocation": "351952"
+    }
+  ],
+  "supplyLocation": {
+    "miners": 1000,
+    "liquidityPair": "80296983.7070601044483109",
+    "otherAccounts": 1109284829.3884284
+  },
+  "liquidity": {
+    "totalPls": "352459649.473982591855187783",
+    "totalOink": "80296983.7070601044483109",
+    "treasuryPls": "337043573.604882275972323263",
+    "treasuryOink": "76784909.644865006089282725"
+  },
+  "holdings": {
+    "block": 27762866,
+    "accounts": [
+      {
+        "label": "Treasury wallet",
+        "address": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+      },
+      {
+        "label": "Governor",
+        "address": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16"
+      },
+      {
+        "label": "Treasury locked miner",
+        "address": "0x4807bdD7039a1fc236c14dc60D73a64eEa450731"
+      },
+      {
+        "label": "NFT wallet",
+        "address": "0x26E6e614C46dA4c459d0dB2121A986672F603c00"
+      }
+    ],
+    "assets": {
+      "PLS": [
+        {
+          "account": "Treasury wallet",
+          "balance": "1455639177.17833322560258324"
+        },
+        {
+          "account": "Governor",
+          "balance": "0.0"
+        },
+        {
+          "account": "Treasury locked miner",
+          "balance": "0.0"
+        },
+        {
+          "account": "NFT wallet",
+          "balance": "0.0"
+        }
+      ],
+      "OINK": [
+        {
+          "account": "Treasury wallet",
+          "balance": "173546118.697353347252638185"
+        },
+        {
+          "account": "Governor",
+          "balance": "364426997.865920852809487056"
+        },
+        {
+          "account": "Treasury locked miner",
+          "balance": "0.0"
+        },
+        {
+          "account": "NFT wallet",
+          "balance": "0.0"
+        }
+      ],
+      "PLSX": [
+        {
+          "account": "Treasury wallet",
+          "balance": "443337247.551557844669445616"
+        },
+        {
+          "account": "Governor",
+          "balance": "1.0"
+        },
+        {
+          "account": "Treasury locked miner",
+          "balance": "0.0"
+        },
+        {
+          "account": "NFT wallet",
+          "balance": "0.0"
+        }
+      ],
+      "INC": [
+        {
+          "account": "Treasury wallet",
+          "balance": "10480.880401605437249275"
+        },
+        {
+          "account": "Governor",
+          "balance": "0.0"
+        },
+        {
+          "account": "Treasury locked miner",
+          "balance": "0.0"
+        },
+        {
+          "account": "NFT wallet",
+          "balance": "0.0"
+        }
+      ],
+      "HEX": [
+        {
+          "account": "Treasury wallet",
+          "balance": "484204.98748798"
+        },
+        {
+          "account": "Governor",
+          "balance": "0.0"
+        },
+        {
+          "account": "Treasury locked miner",
+          "balance": "0.0"
+        },
+        {
+          "account": "NFT wallet",
+          "balance": "0.0"
+        }
+      ]
+    }
+  },
+  "activity": {
+    "from": 27737868,
+    "to": 27762867,
+    "fromTimestamp": 1791390435,
+    "partial": false,
+    "inflows": 8,
+    "missingTimestamps": 0,
+    "rows": [
+      {
+        "key": "0x59680a596fdc6674267a7227b4ae6eecd4e03ed6ae2f29299380e5fbf8a053e3:0x24",
+        "hash": "0x59680a596fdc6674267a7227b4ae6eecd4e03ed6ae2f29299380e5fbf8a053e3",
+        "block": 27761540,
+        "index": 36,
+        "label": "Treasury received",
+        "amount": "167364.055578620549317463 OINK",
+        "address": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "timestamp": 1791633655
+      },
+      {
+        "key": "0x94df9d820184441880356ea7f153c59ec3a7b3486d678c2cda5ff05aa5f448ad:0x92",
+        "hash": "0x94df9d820184441880356ea7f153c59ec3a7b3486d678c2cda5ff05aa5f448ad",
+        "block": 27756416,
+        "index": 146,
+        "label": "Treasury received",
+        "amount": "22201.562948252859957825 OINK",
+        "address": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "timestamp": 1791581035
+      },
+      {
+        "key": "0x1ece547cec28b9f331d472551bdc439066fb934f5e6d43123bbaf880cc703131:0x419",
+        "hash": "0x1ece547cec28b9f331d472551bdc439066fb934f5e6d43123bbaf880cc703131",
+        "block": 27756140,
+        "index": 1049,
+        "label": "Treasury received",
+        "amount": "378580.418529137381688487 OINK",
+        "address": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "timestamp": 1791578225
+      },
+      {
+        "key": "0x9b50724a8f7d9c33b9b1b25d0059634c113373ef0b07b7fa0131305d7bb164a2:0x1f",
+        "hash": "0x9b50724a8f7d9c33b9b1b25d0059634c113373ef0b07b7fa0131305d7bb164a2",
+        "block": 27753265,
+        "index": 31,
+        "label": "Treasury received",
+        "amount": "453796.051354241982991836 OINK",
+        "address": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "timestamp": 1791548605
+      },
+      {
+        "key": "0xadf96c562832f877ebe588de49aad5c604c4243d52f8b90c4f6a5c844ea4a1e7:0x37",
+        "hash": "0xadf96c562832f877ebe588de49aad5c604c4243d52f8b90c4f6a5c844ea4a1e7",
+        "block": 27753015,
+        "index": 55,
+        "label": "Treasury received",
+        "amount": "2713.88848683 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "timestamp": 1791546065
+      },
+      {
+        "key": "0xcbf5ab06c33638116aa942b02d91476daa18fd44a5bd0c98e0a08a880c6a3bf4:0xba",
+        "hash": "0xcbf5ab06c33638116aa942b02d91476daa18fd44a5bd0c98e0a08a880c6a3bf4",
+        "block": 27753013,
+        "index": 186,
+        "label": "Treasury received",
+        "amount": "825223.29512622454675855 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "timestamp": 1791546045
+      },
+      {
+        "key": "0x3656f64d38f7fc8ecd494650861266df23279ee8d35601b6122c9ed7ff52e5d6:0x56",
+        "hash": "0x3656f64d38f7fc8ecd494650861266df23279ee8d35601b6122c9ed7ff52e5d6",
+        "block": 27753011,
+        "index": 86,
+        "label": "Treasury received",
+        "amount": "2949.38130088 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "timestamp": 1791546025
+      },
+      {
+        "key": "0x140fa930ee7006fdccf7d63afcaf672960a16596de430e7b24475446a8c7ac8c:0x49",
+        "hash": "0x140fa930ee7006fdccf7d63afcaf672960a16596de430e7b24475446a8c7ac8c",
+        "block": 27753011,
+        "index": 73,
+        "label": "Treasury received",
+        "amount": "99264.56192689354899139 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "timestamp": 1791546025
+      }
+    ]
+  },
+  "prices": {
+    "oink": {
+      "usd": "0.00004060",
+      "pair": "0xEf9Ea3d72e28c7140481209190601C085027D6fE",
+      "fetchedAt": 1791647299458
+    },
+    "pls": {
+      "usd": "0.000009314",
+      "pair": "0xE56043671df55dE5CDf8459710433C10324DE0aE",
+      "fetchedAt": 1791647299458
+    },
+    "plsx": {
+      "usd": "0.000007253",
+      "pair": "0x1b45b9148791d3a104184Cd5DFE5CE57193a3ee9",
+      "fetchedAt": 1791647299458
+    },
+    "inc": {
+      "usd": "0.3842",
+      "pair": "0xf808Bb6265e9Ca27002c0A04562Bf50d4FE37EAA",
+      "fetchedAt": 1791647299458
+    },
+    "hex": {
+      "usd": "0.002352",
+      "pair": "0xf1F4ee610b2bAbB05C635F726eF8B0C568c8dc65",
+      "fetchedAt": 1791647299458
+    },
+    "hoa": {
+      "usd": "0.001137",
+      "pair": "0x714D3e632Bdd5E840A37eddaE6399B4Cca859E26",
+      "fetchedAt": 1791647299458
+    },
+    "pdai": {
+      "usd": "0.001695",
+      "pair": "0xfC64556FAA683e6087F425819C7Ca3C558e13aC1",
+      "fetchedAt": 1791647299458
+    },
+    "atropa": {
+      "usd": "0.03438",
+      "pair": "0x5EF7AaC0DE4F2012CB36730Da140025B113FAdA4",
+      "fetchedAt": 1791647299458
+    },
+    "solidx": {
+      "usd": "0.3772",
+      "pair": "0x89cffFB84016FBf4da34B400e847A61be1a7Fe34",
+      "fetchedAt": 1791647299458
+    },
+    "pusdt": {
+      "usd": "0.0006956",
+      "pair": "0xd2335e1c634fC3a1dDf766161bcb8E7Ec134cF03",
+      "fetchedAt": 1791647299458
+    },
+    "pusdc": {
+      "usd": "0.0007287",
+      "pair": "0xC636bfE0bAe34824380B4E26Bc34e4614e55e483",
+      "fetchedAt": 1791647299458
+    },
+    "pdrip": {
+      "usd": "0.0008172",
+      "pair": "0x25D240831a9c0CB981506538E810d32487D291Af",
+      "fetchedAt": 1791647299458
+    },
+    "emit": {
+      "usd": "0.3549",
+      "pair": "0x1D05cC449B643633b013cbfb939e70Cc0d37F2A3",
+      "fetchedAt": 1791647299458
+    },
+    "communitas": {
+      "usd": "0.000000000003909",
+      "pair": "0x0e7194E2BF11b30CAB1D17aa5b500DfE6E02817b",
+      "fetchedAt": 1791647299458
+    },
+    "ptgc": {
+      "usd": "0.00003926",
+      "pair": "0xf5A89A6487D62df5308CDDA89c566C5B5ef94C11",
+      "fetchedAt": 1791647299458
+    },
+    "ufo": {
+      "usd": "0.00000002738",
+      "pair": "0xbeA0e55b82Eb975280041F3b49C4D0bD937b72d5",
+      "fetchedAt": 1791647299458
+    }
+  }
+}

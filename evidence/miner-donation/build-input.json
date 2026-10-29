@@ -1,0 +1,31 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "IssueStake.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.20;\n\n// Original helper: OINK-pls/PiggyBank, contracts/helper/stakeDonation.sol,\n// commit cf49720c083f098b2fb7c8c636cfa0e91ae8be05.\n// Its public source leaves IToken() blank; bind the current OINK deployment.\ninterface IacPool {\n    function giftDeposit(uint256 amount, address recipient, uint256 minToServeInSecs) external;\n}\ninterface IToken {\n    function balanceOf(address account) external view returns (uint256);\n}\ncontract IssueStake {\n    IToken public immutable token = IToken(0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38);\n    address public immutable pool;\n    address public immutable recipient;\n    uint256 public immutable minServe;\n\n    constructor(address _recipient, address _pool, uint256 _minServe) {\n        recipient = _recipient;\n        pool = _pool;\n        minServe = _minServe;\n    }\n    function giftStake() external {\n        IacPool(pool).giftDeposit(token.balanceOf(address(this)), recipient, minServe);\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "metadata": {
+      "bytecodeHash": "none"
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode.object",
+          "evm.deployedBytecode",
+          "storageLayout"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "readOnly": true,
+  "block": 27597924,
+  "nft": {
+    "proxyWiringVerified": true,
+    "approveThreshold": "100",
+    "rejectThreshold": "500",
+    "rejectionPeriod": "604800"
+  },
+  "reward": {
+    "eligibility": "There is no active Reward Boost event."
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "checkedAt": "2026-10-10T16:07:04.889Z",
+  "readOnly": true,
+  "summaries": [
+    {
+      "days": 1,
+      "count": 0,
+      "complete": true,
+      "usd": 0
+    },
+    {
+      "days": 7,
+      "count": 4,
+      "complete": true,
+      "usd": 20.079755662127006
+    },
+    {
+      "days": 30,
+      "count": 21,
+      "complete": true,
+      "usd": 93.72770011043066
+    }
+  ],
+  "history": {
+    "from": 27487976,
+    "to": 27762975,
+    "fromTimestamp": 1788816305,
+    "toTimestamp": 1791648405,
+    "toHash": "0x7ab7e81ea9a9340fe59fd8cdf7231881461b194ad01e504b1e86db8d2af45f28",
+    "partial": false,
+    "rows": [
+      {
+        "key": "0xadf96c562832f877ebe588de49aad5c604c4243d52f8b90c4f6a5c844ea4a1e7:0x37",
+        "hash": "0xadf96c562832f877ebe588de49aad5c604c4243d52f8b90c4f6a5c844ea4a1e7",
+        "block": 27753015,
+        "index": 55,
+        "label": "Treasury received",
+        "amount": "2713.88848683 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1791546065
+      },
+      {
+        "key": "0xcbf5ab06c33638116aa942b02d91476daa18fd44a5bd0c98e0a08a880c6a3bf4:0xba",
+        "hash": "0xcbf5ab06c33638116aa942b02d91476daa18fd44a5bd0c98e0a08a880c6a3bf4",
+        "block": 27753013,
+        "index": 186,
+        "label": "Treasury received",
+        "amount": "825223.29512622454675855 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1791546045
+      },
+      {
+        "key": "0x3656f64d38f7fc8ecd494650861266df23279ee8d35601b6122c9ed7ff52e5d6:0x56",
+        "hash": "0x3656f64d38f7fc8ecd494650861266df23279ee8d35601b6122c9ed7ff52e5d6",
+        "block": 27753011,
+        "index": 86,
+        "label": "Treasury received",
+        "amount": "2949.38130088 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1791546025
+      },
+      {
+        "key": "0x140fa930ee7006fdccf7d63afcaf672960a16596de430e7b24475446a8c7ac8c:0x49",
+        "hash": "0x140fa930ee7006fdccf7d63afcaf672960a16596de430e7b24475446a8c7ac8c",
+        "block": 27753011,
+        "index": 73,
+        "label": "Treasury received",
+        "amount": "99264.56192689354899139 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1791546025
+      },
+      {
+        "key": "0xcea337f238fc973d3cb3cecbdcca998178574938846e7b7b2326ada2a0064b9e:0xc03",
+        "hash": "0xcea337f238fc973d3cb3cecbdcca998178574938846e7b7b2326ada2a0064b9e",
+        "block": 27693707,
+        "index": 3075,
+        "label": "Treasury received",
+        "amount": "846.29867102 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790936625
+      },
+      {
+        "key": "0x250dc796877a84df0eba8e8d69ddd268d781cac2f5056ca669820feb4951ae31:0x4ff",
+        "hash": "0x250dc796877a84df0eba8e8d69ddd268d781cac2f5056ca669820feb4951ae31",
+        "block": 27693705,
+        "index": 1279,
+        "label": "Treasury received",
+        "amount": "256015.067415186061908868 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790936605
+      },
+      {
+        "key": "0x49872dac0bf9fdaf0640aca0eb0ed8844f86f9287a0e0646a189f3261878b4ef:0x7a7",
+        "hash": "0x49872dac0bf9fdaf0640aca0eb0ed8844f86f9287a0e0646a189f3261878b4ef",
+        "block": 27693704,
+        "index": 1959,
+        "label": "Treasury received",
+        "amount": "876.75135725 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790936595
+      },
+      {
+        "key": "0x909a24cb4a3080b18354a300049a7ee4f30d755150c3844401e6591b0a4b8137:0x92f",
+        "hash": "0x909a24cb4a3080b18354a300049a7ee4f30d755150c3844401e6591b0a4b8137",
+        "block": 27676322,
+        "index": 2351,
+        "label": "Treasury received",
+        "amount": "2358.10175197 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790757925
+      },
+      {
+        "key": "0x3576883b47691991335c9edfa374f47814f29423af4ee9b2f28281d85860ccb2:0x316",
+        "hash": "0x3576883b47691991335c9edfa374f47814f29423af4ee9b2f28281d85860ccb2",
+        "block": 27676321,
+        "index": 790,
+        "label": "Treasury received",
+        "amount": "683804.683327803561821 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790757915
+      },
+      {
+        "key": "0xbd3fffc2dcbe0ccfb6b803be6b31ab294c2cbad1ce2cde1b07498fbf09f2e5bd:0x6b",
+        "hash": "0xbd3fffc2dcbe0ccfb6b803be6b31ab294c2cbad1ce2cde1b07498fbf09f2e5bd",
+        "block": 27676320,
+        "index": 107,
+        "label": "Treasury received",
+        "amount": "2347.394386 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790757905
+      },
+      {
+        "key": "0x52f8091b496b53cda8cc845b84107d9212681f419ef4edbfbe44720dcc0ae96b:0xaa6",
+        "hash": "0x52f8091b496b53cda8cc845b84107d9212681f419ef4edbfbe44720dcc0ae96b",
+        "block": 27624928,
+        "index": 2726,
+        "label": "Treasury received",
+        "amount": "1055.02406894 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790228915
+      },
+      {
+        "key": "0x6fabda78209fba4bd22bc4302f599857963a4ddfb360c124c67e56cb3de35fdf:0x2d0",
+        "hash": "0x6fabda78209fba4bd22bc4302f599857963a4ddfb360c124c67e56cb3de35fdf",
+        "block": 27624926,
+        "index": 720,
+        "label": "Treasury received",
+        "amount": "350150.606152965456908807 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790228895
+      },
+      {
+        "key": "0xe331d299e4abd43d7d444e6b6fc8a1563fba268ce3e4a01a02254a68c1f62233:0x2b6",
+        "hash": "0xe331d299e4abd43d7d444e6b6fc8a1563fba268ce3e4a01a02254a68c1f62233",
+        "block": 27624926,
+        "index": 694,
+        "label": "Treasury received",
+        "amount": "1051.29526157 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790228895
+      },
+      {
+        "key": "0x37572f8e98fbd7e26e47f3c405456c8ac9f0a3116eaaff2d144849c3ca19afd4:0x260",
+        "hash": "0x37572f8e98fbd7e26e47f3c405456c8ac9f0a3116eaaff2d144849c3ca19afd4",
+        "block": 27624925,
+        "index": 608,
+        "label": "Treasury received",
+        "amount": "1921097.630622741008328805 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1790228885
+      },
+      {
+        "key": "0x67e09f5250ba22027b95a663cec524c7425cd5814804680aa898bca3407b0bf8:0x2d5",
+        "hash": "0x67e09f5250ba22027b95a663cec524c7425cd5814804680aa898bca3407b0bf8",
+        "block": 27599675,
+        "index": 725,
+        "label": "Treasury received",
+        "amount": "2928.11345272 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1789968835
+      },
+      {
+        "key": "0xb3b1264822d14ce88f07fa62d3a5e9c3782cca98de4a389a2567064896a74f58:0xb14",
+        "hash": "0xb3b1264822d14ce88f07fa62d3a5e9c3782cca98de4a389a2567064896a74f58",
+        "block": 27599674,
+        "index": 2836,
+        "label": "Treasury received",
+        "amount": "934810.663867235750089976 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1789968825
+      },
+      {
+        "key": "0xa98d33b897b6f6010db4b2461be9c4f05448b64a593bb1160493bb97e86bcc00:0x4d",
+        "hash": "0xa98d33b897b6f6010db4b2461be9c4f05448b64a593bb1160493bb97e86bcc00",
+        "block": 27599671,
+        "index": 77,
+        "label": "Treasury received",
+        "amount": "2943.44036169 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1789968795
+      },
+      {
+        "key": "0xbd6b2e47f2812b1ca23546faeaff7c3abf061b59fb1b7a3f9a177cdbcf7d2a7b:0xe2",
+        "hash": "0xbd6b2e47f2812b1ca23546faeaff7c3abf061b59fb1b7a3f9a177cdbcf7d2a7b",
+        "block": 27581445,
+        "index": 226,
+        "label": "Treasury received",
+        "amount": "0.46106273 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1789781235
+      },
+      {
+        "key": "0x444473a23b0ea70838353eb5a71f5b6dd9534ca42ac12468e85704b97f1889f3:0x3c",
+        "hash": "0x444473a23b0ea70838353eb5a71f5b6dd9534ca42ac12468e85704b97f1889f3",
+        "block": 27528019,
+        "index": 60,
+        "label": "Treasury received",
+        "amount": "1380.43371159 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1789228455
+      },
+      {
+        "key": "0xaebba9d469c53ac1e51f1858ac6f8539b5b9c791415e5bf6575678486a7ef564:0x14",
+        "hash": "0xaebba9d469c53ac1e51f1858ac6f8539b5b9c791415e5bf6575678486a7ef564",
+        "block": 27528018,
+        "index": 20,
+        "label": "Treasury received",
+        "amount": "414322.376568791282349556 PLSX",
+        "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1789228445
+      },
+      {
+        "key": "0xc3fdcdd7dfe1fb0430b557f15a2672c03ba9b2d288692a55462030c1b5ab4c58:0x29",
+        "hash": "0xc3fdcdd7dfe1fb0430b557f15a2672c03ba9b2d288692a55462030c1b5ab4c58",
+        "block": 27528017,
+        "index": 41,
+        "label": "Treasury received",
+        "amount": "1380.91108455 HEX",
+        "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "recipient": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "timestamp": 1789228435
+      }
+    ]
+  },
+  "refreshTo": 27762976
+}

@@ -1,0 +1,142 @@
+{
+  "checkedAt": "2026-09-19T21:55:32.738Z",
+  "durationMs": 25124,
+  "block": 27588603,
+  "blockHash": "0x145dbd8db8ababe8d398bfc24e4184721291de19d42b195dda38e625627cae60",
+  "registryPools": 28,
+  "partial": false,
+  "discoveryError": null,
+  "existingFarms": [
+    {
+      "id": "pls",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "plsx",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "inc",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "hex",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "t-share",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "hoa",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "pdai",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "atropa",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "solidx",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "treasury",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "pusdt",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "pusdc",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "pdrip",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "emit",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "communitas",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "ptgc",
+      "loaded": true,
+      "yieldLoaded": true
+    },
+    {
+      "id": "ufo",
+      "loaded": true,
+      "yieldLoaded": true
+    }
+  ],
+  "discoveredPools": [
+    {
+      "id": "registry-0x2e3f97dbff7ee9a82c60f9088c92833789589a23",
+      "address": "0x2e3f97dbff7EE9a82c60F9088C92833789589A23",
+      "poolId": "24",
+      "status": "awaiting-integration",
+      "allocation": "0",
+      "reason": "This contract does not match a reviewed farm implementation. Its pool is registered, but actions need an integration review.",
+      "hasWriteSpec": false,
+      "loaded": false,
+      "hasPrice": false
+    },
+    {
+      "id": "registry-0x4d1cf153b982466c8db3d41dbfab15abe12a9dff",
+      "address": "0x4d1CF153b982466c8db3D41DBfAb15aBE12a9dFf",
+      "poolId": "25",
+      "status": "awaiting-integration",
+      "allocation": "0",
+      "reason": "This contract does not match a reviewed farm implementation. Its pool is registered, but actions need an integration review.",
+      "hasWriteSpec": false,
+      "loaded": false,
+      "hasPrice": false
+    },
+    {
+      "id": "registry-0x2ecb9c5460468e916fb8847cf5e903afc9afe646",
+      "address": "0x2EcB9c5460468e916FB8847CF5E903afc9aFE646",
+      "poolId": "26",
+      "status": "awaiting-integration",
+      "allocation": "0",
+      "reason": "This contract does not match a reviewed farm implementation. Its pool is registered, but actions need an integration review.",
+      "hasWriteSpec": false,
+      "loaded": false,
+      "hasPrice": false
+    },
+    {
+      "id": "registry-0x7b2dcc0d0180d6863e4d6fa14903459638c5b45b",
+      "address": "0x7B2DcC0D0180D6863e4D6Fa14903459638c5b45B",
+      "poolId": "27",
+      "status": "awaiting-integration",
+      "allocation": "3503",
+      "reason": "This contract does not match a reviewed farm implementation. Its pool is registered, but actions need an integration review.",
+      "hasWriteSpec": false,
+      "loaded": false,
+      "hasPrice": false
+    }
+  ]
+}

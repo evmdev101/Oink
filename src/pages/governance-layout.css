@@ -1,0 +1,88 @@
+/* DEGEN's single-column governance layout, using OINK's live theme tokens. */
+.degen-layout .governance-load-fieldset { min-width:0; margin:0; padding:0; border:0; }
+.degen-layout .governance-summary-status,.degen-layout .governance-category-status { box-sizing:border-box; min-height:1.6em; margin:0 0 14px; font-size:12px; }
+.degen-layout .governance-read-status { box-sizing:border-box; height:4.8em; overflow:auto; margin-bottom:12px; font-size:12px; }
+.degen-layout .governance-read-status p { margin:0; }
+.degen-layout .settings-grid strong { min-height:2.4em; }
+.degen-layout .settings-grid small { min-height:3em; }
+.degen-layout .configuration-grid > div,.degen-layout .senate-metrics > article,.degen-layout .upgrade-grid > article { min-height:116px; }
+.degen-layout .configuration-grid strong,.degen-layout .senate-metrics strong,.degen-layout .upgrade-grid strong { min-height:2.6em; font-variant-numeric:tabular-nums; }
+.degen-layout .governance-composer .protocol-form > p[role="status"] { min-height:3.2em; }
+.degen-layout .governance-record-viewport { box-sizing:border-box; height:min(420px,55dvh); overflow:auto; scrollbar-gutter:stable; align-content:start; }
+.degen-layout .senate-member-registry { box-sizing:border-box; height:min(240px,34dvh); overflow:auto; scrollbar-gutter:stable; }
+.degen-layout .miner-table-wrap tbody tr { height:96px; }
+.degen-layout .miner-table-wrap td { vertical-align:middle; }
+.degen-layout .upgrade-addresses { min-height:84px; }
+.degen-layout .upgrade-addresses > div { min-width:0; grid-template-rows:14px 28px; align-content:start; }
+.degen-layout .upgrade-addresses > div > :is(a,strong) { box-sizing:border-box; display:block; block-size:28px; overflow:auto; margin:0; font:700 14px/22px "DM Sans",sans-serif; text-align:left; }
+.degen-layout .upgrade-verdict-slot { min-height:142px; }
+.degen-layout .governance-candidate-status { box-sizing:border-box; height:3.2em; overflow:auto; margin:8px 0; font-size:12px; }
+.degen-layout .governance-wallet-status { box-sizing:border-box; height:1.6em; overflow:auto; line-height:1.6; }
+@media(max-width:600px) { .degen-layout .governance-wallet-status { height:3.2em; } }
+.degen-layout .proposal-counts strong { display:inline-block; min-width:3ch; font-variant-numeric:tabular-nums; }
+.degen-layout .governance-utility-disclosure { margin-bottom:22px; border:1px solid var(--border); border-radius:8px; background:var(--panel); }
+.degen-layout .governance-utility-disclosure > summary { padding:16px 24px; cursor:pointer; color:var(--fg); font-size:16px; font-weight:650; }
+.degen-layout .governance-utility-disclosure > summary:focus-visible { outline:2px solid var(--fg); outline-offset:2px; }
+.degen-layout .governance-utility-disclosure .governance-action-center { margin:0; border:0; border-top:1px solid var(--border); border-radius:0; background:none; }
+.degen-layout .section-kicker.proposal-history-label { display:block; font-size:18px; line-height:1.4; font-weight:700; letter-spacing:0; margin-bottom:8px; }
+.degen-layout.governance-page { max-width: 1236px; margin: 0 auto; padding: 36px 28px 80px; font: 400 16px/1.6 "DM Sans", sans-serif; }
+.degen-layout .governance-layout { display: block; }
+.degen-layout .record-filter { display: flex; gap: 6px; align-items: center; justify-content: flex-end; margin: 18px 0; }
+.degen-layout .record-filter span { margin-right: auto; font-size: 14px; }
+.degen-layout .record-filter button { padding: 8px 14px; border: 1px solid transparent; background: transparent; border-radius: 6px; color: var(--fg); font: inherit; cursor: pointer; }
+.degen-layout .record-filter button[aria-pressed="true"] { border-color: var(--border); background: var(--panel); }
+.degen-layout .governance-section[hidden] { display: none !important; }
+.degen-layout .settings-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin-bottom:28px; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg); }
+.degen-layout .settings-grid article { display:grid; grid-template-rows:auto auto 1fr; min-width:0; min-height:130px; padding:4px 24px; gap:12px; background:none; border:0; border-left:1px solid var(--border); border-radius:0; box-shadow:none; }
+.degen-layout .settings-grid article:first-child { border-left:0; }
+.degen-layout .settings-grid span { color:var(--fg); font-size:14px; font-weight:650; letter-spacing:0; text-transform:none; }
+.degen-layout .settings-grid strong { color:var(--fg); font-size:32px; line-height:1.2; font-weight:750; letter-spacing:0; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.degen-layout .settings-grid small { color:color-mix(in srgb,var(--fg) 75%,var(--bg)); font-size:13px; line-height:1.5; }
+.degen-layout .governance-subnav { position:static; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; padding:8px; margin-bottom:24px; border:1px solid color-mix(in srgb,var(--fg) 25%,var(--bg)); border-radius:8px; background:var(--bg); backdrop-filter:none; }
+.degen-layout .governance-subnav a, .degen-layout .proposal-family-tabs button { padding: 10px 13px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--fg); font: 500 14px/1.4 "DM Sans", sans-serif; text-decoration: none; cursor: pointer; }
+.degen-layout .governance-subnav a[aria-current="page"], .degen-layout .proposal-family-tabs button[aria-pressed="true"] { border-color: var(--border); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); color: var(--accent); }
+.degen-layout .governance-subnav a { display:flex; align-items:center; justify-content:center; min-height:52px; padding:10px 12px; text-align:center; font-size:15px; font-weight:650; line-height:1.35; letter-spacing:0; background:var(--panel); border-color:color-mix(in srgb,var(--fg) 18%,var(--bg)); box-shadow:none; }
+.degen-layout .governance-subnav a:hover { background:color-mix(in srgb,var(--fg) 12%,var(--bg)); border-color:var(--fg); }
+.degen-layout .governance-subnav a[aria-current="page"] { background:var(--fg); color:var(--bg); border-color:var(--fg); box-shadow:none; }
+.degen-layout .governance-subnav a:focus-visible { outline:2px solid var(--fg); outline-offset:2px; }
+@media(max-width:1000px) { .degen-layout .governance-subnav { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:500px) { .degen-layout .governance-subnav { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+.degen-layout .governance-action-center { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 20px; align-items: start; padding: 24px; margin: 0 0 22px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+.degen-layout .governance-action-center h2 { margin: 2px 0 8px; font-size: 24px; font-weight: 600; letter-spacing: 0; }
+.degen-layout .governance-action-center p { margin: 0; color: var(--muted); }
+.degen-layout .governance-action-links { display: grid; gap: 8px; }
+.degen-layout .governance-action-links a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; color: var(--fg); text-decoration: none; background: color-mix(in srgb, var(--bg) 72%, var(--panel)); }
+.degen-layout .governance-action-links a::after { content: "→"; color: var(--accent); }
+.degen-layout .governance-action-links a:hover { border-color: var(--accent); }
+.degen-layout .proposal-family-tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--border); padding-bottom: 22px; margin: 22px 0 28px; }
+.degen-layout button:focus-visible, .degen-layout a:focus-visible, .degen-layout summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.degen-layout .governance-composer { width: 100%; max-width: none; padding: 32px; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
+.degen-layout .governance-composer h2 { font-size: 24px; font-weight: 500; letter-spacing: -.03em; }
+.degen-layout .protocol-form { max-width: none; }
+.degen-layout .protocol-form input, .degen-layout .protocol-form select { min-height: 50px; font-size: 16px; }
+.degen-layout .protocol-form label, .degen-layout .protocol-form textarea { font-size: 14px; }
+.degen-layout .governance-composer .section-kicker, .degen-layout .governance-section-heading .section-kicker { display: none; }
+.degen-layout .governance-section-heading h2 { font-size: 24px; font-weight: 500; }
+.degen-layout .governance-panel { padding: 24px 0; border: 0; border-top: 1px solid var(--border); border-radius: 0; background: transparent; }
+.degen-layout .governance-panel > p { max-width: none; font-size: 14px; margin: 8px 0 16px; }
+.degen-layout .history-row { padding: 28px; background: var(--panel); border: 1px solid var(--border); border-radius: 9px; }
+.degen-layout .history-title strong { font-size: 22px; font-weight: 500; }
+.degen-layout .history-title span { font-size: 12px; }
+.degen-layout .history-row dl { gap: 24px; }
+.degen-layout .history-row dt { font-size: 12px; }
+.degen-layout .history-row dd { font-size: 17px; color: var(--fg); }
+.degen-layout .action-pair { align-items: center; gap: 12px; margin: 18px 0; }
+.degen-layout .read-state { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 12px; margin-bottom: 18px; }
+.degen-layout .governance-reference { border-top: 1px solid var(--border); padding: 20px 0; margin-top: 24px; }
+.degen-layout .governance-reference summary { cursor: pointer; margin-bottom: 20px; }
+.degen-layout .evidence-key, .degen-layout .preparation-stage { margin-bottom: 20px; }
+@media (max-width: 900px) { .degen-layout .settings-grid { grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:24px; } .degen-layout .settings-grid article:nth-child(odd) { border-left:0; } }
+@media (max-width: 600px) {
+  .degen-layout.governance-page { padding: 24px 16px 56px; }
+  .degen-layout .governance-action-center { grid-template-columns: 1fr; padding: 18px; }
+  .degen-layout .settings-grid article { padding:4px 12px; min-height:130px; }
+  .degen-layout .settings-grid strong { font-size:26px; }
+  .degen-layout .governance-composer, .degen-layout .history-row { padding: 20px; }
+  .degen-layout .proposal-family-tabs { flex-wrap: nowrap; overflow-x: auto; }
+  .degen-layout .proposal-family-tabs button { white-space: nowrap; }
+}

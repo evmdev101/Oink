@@ -1,0 +1,968 @@
+{
+  "inspectedAt": "2026-10-24T21:08:56.503Z",
+  "chainId": 369,
+  "originalRepository": "https://github.com/OINK-pls/Piggy-Bank-UI",
+  "finalStatus": "Original page/action mapping complete; maintenance, miner portions and donation workflows implemented and tested. Four exceptional token deposit/position integrations and PDRIP fee collection remain explicitly external.",
+  "originalTreeSha": "e3500c8c81c3684556aa6c1a9679a2c7dd069428",
+  "originalSourceManifest": "evidence/original-ui-parity-2026-10-24/inventory.json",
+  "scope": "Source and local implementation parity audit; no wallet approvals, transactions, deployment or assertion that current contracts permit every flow.",
+  "pages": [
+    {
+      "feature": "Dashboard",
+      "originalPage": "index.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/index.html",
+      "localRoute": "/",
+      "destinationLabel": "Overview",
+      "statusAtAudit": "implemented",
+      "notes": "Live treasury wallet balances, farming positions, protocol-owned liquidity, reward allocation, supply and miner distribution. Inflows explicitly cover tracked token transfers; incomplete data stays labelled.",
+      "inlineHandlers": [
+        "showAll();",
+        "socials();"
+      ]
+    },
+    {
+      "feature": "Time-miner creation",
+      "originalPage": "create-miner.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/create-miner.html",
+      "localRoute": "/mining?tab=deploy",
+      "destinationLabel": "OINK → Miners → Deploy miners",
+      "statusAtAudit": "implemented",
+      "notes": "Six durations with current deployment terms, previews, share estimates, approvals and reviewed deployment transactions.",
+      "inlineHandlers": [
+        "createStake(1);",
+        "createStake(2);",
+        "createStake(3);",
+        "createStake(4);",
+        "createStake(5);",
+        "createStake(6);"
+      ]
+    },
+    {
+      "feature": "Miner list",
+      "originalPage": "view-all-miner.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/view-all-miner.html",
+      "localRoute": "/mining",
+      "destinationLabel": "OINK → Miners → My miners",
+      "statusAtAudit": "implemented",
+      "notes": "Connected-wallet and public lookup, positions, gross value, progress, renewal and full or partial withdrawal/transfer/longer-duration upgrades, with current contract settings and minimum gift checks.",
+      "inlineHandlers": [
+        "refreshAll();"
+      ]
+    },
+    {
+      "feature": "Miner cards",
+      "originalPage": "view-miner-card.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/view-miner-card.html",
+      "localRoute": "/mining",
+      "destinationLabel": "OINK → Miners → My miners",
+      "statusAtAudit": "implemented",
+      "notes": "Cards and list share live positions and action reviews; background refresh retains the previous display.",
+      "inlineHandlers": [
+        "refreshAll();"
+      ]
+    },
+    {
+      "feature": "Asset vaults",
+      "originalPage": "pulse-ecosystem-mining.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/pulse-ecosystem-mining.html",
+      "localRoute": "/farms",
+      "destinationLabel": "OINK → Farms",
+      "statusAtAudit": "implemented_with_explicit_remaining_limits",
+      "notes": "Public registry discovery, balances, allocations, APR estimates and reviewed deposits for eleven ordinary farms, plus HEX-share registration. PDRIP, EMIT, pTGC and UFO remain separately labelled legacy integrations.",
+      "inlineHandlers": [
+        "stakePLS();",
+        "stakePLSX();",
+        "stakeINC();",
+        "stakeATROPA();",
+        "stakePDAI();",
+        "stakeCOM();",
+        "stakePTGC();",
+        "stakeUFO();",
+        "stakePUSDT();",
+        "stakePUSDC();",
+        "stakePDRIP();",
+        "stakeSOLIDX();",
+        "stakeHOA();",
+        "stakeHEX();",
+        "stakeHEXstake();"
+      ]
+    },
+    {
+      "feature": "Vault positions",
+      "originalPage": "view-pulse-ecosystem-miners.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/view-pulse-ecosystem-miners.html",
+      "localRoute": "/farms",
+      "destinationLabel": "OINK → Farms; Docs → Farm recovery",
+      "statusAtAudit": "implemented_with_explicit_remaining_limits",
+      "notes": "Per-position claims, withdrawals, wallet or time-miner reward destinations, and emergency withdrawals for reviewed vaults. Original multiCall is a HEX-share read, not a batch claim.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Referral",
+      "originalPage": "referral.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/referral.html",
+      "localRoute": "/mining?tab=referral",
+      "destinationLabel": "OINK → Referral",
+      "statusAtAudit": "implemented",
+      "notes": "Referral links/selection, current bonus, earned and redeemed points across old and current contracts, funding status and reviewed destination-specific claims.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Sale",
+      "originalPage": "pig-offering.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/pig-offering.html",
+      "localRoute": "/mining?tab=sale",
+      "destinationLabel": "OINK → Sale",
+      "statusAtAudit": "implemented",
+      "notes": "Live inventory and quotes for PLS, PLSX, INC and HEX. Enter payment or target OINK, use Max, choose liquid OINK or a sale miner and review the purchase.",
+      "inlineHandlers": [
+        "showOffering();"
+      ]
+    },
+    {
+      "feature": "Distribution claims",
+      "originalPage": "claim.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/claim.html",
+      "localRoute": "/protocol?section=tools",
+      "destinationLabel": "Docs → More OINK tools",
+      "statusAtAudit": "implemented",
+      "notes": "Contributor and launch reward allocations, proofs, remaining entitlement, destination payout and reviewed claims; separate from referral and farm rewards.",
+      "inlineHandlers": [
+        "claimFaucet();"
+      ]
+    },
+    {
+      "feature": "Miner donations",
+      "originalPage": "issue-miner.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/issue-miner.html",
+      "localRoute": "/mining?tab=donations",
+      "destinationLabel": "OINK → Miner donations",
+      "statusAtAudit": "implemented",
+      "notes": "Create a verified donation helper with a fixed recipient, duration and mandatory service; propose its treasury funding, then activate the funded miner after approval.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Miner voting",
+      "originalPage": "miner-voting.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/miner-voting.html",
+      "localRoute": "/governance#miner-voting",
+      "destinationLabel": "Governance → Miner voting",
+      "statusAtAudit": "implemented",
+      "notes": "Current Governor/treasury proposals, weighted voting power and reviewed support, opposition or neutral selections.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Delegation",
+      "originalPage": "delegate-vote.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/delegate-vote.html",
+      "localRoute": "/governance#miner-voting",
+      "destinationLabel": "Governance → Miner voting",
+      "statusAtAudit": "implemented",
+      "notes": "Set/remove a delegate per duration, and vote for listed wallets delegated to the connected account.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Voting credit",
+      "originalPage": "voting-credit.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/voting-credit.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals / Miner voting",
+      "statusAtAudit": "implemented",
+      "notes": "Wallet deposits, miner-share conversion, balances and irreversible credit destruction; proposal reviews check current spending requirements.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Senate",
+      "originalPage": "senate.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/senate.html",
+      "localRoute": "/governance#senate",
+      "destinationLabel": "Governance → Treasury & Senate",
+      "statusAtAudit": "implemented",
+      "notes": "Live members/candidates, veto ballots and finalization, membership votes/add/remove/replace and credit distribution.",
+      "inlineHandlers": [
+        "auth()"
+      ]
+    },
+    {
+      "feature": "Protocol upgrades",
+      "originalPage": "propose-upgrade.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/propose-upgrade.html",
+      "localRoute": "/governance#upgrades",
+      "destinationLabel": "Governance → Protocol upgrades",
+      "statusAtAudit": "implemented",
+      "notes": "Governor proposals, staged approval, opposition/veto, rejection cleanup and final enforcement with authority checks.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Basic settings",
+      "originalPage": "basic-settings.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/basic-settings.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals",
+      "statusAtAudit": "implemented",
+      "notes": "Voting cost, enforcement delay, rollover bonus, harvest call fee and vault-setting create/support/oppose/veto/execute reviews.",
+      "inlineHandlers": [
+        "displayDelayInfo()",
+        "refreshCostToVote()",
+        "showExpired()",
+        "showActive()",
+        "refreshDelayBeforeEnforce()",
+        "delayShowExpired()",
+        "delayShowActive()",
+        "refreshRollOverBonus()",
+        "rollOverBonusShowExpired()",
+        "rollOverBonusShowActive()",
+        "refreshMiningFee()",
+        "miningFeeShowExpired()",
+        "miningFeeShowActive()"
+      ]
+    },
+    {
+      "feature": "Reward allocations",
+      "originalPage": "pools-farms.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/pools-farms.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals",
+      "statusAtAudit": "implemented",
+      "notes": "Allocation/deposit-fee proposals and create/support/oppose/veto/execute. Shared synchronization belongs in Community maintenance.",
+      "inlineHandlers": [
+        "rebalancePools()",
+        "displayDelayInfo()",
+        "refreshPoolAllocation()",
+        "poolAllocationShowExpired()",
+        "poolAllocationShowActive()"
+      ]
+    },
+    {
+      "feature": "New pool",
+      "originalPage": "add-token.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/add-token.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals",
+      "statusAtAudit": "implemented",
+      "notes": "New-pool create/vote/veto/execute; compatible registered pools appear on Farms after refresh.",
+      "inlineHandlers": [
+        "displayDelayInfo()",
+        "refreshAddToken()",
+        "showExpired()",
+        "showActive()"
+      ]
+    },
+    {
+      "feature": "NFT allocation",
+      "originalPage": "NFT-allocation.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/NFT-allocation.html",
+      "localRoute": "/governance#nft-allocation",
+      "destinationLabel": "Governance → NFT allocation",
+      "statusAtAudit": "implemented",
+      "notes": "Candidate discovery, announcement, miner/delegated votes, waiting-period updates, rejection and approval. Original page governs NFT valuation contracts; project NFT actions use the published DEGEN dashboard.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Governor tax",
+      "originalPage": "governor-tax.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/governor-tax.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals",
+      "statusAtAudit": "implemented",
+      "notes": "Tax proposal history and create/support/oppose/veto/execute reviews.",
+      "inlineHandlers": [
+        "displayDelayInfo()",
+        "refreshGovTax()",
+        "showExpired()",
+        "showActive()"
+      ]
+    },
+    {
+      "feature": "Reward events",
+      "originalPage": "reward-boost.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/reward-boost.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals",
+      "statusAtAudit": "implemented",
+      "notes": "Boost and threshold proposals, emission estimates, execution, expired-event ending and competing-proposal cancellation.",
+      "inlineHandlers": [
+        "displayDelayInfo()",
+        "refreshRewardBoost()",
+        "rewardBoostShowExpired()",
+        "rewardBoostShowActive()",
+        "refreshEventThreshold()",
+        "eventThresholdShowExpired()",
+        "eventThresholdShowActive()"
+      ]
+    },
+    {
+      "feature": "Token burns",
+      "originalPage": "token-burn.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/token-burn.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals",
+      "statusAtAudit": "implemented",
+      "notes": "Governor transfer-or-burn proposals with amount, timing, credit votes, veto and execution.",
+      "inlineHandlers": [
+        "displayDelayInfo()",
+        "refreshTokenBurn()",
+        "showExpired()",
+        "showActive()"
+      ]
+    },
+    {
+      "feature": "Governor to treasury",
+      "originalPage": "treasury-deposit.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/treasury-deposit.html",
+      "localRoute": "/governance#ordinary",
+      "destinationLabel": "Governance → Ordinary proposals",
+      "statusAtAudit": "implemented",
+      "notes": "Governor transfer-or-burn proposals can transfer OINK to the treasury instead of burning it.",
+      "inlineHandlers": [
+        "displayDelayInfo()",
+        "refreshTreasuryDeposit()",
+        "showExpired()",
+        "showActive()"
+      ]
+    },
+    {
+      "feature": "Treasury withdrawals",
+      "originalPage": "treasury.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/treasury.html",
+      "localRoute": "/governance#senate",
+      "destinationLabel": "Governance → Treasury & Senate",
+      "statusAtAudit": "implemented",
+      "notes": "PLS/ERC20 requests, recipient/amount/delay, credit and miner votes, Senate veto and approve/reject/close reviews.",
+      "inlineHandlers": [
+        "changeFunc(value);",
+        "changeFunc2(value);",
+        "displayDelayInfo()",
+        "refreshTreasuryTransfer()",
+        "showExpired()",
+        "showActive()"
+      ]
+    },
+    {
+      "feature": "Maintenance",
+      "originalPage": "available-actions.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/available-actions.html",
+      "localRoute": "/maintenance",
+      "destinationLabel": "OINK → Community maintenance",
+      "statusAtAudit": "implemented_with_explicit_remaining_limits",
+      "notes": "Thirteen reviewed actions cover buyback/conversion, protocol and PulseX harvest, Reward Boost start/end, ecosystem cap/reduction/rebalance, mining-fee collection, fee synchronization and Senate credit. PDRIP fee collection remains external because its implementation source is unverified.",
+      "inlineHandlers": [
+        "buyback();",
+        "harvestPulseX();",
+        "harvest();",
+        "checkupEvents();",
+        "reduceRewards();",
+        "features();",
+        "rebalance();",
+        "collectFees();",
+        "checkup();"
+      ]
+    },
+    {
+      "feature": "Activity",
+      "originalPage": "latest-actions.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/latest-actions.html",
+      "localRoute": "/protocol?section=treasury",
+      "destinationLabel": "Overview; Docs → Treasury & activity",
+      "statusAtAudit": "implemented",
+      "notes": "Decoded protocol activity and treasury token transfers with automatic refresh and explicit history coverage.",
+      "inlineHandlers": []
+    },
+    {
+      "feature": "Shared navigation",
+      "originalPage": "sidebar.html",
+      "originalUrl": "https://oink-pls.github.io/Piggy-Bank-UI/sidebar.html",
+      "localRoute": "/",
+      "destinationLabel": "Primary navigation; Resources",
+      "statusAtAudit": "implemented",
+      "notes": "OINK tools, governance, guides, source/audit and community links; maintenance is directly reachable from the OINK menu and footer.",
+      "inlineHandlers": [
+        "addToMetamask();",
+        "getToken();"
+      ]
+    }
+  ],
+  "namedOriginalFunctions": {
+    "js__addToken.js": [
+      "showExpired",
+      "showActive",
+      "requestAddToken",
+      "enforce",
+      "veto",
+      "voteAddToken",
+      "refreshAddToken"
+    ],
+    "js__allStakes.js": [
+      "round",
+      "getTimestamp",
+      "viewAllStakes",
+      "viewProxyStakes",
+      "displayStakes",
+      "displaySavedStakes",
+      "displaySaved",
+      "refreshAll",
+      "mandatoryServe",
+      "calculatePenalty",
+      "checkNrOfStakes",
+      "getSharePrice",
+      "getUserInfo",
+      "sleep",
+      "isSuccess",
+      "rollOver",
+      "extendStake",
+      "transferToAnotherWallet",
+      "transferFinal",
+      "transferPartial",
+      "withdraw",
+      "hopPools",
+      "hopIntermediary",
+      "hopPoolsFinal",
+      "updateEarnings",
+      "stakeExpiry",
+      "reviver",
+      "countUp"
+    ],
+    "js__availableActions.js": [
+      "harvestPulseX",
+      "harvest",
+      "giveToRewardContract",
+      "rebalance",
+      "checkupEvents",
+      "reduceRewards",
+      "formatTime",
+      "reduceRewardsActual",
+      "updateFees",
+      "updateFees2",
+      "reduceRewardsReal",
+      "activateRewardReduction",
+      "collectFees",
+      "collectFeesOld",
+      "removeDuplicateLinesFromText",
+      "getLatestFeeUpdate",
+      "checkNrOfStakes",
+      "userInfo",
+      "fetchLogFile",
+      "harvestPLS2",
+      "harvestPLSX2",
+      "harvestINC2",
+      "harvestHEX2",
+      "harvestATROPA",
+      "harvestPDAI",
+      "harvestSOLIDX",
+      "harvestHOA",
+      "harvestPUSDT",
+      "harvestPUSDC",
+      "harvestPDRIP",
+      "harvestEMIT",
+      "getUniqueUsersSorted",
+      "calculateTotalOwed",
+      "harvestPLS",
+      "endBoost",
+      "getPendingReferralRewards1",
+      "getPendingReferralRewards2",
+      "getPendingIncRewards",
+      "getPendingRewards",
+      "getEventStatus",
+      "getFarmAddress",
+      "checkIfOverMax",
+      "getEventID",
+      "eventDatar",
+      "getActivedBlock",
+      "getReductionStatus",
+      "lastReduce",
+      "currentMaxAlloc",
+      "sleep",
+      "loadBalancios",
+      "buyback",
+      "loadBuyBackContractBalances",
+      "bOfWETH",
+      "bOfUSDC",
+      "buybackNburn"
+    ],
+    "js__claim.js": [
+      "claimAirdrop",
+      "claimFaucet",
+      "claim",
+      "finalizeFullClaim",
+      "finalizeLockedClaim",
+      "amountClaimedF",
+      "amountClaimedL"
+    ],
+    "js__costToVote.js": [
+      "showExpired",
+      "showActive",
+      "delayShowExpired",
+      "delayShowActive",
+      "rollOverBonusShowExpired",
+      "rollOverBonusShowActive",
+      "miningFeeShowExpired",
+      "miningFeeShowActive",
+      "callFeeShowExpired",
+      "callFeeShowActive",
+      "setCostToVote",
+      "voteCostToVote",
+      "enforceCostToVote",
+      "vetoCostToVote",
+      "setVaultProposal",
+      "setDelayBeforeEnforce",
+      "voteMiningFee",
+      "enforceMiningFee",
+      "vetoMiningFee",
+      "voteDelayBeforeEnforce",
+      "enforceDelayBeforeEnforce",
+      "vetoDelayBeforeEnforce",
+      "setRollOverBonus",
+      "voteRollOverBonus",
+      "enforceRollOverBonus",
+      "vetoRollOverBonus",
+      "setCallFee",
+      "voteCallFee",
+      "enforceCallFee",
+      "vetoCallFee",
+      "getVaults",
+      "refreshCostToVote",
+      "refreshMiningFee",
+      "refreshDelayBeforeEnforce",
+      "refreshRollOverBonus",
+      "refreshCallFee"
+    ],
+    "js__create-miner.js": [
+      "sleep",
+      "createStake",
+      "displayCustom",
+      "checkBalance2"
+    ],
+    "js__delegateVote.js": [
+      "checkVotingPower",
+      "checkVotingPowerFinish",
+      "voteAsDelegate",
+      "round"
+    ],
+    "js__governorTax.js": [
+      "showExpired",
+      "showActive",
+      "requestGovernorTax",
+      "enforce",
+      "veto",
+      "voteGovernorTax",
+      "refreshGovTax"
+    ],
+    "js__index.js": [
+      "sleep",
+      "getData",
+      "getPoolAllocations",
+      "getTreasury",
+      "fillAllocations",
+      "showAll",
+      "totalSupplyF",
+      "virtualSupplyF",
+      "contributorCreditF",
+      "rewardCreditF",
+      "checkBalanceRPC",
+      "formatTimeAgo",
+      "formatAmount"
+    ],
+    "js__issueStake.js": [
+      "createContract"
+    ],
+    "js__NFT-allocation.js": [
+      "getVotes",
+      "checkVotesFor",
+      "round",
+      "voteFor",
+      "voteAgainst",
+      "requestNFTallocation",
+      "refreshNFTallocation",
+      "addressToUint",
+      "getThreshold",
+      "finalizeVote"
+    ],
+    "js__pigOffering.js": [
+      "showOffering",
+      "callGetWithPLS",
+      "callGetWithPLSX",
+      "callGetWithINC",
+      "callGetWithHEX",
+      "getOinkBalance"
+    ],
+    "js__poolsFarms.js": [
+      "poolAllocationShowExpired",
+      "poolAllocationShowActive",
+      "rewardReductionShowExpired",
+      "rewardReductionShowActive",
+      "setPoolAllocation",
+      "enforcePoolAllocation",
+      "vetoPoolAllocation",
+      "votePoolAllocation",
+      "setRewardReduction",
+      "enforceRewardReduction",
+      "vetoRewardReduction",
+      "voteRewardReduction",
+      "refreshPoolAllocation",
+      "refreshRewardReduction",
+      "rebalancePools"
+    ],
+    "js__proposeUpgrade.js": [
+      "proposeUpgrade"
+    ],
+    "js__pulseEco.js": [
+      "formatRewardAllocation",
+      "stakeHEX",
+      "stakeINC",
+      "stakePLS",
+      "stakePLSX",
+      "stakeHOA",
+      "stakeATROPA",
+      "stakePDAI",
+      "stakePUSDT",
+      "stakePUSDC",
+      "stakePDRIP",
+      "stakeEMIT",
+      "stakeSOLIDX",
+      "stakeCOM",
+      "stakePTGC",
+      "stakeUFO",
+      "stakeHEXstake",
+      "displayCustom",
+      "checkAllowance",
+      "allowance",
+      "hexStakeCount",
+      "stakeCount",
+      "hexGetShares",
+      "stakeLists",
+      "checkBalance2",
+      "balanceOf",
+      "giveAllowance",
+      "finalizeStake",
+      "finalizeStakePLS",
+      "decodeBase58",
+      "voteAllocations"
+    ],
+    "js__pulseStakes.js": [
+      "loadData",
+      "showStakes",
+      "harvest",
+      "withdraw",
+      "emergencyWithdraw",
+      "recalculate",
+      "checkNrOfStakes",
+      "checkHexStakedShares",
+      "multiCall",
+      "checkAmountEarned",
+      "userInfore",
+      "hexStakeCount",
+      "hexGetShares"
+    ],
+    "js__referral.js": [
+      "showRefLink",
+      "trigger",
+      "displayRefRewards",
+      "publishTokens",
+      "connectWallet",
+      "getAmountAvailable",
+      "getAmountRedeemed",
+      "getAmountRedeemed2",
+      "getReferralShare",
+      "encodeBase58"
+    ],
+    "js__reward-boost.js": [
+      "calculate",
+      "updateThreshold",
+      "rewardBoostShowExpired",
+      "rewardBoostShowActive",
+      "eventThresholdShowExpired",
+      "eventThresholdShowActive",
+      "setRewardBoost",
+      "vetoRewardBoost",
+      "enforceRewardBoost",
+      "voteRewardBoost",
+      "setEventThreshold",
+      "estimateTheAPY",
+      "enforceEventThreshold",
+      "vetoEventThreshold",
+      "voteEventThreshold",
+      "refreshRewardBoost",
+      "refreshEventThreshold"
+    ],
+    "js__senate.js": [
+      "checkVotingPower",
+      "getAddresses",
+      "getMintableTokens",
+      "harvestForSenators",
+      "mintTokens",
+      "vetoProposal",
+      "addSenator",
+      "expellSenate",
+      "grantVotingCredit",
+      "round"
+    ],
+    "js__stakeCards.js": [
+      "round",
+      "getTimestamp",
+      "startPage",
+      "viewAllStakes",
+      "displayStakes",
+      "refreshAll",
+      "mandatoryServe",
+      "calculatePenalty",
+      "checkNrOfStakes",
+      "getSharePrice",
+      "getUserInfo",
+      "sleep",
+      "isSuccess",
+      "rollOver",
+      "extendStake",
+      "transferToAnotherWallet",
+      "transferFinal",
+      "transferPartial",
+      "withdraw",
+      "hopPools",
+      "hopIntermediary",
+      "hopPoolsFinal",
+      "updateEarnings",
+      "stakeExpiry",
+      "reviver",
+      "countUp"
+    ],
+    "js__stakeVoting.js": [
+      "getVotes",
+      "checkVotingPower",
+      "checkVotesFor",
+      "getTotalStaked",
+      "checkIfChanged",
+      "getGovernorAddress",
+      "getRemainingBlocks",
+      "getSavedVotes",
+      "getRequestBlock",
+      "round",
+      "voteFor",
+      "finalizeVote",
+      "formatDateAndCountdown"
+    ],
+    "js__tokenBurn.js": [
+      "showExpired",
+      "showActive",
+      "requestTreasuryWithdraw",
+      "veto",
+      "enforce",
+      "voteGovernorTransfer",
+      "refreshTokenBurn"
+    ],
+    "js__treasuryDeposit.js": [
+      "showExpired",
+      "showActive",
+      "requestTreasuryWithdraw",
+      "enforce",
+      "veto",
+      "voteGovernorTransfer",
+      "refreshTreasuryDeposit"
+    ],
+    "js__treasuryWithdraw.js": [
+      "changeFunc",
+      "changeFunc2",
+      "showExpired",
+      "showActive",
+      "requestTreasuryWithdraw",
+      "enforce",
+      "veto",
+      "voteTreasuryTransfer",
+      "killTreasuryTransfer",
+      "treasuryWithdrawStatus",
+      "updateHighestConsensusVotes",
+      "voteFor",
+      "getVotes",
+      "getSavedVotes",
+      "approveTransfer",
+      "totalStaked2",
+      "refreshTreasuryTransfer",
+      "treasuryBalance"
+    ],
+    "js__userProfile.js": [
+      "displaySettings",
+      "auth2"
+    ],
+    "js__voting-credit.js": [
+      "checkCredit",
+      "depositCredit",
+      "burnCredit",
+      "depositStakeCredit",
+      "getSharePrice",
+      "getUserShares",
+      "checkNrOfStakes",
+      "stakeLookup"
+    ]
+  },
+  "parityWorkThisTurn": [
+    {
+      "id": "miner-partitions",
+      "owner": "miner agent",
+      "actions": [
+        "partial withdrawal",
+        "partial transfer",
+        "partial longer-duration hop"
+      ],
+      "evidence": "js__allStakes.js transferPartial/hopPools/withdraw; local MinerActions and miner partial-share tests",
+      "status": "implemented_this_turn"
+    },
+    {
+      "id": "donation-contract",
+      "owner": "miner agent",
+      "actions": [
+        "create a donation receiver contract",
+        "select recipient/duration/mandatory service",
+        "use receiver in separately voted treasury request",
+        "activate the funded miner"
+      ],
+      "evidence": "issue-miner.html and js__issueStake.js createContract; local MinerDonations.tsx and minerDonationTransactions.ts",
+      "status": "implemented_this_turn"
+    },
+    {
+      "id": "maintenance",
+      "owner": "root + maintenance backend agent",
+      "status": "implemented_this_turn",
+      "actionCount": 13,
+      "actions": [
+        "buybackContract.buyWithPLS()",
+        "buybackContract.swapTokenForPLS(PLSX/INC/HEX, currentBalance)",
+        "Governor.harvest()",
+        "farmerContract.harvest(9)",
+        "Farms.rebalancePools()",
+        "Farms.reduceMaxPulseAllocation()",
+        "Farms.rebalanceIfPulseAllocationExceedsMaximum()",
+        "vault.updateFees()",
+        "vault.collectCommission(users, positionIndices) (verified direct equivalent of original proxy batches)",
+        "MasterChef.fairMintSenate() (deployed successor to original harvestForSenate handler)",
+        "MasterChef.publishTokens(senateAddress, callerCreditAmount)"
+      ],
+      "evidence": "js__availableActions.decoded.js; js__senate.js harvestForSenators/mintTokens"
+    },
+    {
+      "id": "legacy-token-models",
+      "owner": "parity audit agent",
+      "status": "live_reads_and_accounting_explanations_with_external_action_links; local_writes_not_implemented",
+      "assets": [
+        {
+          "id": "pdrip",
+          "reason": "Live token implementation lacks verified source; approval/transfer/accounting semantics unknown."
+        },
+        {
+          "id": "emit",
+          "reason": "Non-whitelisted transfers burn 1% and retain 4%; mutable swap/reward callbacks. Vault is not whitelisted at reviewed snapshot."
+        },
+        {
+          "id": "ptgc",
+          "reason": "5% standard transfer fees, reflection, staking callback and token locking. Vault is not exempt at reviewed snapshot."
+        },
+        {
+          "id": "ufo",
+          "reason": "6% transfer fees, reflection and mutable LPStaking callbacks. Vault is not exempt at reviewed snapshot."
+        }
+      ],
+      "evidence": "evidence/expanded-tokens-b-review.md; evidence/expanded-farm-vaults.md"
+    }
+  ],
+  "notMissingOriginalFeatures": [
+    "Original multiCall in pulseStakes is a HEX-share view helper, not a Claim all transaction. Original farm reward actions select individual positions.",
+    "NFT-allocation.html governs NFT valuation/allocation contracts. The original main repository does not provide an NFT mint/stake UI; DEGEN NFT project actions remain in the published linked project dashboard.",
+    "eHEX and some old side navigation entries are commented out in original HTML and are not active original workflows.",
+    "giveToRewardContract and activateRewardReduction in the original maintenance script are unused legacy declarations. The active features() control opens governance links rather than calling another contract.",
+    "Local direct/miner farm reward destinations, emergency farm recovery, old/current referral accounting, distribution claims, eleven ordinary proposal families and advanced treasury/Senate/Governor/NFT governance already exist."
+  ],
+  "displayCoverageLimits": [
+    "Treasury inflows count tracked ERC20 transfers, excluding native PLS and untracked tokens; incomplete time windows stay explicit.",
+    "Ten documented treasury farming strategies are valued; pending rewards and unknown future strategies are excluded.",
+    "Prices, balances, allocations, projections and histories refresh in the background; failed reads must not become fabricated zero values."
+  ],
+  "remainingLocalIntegrations": [
+    {
+      "assets": [
+        "PDRIP",
+        "EMIT",
+        "pTGC",
+        "UFO"
+      ],
+      "actions": [
+        "deposit",
+        "position claim",
+        "position withdrawal"
+      ],
+      "disposition": "Live reads remain available. Token-specific accounting explanations, verified source links and the original deposit/position pages are shown; these links are not counted as implemented local writes."
+    },
+    {
+      "assets": [
+        "PDRIP"
+      ],
+      "actions": [
+        "collect funding fees"
+      ],
+      "disposition": "Original maintenance link with an explicit unavailable reason; no local fee-action authorization."
+    }
+  ],
+  "validation": {
+    "tests": {
+      "total": 987,
+      "passed": 987,
+      "failed": 0,
+      "log": "evidence/full-site-parity-tests-2026-10-24.log"
+    },
+    "maintenanceTests": {
+      "passed": 50,
+      "failed": 0,
+      "log": "evidence/community-maintenance-tests.log"
+    },
+    "typecheck": {
+      "result": "passed",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.app.json --pretty false"
+    },
+    "productionBuild": {
+      "result": "passed",
+      "log": "evidence/full-site-parity-build-2026-10-24.log"
+    },
+    "sourceAndRuntime": "evidence/community-maintenance.json",
+    "publicReadStatusAndQuotes": "evidence/community-maintenance-live.json",
+    "independentReview": "evidence/community-maintenance-independent-review-2026-10-24.md",
+    "minerDonationAndPartialLiveChecks": "evidence/miner-donation/live-checks-2026-10-24.json",
+    "browser": {
+      "maintenanceActionsRendered": 13,
+      "maintenanceCardsHeightChangePx": 0,
+      "maintenanceCardsPositionChangePx": 0,
+      "geometryEvidence": "evidence/maintenance-layout-2026-10-24.json",
+      "preview": "evidence/maintenance-preview-2026-10-24.png",
+      "donationWorkflowVerified": true,
+      "pdripFeeRestrictionVerified": true,
+      "emitFeeReviewOptionVerified": true
+    },
+    "noWalletApprovalTransactionOrDeploymentPerformed": true
+  },
+  "publicReadSummary": {
+    "checkedAt": "2026-10-24T21:04:38.423Z",
+    "block": 27882317,
+    "timestamp": 1792875835,
+    "ecosystemAllocationBasisPoints": "1726",
+    "ecosystemCapBasisPoints": "3229",
+    "activeEvent": null,
+    "quotes": [
+      {
+        "action": "buyback",
+        "prepared": true
+      },
+      {
+        "action": "convert-buyback",
+        "prepared": true
+      },
+      {
+        "action": "sync-staking",
+        "prepared": true
+      },
+      {
+        "action": "reduce-rewards",
+        "prepared": true
+      },
+      {
+        "action": "rebalance-ecosystem",
+        "prepared": true
+      }
+    ],
+    "note": "This is read-only snapshot evidence, not a transaction result. Later UI precision and zero-member readiness fixes are verified by the final tests; snapshot logs retain their original output."
+  }
+}

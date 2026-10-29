@@ -1,0 +1,42 @@
+.oink-farms-page .bfc-deposit-review:not(:disabled), .oink-farms-page .bfc-approve-btn:not(:disabled) { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 22%,var(--panel)); color:var(--fg); }
+.oink-farms-page .bfc-amount:enabled { cursor:text; }
+.oink-farms-page .farm-quick-amounts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
+.oink-farms-page .farm-quick-amounts button { min-height:32px; padding:5px 6px; border:1px solid var(--farm-border-soft); border-radius:6px; background:var(--farm-metric); color:var(--fg); font:600 11px/1.3 "DM Sans",sans-serif; cursor:pointer; }
+.oink-farms-page .farm-quick-amounts button:hover:not(:disabled) { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--farm-metric)); }
+.oink-farms-page .farm-quick-amounts button:disabled { opacity:.5; cursor:not-allowed; }
+.oink-farms-page .farm-quick-amounts button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.protocol-review-fact { display:contents; }
+.oink-farms-page .farm-reset-allowance { border:0; padding:3px; background:transparent; font-size:10px; text-decoration:underline; }
+.oink-farms-page .farm-action-status { margin:3px 0; color:var(--farm-muted); font-size:10px; line-height:1.5; }
+.oink-farms-page .farm-action-error { margin:4px 0; border:1px solid var(--accent); background:color-mix(in srgb,var(--accent) 9%,var(--panel)); padding:10px; border-radius:6px; font-size:11px; overflow-wrap:anywhere; }
+.oink-farms-page .farm-submission { padding:10px; border:1px solid var(--farm-border-soft); border-radius:6px; font-size:11px; overflow-wrap:anywhere; }
+.oink-farms-page .farm-submission p { margin:0 0 8px; }
+.oink-farms-page .farm-submission code { display:block; margin:8px 0; font-size:10px; }
+.oink-farms-page .farm-wallet-use { padding:4px 8px; font-size:11px; }
+.oink-farms-page .farm-stage-note { border:1px solid var(--farm-border-soft); padding:12px 16px; margin:12px 0; border-radius:8px; color:var(--farm-muted); font-size:12px; }
+.oink-farms-page .farm-stage-note strong { color:var(--fg); }
+.farm-review-dialog { width:min(670px,calc(100% - 28px)); max-height:calc(100dvh - 32px); overflow-y:auto; padding:24px; color:var(--fg); background:var(--panel); border:1px solid var(--accent); border-radius:14px; box-shadow:0 22px 90px #0009; font:400 13px/1.6 "DM Sans",sans-serif; }
+.farm-review-dialog::backdrop { background:#0006; backdrop-filter:none; }
+.farm-review-dialog header { display:flex; align-items:start; justify-content:space-between; gap:16px; margin-bottom:18px; }
+.farm-review-dialog h2 { font-size:22px; margin:4px 0; line-height:1.3; }
+.farm-review-kicker { font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+.farm-review-facts { display:grid; grid-template-columns:160px minmax(0,1fr); gap:12px 18px; margin:0 0 20px; font-size:12px; }
+.farm-review-facts dt { color:color-mix(in srgb,var(--fg) 65%,var(--panel)); }
+.farm-review-facts dd { margin:0; overflow-wrap:anywhere; font-weight:600; }
+.farm-review-warning { border:1px solid color-mix(in srgb,var(--accent) 55%,transparent); border-radius:8px; padding:15px; background:color-mix(in srgb,var(--accent) 10%,var(--panel)); }
+.farm-review-warning p { margin:8px 0 0; }
+.farm-review-dialog details { font-size:11px; margin:18px 0; overflow-wrap:anywhere; }
+.farm-review-dialog code { display:block; white-space:pre-wrap; overflow-wrap:anywhere; padding:10px; background:var(--bg); border-radius:6px; font-size:11px; }
+.farm-review-consent { display:flex; align-items:flex-start; gap:10px; margin-top:20px; font-size:12px; cursor:pointer; }
+.oink-farms-page .farm-review-consent input { width:17px; min-width:17px; height:17px; margin-top:2px; accent-color:var(--accent); }
+.farm-review-expiry { font-size:11px; color:color-mix(in srgb,var(--fg) 65%,var(--panel)); }
+.farm-review-buttons { display:flex; justify-content:flex-end; gap:10px; margin-top:18px; }
+.farm-review-dialog button {border:1px solid var(--border);background:var(--bg);color:var(--fg);border-radius:7px;padding:10px 15px;cursor:pointer;font:inherit}
+.farm-review-dialog button:disabled {opacity:.5;cursor:not-allowed}
+.farm-review-dialog .farm-review-buttons button:last-child:not(:disabled){border-color:var(--accent);background:var(--accent);color:var(--bg);font-weight:700}
+.farm-review-dialog .farm-review-consent input{width:17px;min-width:17px;height:17px;margin-top:2px;accent-color:var(--accent)}
+.farm-review-dialog :is(button,input,summary):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.position-write-control>button,.position-transaction-status button{border:1px solid var(--accent);border-radius:7px;background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--fg);padding:10px 14px;min-height:40px;cursor:pointer;font:inherit}
+.position-write-control>button{width:100%}.position-write-control>button:disabled{opacity:.5;cursor:not-allowed}
+.oink-farms-page .farm-review-dialog .farm-confirm:not(:disabled) { color:var(--bg); background:var(--accent); border-color:var(--accent); font-weight:700; }
+@media(max-width:600px) { .farm-review-dialog { padding:18px; } .farm-review-facts { grid-template-columns:1fr; gap:3px; } .farm-review-facts dd { margin-bottom:10px; } .farm-review-buttons { flex-direction:column-reverse; } }

@@ -1,0 +1,199 @@
+{
+  "maintenance": {
+    "before": {
+      "cards": [
+        {
+          "height": 576,
+          "top": 946.046875
+        },
+        {
+          "height": 576,
+          "top": 946.046875
+        },
+        {
+          "height": 395,
+          "top": 1538.046875
+        },
+        {
+          "height": 395,
+          "top": 1538.046875
+        },
+        {
+          "height": 523,
+          "top": 1949.046875
+        },
+        {
+          "height": 523,
+          "top": 1949.046875
+        },
+        {
+          "height": 395,
+          "top": 2488.046875
+        },
+        {
+          "height": 395,
+          "top": 2488.046875
+        },
+        {
+          "height": 772,
+          "top": 2899.046875
+        },
+        {
+          "height": 772,
+          "top": 2899.046875
+        },
+        {
+          "height": 494,
+          "top": 3687.046875
+        },
+        {
+          "height": 494,
+          "top": 3687.046875
+        },
+        {
+          "height": 395,
+          "top": 4197.046875
+        }
+      ],
+      "scrollWidth": 1136,
+      "sizes": [
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        },
+        {
+          "height": 17,
+          "width": 17
+        }
+      ],
+      "width": 1151
+    },
+    "after": {
+      "active": "About Buy back OINK",
+      "cards": [
+        {
+          "height": 576,
+          "top": 946.046875
+        },
+        {
+          "height": 576,
+          "top": 946.046875
+        },
+        {
+          "height": 395,
+          "top": 1538.046875
+        },
+        {
+          "height": 395,
+          "top": 1538.046875
+        },
+        {
+          "height": 523,
+          "top": 1949.046875
+        },
+        {
+          "height": 523,
+          "top": 1949.046875
+        },
+        {
+          "height": 395,
+          "top": 2488.046875
+        },
+        {
+          "height": 395,
+          "top": 2488.046875
+        },
+        {
+          "height": 772,
+          "top": 2899.046875
+        },
+        {
+          "height": 772,
+          "top": 2899.046875
+        },
+        {
+          "height": 494,
+          "top": 3687.046875
+        },
+        {
+          "height": 494,
+          "top": 3687.046875
+        },
+        {
+          "height": 395,
+          "top": 4197.046875
+        }
+      ],
+      "tooltip": {
+        "bottom": 515.0625,
+        "height": 191.21875,
+        "left": 58.671875,
+        "parent": "BODY",
+        "right": 408.671875,
+        "top": 323.84375,
+        "width": 350,
+        "x": 58.671875,
+        "y": 323.84375
+      }
+    },
+    "maxCardHeightChangePx": 0,
+    "maxCardPositionChangePx": 0
+  },
+  "keyboardFocusOpens": true,
+  "escapeCloses": true,
+  "clickPinsAndSecondClickCloses": true,
+  "tablePopupRendersOutsideScrollRegion": true,
+  "triggerWidthPx": 17,
+  "triggerHeightPx": 17,
+  "publicDashboardPopupWithinViewport": true,
+  "testsPassed": 991,
+  "noWalletOrTransactionRequests": true
+}

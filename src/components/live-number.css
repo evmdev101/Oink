@@ -1,0 +1,7 @@
+.live-number { font-variant-numeric:tabular-nums; }
+.live-number-tick { display:inline-block; animation-duration:.55s; animation-timing-function:ease-out; animation-iteration-count:1; }
+.live-number-up { animation-name:oinkNumberUp; --number-tick-glow:color-mix(in srgb,var(--accent) 70%,var(--fg)); }
+.live-number-down { animation-name:oinkNumberDown; --number-tick-glow:color-mix(in srgb,#e17187 70%,var(--fg)); }
+@keyframes oinkNumberUp { 0% { transform:translateY(2px); text-shadow:0 0 8px var(--number-tick-glow); } 100% { transform:translateY(0); text-shadow:none; } }
+@keyframes oinkNumberDown { 0% { transform:translateY(-2px); text-shadow:0 0 8px var(--number-tick-glow); } 100% { transform:translateY(0); text-shadow:none; } }
+@media(prefers-reduced-motion:reduce) { .live-number-tick { animation:none; } }

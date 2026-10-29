@@ -1,0 +1,2 @@
+import fs from 'node:fs/promises';import crypto from 'node:crypto';
+const p=JSON.parse(await fs.readFile('evidence/anvil-package.json','utf8'));const r=await fetch(p.dist.tarball,{signal:AbortSignal.timeout(60000)});const bytes=Buffer.from(await r.arrayBuffer());if('sha512-'+crypto.createHash('sha512').update(bytes).digest('base64')!==p.dist.integrity)throw Error('Integrity mismatch');await fs.mkdir('evidence/local-tools',{recursive:true});await fs.writeFile('evidence/local-tools/anvil.tgz',bytes);console.log('Verified Anvil package integrity');

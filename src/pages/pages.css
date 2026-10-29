@@ -1,0 +1,672 @@
+/* ═══════════════════════════════════════════════════════════════
+ *  OINK page styles — card/form/stat patterns follow the
+ *  DegenStrategy design system (.dsale-* / .gov-* conventions).
+ * ═══════════════════════════════════════════════════════════════ */
+
+.oink-wrap {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 48px 30px 90px;
+  font-size: 14px;
+}
+
+/* ── Typography ── */
+.oink-title {
+  max-width: 720px;
+  margin: 8px 0 18px;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 2.7vw, 3rem);
+  color: color-mix(in srgb, var(--fg) 78%, #fff);
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+.oink-desc {
+  max-width: 620px;
+  margin: 0 0 28px;
+  font-size: clamp(0.84rem, 1vw, 0.96rem);
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--fg) 66%, transparent);
+}
+.oink-section-label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--fg) 70%, transparent);
+  margin: 0 0 12px;
+}
+.oink-bigline {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--fg) 78%, #fff);
+}
+
+/* ── Hero ── */
+.oink-hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 52px;
+}
+.oink-hero-info {
+  min-width: 0;
+  padding: 6px 4px;
+}
+.oink-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 26px;
+}
+.oink-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+.oink-cta:hover {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  transform: translateY(-1px);
+}
+.oink-cta.secondary {
+  border-color: color-mix(in srgb, var(--fg) 30%, transparent);
+  background: none;
+  color: var(--fg);
+}
+.oink-cta.secondary:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* Contract address line (pattern: .nft-contract-line) */
+.oink-contract {
+  margin-top: 6px;
+}
+.oink-contract-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 8px;
+}
+.oink-contract-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.oink-contract-line > a {
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--fg) 45%, transparent);
+  text-underline-offset: 3px;
+}
+.oink-contract-line > a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+.oink-contract-line > button {
+  display: inline-grid;
+  min-width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0 8px;
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--panel) 82%, transparent);
+  color: var(--fg);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+.oink-contract-line > button:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, var(--panel));
+  color: var(--accent);
+}
+.oink-contract-line > button.copied {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-size: 9px;
+}
+
+/* Hero side panel (pattern: .dsale-panel) */
+.oink-hero-panel {
+  position: sticky;
+  top: 110px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--panel) 94%, transparent),
+    color-mix(in srgb, var(--bg) 84%, transparent)
+  );
+}
+.oink-hero-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 24px 6px;
+}
+.oink-hero-panel-head img {
+  max-width: 190px;
+  height: auto;
+  filter: drop-shadow(0 0 22px color-mix(in srgb, var(--accent) 40%, transparent));
+}
+.oink-hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.oink-hero-stat {
+  padding: 18px 22px;
+  border-top: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+}
+.oink-hero-stat:nth-child(odd) {
+  border-right: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+}
+.oink-hero-stat-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  opacity: 0.52;
+  margin-bottom: 7px;
+}
+.oink-hero-stat-val {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+.oink-hero-panel-foot {
+  padding: 14px 22px;
+  border-top: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  text-align: center;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--fg) 60%, transparent);
+}
+
+/* ── Live stats strip (pattern: .gov-stats) ── */
+.oink-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.oink-stat {
+  padding: 16px 18px;
+  border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+}
+.oink-stat-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.52;
+  margin-bottom: 7px;
+}
+.oink-stat-val {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+.oink-stat-loading {
+  opacity: 0.4;
+}
+
+/* ── Alert banner ── */
+.oink-alert {
+  margin: 0 0 52px;
+  padding: 18px 24px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  text-align: center;
+  font-family: "Permanent Marker", cursive;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  color: var(--accent);
+}
+
+/* ── Cards (pattern: .gov-card / .gov-how-step) ── */
+.oink-card {
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 16px;
+  padding: 24px 26px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--panel) 94%, transparent),
+    color-mix(in srgb, var(--bg) 84%, transparent)
+  );
+}
+.oink-card h2 {
+  margin: 0 0 6px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--fg) 82%, #fff);
+}
+.oink-card h3 {
+  margin: 0 0 8px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--fg) 82%, #fff);
+}
+.oink-card p {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--fg) 62%, transparent);
+}
+.oink-card p + p {
+  margin-top: 10px;
+}
+.oink-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 52px;
+}
+.oink-card-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.oink-section {
+  margin-bottom: 52px;
+}
+.oink-section .oink-card + .oink-card {
+  margin-top: 14px;
+}
+
+/* Numbered step badge (pattern: .gov-how-num) */
+.oink-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 7px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+/* Notice (pattern: .gov-explain) */
+.oink-notice {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--fg) 60%, transparent);
+  padding: 12px 16px;
+  margin: 0 0 24px;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+  border-radius: 0 8px 8px 0;
+}
+.oink-notice strong {
+  color: var(--accent);
+}
+
+/* Chips (pattern: .dsale-anychain-chip / .gov-term) */
+.oink-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+.oink-chip {
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px dashed color-mix(in srgb, var(--fg) 22%, transparent);
+  font-size: 0.66rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--fg) 58%, transparent);
+}
+.oink-chip b {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+/* Lists inside cards */
+.oink-list {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  font-size: 0.78rem;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--fg) 62%, transparent);
+}
+.oink-list li {
+  margin-bottom: 7px;
+}
+.oink-list li::marker {
+  color: var(--accent);
+}
+.oink-list strong,
+.oink-card p strong {
+  color: color-mix(in srgb, var(--fg) 85%, #fff);
+}
+
+/* Compare table (OINKpaper) */
+.oink-table-wrap {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+.oink-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+}
+.oink-table th {
+  padding: 11px;
+  text-align: left;
+  border-bottom: 1px solid var(--accent);
+  opacity: 0.55;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.oink-table td {
+  padding: 12px 11px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 62%, transparent);
+  color: color-mix(in srgb, var(--fg) 70%, transparent);
+}
+.oink-table td:first-child {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--fg) 85%, #fff);
+}
+.oink-table td:last-child {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Big link cards (home page: FAQ / OINKpaper / Tech) */
+.oink-link-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 52px;
+}
+.oink-link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 26px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 16px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--panel) 94%, transparent),
+    color-mix(in srgb, var(--bg) 84%, transparent)
+  );
+  color: var(--fg);
+  text-decoration: none;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.oink-link-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28),
+    0 0 24px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.oink-link-card strong {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--fg) 82%, #fff);
+}
+.oink-link-card span {
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--fg) 55%, transparent);
+}
+.oink-link-card em {
+  margin-top: auto;
+  padding-top: 10px;
+  font-style: normal;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 900;
+  font-size: 0.78rem;
+  color: var(--accent);
+}
+
+/* Telegram strip */
+.oink-telegram {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 26px 30px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 18px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent) 10%, var(--panel)),
+    color-mix(in srgb, var(--bg) 84%, transparent)
+  );
+}
+
+/* ── FAQ ── */
+.oink-faq-item {
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 16px;
+  padding: 22px 26px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--panel) 94%, transparent),
+    color-mix(in srgb, var(--bg) 84%, transparent)
+  );
+}
+.oink-faq-item + .oink-faq-item {
+  margin-top: 14px;
+}
+.oink-faq-item h3 {
+  margin: 0 0 8px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.oink-faq-item p {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--fg) 62%, transparent);
+}
+
+/* ── Tech page rail layout (pattern: .gov-grid / .gov-rail) ── */
+.oink-grid {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.oink-rail {
+  position: sticky;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.oink-rail-btn {
+  padding: 11px 14px;
+  border: none;
+  border-left: 2px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  background: none;
+  text-align: left;
+  color: color-mix(in srgb, var(--fg) 55%, transparent);
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.oink-rail-btn:hover {
+  color: var(--fg);
+}
+.oink-rail-btn.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+.oink-content {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+
+/* Contract address rows (tech page) */
+.oink-addr-group {
+  margin: 0;
+}
+.oink-addr-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  padding: 9px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 46%, transparent);
+  font-size: 0.74rem;
+}
+.oink-addr-row:last-child {
+  border-bottom: 0;
+}
+.oink-addr-row span {
+  color: color-mix(in srgb, var(--fg) 62%, transparent);
+}
+.oink-addr-row a {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 30%, transparent);
+  transition: color 0.15s, border-color 0.15s;
+}
+.oink-addr-row a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Inline text links inside cards */
+.oink-card a:not(.oink-cta),
+.oink-notice a,
+.oink-faq-item a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.oink-card a:not(.oink-cta):hover,
+.oink-notice a:hover,
+.oink-faq-item a:hover {
+  text-decoration: underline;
+}
+
+/* Page hero image (tech features graphic) */
+.oink-feature-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--border) 62%, transparent);
+}
+
+/* Closing sign-off line */
+.oink-signoff {
+  margin: 42px 0 0;
+  text-align: center;
+  font-family: "Permanent Marker", cursive;
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  color: var(--accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 980px) {
+  .oink-hero {
+    grid-template-columns: 1fr;
+  }
+  .oink-hero-panel {
+    position: static;
+  }
+  .oink-card-grid,
+  .oink-link-cards {
+    grid-template-columns: 1fr;
+  }
+  .oink-card-grid.cols-2 {
+    grid-template-columns: 1fr;
+  }
+  .oink-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .oink-grid {
+    grid-template-columns: 1fr;
+  }
+  .oink-rail {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .oink-rail-btn {
+    border-left: none;
+    border-bottom: 2px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  }
+  .oink-rail-btn.active {
+    border-bottom-color: var(--accent);
+  }
+}
+@media (max-width: 700px) {
+  .oink-wrap {
+    padding: 28px 14px 56px;
+  }
+  .oink-title {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+  }
+  .oink-cta {
+    width: 100%;
+  }
+  .oink-hero-stats,
+  .oink-stats {
+    grid-template-columns: 1fr;
+  }
+  .oink-hero-stat:nth-child(odd) {
+    border-right: 0;
+  }
+}

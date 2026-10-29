@@ -1,0 +1,13 @@
+.public-preview-notice {
+  width: min(1280px, calc(100% - 32px));
+  box-sizing: border-box;
+  margin: 20px auto;
+  padding: 16px 20px;
+  border: 1px solid #727887;
+  border-radius: 12px;
+  background: #151820;
+  color: #f2f4fa;
+  font: 400 14px/1.6 "DM Sans", sans-serif;
+}
+.public-preview-notice strong { font-weight: 700; font-size: 16px; }
+.public-preview-notice p { margin: 5px 0 0; color: #d5d9e4; }

@@ -1,0 +1,12 @@
+{
+  "url": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x565a58a0ac78d2a2e2a8f4dd0ec006f8b3afd281",
+  "data": {
+    "message": "OK",
+    "result": [
+      {
+        "Address": "0x565a58a0ac78d2a2e2a8f4dd0ec006f8b3afd281"
+      }
+    ],
+    "status": "1"
+  }
+}

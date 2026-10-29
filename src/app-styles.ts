@@ -1,0 +1,36 @@
+// Load layout rules before the first render. Route code and chain reads remain
+// lazy; hovering a tab must not add CSS that changes the page already on screen.
+import "./components/header-layout.css";
+import "./components/wallet.css";
+import "./pages/reference-layout.css";
+import "./components/distribution-charts.css";
+import "./themes/frosted.css";
+import "./styles.css";
+import "./pages/pages.css";
+import "./app.css";
+import "./pages/home-resources.css";
+import "./pages/overview-layout.css";
+import "./components/scroll-region.css";
+import "./components/live-number.css";
+import "./components/access-tools.css";
+import "./components/farm-transactions.css";
+import "./components/position-previews.css";
+import "./components/farm-recovery.css";
+import "./components/miner-actions.css";
+import "./components/miner-rollover.css";
+import "./components/mining-offers.css";
+import "./components/participation-actions.css";
+import "./components/participation-snapshot.css";
+import "./components/time-miner-cards.css";
+import "./components/oink-contract-showcase.css";
+import "./pages/farms-layout.css";
+import "./pages/miners-layout.css";
+import "./pages/portfolio-detail.css";
+import "./pages/governance-layout.css";
+import "./pages/secondary-page-stability.css";
+import "./pages/maintenance-layout.css";
+import "./themes/obsidian.css";
+import "./stable-layout.css";
+import "./components/info-tooltip.css";
+import "./readable-layout.css";
+import "./pages/secondary-readability.css";

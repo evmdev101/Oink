@@ -1,0 +1,198 @@
+{
+  "checkedAt": "2026-09-19T15:43:55.537Z",
+  "readOnly": true,
+  "results": {
+    "hex": {
+      "block": 27586452,
+      "blockHash": "0x950397ba4c126dc9fda82cedb03ac18e4b94f1aac195ec24d16a9da685330647",
+      "timestamp": 1789832595,
+      "account": null,
+      "total": "40299030159890557",
+      "safePeriod": "43200",
+      "maxStakes": "150",
+      "count": "0",
+      "counted": 0,
+      "eligible": "0",
+      "registered": null,
+      "debt": null,
+      "lastAction": null,
+      "gross": null,
+      "direct": "50",
+      "destinations": [
+        {
+          "id": "one-month",
+          "label": "1 month",
+          "days": 30,
+          "payout": "100",
+          "minServe": "864000"
+        },
+        {
+          "id": "three-month",
+          "label": "3 months",
+          "days": 91,
+          "payout": "300",
+          "minServe": "2592000"
+        },
+        {
+          "id": "six-month",
+          "label": "6 months",
+          "days": 181,
+          "payout": "500",
+          "minServe": "5184000"
+        },
+        {
+          "id": "one-year",
+          "label": "1 year",
+          "days": 365,
+          "payout": "1000",
+          "minServe": "8640000"
+        },
+        {
+          "id": "three-year",
+          "label": "3 years",
+          "days": 1095,
+          "payout": "2500",
+          "minServe": "20736000"
+        },
+        {
+          "id": "five-year",
+          "label": "5 years",
+          "days": 1826,
+          "payout": "10000",
+          "minServe": "31536000"
+        }
+      ]
+    },
+    "maintenance": {
+      "block": 27586453,
+      "timestamp": 1789832605,
+      "lastHarvest": 1789799185,
+      "allocation": "236",
+      "maximum": "3229",
+      "rebalanceNeeded": false,
+      "nextReduction": 1786413215,
+      "reductionReady": true,
+      "eventId": null,
+      "eventEndBlock": null,
+      "eventReady": false
+    },
+    "contributors": {
+      "id": "contributors",
+      "label": "Contributor distribution",
+      "account": "0xAeDa4088A73daA95642cDa172CaA5DE181719146",
+      "block": 27586453,
+      "blockHash": "0x208d29dfb48a7a8205ebcdb961c24816877cd0970a12dc0a9e8e2fc6011ddf06",
+      "timestamp": 1789832605,
+      "credit": "243369539898636869163381810",
+      "direct": "8000",
+      "totalRedeemed": "594405616169788676578738176",
+      "redeemed": "53690000000000000000000000",
+      "allocation": "53690382691575976937127936",
+      "remaining": "382691575976937127936",
+      "destinations": [
+        {
+          "id": "one-month",
+          "label": "1 month",
+          "days": 30,
+          "payout": "8500",
+          "minServe": "0"
+        },
+        {
+          "id": "three-month",
+          "label": "3 months",
+          "days": 91,
+          "payout": "8750",
+          "minServe": "0"
+        },
+        {
+          "id": "six-month",
+          "label": "6 months",
+          "days": 181,
+          "payout": "9000",
+          "minServe": "0"
+        },
+        {
+          "id": "one-year",
+          "label": "1 year",
+          "days": 365,
+          "payout": "9500",
+          "minServe": "0"
+        },
+        {
+          "id": "three-year",
+          "label": "3 years",
+          "days": 1095,
+          "payout": "9750",
+          "minServe": "0"
+        },
+        {
+          "id": "five-year",
+          "label": "5 years",
+          "days": 1826,
+          "payout": "10000",
+          "minServe": "0"
+        }
+      ],
+      "sweepAfter": null
+    },
+    "rewards": {
+      "id": "rewards",
+      "label": "Launch reward distribution",
+      "account": "0x94461b668ff68c7e90686072E95386E42A0a1a6C",
+      "block": 27586454,
+      "blockHash": "0xbc429151f1f129302dd6a06724fce5ba5f5ac9d770eaef4e140616a675c7fb9b",
+      "timestamp": 1789832615,
+      "credit": "0",
+      "direct": "250",
+      "totalRedeemed": "22982753017531444899610624",
+      "redeemed": "2985298728926000208412672",
+      "allocation": "2985298728926000208412672",
+      "remaining": "0",
+      "destinations": [
+        {
+          "id": "one-month",
+          "label": "1 month",
+          "days": 30,
+          "payout": "500",
+          "minServe": "864000"
+        },
+        {
+          "id": "three-month",
+          "label": "3 months",
+          "days": 91,
+          "payout": "1000",
+          "minServe": "2592000"
+        },
+        {
+          "id": "six-month",
+          "label": "6 months",
+          "days": 181,
+          "payout": "1500",
+          "minServe": "5184000"
+        },
+        {
+          "id": "one-year",
+          "label": "1 year",
+          "days": 365,
+          "payout": "2000",
+          "minServe": "8640000"
+        },
+        {
+          "id": "three-year",
+          "label": "3 years",
+          "days": 1095,
+          "payout": "5000",
+          "minServe": "20736000"
+        },
+        {
+          "id": "five-year",
+          "label": "5 years",
+          "days": 1826,
+          "payout": "10000",
+          "minServe": "31536000"
+        }
+      ],
+      "sweepAfter": 1711528455
+    }
+  }
+}

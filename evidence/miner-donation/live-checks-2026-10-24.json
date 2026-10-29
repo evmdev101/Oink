@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-10-24T21:07:55.750Z",
+  "readOnly": true,
+  "creation": {
+    "block": 27882341,
+    "blockHash": "0x69b47a0974ff85e12e06cf56739b0c0412d6fdd8f70c2880f6f7d14ec82ed94a",
+    "runtimeMatches": true,
+    "sourceHash": "0xa34becfddf5a41ffcf914d962e48e0e91a6410687220c77621a2990bc3131512"
+  },
+  "miners": [
+    {
+      "id": "one-month",
+      "partialWithdrawals": true,
+      "partialTransfers": true,
+      "transfersEnabled": true,
+      "minimumGift": "100.0",
+      "historicalPositions": "0",
+      "previews": []
+    },
+    {
+      "id": "three-month",
+      "partialWithdrawals": true,
+      "partialTransfers": true,
+      "transfersEnabled": true,
+      "minimumGift": "100.0",
+      "historicalPositions": "0",
+      "previews": []
+    },
+    {
+      "id": "six-month",
+      "partialWithdrawals": true,
+      "partialTransfers": true,
+      "transfersEnabled": true,
+      "minimumGift": "100.0",
+      "historicalPositions": "0",
+      "previews": []
+    },
+    {
+      "id": "one-year",
+      "partialWithdrawals": true,
+      "partialTransfers": true,
+      "transfersEnabled": true,
+      "minimumGift": "100.0",
+      "historicalPositions": "0",
+      "previews": []
+    },
+    {
+      "id": "three-year",
+      "partialWithdrawals": true,
+      "partialTransfers": true,
+      "transfersEnabled": true,
+      "minimumGift": "100.0",
+      "historicalPositions": "0",
+      "previews": []
+    },
+    {
+      "id": "five-year",
+      "partialWithdrawals": true,
+      "partialTransfers": true,
+      "transfersEnabled": true,
+      "minimumGift": "100.0",
+      "historicalPositions": "162",
+      "previews": [
+        {
+          "kind": "withdraw",
+          "block": 27882342,
+          "simulation": "Blocked: mandatory service has not ended. No withdrawal was simulated.",
+          "selectedShares": "1652109927781454179611"
+        },
+        {
+          "kind": "transfer",
+          "block": 27882342,
+          "simulation": "Passed at this snapshot. No transaction sent; this is not a guarantee of execution or safety.",
+          "selectedShares": "1652109927781454179611"
+        }
+      ]
+    }
+  ]
+}

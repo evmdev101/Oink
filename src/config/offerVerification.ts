@@ -1,0 +1,101 @@
+// Explorer-source builds matched at block 27586410. See evidence/offer-builds.json.
+export const OFFER_DEPLOYMENTS = {
+  "sale": {
+    "address": "0x4Ca5e92D67Fe647F1f8E6f21bd4D6Ff4aE35dA8e",
+    "runtimeHash": "0x5afbcd3c4901750004c86a27079b21ca29770ecb032f9b0d852a6e153edbbdb1"
+  },
+  "referral": {
+    "address": "0xf69357627d6dcc463ac30273Aae13fDB49B07C15",
+    "runtimeHash": "0x3302b531d80bab08f4bab75f2a38afb8a8daa1aaa05ced87d96b502e409ee6a9"
+  },
+  "legacyReferral": {
+    "address": "0x066F0a45801bcbc5232b11ed4b97c39E1369fe59",
+    "runtimeHash": "0x76f6d61d818f9ded9915612ac8095ab733ead0e7aeafb2d08f03bf263f1ea1fa"
+  },
+  "oinkPair": {
+    "address": "0xEf9Ea3d72e28c7140481209190601C085027D6fE",
+    "runtimeHash": "0x4d65271e337c3dbadc69a005b2aa77df8eb7025ab1b5ab3dddb13585b87f4aa5"
+  },
+  "plsxPair": {
+    "address": "0x1b45b9148791d3a104184Cd5DFE5CE57193a3ee9",
+    "runtimeHash": "0x2b04db39bbbe4838f8dbb7b621b8d49a30d97ac772f095a87ec401ff878d4b10"
+  },
+  "incPair": {
+    "address": "0xf808Bb6265e9Ca27002c0A04562Bf50d4FE37EAA",
+    "runtimeHash": "0x2b04db39bbbe4838f8dbb7b621b8d49a30d97ac772f095a87ec401ff878d4b10"
+  },
+  "hexPair": {
+    "address": "0xf1F4ee610b2bAbB05C635F726eF8B0C568c8dc65",
+    "runtimeHash": "0x2b04db39bbbe4838f8dbb7b621b8d49a30d97ac772f095a87ec401ff878d4b10"
+  }
+} as const;
+export const REFERRAL_POINT_VAULTS = [
+  {
+    "address": "0xE145932f6b010B0166aA6860D56b2730744B7d6f",
+    "runtimeHash": "0x5080e8894d36bdcc764a584ccbe690c4bb19df87329e93f905e735c60ff6839e"
+  },
+  {
+    "address": "0x16233F6d7398f134EbCec11101e792c03ED296a4",
+    "runtimeHash": "0x708ba7857acc91b3a704e5a927ab87b4d8c269548943e12dc596ab70f89cb10b"
+  },
+  {
+    "address": "0x852443CB5b5f5B10e514CA74104bBF2Cd6CeF868",
+    "runtimeHash": "0x263b4c28d29ae461e341b99ef616586fe84171a871341d96644f783f00beb4b6"
+  },
+  {
+    "address": "0x164D4C1fDd74A5b7256Fd9Eca958c9ff70617c03",
+    "runtimeHash": "0x39cdf4ba5b3bf531408c399acbb4bb403d3fa7575a790982a7102df53fb7857b"
+  },
+  {
+    "address": "0x6b465C480CD590852f90c8f1b41Ab22922a1BF85",
+    "runtimeHash": "0x75aeddca36cf87f55a75a1a04a99d5581d8d1ad6d400769e3004778fe1391aa8"
+  },
+  {
+    "address": "0x140f16365d05DcC84Fa489194CD022d5CBee4cb2",
+    "runtimeHash": "0xcd3353416156033948926be496601f1eb20c91cd91fa39fc2b7375bef9f3cb35"
+  },
+  {
+    "address": "0x9E70665aDee807f262Ae59Dc1f8D4Dd878320C21",
+    "runtimeHash": "0x69a94e7b48c5af68005d8ff899e35f83c19364311b9150f01bf8f754d9fa9a3a"
+  },
+  {
+    "address": "0x7c61919AccF037975bbD3a91b0F5811c640018b1",
+    "runtimeHash": "0x660b549c1cf4063e45499b206185790ccba3ed88b8f92fbe747c176fc0d9dc26"
+  },
+  {
+    "address": "0xc13b8974CD5caa67D7e539D2654C872b5AcA5105",
+    "runtimeHash": "0xe4d87878cb9ef4de46065d49c44cfb0306e7a88a6aa25fc85c8874dddbe30587"
+  },
+  {
+    "address": "0x2057dd1687eafCD809386a41012748AC509df542",
+    "runtimeHash": "0x6e321e2e4be921a8506946a5d57b4e73ec0ee7b3c24b1f8fc2e517c7899425de"
+  },
+  {
+    "address": "0xED1b56c799D28a988bd79BbF2F7E238c2Ba15C21",
+    "runtimeHash": "0xab2ec17866990c1ed2eb01196bfc7b518d1719331a7c774cdfce726ed11bbc38"
+  },
+  {
+    "address": "0xf46810Ce204a9a85a673Ea9bbcc1bf5481EE1328",
+    "runtimeHash": "0x454b17198184ba79d7149f7bcb2f42bbf03ec3954b9c9b4c1f8042c7220916bd"
+  },
+  {
+    "address": "0xc49EF441FFb79108047E4dF812F375A7E48FD3De",
+    "runtimeHash": "0x1c67e6f77b3e964457f47fffa51123d91be50405a1f6dbea1fbc70a6e9d012a9"
+  },
+  {
+    "address": "0x1aB20028a50477e11bC4066047D8942De1375eF7",
+    "runtimeHash": "0x9ee2dfb530c509f8e42d62e74d63533acac6048610baee02e10f2fbf21e0ba0d"
+  },
+  {
+    "address": "0x4441c3bDB96139A45dF653Ec0432d076631A6D9F",
+    "runtimeHash": "0xa3a859517efbd7e91921042cbdeada0e0927dd593c8651ab3cd688c42cf4f23b"
+  },
+  {
+    "address": "0xa620473a3Eb138c43e1F7065bdA0Ded0e039d8fd",
+    "runtimeHash": "0xa17615ecabc54f0c7846d985cc9b2adb63d8a6d5478e6f82517e968f9ea44f1c"
+  },
+  {
+    "address": "0xCE34298e7456Fd748E432e02cc4f107aC864C739",
+    "runtimeHash": "0x1cad09a741a1ad3b5d6938b7092cade939ae0027825142fd7a8e38a84011da71"
+  }
+] as const;

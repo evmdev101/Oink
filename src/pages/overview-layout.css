@@ -1,0 +1,35 @@
+.overview-page { max-width:1200px; }
+.overview-page .page-intro { display:block; margin-bottom:28px; }
+.overview-page .page-intro h1 { font-size:clamp(28px,4vw,44px); margin:12px 0; }
+.overview-page .page-intro p { max-width:760px; line-height:1.7; opacity:.8; }
+.overview-section { margin-top:24px; }
+.overview-page .professional-card { min-width:0; }
+.overview-page .professional-card p { line-height:1.75; }
+.overview-steps { padding-left:24px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px; }
+.overview-steps h3 { margin-bottom:8px; }
+.overview-glossary { display:grid; grid-template-columns:130px 1fr; gap:12px; line-height:1.65; }
+.overview-glossary dd { margin:0; }
+.app-page.overview-page .overview-glossary :is(dt,dd) { color:var(--fg); }
+.portfolio-value { font-size:clamp(30px,5vw,48px); color:var(--accent); margin:12px 0; overflow-wrap:anywhere; }
+.portfolio-breakdown { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin:24px 0; }
+.portfolio-breakdown > div { border-top:1px solid var(--border); padding-top:16px; display:grid; gap:10px; }
+.portfolio-breakdown strong { font-size:20px; }
+.portfolio-note { font-size:13px; line-height:1.7; opacity:.75; }
+.portfolio-toolbar { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.portfolio-table-wrap { overflow-x:auto; }
+.portfolio-table { width:100%; border-collapse:collapse; font-size:14px; }
+.portfolio-table th,.portfolio-table td { padding:14px 12px; text-align:left; border-bottom:1px solid var(--border); }
+.portfolio-table th { font-size:12px; opacity:.7; }
+.portfolio-table td:not(:first-child) { white-space:nowrap; }
+.portfolio-table caption { text-align:left; margin:12px 0; }
+.portfolio-account { overflow-wrap:anywhere; font-size:12px; }
+.docs-layout { display:grid; grid-template-columns:220px minmax(0,1fr); gap:32px; align-items:start; }
+.docs-sidebar { position:sticky; top:160px; }
+.docs-sidebar label { display:grid; gap:10px; font-size:12px; }
+.docs-sidebar input { box-sizing:border-box; min-width:0; width:100%; border:1px solid var(--border); border-radius:8px; background:var(--panel); color:var(--fg); padding:12px; }
+.docs-sidebar .resources-nav { display:flex; flex-direction:column; align-items:stretch; gap:8px; margin-top:18px; }
+.docs-sidebar .resources-nav button { text-align:left; }
+.docs-content { min-width:0; }
+@media(max-width:800px) { .docs-layout { grid-template-columns:1fr; } .docs-sidebar { position:static; } .docs-sidebar .resources-nav { flex-direction:row; flex-wrap:wrap; } }
+@media(max-width:800px) { .overview-steps { grid-template-columns:1fr 1fr; } .portfolio-breakdown { grid-template-columns:1fr; } }
+@media(max-width:500px) { .overview-steps { grid-template-columns:1fr; } .overview-glossary { grid-template-columns:1fr; gap:6px; } .overview-glossary dd { margin-bottom:10px; } }

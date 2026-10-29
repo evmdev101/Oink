@@ -1,0 +1,185 @@
+{
+  "checkedAt": "2026-10-24T21:04:38.423Z",
+  "status": {
+    "block": 27882317,
+    "timestamp": 1792875835,
+    "lastHarvest": 1792635995,
+    "allocation": "1726",
+    "maximum": "3229",
+    "rebalanceNeeded": false,
+    "nextReduction": 1786413215,
+    "reductionReady": true,
+    "eventId": null,
+    "eventEndBlock": null,
+    "eventReady": false,
+    "actions": {
+      "buyback": {
+        "ready": true,
+        "reason": "Buyback contract PLS and daily allowance are available."
+      },
+      "convert-buyback": {
+        "ready": true,
+        "reason": "Choose a token held by the buyback contract."
+      },
+      "harvest-pulsex": {
+        "ready": false,
+        "reason": "No INC rewards are currently available."
+      },
+      "sync-staking": {
+        "ready": true,
+        "reason": "All six miner deployments and mappings are verified."
+      },
+      "start-event": {
+        "ready": true,
+        "reason": "Enter a scheduled proposal ID; eligibility is verified before review."
+      },
+      "end-event": {
+        "ready": false,
+        "reason": "No Reward Boost event is active."
+      },
+      "reduce-rewards": {
+        "ready": true,
+        "reason": "The seven-day waiting period is complete."
+      },
+      "cap-ecosystem": {
+        "ready": false,
+        "reason": "Current ecosystem percentages are within the maximum."
+      },
+      "rebalance-ecosystem": {
+        "ready": true,
+        "reason": "Uses current community-approved allocation percentages."
+      },
+      "collect-fees": {
+        "ready": true,
+        "reason": "Choose a farm and a batch of users. Current positions and due fees are checked before review."
+      },
+      "sync-fees": {
+        "ready": false,
+        "reason": "All four core vaults already use the current Governor fees."
+      },
+      "harvest-senate": {
+        "ready": false,
+        "reason": "Current Senate membership needs a new review."
+      },
+      "publish-senate-credit": {
+        "ready": false,
+        "reason": "Current Senate membership needs a new review."
+      }
+    },
+    "buyback": {
+      "address": "0xa36d037B01C148025C54e4f86C0032F05a93D4Ce",
+      "pls": "201436470545922",
+      "remainingDailyAllowance": "17077449044339709618166756",
+      "haltUntil": 86400,
+      "tokens": [
+        {
+          "asset": "PLSX",
+          "balance": "131317245955066291944"
+        },
+        {
+          "asset": "INC",
+          "balance": "911001296115608"
+        },
+        {
+          "asset": "HEX",
+          "balance": "0"
+        }
+      ]
+    },
+    "checks": []
+  },
+  "quotes": [
+    {
+      "action": "buyback",
+      "pass": true,
+      "to": "0xa36d037B01C148025C54e4f86C0032F05a93D4Ce",
+      "data": "0x3dfd4bb3",
+      "facts": [
+        [
+          "Contract PLS available",
+          "0.000201436470545922 PLS"
+        ],
+        [
+          "Maximum PLS used by this execution",
+          "0.000201436470545922 PLS"
+        ],
+        [
+          "OINK requested from router",
+          "0.000048532430695804 OINK"
+        ],
+        [
+          "OINK destination",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ]
+      ]
+    },
+    {
+      "action": "convert-buyback",
+      "pass": true,
+      "to": "0xa36d037B01C148025C54e4f86C0032F05a93D4Ce",
+      "data": "0x2ee958b600000000000000000000000095b303987a60c71504d99aa1b13b4da07b0790ab0000000000000000000000000000000000000000000000071e6493729253e6e8",
+      "facts": [
+        [
+          "Asset held by contract",
+          "131.317245955066291944 PLSX"
+        ],
+        [
+          "PLS requested from router",
+          "95.455958446393824684 PLS"
+        ],
+        [
+          "PLS destination",
+          "0xa36d037B01C148025C54e4f86C0032F05a93D4Ce"
+        ]
+      ]
+    },
+    {
+      "action": "sync-staking",
+      "pass": true,
+      "to": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+      "data": "0x4641257d",
+      "facts": [
+        [
+          "Miner pools",
+          "All 6 OINK lock durations"
+        ]
+      ]
+    },
+    {
+      "action": "reduce-rewards",
+      "pass": true,
+      "to": "0x0dc0Fabe4c9d57cCaD055b4cD627D0d24fA3C98E",
+      "data": "0xbecdf266",
+      "facts": [
+        [
+          "Ecosystem allocation",
+          "17%"
+        ],
+        [
+          "Current maximum",
+          "32.29%"
+        ],
+        [
+          "New maximum",
+          "31.96%"
+        ]
+      ]
+    },
+    {
+      "action": "rebalance-ecosystem",
+      "pass": true,
+      "to": "0x0dc0Fabe4c9d57cCaD055b4cD627D0d24fA3C98E",
+      "data": "0xe0e01a61",
+      "facts": [
+        [
+          "Ecosystem allocation",
+          "17%"
+        ],
+        [
+          "Current maximum",
+          "32.29%"
+        ]
+      ]
+    }
+  ]
+}

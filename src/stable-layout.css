@@ -1,0 +1,57 @@
+/* Keep the page width and shared chrome independent of asynchronous reads. */
+html { scrollbar-gutter:stable; }
+.site-header .header-actions .wallet-control .wallet-button { width:148px; justify-content:center; }
+.app-shell > .page-read-notice {
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%); z-index:110;
+  margin:0; max-height:30dvh; overflow:auto; box-shadow:0 8px 30px #0004;
+}
+
+/* These are data viewports, rather than whole-page height estimates. More
+   registry entries remain accessible without moving the following section. */
+.reference-dashboard .allocation-viewport {
+  height:min(430px,65dvh); overflow:auto; scrollbar-gutter:stable;
+  scrollbar-width:thin; scrollbar-color:var(--border) transparent;
+}
+.reference-dashboard .allocation-viewport .allocation-breakdown > div { min-height:43px; }
+.reference-dashboard .allocation-viewport .allocation-breakdown strong { min-width:10ch; text-align:right; }
+.reference-dashboard .allocation-bar { background:color-mix(in srgb,var(--fg) 5%,var(--bg)); }
+.reference-dashboard .treasury-wallet-scroll { height:min(420px,60dvh); }
+.reference-dashboard .treasury-wallet-coverage { min-height:40px; }
+.reference-dashboard .treasury-wallet-status { min-height:60px; }
+.reference-dashboard .treasury-liquidity-status { min-height:40px; }
+.reference-dashboard .allocation-registry summary { min-height:40px; line-height:20px; }
+.reference-dashboard .participation-freshness { display:grid; grid-template-columns:minmax(0,1fr) auto; min-height:72px; align-content:center; }
+.reference-dashboard .participation-read-status { min-height:34px; }
+.reference-dashboard .participation-stats .reference-stat > strong { min-height:27px; white-space:nowrap; }
+.reference-dashboard .participation-stats .reference-stat > small { min-height:47px; }
+.reference-dashboard .distribution-card[aria-busy="true"] .distribution-column-track i { visibility:hidden; }
+.reference-dashboard .distribution-card button:disabled { opacity:1; cursor:default; }
+.reference-dashboard .distribution-summary > span { min-height:34px; }
+.reference-dashboard .distribution-table button { grid-template-columns:minmax(0,1fr) minmax(11ch,auto) 54px; }
+.reference-dashboard .distribution-table strong { text-align:right; }
+.reference-dashboard .recent-protocol-activity > .snapshot-note { min-height:34px; }
+.reference-dashboard .protocol-activity-list { height:min(460px,65dvh); }
+.reference-dashboard .protocol-activity-status { margin:0; }
+.reference-dashboard .protocol-activity-status:empty { display:none; }
+.reference-dashboard .protocol-balances .protocol-balance-facts > div { min-height:90px; }
+.reference-dashboard .protocol-balances .protocol-balances-status { min-height:48px; }
+.reference-dashboard .protocol-balances > button { min-width:154px; }
+.oink-farms-page .hex-share-registration-slot {
+  display:flow-root; height:180px; overflow:auto;
+}
+
+@media(max-width:600px) {
+  .reference-dashboard .treasury-wallet-coverage { min-height:60px; }
+  .reference-dashboard .treasury-wallet-status { min-height:80px; }
+  .reference-dashboard .treasury-liquidity-status { min-height:60px; }
+  .reference-dashboard .participation-freshness { min-height:118px; }
+  .reference-dashboard .participation-read-status { min-height:56px; }
+  .reference-dashboard .participation-stats .reference-stat > small { min-height:62px; }
+  .reference-dashboard .allocation-registry summary { min-height:60px; }
+  .reference-dashboard .distribution-table button { grid-template-columns:minmax(0,1fr) minmax(9ch,auto) 48px; }
+  .reference-dashboard .distribution-summary > span { min-height:51px; }
+  .reference-dashboard .protocol-balances .protocol-balances-status { min-height:80px; }
+}
+@media(max-width:480px) {
+  .site-header .header-actions .wallet-control .wallet-button { width:125px; }
+}

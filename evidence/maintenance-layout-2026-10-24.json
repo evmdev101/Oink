@@ -1,0 +1,202 @@
+{
+  "before": {
+    "cards": [
+      {
+        "height": 576,
+        "id": "maintenance-action-card maintenance-action-buyback",
+        "top": 946.046875
+      },
+      {
+        "height": 576,
+        "id": "maintenance-action-card maintenance-action-convert-buyback",
+        "top": 946.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-harvest-pulsex",
+        "top": 1538.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-sync-staking",
+        "top": 1538.046875
+      },
+      {
+        "height": 523,
+        "id": "maintenance-action-card maintenance-action-start-event",
+        "top": 1949.046875
+      },
+      {
+        "height": 523,
+        "id": "maintenance-action-card maintenance-action-end-event",
+        "top": 1949.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-reduce-rewards",
+        "top": 2488.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-cap-ecosystem",
+        "top": 2488.046875
+      },
+      {
+        "height": 772,
+        "id": "maintenance-action-card maintenance-action-rebalance-ecosystem",
+        "top": 2899.046875
+      },
+      {
+        "height": 772,
+        "id": "maintenance-action-card maintenance-action-collect-fees",
+        "top": 2899.046875
+      },
+      {
+        "height": 494,
+        "id": "maintenance-action-card maintenance-action-sync-fees",
+        "top": 3687.046875
+      },
+      {
+        "height": 494,
+        "id": "maintenance-action-card maintenance-action-harvest-senate",
+        "top": 3687.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-publish-senate-credit",
+        "top": 4197.046875
+      }
+    ],
+    "facts": [
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      }
+    ],
+    "pageHeight": 4918.046875,
+    "values": [
+      "—",
+      "—",
+      "—",
+      "—",
+      "—"
+    ]
+  },
+  "after": {
+    "cards": [
+      {
+        "height": 576,
+        "id": "maintenance-action-card maintenance-action-buyback",
+        "top": 946.046875
+      },
+      {
+        "height": 576,
+        "id": "maintenance-action-card maintenance-action-convert-buyback",
+        "top": 946.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-harvest-pulsex",
+        "top": 1538.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-sync-staking",
+        "top": 1538.046875
+      },
+      {
+        "height": 523,
+        "id": "maintenance-action-card maintenance-action-start-event",
+        "top": 1949.046875
+      },
+      {
+        "height": 523,
+        "id": "maintenance-action-card maintenance-action-end-event",
+        "top": 1949.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-reduce-rewards",
+        "top": 2488.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-cap-ecosystem",
+        "top": 2488.046875
+      },
+      {
+        "height": 772,
+        "id": "maintenance-action-card maintenance-action-rebalance-ecosystem",
+        "top": 2899.046875
+      },
+      {
+        "height": 772,
+        "id": "maintenance-action-card maintenance-action-collect-fees",
+        "top": 2899.046875
+      },
+      {
+        "height": 494,
+        "id": "maintenance-action-card maintenance-action-sync-fees",
+        "top": 3687.046875
+      },
+      {
+        "height": 494,
+        "id": "maintenance-action-card maintenance-action-harvest-senate",
+        "top": 3687.046875
+      },
+      {
+        "height": 395,
+        "id": "maintenance-action-card maintenance-action-publish-senate-credit",
+        "top": 4197.046875
+      }
+    ],
+    "facts": [
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      },
+      {
+        "height": 148,
+        "top": 680.046875
+      }
+    ],
+    "pageHeight": 4918.046875,
+    "values": [
+      "10/21/2026, 7:26:35 PM",
+      "17.26% / 32.29%",
+      "Within current cap",
+      "Available",
+      "No active event"
+    ]
+  },
+  "maxCardHeightDelta": 0,
+  "maxCardPositionDelta": 0
+}

@@ -1,0 +1,34 @@
+.miner-rollover-dialog { width:min(512px,calc(100% - 28px)); max-height:calc(100dvh - 32px); box-sizing:border-box; overflow:auto; padding:28px 30px 24px; border:1px solid var(--border); border-radius:8px; background:var(--panel); color:var(--fg); text-align:center; font:400 14px/1.35 "DM Sans",sans-serif; }
+.miner-rollover-dialog::backdrop { background:#0009; }
+.miner-rollover-info { display:grid; place-items:center; width:80px; height:80px; box-sizing:border-box; margin:0 auto 38px; border:4px solid #9de0f6; border-radius:50%; color:#39bfeb; font:400 60px/1 "DM Sans",sans-serif; }
+.miner-rollover-dialog h2 { margin:0 0 8px; color:var(--fg); font:500 24px/1.3 "DM Sans",sans-serif; }
+.miner-rollover-description { margin:0 auto 18px; max-width:440px; color:var(--muted,var(--fg)); }
+.miner-rollover-label { display:block; margin-bottom:14px; font-weight:700; }
+.miner-rollover-dialog select { display:block; width:auto; max-width:100%; min-width:215px; margin:0 auto; padding:7px 12px; border:1px solid var(--border); border-radius:3px; background:var(--panel); color:var(--fg); font:400 16px "DM Sans",sans-serif; }
+.miner-rollover-dialog select option { color:var(--fg); background:var(--panel); }
+.miner-rollover-bonuses { margin:30px 0 24px; }
+.miner-rollover-bonuses h3 { margin:0 0 17px; font:700 14px "DM Sans",sans-serif; }
+.miner-rollover-bonuses ul { list-style:none; padding:0; margin:0; }
+.miner-rollover-bonuses li { margin:1px 0; }
+.miner-rollover-bonuses li[data-unavailable] { color:var(--muted,var(--fg)); }
+.miner-rollover-buttons { display:flex; justify-content:center; flex-wrap:wrap; gap:9px; margin-top:30px; }
+.miner-rollover-dialog button { font:700 14px "DM Sans",sans-serif; cursor:pointer; }
+.miner-rollover-buttons button { border:1px solid transparent; border-radius:4px; padding:12px 17px; min-height:44px; }
+.miner-rollover-dialog .miner-rollover-confirm { background:#3085d6; color:white; }
+.miner-rollover-dialog .miner-rollover-cancel { background:#d9363e; color:white; }
+.miner-rollover-dialog button:disabled { opacity:.5; cursor:not-allowed; }
+.miner-rollover-dialog :is(button,select):focus-visible { outline:3px solid #8cc3ef; outline-offset:3px; }
+.miner-rollover-dialog .miner-rollover-refresh { padding:7px 12px; border:1px solid var(--border); border-radius:4px; color:var(--fg); background:transparent; }
+.miner-rollover-error { color:var(--accent); margin:12px 0; }
+.miner-rollover-progress { padding:4px 0 0; min-height:300px; display:flex; flex-direction:column; align-items:center; }
+.miner-rollover-progress h2 { font-weight:700; }
+.miner-rollover-progress p { margin:10px 0; overflow-wrap:anywhere; }
+.miner-rollover-progress .miner-rollover-buttons { margin-top:auto; padding-top:24px; }
+.miner-rollover-hint { color:var(--muted,var(--fg)); font-size:12px; }
+.miner-rollover-progress a { color:var(--fg); text-decoration:underline; }
+.miner-rollover-spinner, .miner-rollover-small-spinner { width:36px; height:36px; box-sizing:border-box; border:3px solid #3085d633; border-top-color:#3085d6; border-radius:50%; animation:miner-rollover-spin .8s linear infinite; }
+.miner-rollover-spinner { margin:38px auto; }
+.miner-rollover-small-spinner { display:inline-block; width:14px; height:14px; border-width:2px; vertical-align:-2px; margin-right:5px; }
+@keyframes miner-rollover-spin { to { transform:rotate(360deg); } }
+@media(prefers-reduced-motion:reduce) { .miner-rollover-spinner, .miner-rollover-small-spinner { animation-duration:2s; } }
+@media(max-width:480px) { .miner-rollover-dialog { padding:24px 20px; }.miner-rollover-info { margin-bottom:26px; }.miner-rollover-dialog h2 { font-size:22px; }.miner-rollover-buttons { margin-top:24px; } }

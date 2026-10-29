@@ -1,0 +1,46 @@
+.scroll-region-shell {
+  min-width: 0;
+}
+
+.scroll-region {
+  min-width: 0;
+  max-height: min(64vh, 42rem);
+  max-height: min(64dvh, 42rem);
+  overflow: auto;
+  overscroll-behavior: auto;
+  scrollbar-gutter: stable;
+  scrollbar-color: color-mix(in srgb, var(--accent) 70%, var(--fg)) var(--panel);
+  scrollbar-width: auto;
+  scroll-padding: 10px;
+}
+
+.scroll-region:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.scroll-region::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.scroll-region::-webkit-scrollbar-track {
+  background: var(--panel);
+  border-radius: 8px;
+}
+
+.scroll-region::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent) 70%, var(--fg));
+  border: 2px solid var(--panel);
+  border-radius: 8px;
+}
+
+.scroll-region-hint {
+  min-height: 1.5em;
+  line-height: 1.5;
+  margin: 8px 0 0;
+  color: color-mix(in srgb, var(--fg) 68%, transparent);
+  font-size: 0.72rem;
+  text-align: right;
+}

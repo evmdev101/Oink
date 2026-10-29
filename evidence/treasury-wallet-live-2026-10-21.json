@@ -1,0 +1,536 @@
+{
+  "checkedAt": "2026-10-22T01:18:47.857Z",
+  "readOnly": true,
+  "wallet": {
+    "block": 27858530,
+    "timestamp": 1792631895,
+    "rows": [
+      {
+        "label": "Treasury wallet",
+        "address": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "assets": [
+          {
+            "symbol": "PLS",
+            "address": null,
+            "decimals": 18,
+            "balance": "1455951759.096450560392367937"
+          },
+          {
+            "symbol": "OINK",
+            "address": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+            "decimals": 18,
+            "balance": "173546118.697353347252638185"
+          },
+          {
+            "symbol": "PLSX",
+            "address": "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+            "decimals": 18,
+            "balance": "443585503.151045171061241602"
+          },
+          {
+            "symbol": "INC",
+            "address": "0x2fa878Ab3F87CC1C9737Fc071108F904c0B0C95d",
+            "decimals": 18,
+            "balance": "10480.880401605437249275"
+          },
+          {
+            "symbol": "HEX",
+            "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+            "decimals": 8,
+            "balance": "484204.98748798"
+          },
+          {
+            "symbol": "HOA",
+            "address": "0x7901a3569679AEc3501dbeC59399F327854a70fe",
+            "decimals": 18,
+            "balance": "41332.722546525412058491"
+          },
+          {
+            "symbol": "pDAI",
+            "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "decimals": 18,
+            "balance": "2254669.103269750148845721"
+          },
+          {
+            "symbol": "ATROPA",
+            "address": "0xCc78A0acDF847A2C1714D2A925bB4477df5d48a6",
+            "decimals": 18,
+            "balance": "305.30168457248487"
+          },
+          {
+            "symbol": "SolidX",
+            "address": "0x8Da17Db850315A34532108f0f5458fc0401525f6",
+            "decimals": 18,
+            "balance": "21.461659605316703348"
+          },
+          {
+            "symbol": "pUSDT",
+            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "decimals": 6,
+            "balance": "3298.261557"
+          },
+          {
+            "symbol": "pUSDC",
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "decimals": 6,
+            "balance": "3537.337269"
+          },
+          {
+            "symbol": "COM",
+            "address": "0x5A9780Bfe63f3ec57f01b087cD65BD656C9034A8",
+            "decimals": 12,
+            "balance": "89755222787540.21882561404"
+          },
+          {
+            "symbol": "PRINT",
+            "priceId": "print",
+            "address": "0x6C203A555824ec90a215f37916cf8Db58EBe2fA3",
+            "decimals": 18,
+            "balance": "0.0"
+          },
+          {
+            "symbol": "EARN",
+            "priceId": "earn",
+            "address": "0xb513038BbFdF9D40B676F41606f4F61D4b02c4A2",
+            "decimals": 18,
+            "balance": "0.0"
+          },
+          {
+            "symbol": "HTT-3000",
+            "priceId": "htt3000",
+            "address": "0xE9E1340A2b31d5D2a2dB28FB854a794E106b430a",
+            "decimals": 8,
+            "balance": "0.0"
+          },
+          {
+            "symbol": "HTT-5000",
+            "priceId": "htt5000",
+            "address": "0xE2D03779147A32064511dd2b9D37F66f3EeFAd7C",
+            "decimals": 8,
+            "balance": "0.0"
+          },
+          {
+            "symbol": "HTT-7000",
+            "priceId": "htt7000",
+            "address": "0x47810bb3ECDc6b080CeB2d39E769F21Ff14AB7E9",
+            "decimals": 8,
+            "balance": "0.0"
+          }
+        ]
+      }
+    ]
+  },
+  "strategies": {
+    "block": 27858530,
+    "timestamp": 1792631895,
+    "rows": [
+      {
+        "id": "print-reinvest",
+        "label": "PRINT reinvestment",
+        "address": "0x5C30303F7F9640E268d3CE5844E7E360009AC03C",
+        "symbol": "PRINT",
+        "pair": "0xF35F8Db9B6760799DB76796340AAcc69deA0C644",
+        "pool": null,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "PRINT",
+            "address": "0x6C203A555824ec90a215f37916cf8Db58EBe2fA3",
+            "balance": "695212.217788504297966936"
+          },
+          {
+            "symbol": "INC",
+            "address": "0x2fa878Ab3F87CC1C9737Fc071108F904c0B0C95d",
+            "balance": "312.915157740307310485"
+          }
+        ]
+      },
+      {
+        "id": "print-inc",
+        "label": "PRINT rewards to INC",
+        "address": "0x026822796CAa38971523f2D8C4384F76b7C7b1B9",
+        "symbol": "PRINT",
+        "pair": "0xF35F8Db9B6760799DB76796340AAcc69deA0C644",
+        "pool": null,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "PRINT",
+            "address": "0x6C203A555824ec90a215f37916cf8Db58EBe2fA3",
+            "balance": "609086.287509938898504472"
+          },
+          {
+            "symbol": "INC",
+            "address": "0x2fa878Ab3F87CC1C9737Fc071108F904c0B0C95d",
+            "balance": "515.519948192592030751"
+          }
+        ]
+      },
+      {
+        "id": "print-degen",
+        "label": "PRINT rewards to DEGEN burn",
+        "address": "0xE142C8cC17D9279A1aA01A0f8420A63E22F9782f",
+        "symbol": "PRINT",
+        "pair": "0xF35F8Db9B6760799DB76796340AAcc69deA0C644",
+        "pool": null,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "PRINT",
+            "address": "0x6C203A555824ec90a215f37916cf8Db58EBe2fA3",
+            "balance": "316374.93961225888620043"
+          },
+          {
+            "symbol": "INC",
+            "address": "0x2fa878Ab3F87CC1C9737Fc071108F904c0B0C95d",
+            "balance": "267.767380901663700953"
+          }
+        ]
+      },
+      {
+        "id": "htt3000",
+        "label": "HTT-3000 liquidity",
+        "address": "0x599FE019e2e1dc71Dd11bc647AD53a4ac53a3b42",
+        "symbol": "HTT-3000",
+        "pair": "0xBB4D05C1663f079C1d9e0A4A6eE5a877CFE34F72",
+        "pool": 0,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "HTT-3000",
+            "address": "0xE9E1340A2b31d5D2a2dB28FB854a794E106b430a",
+            "balance": "185871.41993819"
+          },
+          {
+            "symbol": "HEX",
+            "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+            "balance": "161287.84259542"
+          }
+        ]
+      },
+      {
+        "id": "htt5000",
+        "label": "HTT-5000 liquidity",
+        "address": "0xbB3822Dc9c033D48b04Af93D4bF75f0A10ddda9d",
+        "symbol": "HTT-5000",
+        "pair": "0x290e43f97a071f7513f55B534b2C196b9eFa364C",
+        "pool": 1,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "HTT-5000",
+            "address": "0xE2D03779147A32064511dd2b9D37F66f3EeFAd7C",
+            "balance": "386410.00885929"
+          },
+          {
+            "symbol": "HEX",
+            "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+            "balance": "276343.10943252"
+          }
+        ]
+      },
+      {
+        "id": "htt7000",
+        "label": "HTT-7000 liquidity",
+        "address": "0x8B21bCBB2c67aa0aF2d8712853dCe80334621bE0",
+        "symbol": "HTT-7000",
+        "pair": "0x0d37481cD2c2E1a309a159Fd08D9F6eFd0a1F224",
+        "pool": 2,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "HTT-7000",
+            "address": "0x47810bb3ECDc6b080CeB2d39E769F21Ff14AB7E9",
+            "balance": "778067.56980421"
+          },
+          {
+            "symbol": "HEX",
+            "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+            "balance": "361299.1051872"
+          }
+        ]
+      },
+      {
+        "id": "htt3000-oink",
+        "label": "HTT-3000 rewards to OINK burn",
+        "address": "0xCd026f1b1F8b04f045d13af21877Db98033FF84e",
+        "symbol": "HTT-3000",
+        "pair": "0xBB4D05C1663f079C1d9e0A4A6eE5a877CFE34F72",
+        "pool": 0,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "HTT-3000",
+            "address": "0xE9E1340A2b31d5D2a2dB28FB854a794E106b430a",
+            "balance": "224292.16095285"
+          },
+          {
+            "symbol": "HEX",
+            "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+            "balance": "194624.19449053"
+          }
+        ]
+      },
+      {
+        "id": "htt5000-plsx",
+        "label": "HTT-5000 rewards to PLSX",
+        "address": "0x488C81D85501769CF4Ca79ED657aF0633607ab1e",
+        "symbol": "HTT-5000",
+        "pair": "0x290e43f97a071f7513f55B534b2C196b9eFa364C",
+        "pool": 1,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "HTT-5000",
+            "address": "0xE2D03779147A32064511dd2b9D37F66f3EeFAd7C",
+            "balance": "341215.64626245"
+          },
+          {
+            "symbol": "HEX",
+            "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+            "balance": "244022.128085"
+          }
+        ]
+      },
+      {
+        "id": "htt7000-ehex",
+        "label": "HTT-7000 rewards to eHEX",
+        "address": "0xD3270DC3361f34a1cb0c4cd2b0b352adB64D4498",
+        "symbol": "HTT-7000",
+        "pair": "0x0d37481cD2c2E1a309a159Fd08D9F6eFd0a1F224",
+        "pool": 2,
+        "error": "",
+        "assets": [
+          {
+            "symbol": "HTT-7000",
+            "address": "0x47810bb3ECDc6b080CeB2d39E769F21Ff14AB7E9",
+            "balance": "498159.0665288"
+          },
+          {
+            "symbol": "HEX",
+            "address": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+            "balance": "231312.11464575"
+          }
+        ]
+      },
+      {
+        "id": "earn",
+        "label": "EARN staking",
+        "address": "0xc6E9924Ea3141b5555b18b82f7Bd66f9BB084C2D",
+        "error": "",
+        "assets": [
+          {
+            "symbol": "EARN",
+            "address": "0xb513038BbFdF9D40B676F41606f4F61D4b02c4A2",
+            "balance": "0.0"
+          }
+        ]
+      }
+    ]
+  },
+  "valuation": {
+    "rows": [
+      {
+        "symbol": "PLS",
+        "balance": "1455951759.096450560392367937",
+        "usd": 8470.727334423149
+      },
+      {
+        "symbol": "OINK",
+        "balance": "173546118.697353347252638185",
+        "usd": 4281.382748263706
+      },
+      {
+        "symbol": "pDAI",
+        "balance": "2254669.103269750148845721",
+        "usd": 2919.7964887343264
+      },
+      {
+        "symbol": "INC",
+        "balance": "10480.880401605437249275",
+        "usd": 2656.903181806978
+      },
+      {
+        "symbol": "PLSX",
+        "balance": "443585503.151045171061241602",
+        "usd": 1857.7360871965773
+      },
+      {
+        "symbol": "HEX",
+        "balance": "484204.98748798",
+        "usd": 683.2132373455397
+      },
+      {
+        "symbol": "COM",
+        "balance": "89755222787540.21882561404",
+        "usd": 192.61470810206131
+      },
+      {
+        "symbol": "HOA",
+        "balance": "41332.722546525412058491",
+        "usd": 31.68566510416638
+      },
+      {
+        "symbol": "ATROPA",
+        "balance": "305.30168457248487",
+        "usd": 8.032487321102076
+      },
+      {
+        "symbol": "SolidX",
+        "balance": "21.461659605316703348",
+        "usd": 3.335141902666216
+      },
+      {
+        "symbol": "pUSDC",
+        "balance": "3537.337269",
+        "usd": 1.9936432848084003
+      },
+      {
+        "symbol": "pUSDT",
+        "balance": "3298.261557",
+        "usd": 1.767868194552
+      },
+      {
+        "symbol": "PRINT",
+        "balance": "0.0",
+        "usd": 0
+      },
+      {
+        "symbol": "EARN",
+        "balance": "0.0",
+        "usd": 0
+      },
+      {
+        "symbol": "HEX Time Token",
+        "balance": "0",
+        "usd": 0,
+        "components": [
+          {
+            "symbol": "HTT-3000",
+            "balance": "0.0",
+            "usd": 0
+          },
+          {
+            "symbol": "HTT-5000",
+            "balance": "0.0",
+            "usd": 0
+          },
+          {
+            "symbol": "HTT-7000",
+            "balance": "0.0",
+            "usd": 0
+          }
+        ]
+      }
+    ],
+    "complete": true,
+    "total": 21109.18859167963
+  },
+  "prices": {
+    "oink": {
+      "usd": "0.00002467",
+      "pair": "0xEf9Ea3d72e28c7140481209190601C085027D6fE",
+      "fetchedAt": 1792631901090
+    },
+    "pls": {
+      "usd": "0.000005818",
+      "pair": "0xE56043671df55dE5CDf8459710433C10324DE0aE",
+      "fetchedAt": 1792631901090
+    },
+    "plsx": {
+      "usd": "0.000004188",
+      "pair": "0x1b45b9148791d3a104184Cd5DFE5CE57193a3ee9",
+      "fetchedAt": 1792631901090
+    },
+    "inc": {
+      "usd": "0.2535",
+      "pair": "0xf808Bb6265e9Ca27002c0A04562Bf50d4FE37EAA",
+      "fetchedAt": 1792631901090
+    },
+    "hex": {
+      "usd": "0.001411",
+      "pair": "0xf1F4ee610b2bAbB05C635F726eF8B0C568c8dc65",
+      "fetchedAt": 1792631901090
+    },
+    "hoa": {
+      "usd": "0.0007666",
+      "pair": "0x714D3e632Bdd5E840A37eddaE6399B4Cca859E26",
+      "fetchedAt": 1792631901090
+    },
+    "pdai": {
+      "usd": "0.001295",
+      "pair": "0xfC64556FAA683e6087F425819C7Ca3C558e13aC1",
+      "fetchedAt": 1792631901090
+    },
+    "atropa": {
+      "usd": "0.02631",
+      "pair": "0x5EF7AaC0DE4F2012CB36730Da140025B113FAdA4",
+      "fetchedAt": 1792631901090
+    },
+    "solidx": {
+      "usd": "0.1554",
+      "pair": "0xa1186671046c7e19f1083b93b8e72c297e5Ba7f7",
+      "fetchedAt": 1792631901090
+    },
+    "pusdt": {
+      "usd": "0.0005360",
+      "pair": "0xd2335e1c634fC3a1dDf766161bcb8E7Ec134cF03",
+      "fetchedAt": 1792631901090
+    },
+    "pusdc": {
+      "usd": "0.0005636",
+      "pair": "0xC636bfE0bAe34824380B4E26Bc34e4614e55e483",
+      "fetchedAt": 1792631901090
+    },
+    "pdrip": {
+      "usd": "0.0004198",
+      "pair": "0x25D240831a9c0CB981506538E810d32487D291Af",
+      "fetchedAt": 1792631901090
+    },
+    "emit": {
+      "usd": "0.1912",
+      "pair": "0x1D05cC449B643633b013cbfb939e70Cc0d37F2A3",
+      "fetchedAt": 1792631901090
+    },
+    "communitas": {
+      "usd": "0.000000000002146",
+      "pair": "0x0e7194E2BF11b30CAB1D17aa5b500DfE6E02817b",
+      "fetchedAt": 1792631901090
+    },
+    "ptgc": {
+      "usd": "0.00001826",
+      "pair": "0xf5A89A6487D62df5308CDDA89c566C5B5ef94C11",
+      "fetchedAt": 1792631901090
+    },
+    "ufo": {
+      "usd": "0.00000001620",
+      "pair": "0xbeA0e55b82Eb975280041F3b49C4D0bD937b72d5",
+      "fetchedAt": 1792631901090
+    },
+    "print": {
+      "usd": "0.0002256",
+      "pair": "0x85901eBfdDC776D3ec2E898087dd06251eeA89D2",
+      "fetchedAt": 1792631901090
+    },
+    "earn": {
+      "usd": "0.0006067",
+      "pair": "0xed77CbbB80e5a5C3A1FE664419d6F690766b5913",
+      "fetchedAt": 1792631901090
+    },
+    "htt3000": {
+      "usd": "0.001221",
+      "pair": "0xBB4D05C1663f079C1d9e0A4A6eE5a877CFE34F72",
+      "fetchedAt": 1792631901090
+    },
+    "htt5000": {
+      "usd": "0.001013",
+      "pair": "0x290e43f97a071f7513f55B534b2C196b9eFa364C",
+      "fetchedAt": 1792631901090
+    },
+    "htt7000": {
+      "usd": "0.0006579",
+      "pair": "0x0d37481cD2c2E1a309a159Fd08D9F6eFd0a1F224",
+      "fetchedAt": 1792631901090
+    }
+  }
+}

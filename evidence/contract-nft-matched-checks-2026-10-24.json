@@ -1,0 +1,55 @@
+{
+  "reference": "https://evmdev101.github.io/cashx-10000-nft-mint/",
+  "settings": {
+    "perspective": 1100,
+    "maximumTiltDegrees": 14,
+    "tiltEasing": 0.08,
+    "lightEasing": 0.1,
+    "idleXAmplitude": 0.28,
+    "idleYAmplitude": 0.2,
+    "idleXFrequency": 0.6,
+    "idleYFrequency": 0.45,
+    "reflectionOpacity": 0.85,
+    "glowBlur": 70,
+    "glowOpacity": 0.45
+  },
+  "idleObserved": {
+    "before": {
+      "height": 789.59375,
+      "lightX": "51.98094239138589%",
+      "lightY": "55.538273855811326%",
+      "rotateX": "-2.166753622568189deg",
+      "rotateY": "0.34002444828771605deg",
+      "top": 441.4375
+    },
+    "after": {
+      "lightX": "60.20541993154361%",
+      "lightY": "56.66518291064159%",
+      "rotateX": "-2.5726762622771058deg",
+      "rotateY": "1.916929366941744deg"
+    }
+  },
+  "focusedCode": {
+    "codeFocused": true,
+    "rotateX": "10.399960190128684deg",
+    "rotateY": "-7.18573807322553deg",
+    "scrollTop": 494,
+    "transform": "matrix3d(0.992146, 0, 0.125086, 0, -0.0225804, 0.983572, 0.179101, 0, -0.123031, -0.180518, 0.975846, 0, 0, 0, 0, 1)"
+  },
+  "rightTilt": {
+    "height": 789.59375,
+    "lightX": "89.40773417947742%",
+    "lightY": "5.298818610985255%",
+    "rotateX": "12.50277689195189deg",
+    "rotateY": "10.938565910171112deg"
+  },
+  "checks": {
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "existingAnimationLifecycleTests": "5 passed",
+    "jumpToOinkScrollTop": 23945,
+    "lightSwitchKeepsBorderGlow": true,
+    "lightSwitchLayoutHeightChange": 0
+  },
+  "adaptation": "The pose holds while the pointer is over small source controls so their click targets stay stable. Code focus and scrolling do not disable tilt."
+}

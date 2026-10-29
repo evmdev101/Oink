@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Piggy Bank: Basic Settings</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="siteFiles/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="siteFiles/vendors/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="siteFiles/css/vertical-layout-dark/style.css">
+  <!-- endinject -->
+  <link rel="stylesheet" href="siteFiles/vendors/font-awesome/css/font-awesome.min.css"/>
+
+     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/web3@1.6.0/dist/web3.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.4/dist/index.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="js/walletlink.bundle.js"></script>
+  <script src="js/ethers.js"></script>
+   <script src="1config.js"></script>
+  
+      <style>
+.customloader {
+  border: 7px solid #f3f3f3; /* Light grey */
+  border-top: 7px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+.customloader2 {
+  border: 25px solid #f3f3f3; /* Light grey */
+  border-top: 25px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+</style>
+
+  <style>.web3modal-modal-lightbox { z-index: 9999 !important; }</style>
+<script>
+  fetch('sidebar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('sidebor').innerHTML = data;
+    });
+</script></head>
+<body>
+ <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="img/dtx-logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="favicon/favicon-32x32.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+
+        <ul class="navbar-nav navbar-nav-right">
+      
+          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link" href="#" id="userSettings">
+              <img src="img/profile.png" style="display: block;border-radius: 35px;border: 1px solid #9739C2;" alt="profile"/>
+            </a>
+          </li>
+          
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+        
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+	  
+
+   <div id="sidebor"></div>
+
+	
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+
+           
+    
+
+		  <div class="row">
+		   <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  
+				     <h4 class="card-title">Set Minimum Cost To Vote <small>(Current: <div id="minCostToVote" style="display:inline;"><div class="customloader"></div> </div> OINK)</small></h4>
+					 
+                  <p class="card-description">
+                    Every proposal has to be manually reviewed and rejected by other users if need be. Minimum cost to vote prevents spam entries, but at the same time it should allow for affordable voting.
+                  </p>
+                
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">New Minimum Cost To vote:</label>
+                      <input type="text" class="form-control" id="costToVote" placeholder="Number of tokens(eg. 1000)">
+					    </br>
+					  <label for="exampleInputUsername1">Your commitment(in OINK)</label>
+                      <input type="text" class="form-control" id="costToVote-commit" placeholder="Number of tokens(eg. 5000)">
+					  </br>
+					  <label for="formControlRange"><i id="delayInfo" class="mdi mdi-information-outline" onclick="displayDelayInfo()">  </i> Delay:  <span id="client">0</span> Hours</label>
+        <input type="range" class="form-control-range" id="formControlRange" style="max-width:300px;" value="0">
+    
+	  
+                    </div>
+					
+                   
+                    <button type="submit" id="btn-costToVote" class="btn btn-primary mr-2">Submit</button></br></br>
+				
+               
+
+                </div>
+              </div>
+            </div>
+			   <div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+                <div class="card-body">
+				
+                  <h4 class="card-title">Proposals: Cost To Vote <i class="fa fa-refresh fa-lg" onclick="refreshCostToVote()" style="cursor: pointer;"></i>                                              
+				   <div class="badge badge-outline-danger" style="display:inline; float: right; cursor: pointer;" id="costToVote-expired" onclick="showExpired()">Expired</div>
+				  <div class="badge badge-success" style="display:inline; float: right; margin-right: 7px" id="costToVote-active" onclick="showActive()">Active</div>
+				 
+				  </h4>
+   
+		
+   
+   
+                    <div class="table-responsive" style="max-height:500px;display:block;" id="costToVoteTable">
+					<div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div>
+					 
+					
+		
+                  </div>
+                </div>
+              </div>
+		  </div>
+		  </div>
+		  
+		  
+		  
+		  
+		    <div class="row">
+		   <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                 <h4 class="card-title">Set Delay Before Enforce <small>(Current: <div style="display: inline" id="current-delay"><div class="customloader"></div> </div>)</small></h4>
+		
+                  <p class="card-description">
+                    To update settings, users submit proposals. The "Delay before enforce" is a period of time during which the proposals can be voted against(rejected). Once this period expires, the proposal is accepted and the changed setting enforced.
+                  </p>
+                
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">New Delay Before Enforce:</label>
+                      <input type="text" class="form-control" id="delayBeforeEnforce" placeholder="Enter the number for new Delay (in Hours)">
+					  </br>
+					  <label for="exampleInputUsername1">Your commitment(in OINK)</label>
+                      <input type="text" class="form-control" id="delayBeforeEnforce-commit" placeholder="Number of tokens(eg. 5000)">
+					  
+					  </br>
+					  <label for="formControlRange2"><i id="delayInfo2" class="mdi mdi-information-outline" onclick="displayDelayInfo()">  </i> Delay:  <span id="client2">0</span> Hours</label>
+        <input type="range" class="form-control-range" id="formControlRange2" style="max-width:300px;" value="0">
+		
+		
+                    </div>
+                   
+                    <button type="submit" id="btn-delayBeforeEnforce" class="btn btn-primary mr-2">Submit</button></br></br>
+				
+               
+			
+                </div>
+              </div>
+            </div>
+			   <div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Proposals: Delay Before Enforce <i class="fa fa-refresh fa-lg" onclick="refreshDelayBeforeEnforce()" style="cursor: pointer;"></i>                                                     
+				</br></br>   <div class="badge badge-outline-danger" style="display:inline; float: right; cursor: pointer;" id="delayBeforeEnforce-expired" onclick="delayShowExpired()">Expired</div>
+				  <div class="badge badge-success" style="display:inline; float: right; margin-right: 7px" id="delayBeforeEnforce-active" onclick="delayShowActive()">Active</div>
+				 
+				  </h4>
+   
+		
+   
+   
+                    <div class="table-responsive" style="max-height:250px;display:block;" id="delayBeforeEnforceTable">
+				<div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div>
+					 
+					
+		
+                  </div>
+                </div>
+              </div>
+		  </div>
+		  </div>
+		  
+		  
+		  
+		    <div class="row">
+		   <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                 <h4 class="card-title">Set Roll-Over Bonuses <small>(Current: <span id="current-bonuses"><div class="customloader"></div> </span>)</small></h4>
+		
+                  <p class="card-description">
+                   After miner matures, users can pay themself a bonus for extending or rolling-over their miner. 
+                  </p>
+                
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Roll-over Bonuses</label>
+					  
+					  <div class="form-group row">
+				     <div class="col">
+                    <select class="form-control" id="select-pool">
+                      <option value="1">1 Month Miner (Current: ...%)</option>
+                      <option value="2">3 Month Miner (Current: ...%)</option>
+                      <option value="3">6 Month Miner (Current: ...%)</option>
+                      <option value="4">1 Year Miner (Current: ...%)</option>
+                      <option value="5">3 Year Miner (Current: ...%)</option>
+					  <option value="6">5 Year Miner (Current: ...%)</option>
+                    </select>
+					</div>
+					  <div class="col">
+					     <input type="text" class="form-control" id="rollOverBonus" placeholder="New roll-over Bonus (in %)">
+					  </div>
+					  </div>
+					  
+					 
+					  
+
+					  <label for="exampleInputUsername1">Your commitment(in OINK)</label>
+                      <input type="text" class="form-control" id="rollOverBonus-commit" placeholder="Number of tokens(eg. 5000)">
+					  
+					    </br>
+					  <label for="formControlRange3"><i id="delayInfo3" class="mdi mdi-information-outline" onclick="displayDelayInfo()">  </i> Delay:  <span id="client3">0</span> Hours</label>
+        <input type="range" class="form-control-range" id="formControlRange3" style="max-width:300px;" value="0">
+                    </div>
+                   
+                    <button type="submit" id="btn-rollOverBonus" class="btn btn-primary mr-2">Submit</button></br></br>
+				
+            
+                </div>
+              </div>
+            </div>
+			   <div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Proposals: Roll Over Bonuses   <i class="fa fa-refresh fa-lg" onclick="refreshRollOverBonus()" style="cursor: pointer;"></i>                                                     
+			</br></br>	   <div class="badge badge-outline-danger" style="display:inline; float: right; cursor: pointer;" id="rollOverBonus-expired" onclick="rollOverBonusShowExpired()">Expired</div>
+				  <div class="badge badge-success" style="display:inline; float: right; margin-right: 7px" id="rollOverBonus-active" onclick="rollOverBonusShowActive()">Active</div>
+				 
+				  </h4>
+   
+		
+   
+   
+                    <div class="table-responsive" style="max-height:250px;display:block;" id="rollOverBonusTable">
+					
+					 <div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div>
+					
+		
+                  </div>
+                </div>
+              </div>
+		  </div>
+		  </div>
+		  
+		  
+		   <div class="row">
+		   
+		   
+		   
+		     <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Set Mining-Associated Fees </h4>
+		
+                  <p class="card-description">
+                    DAO can set deposit fees on Pulse-Ecosystem mining rewards.</br>
+					
+						Fees are sent to the treasury wallet that is collectively controlled by long term miners and the senate.
+					
+					</br></br>Deposit fee is charged once when the user begins mining. Maximum possible deposit fee is 5%.</br>
+					Mining Fee is charged perpetually(every hour). Maximum possible mining fee is 0.025% hourly</br>
+					If user has been referred, both the referral and invitee can mint the Referral Bonus (paid from inflation).</br>
+					
+                  </p>
+                
+				
+				
+                      <div class="form-group">
+					  
+					  	    
+                    <select class="form-control" id="select-mining-fee" style="max-width:420px">
+			
+			
+					
+					?>
+					  <option disabled selected>Choose Fee Type</option>
+                      <option value="0">Deposit Fee (Current: ... %)</option>
+                      <option value="1">Mining Fee (Current: ... %)</option>
+					   <option value="2">Referral Bonus (Current: ... %)</option>
+             
+              
+                    </select>
+				
+					
+					</br>
+                      <label for="exampleInputUsername1">New Fee:</label>
+                      <input type="text" class="form-control" id="miningFee" placeholder="New Fee (in %)">
+					  </br>
+					  <label for="exampleInputUsername1">Your commitment(in OINK)</label>
+                      <input type="text" class="form-control" id="miningFee-commit" placeholder="Number of tokens(eg. 5000)">
+					  
+					  
+					    </br>
+					  <label for="formControlRange5"><i id="delayInfo5" class="mdi mdi-information-outline" onclick="displayDelayInfo()">  </i> Delay:  <span id="client5">0</span> Hours</label>
+        <input type="range" class="form-control-range" id="formControlRange5" style="max-width:300px;" value="0">
+		
+                    </div>
+					
+                   
+                    <button type="submit" id="btn-miningFee" class="btn btn-primary mr-2">Submit</button></br></br>
+				
+               
+
+                </div>
+              </div>
+            </div>
+		   
+		   
+			   <div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Proposals: Mining Fees <i class="fa fa-refresh fa-lg" onclick="refreshMiningFee()" style="cursor: pointer;"></i>                                                        
+				   <div class="badge badge-outline-danger" style="display:inline; float: right; cursor: pointer;" id="miningFee-expired" onclick="miningFeeShowExpired()">Expired</div>
+				  <div class="badge badge-success" style="display:inline; float: right; margin-right: 7px" id="miningFee-active" onclick="miningFeeShowActive()">Active</div>
+				 
+				  </h4>
+   
+		
+   
+   
+                    <div class="table-responsive" style="display:block;" id="miningFeeTable">
+						<div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div>
+					
+		
+                  </div>
+                </div>
+              </div>
+		  </div>
+		  </div>
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+          
+        </div>
+	
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright &#169; Piggy Bank OINK. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made with <i class="mdi mdi-heart-outline text-primary"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  
+  
+  
+  
+  <!-- base:js -->
+  <script src="siteFiles/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.pie.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="siteFiles/vendors/jqvmap/jquery.vmap.min.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.world.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="siteFiles/vendors/peity/jquery.peity.min.js"></script>
+  <script src="siteFiles/js/jquery.flot.dashes.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="siteFiles/js/off-canvas.js"></script>
+  <script src="siteFiles/js/hoverable-collapse.js"></script>
+  <script src="siteFiles/js/template.js"></script>
+  <script src="siteFiles/js/settings.js"></script>
+  <script src="siteFiles/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="siteFiles/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="js/auth.js"></script>
+
+	<script src="js/confetti.js"></script>
+	<script src="js/costToVote.js"></script>
+	<script src="js/userProfile.js"></script>
+<script>
+    $("#delayInfo").hover(function() {
+        $(this).css('cursor','pointer').attr('title', 'If outvoted, the proposal can be rejected at any time. Delay is the amount of time during which the proposal can not be rejected. Delay gives time to accumulate votes in favor of the proposal.');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+	    $("#delayInfo2").hover(function() {
+        $(this).css('cursor','pointer').attr('title', 'If outvoted, the proposal can be rejected at any time. Delay is the amount of time during which the proposal can not be rejected. Delay gives time to accumulate votes in favor of the proposal.');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+		    $("#delayInfo3").hover(function() {
+        $(this).css('cursor','pointer').attr('title', 'If outvoted, the proposal can be rejected at any time. Delay is the amount of time during which the proposal can not be rejected. Delay gives time to accumulate votes in favor of the proposal.');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+		    $("#delayInfo4").hover(function() {
+        $(this).css('cursor','pointer').attr('title', 'If outvoted, the proposal can be rejected at any time. Delay is the amount of time during which the proposal can not be rejected. Delay gives time to accumulate votes in favor of the proposal.');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+	
+		  
+	
+	</script>
+
+
+</body>
+
+</html>
+

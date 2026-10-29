@@ -1,0 +1,73 @@
+{
+  "checkedAt": "2026-09-19T15:54:06.020Z",
+  "readOnly": true,
+  "chainId": 369,
+  "block": 27586511,
+  "blockHash": "0xb5f437c0df7335cd35ea8d662d957b53e20bb7171816cb2817e5270dfbc1b117",
+  "rows": [
+    {
+      "deployment": "basic",
+      "pinnedRuntimeAndWiringPassed": true,
+      "proposalCounts": [
+        "17",
+        "21",
+        "12",
+        "5",
+        "25",
+        "0"
+      ]
+    },
+    {
+      "deployment": "farms",
+      "pinnedRuntimeAndWiringPassed": true,
+      "proposalCounts": [
+        "264",
+        "28",
+        "20",
+        "11"
+      ]
+    },
+    {
+      "deployment": "reward",
+      "pinnedRuntimeAndWiringPassed": true,
+      "proposalCounts": [
+        "9"
+      ]
+    }
+  ],
+  "miners": [
+    {
+      "id": "one-month",
+      "callFee": "0"
+    },
+    {
+      "id": "three-month",
+      "callFee": "0"
+    },
+    {
+      "id": "six-month",
+      "callFee": "0"
+    },
+    {
+      "id": "one-year",
+      "callFee": "0"
+    },
+    {
+      "id": "three-year",
+      "callFee": "0"
+    },
+    {
+      "id": "five-year",
+      "callFee": "0"
+    }
+  ],
+  "state": {
+    "cost": "100000000000000000000",
+    "delay": "86400",
+    "threshold": "27000000000000000000000000",
+    "eventActive": false,
+    "governorFee": "0",
+    "emissions": "846764000000000000000"
+  },
+  "zeroCreditGuardPassed": true
+}

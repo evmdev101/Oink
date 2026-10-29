@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "prefix": "/oink-launch/",
+  "files": 55,
+  "localHtmlCssReferences": 6,
+  "scope": "Static production files and HTML/CSS references only; no browser, wallet or public deployment."
+}

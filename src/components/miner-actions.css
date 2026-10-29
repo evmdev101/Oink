@@ -1,0 +1,40 @@
+.miner-action-control { position:relative; min-width:0; }
+.miner-action-control .miner-action-trigger { width:100%; min-height:46px; padding:12px; color:var(--fg); background:transparent; border:1px solid var(--border); border-radius:7px; cursor:pointer; font:700 14px var(--font-ui); }
+.miner-action-options { position:absolute; bottom:calc(100% + 6px); left:0; right:0; z-index:10; display:grid; overflow:hidden; background:var(--panel); border:1px solid var(--border); border-radius:9px; box-shadow:0 8px 24px #0005; }
+.miner-action-options button { border:0; border-radius:0; text-align:left; padding:13px 16px; background:transparent; color:var(--fg); font:400 12px/1.5 var(--font-ui); cursor:pointer; }
+.miner-action-options button + button { border-top:1px solid var(--border); }
+.miner-action-options button:hover, .miner-action-options button:focus-visible { background:color-mix(in srgb,var(--accent) 12%,var(--panel)); }
+.miner-action-trigger:focus-visible, .miner-action-dialog :is(button,input,select,summary):focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.miner-action-dialog { width:min(480px,calc(100% - 28px)); max-height:calc(100dvh - 32px); box-sizing:border-box; overflow:auto; padding:28px; border:1px solid var(--border); border-radius:12px; color:var(--fg); background:var(--panel); text-align:center; font:400 14px/1.6 "DM Sans",sans-serif; }
+.miner-action-dialog::backdrop { background:#000b; }
+.miner-action-symbol { display:grid; place-items:center; width:64px; height:64px; margin:0 auto 18px; border:2px solid var(--accent); border-radius:50%; color:var(--accent); font-size:32px; }
+.miner-action-dialog h2 { margin:0 0 8px; font:700 24px/1.3 "DM Sans",sans-serif; }
+.miner-action-dialog p { color:var(--muted); margin:12px 0; }
+.miner-action-dialog .miner-action-context { font-size:12px; margin:0 0 20px; }
+.miner-action-dialog label { display:block; font-weight:700; margin:20px 0 8px; }
+.miner-action-dialog :is(input,select) { width:100%; min-width:0; box-sizing:border-box; padding:11px 12px; border:1px solid var(--border); border-radius:6px; background:color-mix(in srgb,var(--fg) 6%,var(--panel)); color:var(--fg); font:400 13px/1.5 "DM Sans",sans-serif; }
+.miner-action-dialog select option { background:var(--panel); }
+.miner-exit-summary { text-align:left; margin-top:16px; padding:12px; border:1px solid var(--border); border-radius:6px; font-size:12px; }
+.miner-exit-summary > div { display:grid; grid-template-columns:90px minmax(0,1fr); gap:12px; margin:6px 0; }
+.miner-exit-summary strong { overflow-wrap:anywhere; }
+.miner-action-dialog .miner-action-availability { font-size:12px; }
+.miner-withdraw-status { font-size:13px; overflow-wrap:anywhere; }
+.miner-withdraw-status a { color:var(--fg); text-decoration:underline; }
+.miner-action-dialog .miner-withdraw-warning { color:var(--accent); }
+.miner-action-dialog .miner-action-error { color:var(--accent); }
+.miner-action-details { text-align:left; font-size:12px; margin-top:16px; }
+.miner-action-details summary { cursor:pointer; color:var(--muted); }
+.miner-action-details dl { display:grid; gap:6px; }
+.miner-action-details dd { margin:0 0 8px; overflow-wrap:anywhere; }
+.miner-action-details dt { color:var(--muted); }
+.miner-action-dialog-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:24px; }
+.miner-action-dialog button { padding:11px 14px; border:1px solid var(--border); border-radius:6px; background:transparent; color:var(--fg); cursor:pointer; }
+.miner-action-dialog .miner-action-proceed { background:var(--accent); color:var(--bg); border-color:var(--accent); font-weight:700; }
+.miner-action-dialog button:disabled { opacity:.45; cursor:not-allowed; }
+.miner-portion-shortcuts { display:flex; gap:6px; margin-top:8px; }
+.miner-portion-shortcuts button { flex:1; padding:8px; }
+.miner-portion p { font-size:12px; text-align:left; }
+.miner-state-badge { display:inline-block; padding:3px 8px; border:1px solid var(--border); border-radius:4px; font:400 10px var(--font-ui); text-transform:uppercase; }
+.miner-position-status:has(.miner-state-badge) { min-height:0; margin:4px 0 14px; }
+.my-miner-list .miner-action-control { grid-column:1 / -1; }
+@media(max-width:480px) { .miner-action-dialog { padding:24px 18px; } .miner-action-dialog h2 { font-size:22px; } }

@@ -1,0 +1,134 @@
+/* Shared reading scale, loaded before any page or live data appears. */
+:root { --reading-width:1280px; --reading-body:16px; --reading-detail:14px; }
+.app-shell .app-page { font-size:var(--reading-body); line-height:1.55; }
+.app-shell .app-page:is(.reference-dashboard,.overview-page,.resources-library,.portfolio-detail-page) {
+  width:min(var(--reading-width),calc(100% - 48px)); max-width:var(--reading-width);
+}
+.app-shell .site-header .site-header-inner .primary-nav > a { font-size:16px; min-height:42px; }
+.app-shell .site-header .site-header-inner .nav-dropdown-trigger { font-size:16px; min-height:42px; }
+
+/* Overview panels and the figures below the six headline statistics. */
+.app-shell .reference-dashboard .reference-panel { padding:28px; }
+.app-shell .reference-dashboard .treasury-visual-grid { gap:24px; }
+.app-shell .reference-dashboard :is(.treasury-left-column,.treasury-right-column,.treasury-middle-column) { gap:24px; }
+.app-shell .reference-dashboard :is(.reference-panel h2,.dashboard-section-heading h2) { font-size:28px; line-height:1.3; }
+.app-shell .reference-dashboard .reference-panel h3 { font-size:24px; line-height:1.35; }
+.app-shell .reference-dashboard :is(.reference-panel p,.reward-info-card p) { font-size:16px; line-height:1.65; }
+.app-shell .reference-dashboard .reference-panel a { font-size:15px; }
+.app-shell .reference-dashboard :is(.snapshot-note,.dashboard-context-line,.treasury-accounts-note) { font-size:14px; line-height:22px; }
+.app-shell .reference-dashboard .snapshot-panel > .snapshot-note { min-height:44px; }
+.app-shell .reference-dashboard :is(.page-kicker,.section-kicker) { font-size:12px; line-height:18px; }
+.app-shell .reference-dashboard .dashboard-insight-grid { gap:24px; }
+.app-shell .reference-dashboard .dashboard-mini-stats > div { padding:16px; }
+.app-shell .reference-dashboard .dashboard-mini-stats > div > :is(span,small) { font-size:14px; line-height:20px; }
+.app-shell .reference-dashboard .dashboard-mini-stats strong { font-size:26px; line-height:34px; min-height:34px; }
+.app-shell .reference-dashboard .dashboard-mini-stats strong span { font:inherit; }
+.app-shell .reference-dashboard .dashboard-readiness-list span { padding:14px 16px; font-size:15px; }
+.app-shell .reference-dashboard .dashboard-readiness-list strong { font-size:24px; }
+.app-shell .reference-dashboard .treasury-action-map { gap:18px; }
+.app-shell .reference-dashboard .treasury-action-map a { padding:20px; }
+.app-shell .reference-dashboard .treasury-action-map strong { font-size:20px; }
+.app-shell .reference-dashboard .treasury-action-map span { font-size:16px; line-height:1.55; }
+
+/* Keep the scrolling data viewports fixed while making each row easier to read. */
+.app-shell .reference-dashboard .treasury-inflow-summary > div { padding:14px; }
+.app-shell .reference-dashboard .treasury-inflow-summary > div > :is(span,small) { font-size:15px; line-height:22px; }
+.app-shell .reference-dashboard .treasury-inflow-summary strong { font-size:30px; line-height:38px; min-height:38px; }
+.app-shell .reference-dashboard .treasury-inflow-summary strong span { font:inherit; }
+.app-shell .reference-dashboard .treasury-inflow-summary strong.inflow-status { font-size:17px; }
+.app-shell .reference-dashboard .treasury-flow-list a { padding:16px; min-height:78px; box-sizing:border-box; }
+.app-shell .reference-dashboard .treasury-flow-list a :is(span,strong) { font-size:15px; line-height:22px; }
+.app-shell .reference-dashboard .treasury-flow-list a small { font-size:14px; line-height:20px; }
+.app-shell .reference-dashboard .treasury-wallet-scroll { height:min(480px,65dvh); max-height:min(480px,65dvh); }
+.app-shell .reference-dashboard .treasury-assets-card .treasury-holding-row { min-height:82px; padding:14px 0; }
+.app-shell .reference-dashboard .treasury-asset-identity strong { font-size:16px; }
+.app-shell .reference-dashboard .treasury-asset-balance strong { font-size:22px; line-height:1.35; }
+.app-shell .reference-dashboard .treasury-asset-balance small { font-size:14px; line-height:20px; }
+.app-shell .reference-dashboard .treasury-value-total { font-size:22px; align-items:baseline; }
+.app-shell .reference-dashboard :is(.treasury-token-details,.treasury-strategies-panel summary,.treasury-stats-link) { font-size:14px; line-height:22px; }
+.app-shell .reference-dashboard :is(.treasury-wallet-status,.treasury-strategies-status) { min-height:72px; }
+.app-shell .reference-dashboard .treasury-wallet-coverage { min-height:48px; }
+.app-shell .reference-dashboard .treasury-liquidity-status { min-height:48px; }
+
+/* Distribution charts, legends and allocation tables. */
+.app-shell .reference-dashboard :is(.protocol-distribution-grid,.dashboard-supply-visuals,.dashboard-reward-visuals) { gap:24px; margin-bottom:24px; }
+.app-shell .reference-dashboard .participation-stats .reference-stat { padding:20px; min-height:156px; gap:8px; }
+.app-shell .reference-dashboard .participation-stats .reference-stat > span { font-size:12px; line-height:18px; }
+.app-shell .reference-dashboard .participation-stats .reference-stat > strong { font-size:28px; line-height:36px; min-height:36px; }
+.app-shell .reference-dashboard .participation-stats .reference-stat > small { font-size:14px; line-height:21px; min-height:63px; }
+.app-shell .reference-dashboard .distribution-summary { min-height:112px; }
+.app-shell .reference-dashboard .distribution-summary > span { font-size:16px; line-height:24px; min-height:48px; }
+.app-shell .reference-dashboard .distribution-summary > strong { font-size:36px; line-height:44px; }
+.app-shell .reference-dashboard .distribution-summary small { font-size:14px; }
+.app-shell .reference-dashboard :is(.distribution-stack,.allocation-bar) { height:44px; }
+.app-shell .reference-dashboard .distribution-table button { font-size:15px; line-height:22px; min-height:56px; grid-template-columns:minmax(0,1fr) minmax(11ch,auto) 64px; }
+.app-shell .reference-dashboard .distribution-table small { font-size:13px; }
+.app-shell .reference-dashboard .distribution-columns { height:224px; gap:12px; }
+.app-shell .reference-dashboard .distribution-columns button { grid-template-rows:24px minmax(0,1fr) 42px; }
+.app-shell .reference-dashboard .distribution-columns strong { font-size:14px; }
+.app-shell .reference-dashboard .distribution-columns small { font-size:12px; line-height:18px; }
+.app-shell .reference-dashboard .allocation-breakdown > div { font-size:15px; line-height:22px; min-height:52px; }
+.app-shell .reference-dashboard .allocation-registry summary { font-size:16px; min-height:44px; }
+.app-shell .reference-dashboard .allocation-viewport { height:min(480px,65dvh); }
+.app-shell .reference-dashboard .reward-chip-list { font-size:15px; line-height:23px; gap:12px; }
+.app-shell .reference-dashboard .reward-chip-list strong { font-size:16px; }
+.app-shell .reference-dashboard .mining-curve-readout { font-size:15px; min-height:28px; }
+.app-shell .reference-dashboard .mining-reward-curve text { font-size:14px; }
+.app-shell .reference-dashboard .participation-freshness { min-height:88px; font-size:14px; line-height:22px; }
+.app-shell .reference-dashboard .participation-read-status { min-height:44px; }
+
+/* Activity, public balance facts and market controls use the same scale. */
+.app-shell .reference-dashboard .portfolio-table { font-size:16px; }
+.app-shell .reference-dashboard .portfolio-table th { font-size:13px; }
+.app-shell .reference-dashboard .portfolio-table :is(th,td) { padding:18px 14px; }
+.app-shell .reference-dashboard .protocol-activity-list { height:min(520px,65dvh); max-height:520px; }
+.app-shell .reference-dashboard .protocol-activity-list a { min-height:80px; padding:18px 0; font-size:16px; }
+.app-shell .reference-dashboard .protocol-activity-list small { font-size:14px; }
+.app-shell .reference-dashboard .protocol-activity-list a > span { font-size:14px; }
+.app-shell .reference-dashboard .recent-protocol-activity > .snapshot-note { min-height:44px; }
+.app-shell .reference-dashboard .protocol-balance-facts span { font-size:14px; }
+.app-shell .reference-dashboard .protocol-balance-facts strong { font-size:24px; line-height:1.4; }
+.app-shell .reference-dashboard .protocol-balance-facts > div { min-height:112px; }
+.app-shell .reference-dashboard :is(.treasury-more,.treasury-refresh,.activity-filters button,.activity-pagination button,.recent-protocol-activity header > button,.participation-freshness button,.market-chart-reload,.protocol-balances > button) {
+  font-size:15px; line-height:22px; min-height:44px; padding:10px 16px; box-sizing:border-box;
+}
+.app-shell .reference-dashboard .protocol-balances > summary { font-size:20px; line-height:1.4; }
+.app-shell .reference-dashboard .market-panel { padding:0; }
+.app-shell .reference-dashboard .market-panel header { min-height:66px; padding:14px 24px; }
+.app-shell .reference-dashboard .market-pair-heading h2 { font-size:18px; margin:0; }
+.app-shell .reference-dashboard .market-panel header > a { font-size:15px; }
+.app-shell .reference-dashboard .market-panel iframe { height:560px; }
+.app-shell .app-page .resource-footer :is(span,p) { font-size:14px; line-height:22px; }
+.app-shell .app-page .resource-footer a { font-size:15px; }
+
+@media(max-width:1000px) {
+  .app-shell .reference-dashboard .dashboard-reward-visuals { grid-template-columns:1fr; }
+}
+@media(max-width:700px) {
+  .app-shell .app-page:is(.reference-dashboard,.overview-page,.resources-library,.portfolio-detail-page) { width:calc(100% - 28px); }
+  .app-shell .reference-dashboard .reference-panel { padding:20px; }
+  .app-shell .reference-dashboard :is(.reference-panel h2,.dashboard-section-heading h2) { font-size:24px; }
+  .app-shell .reference-dashboard .reference-panel h3 { font-size:22px; }
+  .app-shell .reference-dashboard .treasury-visual-grid { grid-template-columns:1fr; }
+  .app-shell .reference-dashboard .dashboard-supply-visuals { grid-template-columns:1fr; }
+  .app-shell .reference-dashboard .treasury-value-total { font-size:20px; flex-wrap:wrap; }
+  .app-shell .reference-dashboard .snapshot-panel > .snapshot-note { min-height:66px; }
+  .app-shell .reference-dashboard :is(.treasury-wallet-status,.treasury-strategies-status) { min-height:110px; }
+  .app-shell .reference-dashboard .participation-freshness { min-height:136px; }
+  .app-shell .reference-dashboard .participation-read-status { min-height:66px; }
+  .app-shell .reference-dashboard .market-panel { padding:0; }
+  .app-shell .reference-dashboard .market-panel header { padding:14px; }
+  .app-shell .reference-dashboard .market-panel iframe { height:440px; }
+}
+@media(max-width:500px) {
+  .app-shell .reference-dashboard .treasury-flow-list a { grid-template-columns:minmax(0,1fr); }
+  .app-shell .reference-dashboard .treasury-flow-list a strong { justify-content:flex-start; text-align:left; }
+  .app-shell .reference-dashboard .distribution-table button { grid-template-columns:minmax(0,1fr) auto 54px; gap:6px; font-size:14px; }
+  .app-shell .reference-dashboard .distribution-table small { font-size:12px; }
+  .app-shell .reference-dashboard .distribution-columns { gap:6px; }
+  .app-shell .reference-dashboard .distribution-summary > strong { font-size:30px; }
+}
+@media(max-width:380px) {
+  body { min-width:0; }
+  .app-shell .reference-dashboard .snapshot-panel .reference-stat > strong { font-size:24px; }
+}

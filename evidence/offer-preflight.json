@@ -1,0 +1,323 @@
+{
+  "checkedAt": "2026-09-19T15:43:44.091Z",
+  "readOnly": true,
+  "methods": [
+    "eth_chainId",
+    "eth_getBlockByNumber",
+    "eth_call",
+    "eth_getCode"
+  ],
+  "rows": [
+    {
+      "kind": "publicSaleQuote",
+      "asset": "PLS",
+      "account": null,
+      "block": 27586448,
+      "timestamp": 1789832555,
+      "inventory": "39146.595832232770722294",
+      "quote": "1946.4008959406015",
+      "quoteError": "",
+      "allowance": null
+    },
+    {
+      "kind": "publicSaleQuote",
+      "asset": "PLSX",
+      "account": null,
+      "block": 27586448,
+      "timestamp": 1789832555,
+      "inventory": "39146.595832232770722294",
+      "quote": "16.152236876142242",
+      "quoteError": "",
+      "allowance": null
+    },
+    {
+      "kind": "publicSaleQuote",
+      "asset": "INC",
+      "account": null,
+      "block": 27586448,
+      "timestamp": 1789832555,
+      "inventory": "39146.595832232770722294",
+      "quote": "853080.46360079104603405",
+      "quoteError": "",
+      "allowance": null
+    },
+    {
+      "kind": "publicSaleQuote",
+      "asset": "HEX",
+      "account": null,
+      "block": 27586448,
+      "timestamp": 1789832555,
+      "inventory": "39146.595832232770722294",
+      "quote": "6166.953457291178254793",
+      "quoteError": "",
+      "allowance": null
+    },
+    {
+      "kind": "nativeSalePreflight",
+      "destination": "wallet",
+      "block": 27586448,
+      "facts": [
+        [
+          "Amount spent",
+          "10000.0 PLS"
+        ],
+        [
+          "Payment recipient",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "OINK received at snapshot",
+          "1557.1207167524812 OINK"
+        ],
+        [
+          "Destination",
+          "Your wallet · 0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "Sale bonus",
+          "0% extra OINK"
+        ],
+        [
+          "Purchase fee",
+          "No separate contract fee; the entire payment goes to the treasury"
+        ]
+      ],
+      "simulation": "passed"
+    },
+    {
+      "kind": "nativeSalePreflight",
+      "destination": "one-year",
+      "block": 27586449,
+      "facts": [
+        [
+          "Amount spent",
+          "10000.0 PLS"
+        ],
+        [
+          "Payment recipient",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "OINK received at snapshot",
+          "1728.40399559525413 OINK"
+        ],
+        [
+          "Destination",
+          "one-year miner · 0xc0483f1b0dcf601888fFD0d3A44b7124e80DB7D1"
+        ],
+        [
+          "Sale bonus",
+          "11% extra OINK"
+        ],
+        [
+          "Purchase fee",
+          "No separate contract fee; the entire payment goes to the treasury"
+        ],
+        [
+          "Miner owner",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "Nominal miner duration",
+          "365 days"
+        ],
+        [
+          "Mandatory service",
+          "0 seconds"
+        ],
+        [
+          "Grace after maturity",
+          "14 days"
+        ],
+        [
+          "Maximum early / late exit penalty",
+          "50.0%"
+        ]
+      ],
+      "simulation": "passed"
+    },
+    {
+      "kind": "nativeSalePreflight",
+      "destination": "three-year",
+      "block": 27586449,
+      "facts": [
+        [
+          "Amount spent",
+          "10000.0 PLS"
+        ],
+        [
+          "Payment recipient",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "OINK received at snapshot",
+          "1837.40244576792781 OINK"
+        ],
+        [
+          "Destination",
+          "three-year miner · 0x15b51Ece819f3B51ce814de67bB2419660701a3c"
+        ],
+        [
+          "Sale bonus",
+          "18% extra OINK"
+        ],
+        [
+          "Purchase fee",
+          "No separate contract fee; the entire payment goes to the treasury"
+        ],
+        [
+          "Miner owner",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "Nominal miner duration",
+          "1095 days"
+        ],
+        [
+          "Mandatory service",
+          "0 seconds"
+        ],
+        [
+          "Grace after maturity",
+          "14 days"
+        ],
+        [
+          "Maximum early / late exit penalty",
+          "69.0%"
+        ]
+      ],
+      "simulation": "passed"
+    },
+    {
+      "kind": "nativeSalePreflight",
+      "destination": "five-year",
+      "block": 27586450,
+      "facts": [
+        [
+          "Amount spent",
+          "10000.0 PLS"
+        ],
+        [
+          "Payment recipient",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "OINK received at snapshot",
+          "1946.4008959406015 OINK"
+        ],
+        [
+          "Destination",
+          "five-year miner · 0xf3E82f4123d4262a2baEC25b03652f3932A91739"
+        ],
+        [
+          "Sale bonus",
+          "25% extra OINK"
+        ],
+        [
+          "Purchase fee",
+          "No separate contract fee; the entire payment goes to the treasury"
+        ],
+        [
+          "Miner owner",
+          "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69"
+        ],
+        [
+          "Nominal miner duration",
+          "1826 days"
+        ],
+        [
+          "Mandatory service",
+          "0 seconds"
+        ],
+        [
+          "Grace after maturity",
+          "21 days"
+        ],
+        [
+          "Maximum early / late exit penalty",
+          "82.0%"
+        ]
+      ],
+      "simulation": "passed"
+    },
+    {
+      "kind": "saleAllowancePreflight",
+      "asset": "PLSX",
+      "block": 27586451,
+      "facts": [
+        [
+          "Payment token",
+          "PLSX · 0x95B303987A60C71504D99Aa1b13B4DA07b0790ab"
+        ],
+        [
+          "Spender",
+          "0x4Ca5e92D67Fe647F1f8E6f21bd4D6Ff4aE35dA8e"
+        ],
+        [
+          "Current allowance",
+          "0.0 PLSX"
+        ],
+        [
+          "New allowance",
+          "1.0 PLSX"
+        ]
+      ],
+      "simulation": "passed"
+    },
+    {
+      "kind": "saleAllowancePreflight",
+      "asset": "INC",
+      "block": 27586452,
+      "facts": [
+        [
+          "Payment token",
+          "INC · 0x2fa878Ab3F87CC1C9737Fc071108F904c0B0C95d"
+        ],
+        [
+          "Spender",
+          "0x4Ca5e92D67Fe647F1f8E6f21bd4D6Ff4aE35dA8e"
+        ],
+        [
+          "Current allowance",
+          "0.0 INC"
+        ],
+        [
+          "New allowance",
+          "1.0 INC"
+        ]
+      ],
+      "simulation": "passed"
+    },
+    {
+      "kind": "saleAllowancePreflight",
+      "asset": "HEX",
+      "block": 27586452,
+      "facts": [
+        [
+          "Payment token",
+          "HEX · 0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39"
+        ],
+        [
+          "Spender",
+          "0x4Ca5e92D67Fe647F1f8E6f21bd4D6Ff4aE35dA8e"
+        ],
+        [
+          "Current allowance",
+          "0.0 HEX"
+        ],
+        [
+          "New allowance",
+          "1.0 HEX"
+        ]
+      ],
+      "simulation": "passed"
+    },
+    {
+      "kind": "publicReferralBalance",
+      "account": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+      "block": 27586453,
+      "remaining": "0.0",
+      "bonus": "5.0"
+    }
+  ]
+}

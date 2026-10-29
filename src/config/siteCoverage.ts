@@ -1,0 +1,32 @@
+// Original public UI compared with implemented local features on 2026-10-24.
+// Evidence: evidence/full-site-parity-2026-10-24.json. Page mapping is not a
+// guarantee that every live contract currently permits every transaction.
+export const SITE_COVERAGE = [
+  ["Dashboard", "index.html", "Overview", "Live treasury wallet balances, farming positions, protocol-owned liquidity, reward allocation, supply and miner distribution. Inflows explicitly cover tracked token transfers; incomplete data stays labelled."],
+  ["Time-miner creation", "create-miner.html", "OINK → Miners → Deploy miners", "Six durations with current deployment terms, previews, share estimates, approvals and reviewed deployment transactions."],
+  ["Miner list", "view-all-miner.html", "OINK → Miners → My miners", "Connected-wallet and public lookup, positions, gross value, progress, renewal and full or partial withdrawal/transfer/longer-duration upgrades, with current contract settings and minimum gift checks."],
+  ["Miner cards", "view-miner-card.html", "OINK → Miners → My miners", "Cards and list share live positions and action reviews; background refresh retains the previous display."],
+  ["Asset vaults", "pulse-ecosystem-mining.html", "OINK → Farms", "Public registry discovery, balances, allocations, APR estimates and reviewed deposits for eleven ordinary farms, plus HEX-share registration. PDRIP, EMIT, pTGC and UFO remain separately labelled legacy integrations."],
+  ["Vault positions", "view-pulse-ecosystem-miners.html", "OINK → Farms; Docs → Farm recovery", "Per-position claims, withdrawals, wallet or time-miner reward destinations, and emergency withdrawals for reviewed vaults. Original multiCall is a HEX-share read, not a batch claim."],
+  ["Referral", "referral.html", "OINK → Referral", "Referral links/selection, current bonus, earned and redeemed points across old and current contracts, funding status and reviewed destination-specific claims."],
+  ["Sale", "pig-offering.html", "OINK → Sale", "Live inventory and quotes for PLS, PLSX, INC and HEX. Enter payment or target OINK, use Max, choose liquid OINK or a sale miner and review the purchase."],
+  ["Distribution claims", "claim.html", "Docs → More OINK tools", "Contributor and launch reward allocations, proofs, remaining entitlement, destination payout and reviewed claims; separate from referral and farm rewards."],
+  ["Miner donations", "issue-miner.html", "OINK → Miner donations", "Create a verified donation helper with a fixed recipient, duration and mandatory service; propose its treasury funding, then activate the funded miner after approval."],
+  ["Miner voting", "miner-voting.html", "Governance → Miner voting", "Current Governor/treasury proposals, weighted voting power and reviewed support, opposition or neutral selections."],
+  ["Delegation", "delegate-vote.html", "Governance → Miner voting", "Set/remove a delegate per duration, and vote for listed wallets delegated to the connected account."],
+  ["Voting credit", "voting-credit.html", "Governance → Ordinary proposals / Miner voting", "Wallet deposits, miner-share conversion, balances and irreversible credit destruction; proposal reviews check current spending requirements."],
+  ["Senate", "senate.html", "Governance → Treasury & Senate", "Live members/candidates, veto ballots and finalization, membership votes/add/remove/replace and credit distribution."],
+  ["Protocol upgrades", "propose-upgrade.html", "Governance → Protocol upgrades", "Governor proposals, staged approval, opposition/veto, rejection cleanup and final enforcement with authority checks."],
+  ["Basic settings", "basic-settings.html", "Governance → Ordinary proposals", "Voting cost, enforcement delay, rollover bonus, harvest call fee and vault-setting create/support/oppose/veto/execute reviews."],
+  ["Reward allocations", "pools-farms.html", "Governance → Ordinary proposals", "Allocation/deposit-fee proposals and create/support/oppose/veto/execute. Shared synchronization belongs in Community maintenance."],
+  ["New pool", "add-token.html", "Governance → Ordinary proposals", "New-pool create/vote/veto/execute; compatible registered pools appear on Farms after refresh."],
+  ["NFT allocation", "NFT-allocation.html", "Governance → NFT allocation", "Candidate discovery, announcement, miner/delegated votes, waiting-period updates, rejection and approval. Original page governs NFT valuation contracts; project NFT actions use the published DEGEN dashboard."],
+  ["Governor tax", "governor-tax.html", "Governance → Ordinary proposals", "Tax proposal history and create/support/oppose/veto/execute reviews."],
+  ["Reward events", "reward-boost.html", "Governance → Ordinary proposals", "Boost and threshold proposals, emission estimates, execution, expired-event ending and competing-proposal cancellation."],
+  ["Token burns", "token-burn.html", "Governance → Ordinary proposals", "Governor transfer-or-burn proposals with amount, timing, credit votes, veto and execution."],
+  ["Governor to treasury", "treasury-deposit.html", "Governance → Ordinary proposals", "Governor transfer-or-burn proposals can transfer OINK to the treasury instead of burning it."],
+  ["Treasury withdrawals", "treasury.html", "Governance → Treasury & Senate", "PLS/ERC20 requests, recipient/amount/delay, credit and miner votes, Senate veto and approve/reject/close reviews."],
+  ["Maintenance", "available-actions.html", "OINK → Community maintenance", "Thirteen reviewed actions cover buyback/conversion, protocol and PulseX harvest, Reward Boost start/end, ecosystem cap/reduction/rebalance, mining-fee collection, fee synchronization and Senate credit. PDRIP fee collection remains external because its implementation source is unverified."],
+  ["Activity", "latest-actions.html", "Overview; Docs → Treasury & activity", "Decoded protocol activity and treasury token transfers with automatic refresh and explicit history coverage."],
+  ["Shared navigation", "sidebar.html", "Primary navigation; Resources", "OINK tools, governance, guides, source/audit and community links; maintenance is directly reachable from the OINK menu and footer."],
+] as const;

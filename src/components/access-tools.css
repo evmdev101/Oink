@@ -1,0 +1,30 @@
+.access-tools { min-width: 0; }
+.access-tools > p { line-height: 1.6; }
+.access-tools label:not(.farm-review-consent) { display: grid; gap: 8px; margin: 18px 0; }
+.access-tools input:not([type="checkbox"]), .access-tools select { width: 100%; min-width: 0; padding: 12px; color: var(--fg); background: var(--panel); border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; }
+.access-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 18px 0; }
+.access-facts > div { display: grid; gap: 8px; padding: 14px; background: color-mix(in srgb, var(--panel) 92%, var(--accent)); border: 1px solid var(--border); border-radius: 8px; min-width: 0; }
+.access-facts span { font-size: 12px; color: var(--muted); }
+.access-facts strong { overflow-wrap: anywhere; }
+.oink-farms-page .access-tools[aria-label="HEX share management"] { border-color:var(--farm-border-soft); background:var(--farm-card); box-shadow:none; }
+.oink-farms-page .access-tools[aria-label="HEX share management"] .access-facts > div { background:var(--farm-metric); border-color:var(--farm-border-soft); box-shadow:none; }
+.access-actions, .access-input { display: flex; gap: 10px; flex-wrap: wrap; }
+.access-input input { flex: 1 1 150px; }
+.access-actions button { flex: 1 1 160px; }
+.access-tools button { font: inherit; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: color-mix(in srgb, var(--panel) 85%, var(--accent)); color: var(--fg); cursor: pointer; }
+.access-tools button:hover:not(:disabled) { border-color: var(--accent); }
+.access-tools button:disabled { cursor: not-allowed; opacity: .5; }
+.access-tools :is(button, input, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.access-tools [role="alert"] { color: var(--accent); }
+@media (max-width: 500px) { .access-facts { grid-template-columns: 1fr; } .access-tools .card-heading-row { flex-wrap: wrap; gap: 12px; } }
+
+.access-tools > p,
+.access-tools label:not(.farm-review-consent),
+.access-facts span {
+  color: var(--label-dim, var(--muted));
+}
+.access-facts strong {
+  color: var(--value-bright, var(--fg));
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}

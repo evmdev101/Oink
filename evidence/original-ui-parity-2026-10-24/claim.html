@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Piggy Bank: Claim Your Piggy Bank(OINK) Tokens</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="siteFiles/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="siteFiles/vendors/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="siteFiles/css/vertical-layout-dark/style.css">
+  <!-- endinject -->
+
+     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+  <script src="js/ethers.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+   <script type="text/javascript" src="https://unpkg.com/web3@1.6.0/dist/web3.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.4/dist/index.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="js/walletlink.bundle.js"></script>
+   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+  <script src="1config.js"></script>
+<script>
+
+var count = 350;
+var defaults = {
+  origin: { y: 0.7 }
+};
+function triggerConfetti() {
+function fire(particleRatio, opts) {
+  confetti(Object.assign({}, defaults, opts, {
+    particleCount: Math.floor(count * particleRatio)
+  }));
+}
+
+fire(0.25, {
+  spread: 26,
+  startVelocity: 45,
+});
+fire(0.2, {
+  spread: 60,
+});
+fire(0.35, {
+  spread: 100,
+  decay: 0.91,
+  scalar: 0.8
+});
+fire(0.1, {
+  spread: 120,
+  startVelocity: 19,
+  decay: 0.92,
+  scalar: 1.2
+});
+fire(0.1, {
+  spread: 120,
+  startVelocity: 35,
+});
+}
+
+						  function sleep(milliseconds) {  
+      return new Promise(resolve => setTimeout(resolve, milliseconds));  
+   }  
+</script>
+  <style>.web3modal-modal-lightbox { z-index: 9999 !important; }</style>
+<script>
+  fetch('sidebar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('sidebor').innerHTML = data;
+    });
+</script></head>
+  
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="img/dtx-logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="favicon/favicon-32x32.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+
+        <ul class="navbar-nav navbar-nav-right">
+      
+          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link" href="#" id="userSettings">
+              <img src="img/profile.png" style="display: block;border-radius: 35px;border: 1px solid #9739C2;" alt="profile"/>
+            </a>
+          </li>
+          
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+        
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+	  
+
+   <div id="sidebor"></div>
+
+	
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+  
+    
+		  <div class="row">
+		   <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+              	<center>    <h4 class="card-title">Claim Piggy Bank(OINK) Tokens</h4>
+	
+	    <div id="connect-wallet-div" class="alert alert-fill-info" role="alert">
+		Connect your wallet</div>
+		<div id="showLoader" class="pixel-loader"></div>
+		</br>
+
+		<!--
+How to make this 
+launch airdrop contract (doesn't check merkle, but trusts the input)
+fetch sacrifice list, check total sacrifices for his address
+add type 1 and type 2 to the sacrifice list (depending on type of sacrifice)
+displays his available credit(amount redeemed in contract - saccd), and he can choose amount and what he wants to do with it
+-->		
+					
+						<button name="submitBtn" id="submitBtn" class="btn btn-primary mr-2" onclick="claimFaucet();">Claim Tokens</button>
+						
+						
+					</center>
+ </br></br>
+ 
+ 
+</br>
+            
+		  
+				</br>
+		
+						
+					
+						
+				
+				
+						
+             
+					</div>
+                   
+ 
+               
+			   
+                </div>
+              </div>
+            </div>
+		
+		 
+		  
+		  
+		  
+		  
+		 
+		  
+		  
+		  
+		 
+		  
+		  
+          
+        </div>
+	
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright &#169; Piggy Bank OINK. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made with <i class="mdi mdi-heart-outline text-primary"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  
+  
+  
+  
+  <!-- base:js -->
+  <script src="siteFiles/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.pie.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="siteFiles/vendors/jqvmap/jquery.vmap.min.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.world.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="siteFiles/vendors/peity/jquery.peity.min.js"></script>
+  <script src="siteFiles/js/jquery.flot.dashes.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="siteFiles/js/off-canvas.js"></script>
+  <script src="siteFiles/js/hoverable-collapse.js"></script>
+  <script src="siteFiles/js/template.js"></script>
+  <script src="siteFiles/js/settings.js"></script>
+  <script src="siteFiles/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="siteFiles/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	
+	<script src="js/auth.js"></script>
+	<script src="js/userProfile.js"></script>
+	 <script src="js/claim.js"></script>
+
+ <script src="js/confetti.js"></script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+  sleep(2750).then(() => {
+	  var duration = 11 * 1000;
+var animationEnd = Date.now() + duration;
+var defaults = { startVelocity: 17, spread: 360, ticks: 60, zIndex: 0 };
+
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+var interval = setInterval(function() {
+  var timeLeft = animationEnd - Date.now();
+
+  if (timeLeft <= 0) {
+    return clearInterval(interval);
+  }
+
+  var particleCount = 50 * (timeLeft / duration);
+  // since particles fall down, start a bit higher than random
+  confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+  confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+}, 250);
+
+sleep(5942).then(() => {  
+
+					Swal.fire({
+						  title: '<strong>🐷 OINK OINK, Pigs in Charge! 🐷</strong>',
+						  html: '<strong>Welcome to Piggy Bank — PulseChain memecoin with a treasury so thicc it\’s hogging all the slop! We\’re here to buy back OINK and make those pigs fly, plus whatever greasy, bacon-crazed plans YOU vote for. Governance is degen pig power—snout up and let\’s sling some pork!</strong></br> <a href="pulse-ecosystem-mining.html"><button class="swal2-confirm swal2-styled" aria-label="" style="max-width:90%; display: inline-block;">Click to Stake Your PulseChain Bag and earn OINK</button></a></br> </br><h5>🍖 OINK Alert: Pigs Get Slaughtered! 🥓</strong></h5><small> OINK\'s your key to the piggy bank gang-this ain\'t no piggy bank full of gold. It\'s a pig pen slot machine-don\'t bet on moon bacon, these pigs could fry fast. Prices flop harder than a hog in mud, and your OINK could rot to nothing. Bulls win, bears win, pigs get slaughtered - only sling what you can afford to see butchered!</small>',
+						  focusConfirm: false,
+						  confirmButtonText:
+							'<i class=\"fa fa-thumbs-up\"></i> Enter'
+						})
+				})  
+  })
+
+						
+						  function sleep(milliseconds) {  
+      return new Promise(resolve => setTimeout(resolve, milliseconds));  
+   }  
+</script>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Piggy Bank: Governance Portal</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="siteFiles/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="siteFiles/vendors/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="siteFiles/css/vertical-layout-dark/style.css">
+  <!-- endinject -->
+  <link rel="stylesheet" href="siteFiles/vendors/font-awesome/css/font-awesome.min.css"/>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script src="js/ethers.js"></script>
+ <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script> 
+ <script type="text/javascript" src="https://unpkg.com/web3@1.6.0/dist/web3.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.4/dist/index.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="js/walletlink.bundle.js"></script>
+ <script src="1config.js"></script> 
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"></script>
+  <style>
+   .buyback-item {
+            background-color: rgba(0, 187, 224, 0.2);
+			#color: #008eaa;
+            margin-bottom: 10px;
+            padding: 10px;
+			border-color: #00acce;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+		
+        .show-more-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .show-more-btn:hover {
+            background-color: #0056b3;
+        }
+		
+.customloader {
+  border: 7px solid #f3f3f3; /* Light grey */
+  border-top: 7px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+.customloader2 {
+  border: 25px solid #f3f3f3; /* Light grey */
+  border-top: 25px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+</style>
+  <style>.web3modal-modal-lightbox { z-index: 9999 !important; }</style>
+<script>
+  fetch('sidebar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('sidebor').innerHTML = data;
+    });
+</script>
+
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="img/dtx-logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="favicon/favicon-32x32.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+
+        <ul class="navbar-nav navbar-nav-right">
+      
+          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link" href="#" id="userSettings">
+              <img src="img/profile.png" style="display: block;border-radius: 35px;border: 1px solid #9739C2;" alt="profile"/>
+            </a>
+          </li>
+       
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+ 
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+	  
+<div id="sidebor">
+</div>
+
+	
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+<div id="ifMobile">
+
+
+		  
+          <div class="row">
+		  
+
+			
+			
+		  		        <div class="col-md-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+				
+
+	<center>	 <p class="card-title">Piggy Bank Treasury Inflows</p></center>
+				   <center><div id="treasury-inflow-container" style="max-height: 600px;overflow-y: auto;"><div class="customloader2"></div></div></center>
+				   
+					
+					
+                </div>
+              </div>  
+            </div>
+		
+			
+            <div class="col-md-4 grid-margin stretch-card">
+			
+              <div class="card">
+                <div class="card-body">
+               
+            
+					<center>
+					 
+					<div id="treasuryInfo"></div>
+					</br>
+					<div id="rewardAllocations"></div></br>
+					<center>
+                  <h6 class="card-title">Estimated OINK Annual Mining Rewards</h6>
+                     </center>  
+					<div class="col-sm-4 col-md-5 mg-t-30 mg-sm-t-0">
+            <!--     <button type="button" class="btn btn-info btn-rounded btn-fw">Rewards start on 20th Of November!</button></br></br>-->     <ul class="list-unstyled">
+                        <li><span class="d-inline-block p-1 mr-3" style="background: #0099C6;"></span> 5 Year Miner: <span id="apy6"></span></li>
+                        <li><span class="d-inline-block p-1 mr-3" style="background: #6F42C1;"></span> 3 Year Miner: <span id="apy5"></span></li>
+                        <li><span class="d-inline-block p-1 mr-3" style="background: #FE3365;"></span> 1 Year Miner: <span id="apy4"></span></li>
+                        <li><span class="d-inline-block p-1 mr-3" style="background: #FE9A33;"></span> 6 Month Miner: <span id="apy3"></span></li>
+						                        <li><span class="d-inline-block p-1 mr-3" style="background: #00CCCC;"></span> 3 Month Miner: <span id="apy2"></span></li>
+												                        <li><span class="d-inline-block p-1 mr-3" style="background: #006530;"></span> 1 Month Miner: <span id="apy1"></span></li>
+                      </ul>
+       </div>
+	   <div class="row align-items-center">
+                    <div class="col-sm-8 col-md-7">
+					<div id="piechart3" style="max-height: 400px; max-width: 400px;"></div>
+</div>
+<div id="rewardAllocations" style="display: none;"><div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div></div>
+                  </div>
+				  
+
+                      
+                
+
+
+                      </center>
+     
+
+		
+	
+                </div>
+        </div>
+            </div>
+			
+			
+			
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+               
+			   
+			         <center>  <p class="card-title">Locked<small>(Mining)</small> vs liquid OINK Token Supply (<small><a href="#" onclick="showAll();">Show all</a></small>)</p>
+                  <p class="mb-3 text-muted">The percentage of tokens used for mining versus liquid(non-mining) token supply</p>
+              </center>
+                    <div>
+                     <center>
+					      <div id="piechart" style="max-height: 330px; max-width: 330px;"></div>
+</center>
+                    
+                  
+                    </div>
+              
+                   <div id="staked-nonstaked"><div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div></div>
+				   
+				   </br></br>
+				    <center>  <h6 class="card-title">Miners by Lock-up</h6>
+                  <p class="mb-3 text-muted">Piggy Bank miners share by duration</p></center>
+                 </br></br> <div class="row align-items-center">
+                    <div class="col-sm-8 col-md-7">
+					<div id="piechart2" style="max-height: 400px; max-width: 400px;"></div>
+                      
+                    </div>
+        
+		   <div id="td-distributions"><div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div></div>
+               
+			   </div>
+                </div>
+              </div>
+            </div>
+ 
+		  
+		
+</div>
+	
+
+
+		  
+
+
+
+
+		
+			
+			
+          
+
+          
+          
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright &#169; Piggy Bank OINK. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made with <i class="mdi mdi-heart-outline text-primary"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- base:js -->
+  <script src="siteFiles/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.pie.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="siteFiles/vendors/jqvmap/jquery.vmap.min.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.world.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="siteFiles/vendors/peity/jquery.peity.min.js"></script>
+  <script src="siteFiles/js/jquery.flot.dashes.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="siteFiles/js/off-canvas.js"></script>
+  <script src="siteFiles/js/hoverable-collapse.js"></script>
+  <script src="siteFiles/js/template.js"></script>
+  <script src="siteFiles/js/settings.js"></script>
+  <script src="siteFiles/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="siteFiles/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/userProfile.js"></script>
+   <script src="js/confetti.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+  
+
+  
+		
+		
+		
+   const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+if (isMobile) {
+  //...
+  document.getElementById("ifMobile").innerHTML = `
+      <div class="d-flex align-items-center flex-wrap border-bottom pb-3 mb-3">
+       <center>     <button data-toggle="offcanvas" class="btn btn-inverse-info tx-12 btn-sm btn-rounded"><i class="mdi mdi-logout-variant icon-sm text-info"></i> Open Menu</button>
+			
+  
+
+    
+	   <a href="#" onclick="socials();"><button class="btn btn-inverse-warning tx-12 btn-sm btn-rounded"> <i class="mdi mdi-human-male-female  icon-sm text-warning"></i> Social</button></a>
+</br></br>
+	      <a href="referral.html"><button class="btn btn-inverse-primary tx-12 btn-sm btn-rounded"> <i class="mdi mdi-cash-usd icon-sm text-primary"></i> Referral Program</button></a>
+
+
+           
+            </center>
+          </div>
+		  `+document.getElementById("ifMobile").innerHTML
+}
+  </script>
+
+
+ 
+
+</body>
+
+</html>
+

@@ -1,0 +1,35 @@
+{
+  "address": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+  "retrievedAt": "2026-10-23T13:56:36.0198641Z",
+  "explorerSourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+  "explorerPageUrl": "https://scan.pulsechain.com/address/0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38?tab=contract",
+  "publishedSourceUrl": "https://raw.githubusercontent.com/OINK-pls/PiggyBank/main/contracts/XPD.sol",
+  "publishedPageUrl": "https://github.com/OINK-pls/PiggyBank/blob/main/contracts/XPD.sol",
+  "contractName": "XPD",
+  "compilerVersion": "v0.8.20+commit.a1b79de6",
+  "optimizationUsed": "true",
+  "explorerMetadata": {
+    "CompilerVersion": "v0.8.20+commit.a1b79de6",
+    "ContractName": "XPD",
+    "EVMVersion": "default",
+    "FileName": "",
+    "IsProxy": "false",
+    "OptimizationRuns": 200,
+    "OptimizationUsed": "true",
+    "Address": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38"
+  },
+  "sources": [
+    {
+      "sha256": "B40AC938718B7750128D987AD4D3E0C61E5FDB7506C68355B9D91DC795FFC306",
+      "file": "public/contracts/OINK-XPD.sol",
+      "label": "Published project source"
+    },
+    {
+      "sha256": "59A182B5ACAFF4C1DDE024177858EB3884BC11B550DDC618AFF0FA18E0A95A15",
+      "file": "public/contracts/OINK-XPD-explorer.sol",
+      "label": "Explorer flattened source"
+    }
+  ],
+  "verificationNote": "Retrieved source published by the project and verified-source response served by PulseChain explorer for this address. No new runtime-bytecode compilation/match or current state RPC reads were performed.",
+  "licenseNote": "Published XPD.sol declares SPDX-License-Identifier: NONE. Explorer flattened source omits SPDX headers. Do not imply a permissive license for the complete token source."
+}

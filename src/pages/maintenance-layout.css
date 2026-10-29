@@ -1,0 +1,31 @@
+.maintenance-page { max-width:1200px; }
+.maintenance-intro { max-width:850px; line-height:1.7; }
+.maintenance-status-card .access-read-status { box-sizing:border-box; height:52px; overflow:auto; margin:0; }
+.maintenance-status-card .access-facts > div { min-height:104px; align-content:start; }
+.maintenance-status-card .access-facts strong { height:76px; overflow:auto; font-size:16px; line-height:25px; }
+.maintenance-wallet-status { box-sizing:border-box; height:78px; overflow:auto; line-height:26px; }
+.maintenance-actions-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:22px 0; align-items:stretch; }
+.maintenance-action-card { min-width:0; border:1px solid var(--border); background:color-mix(in srgb,var(--panel) 96%,var(--accent)); border-radius:12px; padding:20px; display:flex; flex-direction:column; }
+.maintenance-action-card > header { box-sizing:border-box; display:flex; flex-wrap:wrap; align-items:flex-start; align-content:start; gap:10px; justify-content:space-between; height:90px; overflow:auto; }
+.maintenance-action-card h3 { font-size:19px; line-height:1.4; margin:0; }
+.maintenance-availability { font-size:11px; line-height:18px; border:1px solid var(--border); border-radius:20px; padding:3px 9px; white-space:nowrap; color:var(--fg); }
+.maintenance-availability.is-ready { border-color:var(--accent); color:var(--accent); }
+.maintenance-action-description { font-size:14px; line-height:23px; margin:12px 0; min-height:69px; }
+.maintenance-balance-readout { box-sizing:border-box; min-height:70px; margin:0 0 12px; font-size:13px; line-height:25px; }
+.maintenance-balance-readout > div { display:flex; justify-content:space-between; gap:12px; }
+.maintenance-balance-readout :is(dt,dd) { margin:0; min-width:0; }
+.maintenance-balance-readout dd { font-weight:700; text-align:right; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.maintenance-action-fields:empty { display:none; }
+.maintenance-action-card .maintenance-action-fields label { margin:12px 0; font-size:13px; line-height:21px; }
+.maintenance-action-fields textarea { width:100%; min-height:94px; resize:vertical; padding:12px; border:1px solid var(--border); border-radius:8px; box-sizing:border-box; color:var(--fg); background:var(--panel); font:inherit; }
+.maintenance-action-fields :is(select,input) { height:46px; }
+.maintenance-action-fields a { font-size:12px; }
+.maintenance-field-hint { font-size:12px; line-height:20px; }
+.maintenance-action-fields .maintenance-use-wallet { justify-self:start; font-size:12px; padding:6px 10px; }
+.maintenance-action-condition { box-sizing:border-box; height:96px; overflow:auto; scrollbar-gutter:stable; font-size:13px; line-height:22px; margin:14px 0; padding:12px; border-radius:8px; background:var(--panel); }
+.maintenance-action-buttons { margin-top:auto; }
+.maintenance-action-buttons > button { width:100%; min-height:44px; }
+.maintenance-action-buttons .farm-action-error { overflow-wrap:anywhere; }
+.maintenance-status-card .access-read-note { box-sizing:border-box; height:52px; overflow:auto; font-size:12px; line-height:22px; }
+.maintenance-governance-link { margin:24px 0; }
+@media(max-width:760px) { .maintenance-actions-grid { grid-template-columns:1fr; } .maintenance-action-card { padding:16px; } }

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Piggy Bank: Governor Tax Settings</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="siteFiles/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="siteFiles/vendors/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="siteFiles/css/vertical-layout-dark/style.css">
+  <!-- endinject -->
+  <link rel="stylesheet" href="siteFiles/vendors/font-awesome/css/font-awesome.min.css"/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+  <script src="js/ethers.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+   <script type="text/javascript" src="https://unpkg.com/web3@1.6.0/dist/web3.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.4/dist/index.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="js/walletlink.bundle.js"></script>
+  <script src="1config.js"></script> 
+  <style>
+.customloader {
+  border: 7px solid #f3f3f3; /* Light grey */
+  border-top: 7px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+.customloader2 {
+  border: 25px solid #f3f3f3; /* Light grey */
+  border-top: 25px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+</style><style>.web3modal-modal-lightbox { z-index: 9999 !important; }</style>
+<script>
+  fetch('sidebar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('sidebor').innerHTML = data;
+    });
+</script></head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="img/dtx-logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="favicon/favicon-32x32.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+
+        <ul class="navbar-nav navbar-nav-right">
+      
+          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link" href="#" id="userSettings">
+              <img src="img/profile.png" style="display: block;border-radius: 35px;border: 1px solid #9739C2;" alt="profile"/>
+            </a>
+          </li>
+          
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+        
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+	  
+
+    <div id="sidebor"></div>
+
+	
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+
+    
+		  <div class="row">
+		   <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Set Governor Tax</h4>
+		
+	
+ 
+                <div class="alert alert-fill-primary" role="alert">
+		The governing contract collects penalties from premature withdrawals, as well as a portion of inflation. Collected tokens are used to cover for miner-rollover bonuses, as well as a gauge to trigger reward boost events(when a certain threshold of tokens are collected, reward boost event can be triggered). Additionally the tokens can also be burned or transferred into the treasury wallet.
+		Community gets to decide how the tokens are used. This is a mechanism to set the % of inflation that is received by the governing contract. Maximum allowed governor tax is 10%.
+		</br>	</div>
+                
+                    <div class="form-group">
+			
+						</br>
+						
+					<label for="exampleInputUsername1">New Governor Tax ( Current: <div id="governor-tax" style="display: inline;"><div id="customloader"></div></div>  %)</label>
+						
+						</br>
+					  <label for="formControlRange">New Tax:  <span id="client">0</span> %</label>
+        <input type="range" class="form-control-range" id="formControlRange" style="max-width:75%;" value="0">
+		
+		</br>
+						
+						<label for="exampleInputUsername1">Your commitment(in OINK)</label>
+						
+					<input type="text" class="form-control" id="treasuryWithdraw-commit" placeholder="Number of tokens(eg. 50 000)">
+					
+					
+					</br>
+					  <label for="formControlRange2"><i id="delayInfo" class="mdi mdi-information-outline" onclick="displayDelayInfo()">  </i> Delay:  <span id="client2">0</span> Hours</label>
+        <input type="range" class="form-control-range" id="formControlRange2" style="max-width:300px;" value="0">
+						</br>
+						<button type="submit" id="btn-treasuryWithdraw" class="btn btn-primary mr-2">Submit</button>
+						
+						
+             
+					</div>
+                   
+ 
+               
+			   
+                </div>
+              </div>
+            </div>
+			   <div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Governor Tax Proposals                           <i class="fa fa-refresh fa-lg" onclick="refreshGovTax()" style="cursor: pointer;"></i>                                           
+		 <div class="badge badge-outline-danger" style="display:inline; float: right; cursor: pointer;" id="treasuryTransfer-expired" onclick="showExpired()">Expired</div>
+				  <div class="badge badge-success" style="display:inline; float: right; margin-right: 7px" id="treasuryTransfer-active" onclick="showActive()">Active</div>
+				 
+				  </h4>
+   
+		
+   
+   
+                    <div class="table-responsive" style="max-height:500px;display:block;" id="govTaxTable">
+	<div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div>
+
+</div>
+             
+               
+             
+              </div>
+   
+ 
+                </div>
+              </div>
+		 
+		  
+		  
+		  
+		  
+		 
+		  
+		  
+		  
+		 
+		  
+		  
+          
+        </div>
+	
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright &#169; Piggy Bank OINK. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made with <i class="mdi mdi-heart-outline text-primary"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  
+  
+  
+  
+  <!-- base:js -->
+  <script src="siteFiles/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.pie.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="siteFiles/vendors/jqvmap/jquery.vmap.min.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.world.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="siteFiles/vendors/peity/jquery.peity.min.js"></script>
+  <script src="siteFiles/js/jquery.flot.dashes.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="siteFiles/js/off-canvas.js"></script>
+  <script src="siteFiles/js/hoverable-collapse.js"></script>
+  <script src="siteFiles/js/template.js"></script>
+  <script src="siteFiles/js/settings.js"></script>
+  <script src="siteFiles/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="siteFiles/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="js/confetti.js"></script>
+<script src="js/auth.js"></script>
+	<script src="js/userProfile.js"></script>
+	<script src="js/governorTax.js"></script>
+ <script>
+    $("#delayInfo").hover(function() {
+        $(this).css('cursor','pointer').attr('title', 'If outvoted, the proposal can be rejected at any time. Delay is the amount of time during which the proposal can not be rejected. Delay gives time to accumulate votes in favor of the proposal.');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+
+	</script>
+
+		  
+</body>
+
+</html>
+

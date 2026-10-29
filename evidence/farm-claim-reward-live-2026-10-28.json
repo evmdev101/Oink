@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-29T03:11:30.794Z",
+  "elapsedMs": 5646,
+  "result": {
+    "farmId": "plsx",
+    "account": "0xc684B8024A1A852F6707ba01081fB55ABCC5E74d",
+    "index": 0,
+    "gross": "1.881474543033867711",
+    "timestamp": 1793243475
+  },
+  "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+  "expectedGovernor": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+  "treasuryMatchesGovernor": true,
+  "readMethods": {
+    "eth_chainId": 1,
+    "eth_getBlockByNumber": 2,
+    "eth_getCode": 4,
+    "eth_call": 20
+  },
+  "transactionsSent": 0
+}

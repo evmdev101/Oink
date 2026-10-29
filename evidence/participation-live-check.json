@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-09-19T15:41:33.419Z",
+  "readOnly": true,
+  "account": "0x0000000000000000000000000000000000000002",
+  "coreBlock": 27586439,
+  "coreHash": "0xc86eb99ed8c703a13ed5f06a61be8a15ad8faad82b3b6f49c93f75a049302d9f",
+  "miners": [
+    {
+      "id": "one-month",
+      "block": 27586439,
+      "blockHash": "0xc86eb99ed8c703a13ed5f06a61be8a15ad8faad82b3b6f49c93f75a049302d9f",
+      "pinnedDependenciesPassed": true,
+      "delegationSimulationPassed": true
+    },
+    {
+      "id": "three-month",
+      "block": 27586440,
+      "blockHash": "0x6c94895daab3e5d6a75394ae1c0387823dde61fea08f939454996ba90bf9605e",
+      "pinnedDependenciesPassed": true,
+      "delegationSimulationPassed": true
+    },
+    {
+      "id": "six-month",
+      "block": 27586440,
+      "blockHash": "0x6c94895daab3e5d6a75394ae1c0387823dde61fea08f939454996ba90bf9605e",
+      "pinnedDependenciesPassed": true,
+      "delegationSimulationPassed": true
+    },
+    {
+      "id": "one-year",
+      "block": 27586440,
+      "blockHash": "0x6c94895daab3e5d6a75394ae1c0387823dde61fea08f939454996ba90bf9605e",
+      "pinnedDependenciesPassed": true,
+      "delegationSimulationPassed": true
+    },
+    {
+      "id": "three-year",
+      "block": 27586440,
+      "blockHash": "0x6c94895daab3e5d6a75394ae1c0387823dde61fea08f939454996ba90bf9605e",
+      "pinnedDependenciesPassed": true,
+      "delegationSimulationPassed": true
+    },
+    {
+      "id": "five-year",
+      "block": 27586441,
+      "blockHash": "0x2b9bbc70b2dd7fa4fbb50148c21416bc7b3c6baf22c89bf692061bfd208b27a1",
+      "pinnedDependenciesPassed": true,
+      "delegationSimulationPassed": true
+    }
+  ]
+}

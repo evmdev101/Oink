@@ -1,0 +1,28 @@
+.info-heading { display:flex; align-items:center; gap:8px; min-width:0; }
+.info-label { display:inline-flex; align-items:center; gap:6px; max-width:100%; }
+.info-tooltip { position:relative; display:inline-flex; flex:0 0 auto; align-items:center; justify-content:center; vertical-align:middle; margin-inline-start:6px; line-height:1; }
+:is(.info-heading,.info-label) > .info-tooltip { margin-inline-start:0; }
+:is(.app-shell,dialog) .info-tooltip .info-tooltip-trigger {
+  all:unset; box-sizing:border-box; position:relative; display:inline-flex; flex:0 0 17px; align-items:center; justify-content:center;
+  width:17px; height:17px; min-width:17px; min-height:17px; max-width:17px; max-height:17px; padding:0; margin:0;
+  border:1px solid currentColor; border-radius:50%; color:var(--fg); background:transparent;
+  font:700 11px/1 system-ui,sans-serif; letter-spacing:0; text-transform:none; box-shadow:none; transform:none; cursor:help; opacity:.85;
+}
+:is(.app-shell,dialog) .info-tooltip .info-tooltip-trigger::before { content:""; position:absolute; inset:-5px; }
+:is(.app-shell,dialog) .info-tooltip .info-tooltip-trigger > span { color:inherit; font:inherit; letter-spacing:0; line-height:1; }
+:is(.app-shell,dialog) .info-tooltip .info-tooltip-trigger:is(:hover,[aria-expanded="true"]) { color:var(--accent); opacity:1; background:transparent; transform:none; box-shadow:none; }
+:is(.app-shell,dialog) .info-tooltip .info-tooltip-trigger:focus-visible { outline:2px solid var(--accent); outline-offset:4px; opacity:1; }
+.info-tooltip-popover {
+  position:fixed; z-index:2147483000; box-sizing:border-box; width:min(350px,calc(100vw - 24px));
+  max-height:min(380px,calc(100dvh - 24px)); overflow:auto; overscroll-behavior:contain;
+  padding:16px 18px; border:1px solid var(--border); border-radius:10px;
+  background:var(--panel); color:var(--fg); box-shadow:0 12px 38px #0007;
+  font:400 13px/1.65 Inter,system-ui,sans-serif; text-align:left; white-space:normal; overflow-wrap:anywhere;
+}
+.info-tooltip-popover .info-tooltip-title { display:block; margin:0 0 8px; color:var(--fg); font:700 14px/1.4 Inter,system-ui,sans-serif; }
+.info-tooltip-popover .info-tooltip-content { color:var(--fg); font:inherit; }
+.info-tooltip-popover .info-tooltip-content p { margin:0 0 10px; color:var(--fg); font:inherit; }
+.info-tooltip-popover .info-tooltip-content p:last-child { margin-bottom:0; }
+.info-tooltip-popover .info-tooltip-content :is(ul,ol) { padding-left:18px; margin:8px 0; }
+.info-tooltip-popover a { color:var(--fg); text-decoration:underline; text-underline-offset:3px; }
+@media(forced-colors:active) { .info-tooltip-popover { border:1px solid CanvasText; background:Canvas; color:CanvasText; } }

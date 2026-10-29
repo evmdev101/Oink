@@ -1,0 +1,97 @@
+{
+  "desktop": [
+    {
+      "bodyFont": "16px",
+      "heading": "Your holdings. Your rewards. Your activity.",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/portfolio",
+      "width": 1088
+    },
+    {
+      "bodyFont": "16px",
+      "heading": "OINK Farms !",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/farms",
+      "width": 1088
+    },
+    {
+      "bodyFont": "16px",
+      "heading": "Miners ! ",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/mining",
+      "width": 1088
+    },
+    {
+      "bodyFont": "16px",
+      "heading": "Turn community plans into on-chain actions.",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/governance",
+      "width": 1096
+    },
+    {
+      "bodyFont": "16px",
+      "heading": "Your route through OINK.",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/how-it-works",
+      "width": 1088
+    },
+    {
+      "bodyFont": "16px",
+      "heading": "Understand the protocol.",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/protocol",
+      "width": 1088
+    },
+    {
+      "bodyFont": "16px",
+      "heading": "Protocol maintenance",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/maintenance",
+      "width": 1096
+    },
+    {
+      "bodyFont": "16px",
+      "heading": "NFT Projects",
+      "overflow": false,
+      "url": "http://127.0.0.1:4174/#/nfts",
+      "width": 1088
+    }
+  ],
+  "mobile": [
+    {
+      "client": 375,
+      "overflow": false,
+      "scroll": 375,
+      "url": "http://127.0.0.1:4174/#/"
+    },
+    {
+      "client": 375,
+      "overflow": false,
+      "scroll": 375,
+      "url": "http://127.0.0.1:4174/#/farms"
+    },
+    {
+      "client": 375,
+      "overflow": false,
+      "scroll": 375,
+      "url": "http://127.0.0.1:4174/#/portfolio"
+    },
+    {
+      "client": 375,
+      "overflow": false,
+      "scroll": 375,
+      "url": "http://127.0.0.1:4174/#/governance"
+    },
+    {
+      "client": 375,
+      "overflow": false,
+      "scroll": 375,
+      "url": "http://127.0.0.1:4174/#/protocol"
+    }
+  ],
+  "narrowPhone": {
+    "width": 320,
+    "overflow": false
+  },
+  "viewportRestored": true
+}

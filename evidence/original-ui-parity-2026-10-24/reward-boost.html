@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Piggy Bank: Rewards(APY)</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="siteFiles/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="siteFiles/vendors/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="siteFiles/vendors/flag-icon-css/css/flag-icon.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="siteFiles/css/vertical-layout-dark/style.css">
+  
+    <link rel="stylesheet" href="siteFiles/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+	
+  <link rel="stylesheet" href="siteFiles/vendors/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css">
+  
+ 
+  <link rel="stylesheet" href="siteFiles/vendors/font-awesome/css/font-awesome.min.css">
+  
+  
+
+	 
+  <!-- endinject -->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script type="text/javascript" src="https://unpkg.com/web3@1.6.0/dist/web3.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/web3modal@1.9.4/dist/index.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+<script type="text/javascript" src="js/walletlink.bundle.js"></script>
+  <script src="js/ethers.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="1config.js"></script> 
+        <style>
+.customloader {
+  border: 7px solid #f3f3f3; /* Light grey */
+  border-top: 7px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+.customloader2 {
+  border: 25px solid #f3f3f3; /* Light grey */
+  border-top: 25px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+</style>
+<style>.web3modal-modal-lightbox { z-index: 9999 !important; }</style>
+<script>
+  fetch('sidebar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('sidebor').innerHTML = data;
+    });
+</script></head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="img/dtx-logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="favicon/favicon-32x32.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+
+        <ul class="navbar-nav navbar-nav-right">
+      
+          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link" href="#" id="userSettings">
+              <img src="img/profile.png" style="display: block;border-radius: 35px;border: 1px solid #9739C2;" alt="profile"/>
+            </a>
+          </li>
+          
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+        
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+	  
+
+   <div id="sidebor"></div>
+
+	
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+
+
+	
+				  
+				  	 <!--<div class="alert alert-fill-success" role="alert">
+                    <i class="mdi mdi-alert-circle"></i>
+                    A Reward Boost Event is currently <strong>ACTIVE</strong>. New reward boosts events <strong>CAN NOT</strong> be proposed while there is an on-going event.
+                  </div>-->
+				  
+				  
+		  <div class="row">
+		   <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Schedule a Reward Boost Event</h4>
+		
+                  <p class="card-description">
+                    Bitcoin inflation reduces by half every 4 years(Called "the halvening"). In OINK, the governing contract collects fees, penalties and a portion of inflation. Once a threshold of tokens has been collected inside the contract, users can schedule a "reward boost" event,
+				   which temporarily increases the rewards(APY%) for minerrs. Once the event expires, the global inflation of the system is reduced and the collected penalties(threshold) of OINK are burned. </br>
+				  
+                  </p>
+                
+				
+                    <div class="form-group">
+					<div id="thresholdProgress"></div>
+					
+					 <label for="exampleInputUsername1">Choose Event Start Date:</label>
+					  <div class="form-group row">
+					 
+					   <div class="col">
+					<div id="datepicker-popup" class="input-group date datepicker">
+					
+                        <input type="text" class="form-control" id="picked-date">
+                        <span class="input-group-addon input-group-append border-left">
+                          <span class="mdi mdi-calendar input-group-text"></span>
+                        </span>
+                      </div>
+					  </div>
+					  
+					   <div class="col">
+				      <div class="input-group date" id="timepicker-example" data-target-input="nearest">
+                        <div class="input-group" data-target="#timepicker-example" data-toggle="datetimepicker">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker-example" id="picked-hour">
+                          <div class="input-group-addon input-group-append"><i class="mdi mdi-clock input-group-text"></i></div>
+                        </div>
+                      </div>
+						</div>
+						
+						</div>
+						
+						
+                      <label for="exampleInputUsername1">New Reward Per Block:</label>
+                      <input type="text" class="form-control" id="reward-per-block" placeholder="Enter Reward Per Block(eg. 100)">
+					    </br>
+						
+							  <div class="form-group row">
+					 
+					   <div class="col">
+						     <label for="exampleInputUsername1">Reward Duration(in Hours):</label>
+                      <input type="text" class="form-control" id="reward-duration" placeholder="Enter Duration(In Hours)">
+					    </div>
+						  <div class="col">
+						     <label for="exampleInputUsername1">Estimated Inflation:</label>
+                      <input type="text" class="form-control" id="estimated-inflation" placeholder="(Auto-calculates)">
+					    </div>
+						
+						</div>
+						
+						 <label for="exampleInputUsername1">Estimated Rewards(APYs) - During Event:</label>
+							  <div class="form-group row">
+					 
+					   <div class="col" style="min-width: 115px;">
+						     <label for="exampleInputUsername1">1Month:</label>
+                      <input type="text" class="form-control" id="1month" placeholder="...">
+					    </div>
+						  <div class="col"  style="min-width: 115px;">
+						     <label for="exampleInputUsername1">3Month:</label>
+                      <input type="text" class="form-control" id="3month" placeholder="...">
+					    </div>
+					   <div class="col" style="min-width: 115px;">
+						     <label for="exampleInputUsername1">6Month:</label>
+                      <input type="text" class="form-control" id="6month" placeholder="...">
+					    </div>
+   <div class="col" style="min-width: 115px;">
+						     <label for="exampleInputUsername1">1Year:</label>
+                      <input type="text" class="form-control" id="1year" placeholder="...">
+					    </div>
+   <div class="col" style="min-width: 115px;">
+						     <label for="exampleInputUsername1">3Year:</label>
+                      <input type="text" class="form-control" id="3year" placeholder="...">
+					    </div>
+   <div class="col" style="min-width: 115px;">
+						     <label for="exampleInputUsername1">5Year:</label>
+                      <input type="text" class="form-control" id="5year" placeholder="...">
+					    </div>						
+					
+						
+						</div>
+						
+						
+					  <label for="exampleInputUsername1">Your commitment(in OINK)</label>
+                      <input type="text" class="form-control" id="reward-per-block-commit" placeholder="Number of tokens(eg. 5000)">
+					  
+					   </br>
+					  <label for="formControlRange"><i id="delayInfo" class="mdi mdi-information-outline" onclick="displayDelayInfo()">  </i> Delay:  <span id="client">0</span> Hours</label>
+        <input type="range" class="form-control-range" id="formControlRange" style="max-width:300px;" value="0">
+                    </div>
+                   
+                    <button type="submit" id="btn-rewardBoost" class="btn btn-primary mr-2">Submit</button></br></br>
+				
+               
+			   
+                </div>
+              </div>
+            </div>
+			
+
+			  
+			  
+			   <div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Proposals: Scheduled Events <i class="fa fa-refresh fa-lg" onclick="refreshRewardBoost()" style="cursor: pointer;"></i>                                                        
+				</br></br>   <div class="badge badge-outline-danger" style="display:inline; float: right; cursor: pointer;" id="rewardBoost-expired" onclick="rewardBoostShowExpired()">Expired</div>
+				  <div class="badge badge-success" style="display:inline; float: right; margin-right: 7px" id="rewardBoost-active" onclick="rewardBoostShowActive()">Active</div>
+				 
+				  </h4>
+   
+		
+   
+   
+                    <div class="table-responsive" style="max-height:500px;display:block;" id="rewardBoostTable">
+					 <div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div>
+					 
+					
+		
+                  </div>
+                </div>
+              </div>
+		  </div>
+		  </div>
+		  
+		  
+		 
+		  
+		    <div class="row">
+		   <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                <h4 class="card-title">Reward Boost(event) Threshold <small>(Current: <span id="threshold-now"><div class="customloader"></div></span> OINK)</small></h4>
+		
+                  <p class="card-description">
+                  The threshold determines the frequency(how often)
+				   the events can be scheduled. Minimum threshold is 0.1% of total supply<span id="minThresholdFill"></span>.
+                  </p>
+                
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">New Event threshold:</label>
+                      <input type="text" class="form-control" id="eventThreshold" placeholder="Enter the number of tokens required (in OINK)">
+					  </br>
+					  <label for="exampleInputUsername1">Your commitment(in OINK)</label>
+                      <input type="text" class="form-control" id="eventThreshold-commit" placeholder="Number of tokens(eg. 5000)">
+					  
+					    </br>
+					  <label for="formControlRange2"><i id="delayInfo2" class="mdi mdi-information-outline" onclick="displayDelayInfo()">  </i> Delay:  <span id="client2">0</span> Hours</label>
+        <input type="range" class="form-control-range" id="formControlRange2" style="max-width:300px;" value="0">
+		
+		
+                    </div>
+                   
+                    <button type="submit" id="btn-eventThreshold" class="btn btn-primary mr-2">Submit</button></br></br>
+				
+               
+			   	  
+                </div>
+              </div>
+            </div>
+			   <div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Proposals: Event Threshold <i class="fa fa-refresh fa-lg" onclick="refreshEventThreshold()" style="cursor: pointer;"></i>                                                        
+				 </br></br>  <div class="badge badge-outline-danger" style="display:inline; float: right; cursor: pointer;" id="eventThreshold-expired" onclick="eventThresholdShowExpired()">Expired</div>
+				  <div class="badge badge-success" style="display:inline; float: right; margin-right: 7px" id="eventThreshold-active" onclick="eventThresholdShowActive()">Active</div>
+				 </br>
+				  </h4>
+   
+		
+   
+   
+                    <div class="table-responsive" style="max-height:500px;display:block;" id="eventThresholdTable">
+					 <div style="height: 250px; padding: 13.37%;"><center><div class="customloader2"></div></center></div>
+					 
+					
+		
+                  </div>
+                </div>
+              </div>
+		  </div>
+		  </div>
+		  
+		  
+		
+		  
+		  
+          
+        </div>
+	
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright &#169; Piggy Bank OINK. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> made with <i class="mdi mdi-heart-outline text-primary"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  
+  
+  
+  
+  <!-- base:js -->
+  <script src="siteFiles/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.pie.js"></script>
+  <script src="siteFiles/vendors/jquery.flot/jquery.flot.resize.js"></script>
+  <script src="siteFiles/vendors/jqvmap/jquery.vmap.min.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.world.js"></script>
+  <script src="siteFiles/vendors/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="siteFiles/vendors/peity/jquery.peity.min.js"></script>
+  <script src="siteFiles/js/jquery.flot.dashes.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="siteFiles/js/off-canvas.js"></script>
+  <script src="siteFiles/js/hoverable-collapse.js"></script>
+  <script src="siteFiles/js/template.js"></script>
+  <script src="siteFiles/js/settings.js"></script>
+  <script src="siteFiles/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="siteFiles/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+	
+	
+
+ 
+  <!-- endinject -->
+  <!-- inject:js -->
+ 
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <script src="siteFiles/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+  <script src="siteFiles/vendors/jquery-asColor/jquery-asColor.min.js"></script>
+  <script src="siteFiles/vendors/jquery-asGradient/jquery-asGradient.min.js"></script>
+  <script src="siteFiles/vendors/jquery-asColorPicker/jquery-asColorPicker.min.js"></script>
+  <script src="siteFiles/vendors/x-editable/bootstrap-editable.min.js"></script>
+  <script src="siteFiles/vendors/moment/moment.min.js"></script>
+  <script src="siteFiles/vendors/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js"></script>
+  <script src="siteFiles/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="siteFiles/vendors/dropify/dropify.min.js"></script>
+  <script src="siteFiles/vendors/jquery-file-upload/jquery.uploadfile.min.js"></script>
+  <script src="siteFiles/vendors/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script src="siteFiles/vendors/dropzone/dropzone.js"></script>
+  <script src="siteFiles/vendors/jquery.repeater/jquery.repeater.min.js"></script>
+  <script src="siteFiles/vendors/inputmask/jquery.inputmask.bundle.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+ 
+  <script src="siteFiles/js/formpickers.js"></script>
+
+  <!-- End custom js for this page-->
+  <script src="js/auth.js"></script>
+  <script src="js/reward-boost.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/userProfile.js"></script>
+  
+  <script>
+    $("#delayInfo").hover(function() {
+        $(this).css('cursor','pointer').attr('title', 'If outvoted, the proposal can be rejected at any time. Delay is the amount of time during which the proposal can not be rejected. Delay gives time to accumulate votes in favor of the proposal.');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+	    $("#delayInfo2").hover(function() {
+        $(this).css('cursor','pointer').attr('title', 'If outvoted, the proposal can be rejected at any time. Delay is the amount of time during which the proposal can not be rejected. Delay gives time to accumulate votes in favor of the proposal.');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+	
+	</script>
+
+		  
+</body>
+
+</html>
+

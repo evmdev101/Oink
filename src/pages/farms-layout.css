@@ -1,0 +1,520 @@
+/* CashX-inspired farm composition, scoped to OINK and its existing themes. */
+.oink-farms-page .farm-rankings { margin:0 0 24px; padding:18px; border:1px solid var(--farm-border-soft); border-radius:14px; background:var(--bg); }
+.oink-farms-page .farm-rank-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.oink-farms-page .farm-rank-column { min-width:0; }
+.oink-farms-page .farm-rank-column h2 { display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin:0 0 12px; padding:0 0 12px; border-bottom:1px solid var(--farm-border-soft); font:700 14px/1.5 "DM Sans",sans-serif; text-transform:uppercase; }
+.oink-farms-page .farm-rank-column h2 small { font-size:12px; font-weight:400; text-transform:none; color:var(--farm-muted); }
+.oink-farms-page .farm-rank-list { display:flex; flex-direction:column; gap:7px; padding:0; margin:0; list-style:none; }
+.oink-farms-page .farm-rank-row { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:10px; width:100%; min-height:50px; padding:10px 12px; border:1px solid var(--farm-border-soft); border-radius:7px; background:var(--farm-card); text-align:left; transition:border-color .18s,background .18s; }
+.oink-farms-page button.farm-rank-row:is(:hover,:focus-visible):not(:disabled) { transform:none; border-color:color-mix(in srgb,var(--fg) 30%,var(--bg)); background:color-mix(in srgb,var(--fg) 5%,var(--farm-card)); box-shadow:none; }
+.oink-farms-page .farm-rank-pos { color:var(--accent); font:700 12px var(--font-ui); }
+.oink-farms-page .farm-rank-identity { display:flex; align-items:center; gap:10px; min-width:0; }
+.oink-farms-page .farm-rank-row .bfc-token-logo { width:28px; height:28px; flex-shrink:0; transition:transform .16s,filter .16s; }
+.oink-farms-page .farm-rankings,.oink-farms-page .farm-rank-row { box-shadow:none; }
+.oink-farms-page .farm-rank-row .bfc-token-logo,.oink-farms-page .farm-rank-row:is(:hover,:focus-visible) .bfc-token-logo { transform:none; filter:none; }
+.oink-farms-page .farm-rank-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:700 14px "DM Sans",sans-serif; }
+.oink-farms-page .farm-rank-name small { margin-left:5px; color:var(--farm-muted); font:400 12px var(--font-ui); }
+.oink-farms-page .farm-rank-value { color:var(--accent); font:700 16px/1.3 var(--font-ui); text-align:right; overflow-wrap:anywhere; }
+.oink-farms-page .farm-rank-empty { color:var(--farm-muted); font-size:14px; }
+.oink-farms-page .browse-farm-card { scroll-margin-top:110px; }
+.oink-farms-page .browse-farm-card.farm-rank-target { border-color:var(--accent); outline:2px solid var(--accent); outline-offset:3px; animation:oinkFarmRankFocus 1.8s ease; }
+@keyframes oinkFarmRankFocus { 35% { box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent),0 0 42px color-mix(in srgb,var(--accent) 45%,transparent); } }
+@media (max-width:1100px) { .oink-farms-page .farm-rank-grid { grid-template-columns:1fr; gap:20px; } }
+@media (max-width:400px) { .oink-farms-page .farm-rank-row { gap:7px; padding:10px 8px; } .oink-farms-page .farm-rank-value { font-size:14px; } .oink-farms-page .farm-rank-name small { display:none; } }
+@media (prefers-reduced-motion:reduce) { .oink-farms-page .farm-rank-row, .oink-farms-page .farm-rank-row .bfc-token-logo { transition:none; } .oink-farms-page .farm-rank-row:is(:hover,:focus-visible), .oink-farms-page .farm-rank-row:is(:hover,:focus-visible) .bfc-token-logo { transform:none; } .oink-farms-page .browse-farm-card.farm-rank-target { animation:none; } }
+.farm-insight { display:inline-block; position:relative; text-transform:none; }
+.farm-insight > summary { list-style:none; cursor:pointer; color:var(--accent); display:inline-flex; align-items:center; gap:7px; }
+.farm-insight > summary::-webkit-details-marker { display:none; }
+.farm-insight > summary > span { border:1px solid var(--border); border-radius:4px; padding:1px 4px; font:14px "DM Sans",sans-serif; }
+.farm-insight-panel { position:absolute; top:calc(100% + 10px); left:0; z-index:20; width:300px; max-width:calc(100vw - 70px); max-height:40dvh; overflow:auto; padding:16px; background:var(--bg); border:1px solid var(--accent); border-radius:9px; box-shadow:0 12px 36px #0008; color:var(--fg); font:12px/1.5 "DM Sans",sans-serif; text-align:left; }
+.farm-insight-rewards { float:right; }
+.farm-insight-rewards .farm-insight-panel { left:auto; right:0; }
+.farm-insight-panel h3 { margin:0 0 12px; padding-bottom:10px; border-bottom:1px solid var(--border); font-size:14px; }
+.farm-insight-panel table { width:100%; font:11px/1.7 var(--font-ui); }
+.farm-insight-panel th { text-align:left; }
+.farm-insight-panel td { text-align:right; color:var(--accent); overflow-wrap:anywhere; }
+.farm-insight-panel small { display:block; }
+.farm-insight-panel p { margin:12px 0 0; font-size:11px; font-weight:400; }
+.farm-insight-prices { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; font-weight:400; }
+.farm-insight-prices input { width:100%; margin-top:4px; }
+.oink-farms-page .farm-share-link { display:block; padding:0; margin-top:5px; border:0; background:none; color:var(--accent); font:10px var(--font-ui); text-decoration:underline dotted; }
+.farm-share-dialog { width:min(440px,calc(100vw - 32px)); }
+.farm-share-dialog svg { display:block; width:100%; color:var(--accent); }
+.farm-share-value { font:30px var(--font-ui); color:var(--accent); }
+.oink-farms-page .farm-card-positions .bfc-stat-label { display:flex; align-items:center; gap:6px; }
+.oink-farms-page .farm-card-positions .bfc-stat-label img { width:20px; height:20px; }
+.oink-farms-page .farm-card-positions > details { margin-top:12px; }
+.oink-farms-page .bfc-stat-val .farm-exit-control { display:inline-flex; }
+.oink-farms-page .bfc-stat-val .farm-review-dialog { font:13px/1.5 "DM Sans",sans-serif; font-weight:400; }
+.oink-farms-page .bfc-stat-label:has(.farm-insight) { min-height:24px; }
+.oink-farms-page .bfc-stats-top .farm-insight-panel { left:50%; transform:translateX(-30%); }
+.oink-farms-page {
+  --farm-card: color-mix(in srgb, var(--panel) 94%, var(--bg));
+  --farm-metric: color-mix(in srgb, var(--fg) 8%, var(--panel));
+  --farm-muted: color-mix(in srgb, var(--fg) 65%, var(--bg));
+  --farm-border-soft: color-mix(in srgb, var(--fg) 15%, transparent);
+  width: min(1480px, calc(100% - 48px)); max-width: 1480px;
+  padding: 36px 0 70px; font: 400 14px/1.5 "DM Sans", sans-serif;
+}
+.oink-farms-page .farms-tvl { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px; width:fit-content; margin:0 auto 24px; padding:14px 26px; border:1px solid var(--farm-border-soft); border-radius:10px; background:var(--farm-card); font-size:18px; font-weight:700; }
+.oink-farms-page .farms-tvl > span:first-child::after { content: ":"; }
+.oink-farms-page .farms-tvl strong { color:var(--farm-muted); font-size:16px; font-weight:500; }
+.oink-farms-page .farms-shell { padding:20px; border:1px solid var(--farm-border-soft); border-radius:14px; background:var(--bg); box-shadow:none; }
+.oink-farms-page button, .oink-farms-page input, .oink-farms-page select { font:inherit; }
+.oink-farms-page button { display:inline-flex; align-items:center; justify-content:center; gap:7px; border:1px solid var(--farm-border-soft); border-radius:6px; background:var(--farm-metric); color:var(--fg); padding:9px 14px; cursor:pointer; transition:border-color .15s, background .15s; }
+.oink-farms-page button:hover:not(:disabled) { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 14%,var(--panel)); }
+.oink-farms-page button:disabled { cursor:not-allowed; color:var(--farm-muted); opacity:.65; }
+.oink-farms-page :is(button,input,select,summary,a):focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.oink-farms-page a { color:var(--fg); }
+.oink-farms-page summary { cursor:pointer; }
+.oink-farms-page input, .oink-farms-page select { min-width:0; padding:10px 12px; border:1px solid var(--farm-border-soft); border-radius:6px; background:var(--farm-card); color:var(--fg); }
+.oink-farms-page input::placeholder { color:var(--farm-muted); opacity:.85; }
+.oink-farms-page .farms-topbar, .oink-farms-page .farms-brand, .oink-farms-page .farms-view-controls, .oink-farms-page .farms-toolbar { display:flex; align-items:center; gap:14px; }
+.oink-farms-page .farms-topbar { justify-content:space-between; flex-wrap:wrap; margin-bottom:19px; }
+.oink-farms-page .farms-brand img { width:43px; height:43px; object-fit:contain; border-radius:50%; }
+.oink-farms-page .farms-brand h1 { font:400 30px/1.2 "Permanent Marker","DM Sans",sans-serif; margin:0; color:var(--accent); }
+.oink-farms-page .farms-count { font:400 12px var(--font-ui); color:var(--farm-muted); }
+.oink-farms-page .farms-view-controls { gap:10px; }
+.oink-farms-page .farms-view-toggle { display:flex; border:1px solid var(--farm-border-soft); border-radius:5px; overflow:hidden; }
+.oink-farms-page .farms-view-toggle button { border:0; border-radius:0; padding:7px 9px; background:transparent; }
+.oink-farms-page button[aria-pressed="true"] { color:var(--accent); background:color-mix(in srgb,var(--accent) 16%,var(--panel)); border-color:color-mix(in srgb,var(--accent) 55%,transparent); }
+.oink-farms-page .farms-toolbar { flex-wrap:wrap; gap:10px; }
+.oink-farms-page .farms-filter-tabs { display:flex; gap:6px; margin-right:auto; }
+.oink-farms-page .farms-filter-tabs button { border-radius:999px; background:transparent; text-transform:uppercase; letter-spacing:.07em; font:700 10px var(--font-ui); padding:10px 13px; }
+.oink-farms-page .farms-filter-tabs button[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--panel)); }
+.oink-farms-page .farms-filter-tabs svg { width:13px; height:13px; }
+.oink-farms-page .farms-search { display:flex; align-items:center; gap:8px; border:1px solid var(--farm-border-soft); border-radius:6px; padding-left:10px; color:var(--farm-muted); max-width:240px; }
+.oink-farms-page .farms-search input { border:0; background:transparent; width:100%; padding-left:0; font-size:12px; }
+.oink-farms-page .farms-sort select { font-size:12px; }
+.oink-farms-page .farms-lookup { max-width:470px; }
+.oink-farms-page .farms-lookup summary { color:var(--fg); text-align:right; }
+.oink-farms-page .farms-lookup form { margin-top:12px; padding:14px; border:1px solid var(--farm-border-soft); border-radius:6px; background:var(--farm-card); }
+.oink-farms-page .farms-lookup form > div { display:flex; gap:8px; margin:6px 0; }
+.oink-farms-page .farms-lookup input { width:100%; }
+.oink-farms-page .farms-account { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; color:var(--farm-muted); font-size:11px; overflow-wrap:anywhere; }
+.oink-farms-page .farms-account span { color:var(--fg); font-family:var(--font-ui); }
+.oink-farms-page .farms-summary { padding:23px 24px 20px; border:1px solid color-mix(in srgb,var(--fg) 26%,transparent); border-radius:10px; background:color-mix(in srgb,var(--panel) 30%,var(--bg)); }
+.oink-farms-page .farms-summary-metrics { display:flex; justify-content:center; flex-wrap:wrap; gap:28px 80px; }
+.oink-farms-page .farms-summary-metrics > div { display:flex; align-items:center; gap:14px; }
+.oink-farms-page .farms-summary-metrics span { text-transform:uppercase; letter-spacing:.1em; font:400 11px var(--font-ui); color:var(--farm-muted); }
+.oink-farms-page .farms-summary-metrics strong { font-size:24px; font-weight:700; overflow-wrap:anywhere; }
+.oink-farms-page .farms-summary-metrics small { font-size:16px; }
+.oink-farms-page .farms-summary-bottom { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:17px; }
+.oink-farms-page .farms-summary-bottom p { margin:0; font-size:12px; color:var(--farm-muted); }
+.oink-farms-page .farms-summary-bottom > div { display:flex; flex-shrink:0; align-items:center; gap:12px; font-size:12px; }
+.oink-farms-page .farm-claim-all:disabled { border:1px solid color-mix(in srgb,var(--accent) 65%,var(--border)); background:color-mix(in srgb,var(--accent) 24%,var(--panel)); color:var(--fg); opacity:1; border-radius:999px; padding:10px 18px; text-transform:uppercase; font:700 11px var(--font-ui); }
+.oink-farms-page .farms-data-status { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin:13px 1px 17px; color:var(--farm-muted); font-size:10px; }
+.oink-farms-page .farms-data-status > span { display:inline-flex; align-items:center; gap:6px; }
+.oink-farms-page .farms-data-status svg { width:12px; height:12px; }
+.oink-farms-page .farms-data-status.is-warning { color:var(--accent); }
+.oink-farms-page .browse-farms-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; align-items:stretch; }
+.oink-farms-page .browse-farm-card { min-width:0; display:flex; flex-direction:column; gap:8px; padding:14px; border-radius:14px; background:var(--farm-card); border:1px solid var(--farm-border-soft); box-shadow:none; }
+.oink-farms-page .bfc-head { display:flex; align-items:center; gap:12px; min-height:46px; }
+.oink-farms-page .bfc-token-logo { width:43px; height:43px; object-fit:contain; flex-shrink:0; border-radius:50%; filter:none; }
+.oink-farms-page .bfc-identity { flex:1; min-width:0; }
+.oink-farms-page .bfc-name { margin:0; font:700 15px/1.3 "DM Sans",sans-serif; overflow-wrap:anywhere; }
+.oink-farms-page .bfc-sub { display:block; color:var(--farm-muted); font-size:10px; text-transform:uppercase; letter-spacing:.07em; margin-top:3px; }
+.oink-farms-page .bfc-sub span { color:var(--farm-muted); }
+.oink-farms-page .bfc-age { display:block; width:fit-content; max-width:100%; margin-top:5px; padding:3px 7px; border:1px solid color-mix(in srgb,var(--fg) 14%,transparent); border-radius:999px; color:var(--farm-muted); background:color-mix(in srgb,var(--bg) 68%,transparent); font:400 10px/1.35 var(--font-ui); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.oink-farms-page .farm-icon-button { width:31px; height:31px; padding:6px; flex-shrink:0; background:transparent; color:var(--farm-muted); }
+.oink-farms-page .farm-icon-button.is-active svg { fill:color-mix(in srgb,var(--accent) 30%,transparent); }
+.oink-farms-page .bfc-card-tools { display:flex; align-items:center; justify-content:space-between; margin:0 0 5px; }
+.oink-farms-page .bfc-contract-btn { display:inline-flex; gap:7px; border:1px solid var(--farm-border-soft); color:var(--fg); background:var(--farm-metric); border-radius:999px; padding:6px 13px; text-decoration:none; font-size:11px; }
+.oink-farms-page .bfc-stats-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.oink-farms-page .bfc-stat-cell { min-width:0; min-height:100px; padding:12px; background:var(--farm-metric); border:1px solid var(--farm-border-soft); border-radius:6px; }
+.oink-farms-page .bfc-stat-label { display:block; font:400 10px/1.5 var(--font-ui); text-transform:uppercase; color:var(--farm-muted); margin-bottom:11px; }
+.oink-farms-page .bfc-stat-val { display:flex; align-items:center; flex-wrap:wrap; gap:6px; font:700 15px/1.45 var(--font-ui); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.oink-farms-page .bfc-stat-val img, .oink-farms-page .bfc-token-caption img { width:19px; height:19px; object-fit:contain; border-radius:50%; }
+.oink-farms-page .bfc-stat-sub { display:block; font:400 10px/1.5 var(--font-ui); color:var(--farm-muted); margin-top:6px; overflow-wrap:anywhere; }
+.oink-farms-page .bfc-token-caption { display:flex; align-items:center; gap:5px; }
+.oink-farms-page .bfc-stat-accent { color:var(--fg); }
+.oink-farms-page .bfc-stats-top .bfc-stat-cell { min-height:76px; padding:9px 7px; text-align:center; }
+.oink-farms-page .bfc-stats-top .bfc-stat-label { font-family:"DM Sans",sans-serif; margin-bottom:5px; }
+.oink-farms-page .bfc-stats-top .bfc-stat-val { justify-content:center; font-size:17px; }
+.oink-farms-page .bfc-stats-top .bfc-stat-cell:first-child .bfc-stat-val { font-size:23px; line-height:1.1; }
+.oink-farms-page .bfc-stats-top .bfc-stat-sub { font-size:9px; }
+.oink-farms-page .bfc-fees dl { display:grid; gap:5px; margin:0; }
+.oink-farms-page .bfc-fees dl > div { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:2px 8px; text-align:left; }
+.oink-farms-page .bfc-fees dt { color:var(--farm-muted); font:400 12px/1.4 "DM Sans",sans-serif; }
+.oink-farms-page .bfc-fees dd { margin:0; font:700 14px/1.4 var(--font-ui); font-variant-numeric:tabular-nums; }
+.oink-farms-page .bfc-actions { display:flex; flex-direction:column; gap:8px; margin-top:2px; }
+.oink-farms-page .bfc-harvest-btn { width:100%; min-height:42px; border:1px solid var(--farm-border-soft); background:var(--farm-metric); color:var(--fg); text-transform:uppercase; font-size:12px; font-weight:700; }
+.oink-farms-page .bfc-harvest-btn,.oink-farms-page .farm-claim-all,.oink-farms-page .farm-claim-all:disabled,.oink-farms-page .bfc-contract-btn { background:var(--farm-metric); border-color:var(--farm-border-soft); color:var(--fg); box-shadow:none; }
+.oink-farms-page .bfc-harvest-btn:hover:not(:disabled),.oink-farms-page .farm-claim-all:hover:not(:disabled),.oink-farms-page .bfc-contract-btn:hover { background:color-mix(in srgb,var(--fg) 8%,var(--farm-card)); border-color:var(--farm-border-soft); color:var(--fg); box-shadow:none; }
+.oink-farms-page .bfc-harvest-btn:disabled { background:var(--farm-metric); border-color:var(--farm-border-soft); color:var(--farm-muted); }
+.oink-farms-page .bfc-amount { width:100%; min-height:43px; margin-top:4px; background:var(--farm-metric); }
+.oink-farms-page .bfc-amount:disabled { cursor:not-allowed; }
+.oink-farms-page .farm-exit-control { min-width:0; }
+.oink-farms-page .bfc-unstake-btn { width:100%; height:100%; }
+.oink-farms-page .bfc-actions > .farm-action-status { margin:0; min-height:30px; font-size:10px; line-height:1.5; color:var(--farm-muted); }
+.oink-farms-page .farm-exit-dialog { font-family:"DM Sans",sans-serif; }
+.oink-farms-page .farm-exit-dialog .farm-exit-preview select { width:100%; }
+.oink-farms-page .bfc-action-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.oink-farms-page .bfc-action-grid > button, .oink-farms-page .bfc-action-grid > .farm-exit-control > button { min-height:39px; text-transform:uppercase; font:400 9px var(--font-ui); }
+.oink-farms-page .bfc-approve-btn { min-height:42px; font-size:12px; font-weight:700; }
+.oink-farms-page .bfc-native-note { min-height:42px; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--farm-muted); border:1px solid var(--farm-border-soft); border-radius:6px; }
+.oink-farms-page .bfc-footer { display:grid; gap:8px; border-top:1px solid var(--farm-border-soft); padding-top:12px; margin-top:auto; font:400 11px/1.4 var(--font-ui); color:var(--farm-muted); }
+.oink-farms-page .bfc-footer > div { display:flex; align-items:baseline; flex-wrap:wrap; gap:6px; }
+.oink-farms-page .bfc-footer strong { color:var(--fg); font-size:12px; overflow-wrap:anywhere; }
+.oink-farms-page .bfc-pool-id { margin-left:auto; }
+.oink-farms-page .bfc-error { color:var(--accent); }
+.oink-farms-page .farms-empty { padding:64px 20px; text-align:center; border:1px dashed var(--farm-border-soft); border-radius:10px; }
+.oink-farms-page .farms-empty > svg { width:26px; height:26px; color:var(--accent); }
+.oink-farms-page .farms-empty h2 { font-size:18px; margin:12px 0; }
+.oink-farms-page .farms-empty p { color:var(--farm-muted); font-size:13px; }
+.oink-farms-page .farm-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.oink-farms-page .farms-list-view { grid-template-columns:1fr; }
+@media(min-width:1101px) {
+  .oink-farms-page .farms-list-view .browse-farm-card { display:grid; grid-template-columns:minmax(160px,.85fr) minmax(200px,1fr) minmax(330px,2fr) minmax(180px,1fr); align-items:start; column-gap:18px; }
+  .oink-farms-page .farms-list-view .bfc-head { grid-column:1; grid-row:1; }
+  .oink-farms-page .farms-list-view .bfc-card-tools { grid-column:1; grid-row:2; margin-top:-7px; }
+  .oink-farms-page .farms-list-view .bfc-stats-top { grid-column:2; grid-row:1 / span 3; grid-template-columns:1fr; }
+  .oink-farms-page .farms-list-view .bfc-main-stats { grid-column:3; grid-row:1 / span 3; }
+  .oink-farms-page .farms-list-view .bfc-actions { grid-column:4; grid-row:1 / span 3; margin:0; }
+  .oink-farms-page .farms-list-view .bfc-footer { grid-column:1; grid-row:3; }
+}
+@media(max-width:1100px) {
+  .oink-farms-page .browse-farms-grid:not(.farms-list-view) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .oink-farms-page .farms-summary-bottom { flex-wrap:wrap; justify-content:center; text-align:center; }
+  .oink-farms-page .farms-summary-metrics { gap:24px; }
+  .oink-farms-page .farms-search { margin-left:auto; }
+}
+@media(max-width:700px) {
+  .oink-farms-page { width:calc(100% - 24px); padding:22px 0 45px; }
+  .oink-farms-page .farms-tvl { font-size:14px; padding:12px 18px; margin-bottom:18px; }
+  .oink-farms-page .farms-tvl strong { font-size:13px; }
+  .oink-farms-page .farms-shell { padding:12px; }
+  .oink-farms-page .farms-topbar { gap:12px; }
+  .oink-farms-page .farms-brand { gap:9px; }
+  .oink-farms-page .farms-brand h1 { font-size:24px; }
+  .oink-farms-page .farms-brand img { width:35px; height:35px; }
+  .oink-farms-page .farms-count { font-size:10px; }
+  .oink-farms-page .farms-search { max-width:none; flex:1 1 100%; margin:0; }
+  .oink-farms-page .farms-filter-tabs { width:100%; }
+  .oink-farms-page .farms-sort { flex:1; }
+  .oink-farms-page .farms-sort select { width:100%; }
+  .oink-farms-page .farms-toolbar { gap:8px; }
+  .oink-farms-page .farms-lookup summary { text-align:left; }
+  .oink-farms-page .farms-summary { padding:17px 12px; }
+  .oink-farms-page .farms-summary-metrics { flex-direction:column; align-items:center; gap:12px; }
+  .oink-farms-page .farms-summary-metrics strong { font-size:19px; }
+  .oink-farms-page .farms-summary-metrics span { font-size:9px; }
+  .oink-farms-page .farms-summary-bottom > div { gap:10px; font-size:10px; }
+  .oink-farms-page .browse-farms-grid, .oink-farms-page .browse-farms-grid:not(.farms-list-view) { grid-template-columns:1fr; gap:18px; }
+  .oink-farms-page .browse-farm-card { padding:12px; }
+  .oink-farms-page .bfc-stat-val { font-size:14px; }
+  .oink-farms-page .bfc-stats-top .bfc-stat-val { font-size:14px; }
+  .oink-farms-page .bfc-stat-cell { padding:12px 10px; }
+  .oink-farms-page .farms-data-status { line-height:1.6; }
+}
+
+.oink-farms-page .farm-inline-control { padding:2px 5px; min-height:24px; background:transparent; color:var(--accent); font:400 12px "DM Sans",sans-serif; vertical-align:middle; }
+.oink-farms-page .bfc-stats-top .farm-inline-control { font:700 22px var(--font-ui); border:0; }
+.oink-farms-page .bfc-stats-top .farm-inline-control span { font:400 12px "DM Sans",sans-serif; }
+.oink-farms-page .farm-projection-toggle { justify-content:space-between; background:transparent; font-size:14px; }
+.oink-farms-page .farm-estimate, .oink-farms-page .farm-card-positions { padding:12px; background:var(--farm-metric); border:1px solid var(--farm-border-soft); border-radius:6px; overflow-wrap:anywhere; }
+.oink-farms-page .farm-estimate h3, .oink-farms-page .farm-card-positions h3 { margin:0 0 8px; font-size:14px; }
+.oink-farms-page .farm-estimate p, .oink-farms-page .farm-card-positions p { color:var(--farm-muted); font-size:12px; margin:8px 0; }
+.oink-farms-page .farm-estimate table { width:100%; border-collapse:collapse; font-size:12px; font-variant-numeric:tabular-nums; }
+.oink-farms-page .farm-estimate th, .oink-farms-page .farm-estimate td { text-align:right; padding:7px 3px; border-bottom:1px solid var(--farm-border-soft); }
+.oink-farms-page .farm-estimate th:first-child { text-align:left; }
+.oink-farms-page .farm-estimate-prices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.oink-farms-page .farm-estimate-prices label { font-size:12px; }
+.oink-farms-page .farm-estimate-prices input { width:100%; font-size:14px; margin-top:5px; }
+.oink-farms-page .farm-estimate dl { display:grid; grid-template-columns:1fr auto; font-size:12px; gap:8px; }
+.oink-farms-page .farm-estimate dd { margin:0; font-weight:700; }
+.oink-farms-page .farm-card-positions .scroll-region > div + div { border-top:1px solid var(--farm-border-soft); padding-top:8px; }
+
+/* Wide filter row and wallet summary follow the supplied Farms reference. */
+.oink-farms-page .farms-topbar { margin-bottom:8px; }
+.oink-farms-page .farms-staked-row { display:flex; flex-wrap:wrap; gap:18px; margin-bottom:24px; }
+.oink-farms-page .farms-staked-toggle { border-radius:999px; padding:7px 11px; background:transparent; text-transform:uppercase; font:700 12px var(--font-ui); }
+.oink-farms-page .farms-staked-toggle > span { width:17px; height:17px; border:1px solid var(--accent); border-radius:50%; }
+.oink-farms-page .farms-staked-toggle[aria-pressed="true"] > span { background:var(--accent); box-shadow:0 0 12px color-mix(in srgb,var(--accent) 35%,transparent); }
+.oink-farms-page .farms-toolbar { display:grid; grid-template-columns:minmax(240px,1fr) 140px 164px auto auto; align-items:end; gap:10px; }
+.oink-farms-page .farms-toolbar label { display:flex; flex-direction:column; align-items:stretch; gap:6px; min-width:0; margin:0; padding:0; max-width:none; border:0; color:var(--fg); font-size:14px; }
+.oink-farms-page .farms-toolbar input, .oink-farms-page .farms-toolbar select { width:100%; min-height:40px; padding:9px 10px; border:1px solid color-mix(in srgb,var(--fg) 26%,transparent); background:transparent; font-size:14px; }
+.oink-farms-page .farms-toolbar select option { background:var(--panel); color:var(--fg); }
+.oink-farms-page .farms-toolbar > button { min-height:40px; padding:9px 11px; background:transparent; white-space:nowrap; }
+.oink-farms-page .farms-toolbar > button[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--panel)); }
+.oink-farms-page .farms-summary { padding:24px 20px; margin-bottom:16px; display:flex; flex-direction:column; }
+.oink-farms-page .farms-summary-metrics { gap:24px 80px; }
+.oink-farms-page .farms-summary-metrics span { font-size:12px; font-weight:700; }
+.oink-farms-page .farms-summary-bottom { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; margin-top:18px; }
+.oink-farms-page .farms-summary-bottom .farms-reward-breakdown { display:flex; flex-direction:column; gap:10px; min-width:0; text-align:center; }
+.oink-farms-page .farms-reward-heading { text-transform:uppercase; color:var(--farm-muted); font:400 12px var(--font-ui); letter-spacing:.1em; }
+.oink-farms-page .farms-reward-chips { display:flex; flex-wrap:wrap; justify-content:center; gap:7px; }
+.oink-farms-page .farms-reward-chips:empty { display:none; }
+.oink-farms-page .farms-reward-chip { display:inline-flex; align-items:center; gap:5px; border:1px solid var(--farm-border-soft); border-radius:999px; padding:4px 8px 4px 5px; font-size:12px; }
+.oink-farms-page .farms-reward-chip .bfc-token-logo { width:20px; height:20px; }
+.oink-farms-page .farms-reward-chip strong { font-variant-numeric:tabular-nums; }
+.oink-farms-page .farms-summary-actions { flex-wrap:wrap; justify-content:center; }
+.oink-farms-page .farm-emission-split {
+  margin:0 0 18px; padding:22px 20px; border:1px solid color-mix(in srgb,var(--fg) 20%,transparent);
+  border-radius:10px; background:color-mix(in srgb,var(--panel) 28%,var(--bg)); overflow:hidden;
+}
+.oink-farms-page .farm-emission-split header { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-bottom:16px; }
+.oink-farms-page .farm-emission-split h2 { margin:0 0 4px; font:700 18px/1.25 "DM Sans",sans-serif; }
+.oink-farms-page .farm-emission-split p { margin:0; max-width:760px; color:var(--farm-muted); font-size:13px; line-height:1.5; }
+.oink-farms-page .farm-emission-total { min-width:132px; text-align:right; color:var(--farm-muted); font:400 11px/1.4 var(--font-ui); }
+.oink-farms-page .farm-emission-total strong { display:block; color:var(--accent); font:700 16px/1.3 var(--font-ui); }
+.oink-farms-page .farm-emission-list { display:grid; gap:0; }
+.oink-farms-page .farm-emission-row {
+  display:grid; grid-template-columns:minmax(170px,1fr) minmax(220px,2.8fr) 72px minmax(260px,1.2fr);
+  align-items:center; gap:14px; min-width:0; padding:14px 0; border-top:1px solid var(--farm-border-soft);
+}
+.oink-farms-page .farm-emission-label { display:flex; align-items:center; gap:8px; min-width:0; }
+.oink-farms-page .farm-emission-label .bfc-token-logo { width:24px; height:24px; }
+.oink-farms-page .farm-emission-label strong { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; }
+.oink-farms-page .farm-emission-label span { color:var(--farm-muted); font:400 11px var(--font-ui); }
+.oink-farms-page .farm-emission-bar { height:9px; overflow:hidden; border-radius:999px; background:color-mix(in srgb,var(--fg) 9%,var(--bg)); }
+.oink-farms-page .farm-emission-bar span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 72%,#ffffff)); }
+.oink-farms-page .farm-emission-percent { color:var(--accent); text-align:right; font:700 14px var(--font-ui); }
+.oink-farms-page .farm-emission-row dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0; }
+.oink-farms-page .farm-emission-row dt { color:var(--farm-muted); font:400 10px/1.45 var(--font-ui); }
+.oink-farms-page .farm-emission-row dd { margin:2px 0 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:700 11px/1.45 var(--font-ui); }
+.oink-farms-page .farm-emission-empty { padding:22px 0; border-top:1px solid var(--farm-border-soft); }
+/* CashX reference: card measurements, plain controls, and black/green breakdowns. */
+.oink-farms-page .bfc-stats-top .bfc-stat-cell { min-height:68px; padding:8px 12px; }
+.oink-farms-page .bfc-stats-top .bfc-stat-sub:empty { display:none; }
+.oink-farms-page .bfc-stat-cell { padding:14px 13px; }
+.oink-farms-page .bfc-stat-val { font-size:16px; }
+.oink-farms-page .bfc-stat-label { font-size:11px; font-weight:400; margin-bottom:8px; }
+.oink-farms-page .bfc-stat-sub { font-size:12px; line-height:1.3; margin-top:8px; }
+.oink-farms-page .bfc-stat-val > .farm-inline-control,
+.oink-farms-page .bfc-stat-val > .farm-exit-control > .farm-inline-control,
+.oink-farms-page .bfc-stat-label > .farm-inline-control {
+  min-height:0; border:0; padding:0; background:transparent; color:var(--farm-muted); font:700 10px var(--font-ui);
+}
+.oink-farms-page .bfc-stat-label > .farm-inline-control { font-weight:400; color:var(--accent); }
+.oink-farms-page .bfc-stat-val > .farm-inline-control:disabled { opacity:.32; }
+.oink-farms-page .farm-share-link { display:inline; margin-left:5px; font-size:12px; color:var(--farm-muted); }
+.oink-farms-page .bfc-staked-detail { display:flex; flex-wrap:wrap; align-items:baseline; gap:5px; }
+.oink-farms-page .bfc-staked-detail .farm-share-link { margin:0; white-space:nowrap; }
+.oink-farms-page .bfc-rewards-usd { font-weight:700; }
+.oink-farms-page .bfc-harvest-btn { color:#fff; }
+.oink-farms-page .bfc-harvest-btn:hover:not(:disabled) { color:#fff; }
+.oink-farms-page .bfc-actions > p.farm-action-status:not([role]) { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.oink-farms-page .farm-card-positions { padding:0; background:none; border:0; }
+.oink-farms-page .farm-card-positions .bfc-stat-cell { min-height:68px; }
+.oink-farms-page .farm-card-positions > p { font-size:10px; }
+.oink-farms-page .farm-insight { font-weight:700; }
+.oink-farms-page .farm-insight > summary { gap:6px; color:var(--fg); }
+.oink-farms-page .farm-insight > summary > span {
+  width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;
+  padding:0; border:1px solid rgba(139,161,184,.16); border-radius:5px;
+  background:#10151c; color:#b8d2ff; font-size:12px;
+}
+.oink-farms-page .farm-insight-rewards { float:none; margin-left:0; }
+.oink-farms-page .farm-insight-rewards > summary > span { color:var(--fg); border-color:var(--farm-border-soft); background:var(--farm-metric); border-radius:4px; }
+.oink-farms-page .farm-insight-panel {
+  background:#030507; color:#e8edf2; border:1px solid rgba(139,161,184,.22);
+  border-radius:7px; padding:0; box-shadow:0 18px 42px #0009; max-height:none;
+  width:178px; overflow:hidden; font-weight:400;
+}
+.oink-farms-page .bfc-stats-top .farm-insight-panel { left:50%; transform:translateX(-50%); }
+.oink-farms-page .farm-insight-panel h3 {
+  display:flex; align-items:center; gap:8px; padding:12px; margin:0;
+  border-bottom:1px solid rgba(139,161,184,.15); font:600 13px "DM Sans",sans-serif; color:#e8edf2;
+}
+.oink-farms-page .farm-insight-panel table { border-spacing:0 5px; padding:7px 12px; font:700 10.5px/1.3 var(--font-ui); }
+.oink-farms-page .farm-insight-panel th { color:#e8edf2; }
+.oink-farms-page .farm-insight-panel td { color:#39ff7e; }
+.oink-farms-page .farm-insight-panel small { display:inline; font:inherit; }
+.oink-farms-page .farm-insight-panel p { margin:0; padding:12px; font-size:11px; }
+.oink-farms-page .farm-insight-rewards .farm-insight-panel { top:auto; bottom:calc(100% + 10px); right:0; width:314px; max-width:calc(100vw - 64px); }
+.oink-farms-page .farm-insight-rewards .farm-insight-panel th { width:62px; }
+.oink-farms-page .farm-insight-rewards .farm-insight-panel td { text-align:left; padding-left:8px; }
+.oink-farms-page .browse-farm-card:focus-within, .oink-farms-page .browse-farm-card:hover { position:relative; z-index:21; }
+.oink-farms-page .farm-price-settings input { width:100%; }
+@media(max-width:420px) {
+  .oink-farms-page .bfc-stat-val { font-size:12px; letter-spacing:-.03em; }
+  .oink-farms-page .bfc-stat-cell { padding:10px 8px; }
+}
+@media(max-width:1100px) {
+  .oink-farms-page .farms-toolbar { grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto auto; }
+  .oink-farms-page .farms-search { grid-column:1 / -1; }
+  .oink-farms-page .farms-summary-bottom { grid-template-columns:1fr; }
+  .oink-farms-page .farm-emission-row { grid-template-columns:minmax(150px,1fr) minmax(190px,2fr) 66px; }
+  .oink-farms-page .farm-emission-row dl { grid-column:1 / -1; }
+}
+@media(max-width:700px) {
+  .oink-farms-page .farms-toolbar { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .oink-farms-page .farms-toolbar > button { white-space:normal; }
+  .oink-farms-page .farms-summary { padding:20px 12px; }
+  .oink-farms-page .farms-summary-metrics > div { flex-wrap:wrap; justify-content:center; gap:6px 10px; }
+  .oink-farms-page .farms-summary-metrics span { font-size:12px; }
+  .oink-farms-page .farms-summary-bottom > div { font-size:12px; }
+  .oink-farms-page .farm-emission-split { padding:18px 12px; }
+  .oink-farms-page .farm-emission-split header { flex-direction:column; gap:10px; }
+  .oink-farms-page .farm-emission-total { text-align:left; }
+  .oink-farms-page .farm-emission-row { grid-template-columns:1fr auto; gap:9px 12px; padding:13px 0; }
+  .oink-farms-page .farm-emission-bar { grid-column:1 / -1; grid-row:2; }
+  .oink-farms-page .farm-emission-percent { grid-column:2; grid-row:1; }
+  .oink-farms-page .farm-emission-row dl { grid-column:1 / -1; grid-template-columns:1fr; gap:6px; }
+}
+.oink-farms-page button.farm-copy-icon {
+  display:inline-flex; align-items:center; justify-content:center; vertical-align:middle;
+  width:20px; height:20px; min-width:20px; padding:0; margin-left:3px;
+  border:1px solid var(--farm-border-soft); border-radius:50%;
+  background:transparent; color:var(--farm-muted); box-shadow:none; line-height:1;
+}
+.oink-farms-page button.farm-copy-icon:hover:not(:disabled) { color:var(--fg); border-color:currentColor; background:transparent; }
+.oink-farms-page button.farm-copy-icon:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.farm-original-actions { display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; padding:12px 0; font-size:12px; line-height:1.6; }
+.farm-original-actions > span { flex-basis:100%; opacity:.75; }
+.farm-original-actions a { color:var(--fg); text-underline-offset:4px; }
+.farm-legacy-integration { margin:16px 0; padding:14px; border:1px solid var(--border); border-radius:10px; font-size:12px; line-height:1.6; }
+.farm-legacy-integration strong { color:var(--fg); font-size:13px; }
+.farm-legacy-integration p { margin:8px 0; color:var(--fg); }
+.farm-legacy-integration summary { cursor:pointer; color:var(--fg); }
+.farm-legacy-integration a { color:var(--accent); text-underline-offset:3px; }
+.farm-legacy-links { display:flex; flex-wrap:wrap; gap:8px 16px; margin:12px 0 8px; }
+.farm-legacy-integration small { display:block; font-size:11px; }
+.farm-discovery-note { margin: 0 0 12px; color: var(--fg); opacity: .7; font-size: 12px; }
+.discovered-pool-card { min-height: 260px; }
+.discovered-pool-icon { width: 40px; height: 40px; display: grid; place-items: center; font-size: 30px; flex-shrink: 0; }
+.discovered-pool-message { flex: 1; padding: 22px 0; }
+.discovered-pool-message strong { font-size: 16px; }
+.discovered-pool-message p { font-size: 13px; line-height: 1.6; margin: 10px 0; }
+.discovered-pool-message > span { font-size: 12px; opacity: .7; }
+.discovered-pool-footer { flex-wrap: wrap; gap: 12px; }
+.discovered-pool-footer code { overflow-wrap: anywhere; font-size: 11px; min-width: 0; }
+.oink-farms-page .farms-brand { flex-wrap: wrap; }
+@media (min-width: 1101px) {
+  .oink-farms-page .farms-list-view .discovered-pool-card { grid-template-columns: minmax(180px,1fr) minmax(250px,2fr) minmax(200px,1fr); min-height: 0; }
+  .oink-farms-page .farms-list-view .discovered-pool-message { grid-column: 2; grid-row: 1; padding: 0; }
+  .oink-farms-page .farms-list-view .discovered-pool-footer { grid-column: 3; grid-row: 1; margin: 0; }
+  .oink-farms-page .farms-list-view .farm-discovery-note { grid-column: 1; grid-row: 4; }
+}
+
+/* Farms use a scoped palette; keep labels quiet and values crisp. */
+.oink-farms-page {
+  --farm-muted: color-mix(in srgb, var(--fg) 46%, var(--bg));
+}
+.oink-farms-page :is(.bfc-stat-label,.bfc-stat-sub,.bfc-sub,.bfc-age,.bfc-footer,.farm-action-status,.farm-discovery-note),
+.oink-farms-page :is(.farms-count,.farms-reward-heading,.farm-emission-row dt,.farm-emission-label span,.farm-emission-total span),
+.oink-farms-page :is(.farm-rank-name small,.bfc-fees dt,.discovered-pool-message > span) {
+  color: var(--farm-muted);
+}
+.oink-farms-page :is(.bfc-stat-val,.bfc-fees dd,.bfc-footer strong,.farms-summary-metrics strong,.farms-reward-chip strong),
+.oink-farms-page :is(.farm-rank-value,.farm-emission-percent,.farm-emission-row dd,.farm-emission-total strong) {
+  color: color-mix(in srgb, var(--fg) 92%, white);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.oink-farms-page .bfc-stats-top .bfc-stat-cell:first-child .bfc-stat-val,
+.oink-farms-page .bfc-stat-val .farm-insight > summary,
+.oink-farms-page .farm-emission-percent,
+.oink-farms-page .farm-rank-value {
+  color: var(--accent);
+}
+
+
+.nft-projects { scroll-margin-top:110px; margin:0 0 32px; padding:24px; border:1px solid var(--farm-border-soft); border-radius:18px; background:color-mix(in srgb,var(--bg) 92%,var(--accent)); }
+.nft-projects-header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.nft-projects-header h2 { margin:6px 0; font-size:24px; }
+.nft-projects-header p { margin:0; font-size:14px; opacity:.75; }
+.nft-project-count { font-size:12px; white-space:nowrap; opacity:.7; }
+.nft-projects-toolbar { display:flex; flex-wrap:wrap; align-items:end; gap:16px; margin:24px 0; }
+.nft-projects-toolbar label { display:grid; gap:8px; flex:1 1 240px; font-size:12px; }
+.nft-projects-toolbar input { width:100%; box-sizing:border-box; min-width:0; padding:12px; color:var(--fg); background:var(--bg); border:1px solid var(--farm-border-soft); border-radius:9px; }
+.nft-projects-toolbar [role="group"] { display:flex; flex-wrap:wrap; gap:8px; }
+.nft-projects-toolbar button { padding:10px 14px; font-size:12px; border-radius:9px; }
+.nft-projects-toolbar button[aria-pressed="true"] { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 18%,var(--bg)); }
+.nft-projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr)); gap:20px; }
+.nft-project-card { display:grid; grid-template-columns:minmax(280px,1fr) minmax(0,1.15fr); border:1px solid var(--farm-border-soft); border-radius:14px; overflow:hidden; background:var(--bg); }
+ .nft-project-art { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; min-width:0; color:#fff; text-decoration:none; background:radial-gradient(ellipse at center,#4c252b 0,#10151c 75%); }
+.nft-project-art img { display:block; width:100%; max-width:480px; height:auto; aspect-ratio:1; object-fit:contain; border:1px solid #e45b4e88; border-radius:14px; box-shadow:0 0 32px #e45b4e25; }
+.nft-project-art:focus-visible { outline:3px solid var(--accent); outline-offset:-4px; }
+.nft-art-caption { margin-top:16px; text-align:center; font:10px/1.8 var(--font-ui); letter-spacing:2px; color:#f6bab3; }
+.nft-project-identity { display:flex; align-items:center; gap:12px; margin:20px 0 12px; }
+.nft-project-identity img { width:48px; height:48px; flex-shrink:0; border-radius:50%; border:1px solid var(--farm-border-soft); }
+.nft-project-identity h3 { margin:0; }
+.nft-project-body { padding:24px; min-width:0; }
+.nft-project-body h3 { font-size:22px; margin:0; }
+.nft-project-body p { font-size:14px; line-height:1.7; opacity:.8; }
+.nft-project-badges { display:flex; align-items:center; flex-wrap:wrap; gap:8px; font-size:10px; }
+.nft-project-badges > span { border:1px solid var(--farm-border-soft); border-radius:30px; padding:6px 9px; }
+.nft-reward-badge.active { color:var(--fg); background:color-mix(in srgb,var(--accent) 18%,transparent); }
+.nft-project-badges .nft-project-favorite { margin-left:auto; padding:4px 9px; font-size:22px; line-height:1.2; }
+.nft-project-favorite[aria-pressed="true"] { color:var(--accent); }
+.nft-project-rewards { display:flex; align-items:center; gap:10px; margin:18px 0; font-size:12px; }
+.nft-project-rewards > span { opacity:.65; margin-right:4px; }
+.nft-project-open { display:inline-flex; padding:12px 18px; }
+.nft-project-body > small { display:block; margin-top:10px; font-size:11px; opacity:.65; }
+.nft-pool-details { margin-top:22px; padding-top:16px; border-top:1px solid var(--farm-border-soft); }
+.nft-pool-details summary { cursor:pointer; font-size:13px; }
+.nft-pool-details ul { padding:0; list-style:none; display:grid; gap:16px; }
+.nft-pool-details li { display:flex; flex-wrap:wrap; gap:8px 16px; min-width:0; font-size:12px; }
+.nft-pool-details code { width:100%; overflow-wrap:anywhere; font-size:11px; opacity:.7; }
+.nft-projects-empty { padding:24px 0; font-size:14px; }
+@media(max-width:800px) { .nft-project-card { grid-template-columns:1fr; } .nft-project-art { min-height:180px; } }
+@media(max-width:600px) { .nft-projects { padding:14px; } .nft-project-body { padding:18px; } .nft-projects-header h2 { font-size:22px; } }
+
+/* NFT project section */
+
+/* The public card structure is present before values arrive. */
+.oink-farms-page .farm-rank-row { box-sizing:border-box; min-block-size:54px; }
+.oink-farms-page .farm-rank-empty { min-block-size:1.5em; margin:10px 0 0; }
+.oink-farms-page .farm-rank-placeholder { color:transparent; }
+.oink-farms-page .farm-loading-bar { display:inline-block; width:65px; max-width:100%; block-size:12px; border-radius:4px; background:color-mix(in srgb,var(--fg) 11%,var(--farm-card)); }
+.oink-farms-page .farm-loading-rank { width:10px; }
+.oink-farms-page .farm-loading-value { width:55px; }
+.oink-farms-page .farm-loading-logo { display:block; inline-size:28px; block-size:28px; flex-shrink:0; border-radius:50%; background:color-mix(in srgb,var(--fg) 11%,var(--farm-card)); }
+.oink-farms-page .farms-tvl { min-block-size:72px; box-sizing:border-box; line-height:24px; }
+.oink-farms-page .farms-tvl strong { min-inline-size:8ch; font-variant-numeric:tabular-nums; }
+.oink-farms-page .farms-summary-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.oink-farms-page .farms-summary-metrics > div { display:grid; grid-template-rows:20px 58px 24px; block-size:110px; gap:4px; min-width:0; text-align:center; align-content:start; }
+.oink-farms-page .farms-summary-metrics > div > span { line-height:20px; }
+.oink-farms-page .farms-summary-metrics strong { display:block; block-size:58px; overflow:auto; line-height:28px; }
+.oink-farms-page .farms-summary-metrics .farms-summary-note { display:block; block-size:24px; overflow:auto; flex-basis:100%; line-height:24px; }
+.oink-farms-page .farms-summary-bottom .farms-summary-actions { min-block-size:96px; align-content:center; }
+.oink-farms-page .farms-summary-actions > strong { line-height:20px; }
+.oink-farms-page .farms-reward-heading { line-height:18px; }
+.oink-farms-page .farms-reward-content { min-block-size:68px; max-block-size:68px; overflow-y:auto; scrollbar-gutter:stable; }
+.oink-farms-page .farms-reward-content > p { margin:0; line-height:1.5; }
+.oink-farms-page .farms-read-status { block-size:3em; overflow:auto; margin:0 0 16px; line-height:1.5; overflow-wrap:anywhere; }
+.oink-farms-page .farms-read-status.is-warning { color:var(--fg); }
+.oink-farms-page .bfc-stat-sub { display:block; min-block-size:2.6em; }
+.oink-farms-page .bfc-stats-top .bfc-stat-sub:empty { display:block; }
+.oink-farms-page .bfc-stat-val { min-block-size:1.5em; font-variant-numeric:tabular-nums; }
+.oink-farms-page .bfc-age { min-block-size:1.6em; }
+.oink-farms-page .bfc-footer > div > strong { min-block-size:1.5em; }
+.oink-farms-page .farm-emission-total strong { min-block-size:1.3em; }
+.oink-farms-page .farm-emission-row { min-block-size:70px; box-sizing:border-box; }
+.oink-farms-page .hex-share-read-status { block-size:3em; overflow:auto; margin:10px 0; line-height:1.5; }
+.oink-farms-page .hex-share-manager .access-facts strong { min-block-size:1.5em; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+.oink-farms-page .hex-share-manager .access-facts > div { grid-template-rows:40px 48px; }
+.oink-farms-page .hex-share-manager .access-facts strong { block-size:48px; overflow:auto; line-height:24px; }
+.oink-farms-page .hex-share-manager > .deploy-draft-note { block-size:4.8em; overflow:auto; line-height:1.6; }
+.oink-farms-page .hex-share-count-status { min-block-size:3em; line-height:1.5; }
+.oink-farms-page .hex-share-registration-slot { min-block-size:180px; }
+.oink-farms-page .farms-results-hint { min-block-size:3em; margin:0 0 12px; color:var(--farm-muted); font-size:12px; line-height:1.5; }
+.oink-farms-page .farms-results-content { block-size:clamp(760px,120dvh,1200px); overflow:auto; scrollbar-gutter:stable; overscroll-behavior:auto; padding:4px; border-radius:12px; }
+.oink-farms-page .farms-results-content > .farms-empty { min-block-size:100%; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.oink-farms-page .farm-emission-list { block-size:540px; overflow:auto; scrollbar-gutter:stable; padding-right:8px; }
+.oink-farms-page :is(.farms-results-content,.farm-emission-list,.farms-read-status):focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.oink-farms-page .farms-topbar { min-block-size:60px; }
+.oink-farms-page .farms-brand h1 { line-height:32px; }
+.oink-farms-page .farms-count { line-height:20px; }
+@media(max-width:500px) { .oink-farms-page .farms-tvl { display:grid; grid-template-columns:1fr; inline-size:100%; text-align:center; gap:4px; min-block-size:90px; } }
+
+/* Route-independent line boxes keep later-loaded fonts/styles from resizing slots. */
+.app-page.oink-farms-page { font:400 14px/21px "DM Sans",sans-serif; }
+.oink-farms-page .farms-brand h1 { inline-size:190px; font-size:30px; line-height:32px; white-space:nowrap; }
+.oink-farms-page .farms-brand .farms-count { inline-size:200px; block-size:40px; overflow:auto; font:400 12px/20px var(--font-ui); }
+.oink-farms-page .farms-view-toggle button { block-size:34px; box-sizing:border-box; line-height:18px; }
+.oink-farms-page .farms-staked-toggle { block-size:35px; box-sizing:border-box; font:700 12px/18px var(--font-ui); }
+.oink-farms-page .farms-toolbar label { font:400 14px/20px "DM Sans",sans-serif; }
+.oink-farms-page .farms-toolbar label > span { block-size:20px; line-height:20px; }
+.oink-farms-page .farms-toolbar :is(input,select,button) { block-size:40px; min-block-size:40px; box-sizing:border-box; font:400 14px/20px "DM Sans",sans-serif; }
+.oink-farms-page .farms-read-status { block-size:42px; font:400 14px/21px "DM Sans",sans-serif; }
+.oink-farms-page .farms-results-hint { block-size:36px; min-block-size:36px; font:400 12px/18px "DM Sans",sans-serif; }
+.oink-farms-page .hex-share-manager { font:400 14px/21px "DM Sans",sans-serif; }
+.oink-farms-page .hex-share-read-status { block-size:42px; font:400 14px/21px "DM Sans",sans-serif; }
+.oink-farms-page .hex-share-count-status { block-size:42px; min-block-size:42px; overflow:auto; font:400 14px/21px "DM Sans",sans-serif; }
+.oink-farms-page .hex-share-manager .access-facts > div { grid-template-rows:40px 48px; }
+.oink-farms-page .hex-share-manager .access-facts span { font:400 12px/20px "DM Sans",sans-serif; }
+.oink-farms-page .hex-share-manager .access-facts strong { font-size:14px; line-height:24px; }
+.oink-farms-page .hex-share-manager > .deploy-draft-note { block-size:58px; font:400 12px/19.2px "DM Sans",sans-serif; }

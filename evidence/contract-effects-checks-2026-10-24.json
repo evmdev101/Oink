@@ -1,0 +1,27 @@
+{
+  "finalState": {
+    "animation": "running",
+    "controls": [
+      "Light Off",
+      "Pause motion"
+    ],
+    "footprint": 783.59375,
+    "light": "on",
+    "motionEnabled": "true",
+    "scrollable": true,
+    "sourceLines": 1240
+  },
+  "verified": {
+    "pointerLeftRotateY": "-5.25deg",
+    "pointerRightRotateY": "6.36deg",
+    "pointerLightXLeft": "25.08%",
+    "pointerLightXRight": "80.22%",
+    "keyboardScrollTop": 494,
+    "jumpToOinkScrollTop": 23945,
+    "pauseStopsAnimation": true,
+    "offscreenStopsAnimation": true,
+    "lightToggleHeightChange": 0,
+    "typecheck": "passed",
+    "productionBuild": "passed"
+  }
+}

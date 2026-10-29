@@ -1,0 +1,1361 @@
+{
+  "checkedAt": "2026-09-19T15:13:54.973Z",
+  "chainId": 369,
+  "block": 27586281,
+  "blockHash": "0x132a3ff40696ed0e83bab077d22cda1e48f6c415d2ab20a76967ac5e78eb8d74",
+  "blockTimestamp": "2026-09-19T15:13:45.000Z",
+  "rpcUrl": "https://rpc.pulsechain.com",
+  "sourceApi": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=",
+  "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.8.20+commit.a1b79de6.js",
+  "compilerFileHash": "0x3a420fa9963772eee5b9221ebb8cf9548eea8f88b09537390960ea9b440f333c",
+  "baseline": {
+    "address": "0x16233F6d7398f134EbCec11101e792c03ED296a4",
+    "sourceCodeHash": "0x2872e463da6f073c9cda591d08e366afa2122ad27fb710aee6e221f1853ddb54",
+    "normalizedExecutableHash": "0xfe8043488c1c371f1385e01bcf9385ed1b98bf40bc0f097ad259bb68de9f4d3d"
+  },
+  "laterBaseline": {
+    "address": "0xed1b56c799d28a988bd79bbf2f7e238c2ba15c21",
+    "sourceCodeHash": "0x0e597a81c26179820a99420f091800d94f1add835bedf43444ed7169f83521ca",
+    "library": "SafeERC20 v5.2",
+    "review": "All tokenVault, IacPool, IMasterChef, IGovernor and ReentrancyGuard files exactly match the original generation. SafeERC20 transfer helpers use the same nominal transfer model; v5.2 uses low-level assembly, error propagation and true-or-empty success checks. All later source files are compared in full to this pinned separately reviewed baseline."
+  },
+  "dependencies": {
+    "masterchef": {
+      "address": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+      "runtimeCodeHash": "0x72e1439f55c801448cbaa41cb751af8d4ccd76b5d9be5f0a5a3bfb7d0bf8add7"
+    },
+    "governor": {
+      "address": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+      "runtimeCodeHash": "0xbf0068e99a4e77c65840829edc205943d6aa9eeb7024c5d03f2f68ca9d9953c0"
+    },
+    "rewardToken": {
+      "address": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+      "runtimeCodeHash": "0x9cb905e3b06ca991654cbba486fa3d1166a06ba931daac17afaf76f9c11fc421"
+    }
+  },
+  "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+  "methodReview": {
+    "deposit": "Harvest before exact amount safeTransferFrom; records nominal amount less deposit fee; existing referral retained; no received-balance measurement.",
+    "claim": "selfHarvest accrues each selected full position before funding fees, updates debt, splits gross OINK by wallet/miner payout, tracks referral points.",
+    "withdraw": "Full indexed position only; rewards accrue before funding fees; position swap/popped; nominal remaining principal transferred to sender.",
+    "emergency": "Full indexed position only; funding fee applies, position removed, all OINK forfeited; no harvest; Withdraw event uses penalty field for returned nominal principal.",
+    "fundingFee": "Whole hours from max(lastAction,lastFundingChangeTimestamp), amount * hours * rate / 1000000, capped at 20%; transfer to treasury; decrement position amount.",
+    "referral": "Zero referral input preserves existing referredBy; claim/withdraw add paid OINK amount to sender/referrer referralPoints."
+  },
+  "limitations": [
+    "This evidence verifies vault behavior and pinned public state. It does not establish token transfer behavior or safety, authorize broadcasting, or activate application permissions.",
+    "Deposit-token runtime hashes and decimals are observations only; token source/proxy/fee verification is a separate requirement.",
+    "MasterChef, Governor and OINK runtimes match existing pins; they are not independently recompiled by this script.",
+    "Mutable values must be rechecked at every transaction review. No transaction was broadcast or simulated with a wallet account."
+  ],
+  "rows": [
+    {
+      "id": "hex",
+      "address": "0x164D4C1fDd74A5b7256Fd9Eca958c9ff70617c03",
+      "tokenAddress": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+      "poolId": "9",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v4.9",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": true,
+      "sourceUrl": "https://scan.pulsechain.com/address/0x164D4C1fDd74A5b7256Fd9Eca958c9ff70617c03#code",
+      "sourceCodeHash": "0x2872e463da6f073c9cda591d08e366afa2122ad27fb710aee6e221f1853ddb54",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": true,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x02b39eddbfd0a5aa41ba6b878ff7ce1bf16ce365b13649982d956c80121a35e8",
+      "sourceFileHashes": {
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "FINAL-MAINNET/PulseDAO-main/contracts/pulse-ecosystem/tokenVault.sol": "0xee3f7a21091373c2342a04feb763c85691d51adecb9a2cb0dfc9d8a53d680c00",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Permit.sol": "0x1181001389c2b5292e4e417e10329d5e664492d685a11b2d3c500422324dc9b0",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0xa09e9f2d5b6317836ba17556a7385db4d50c3ebc83831ed49e078559d1667a63",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0x92599f7735f6aadf09f639d46f50314685f10c12d20db2cff24cee4e8a25624e",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol": "0x2d6fa3d821b8ee221ba2378b313c5ae0d1a300833faa6470553575d419965e2a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0x39cdf4ba5b3bf531408c399acbb4bb403d3fa7575a790982a7102df53fb7857b",
+      "normalizedExecutableHash": "0xfe8043488c1c371f1385e01bcf9385ed1b98bf40bc0f097ad259bb68de9f4d3d",
+      "tokenRuntimeCodeHash": "0x072dc3ede6578c96b5b547786fa670d627a18c956b0993a19c4435b8999563a6",
+      "decimals": 8,
+      "immutableReferences": {
+        "2096": [
+          {
+            "length": 32,
+            "start": 1414
+          },
+          {
+            "length": 32,
+            "start": 7977
+          }
+        ],
+        "2099": [
+          {
+            "length": 32,
+            "start": 868
+          },
+          {
+            "length": 32,
+            "start": 2559
+          },
+          {
+            "length": 32,
+            "start": 3350
+          },
+          {
+            "length": 32,
+            "start": 4028
+          },
+          {
+            "length": 32,
+            "start": 6379
+          },
+          {
+            "length": 32,
+            "start": 6579
+          },
+          {
+            "length": 32,
+            "start": 7539
+          },
+          {
+            "length": 32,
+            "start": 7844
+          },
+          {
+            "length": 32,
+            "start": 8090
+          },
+          {
+            "length": 32,
+            "start": 9431
+          }
+        ]
+      },
+      "immutableValues": {
+        "2096": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2099": "0x2b591e99afe9f32eaa6214f7b7629768c40eeb39"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "9",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1741695195",
+        "lastCredit": "4536303430778344684734184"
+      },
+      "allocation": "155",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "7244560673524",
+      "currentCredit": "4536892041475612880965083",
+      "pendingCredit": "1036919153616656209585",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "hoa",
+      "address": "0x9E70665aDee807f262Ae59Dc1f8D4Dd878320C21",
+      "tokenAddress": "0x7901a3569679AEc3501dbeC59399F327854a70fe",
+      "poolId": "12",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v4.9",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0x9E70665aDee807f262Ae59Dc1f8D4Dd878320C21#code",
+      "sourceCodeHash": "0x02b39eddbfd0a5aa41ba6b878ff7ce1bf16ce365b13649982d956c80121a35e8",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x02b39eddbfd0a5aa41ba6b878ff7ce1bf16ce365b13649982d956c80121a35e8",
+      "sourceFileHashes": {
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "FINAL-MAINNET/PulseDAO-main/contracts/pulse-ecosystem/tokenVault.sol": "0xee3f7a21091373c2342a04feb763c85691d51adecb9a2cb0dfc9d8a53d680c00",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Permit.sol": "0x1181001389c2b5292e4e417e10329d5e664492d685a11b2d3c500422324dc9b0",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0xa09e9f2d5b6317836ba17556a7385db4d50c3ebc83831ed49e078559d1667a63",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0x92599f7735f6aadf09f639d46f50314685f10c12d20db2cff24cee4e8a25624e",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol": "0x2d6fa3d821b8ee221ba2378b313c5ae0d1a300833faa6470553575d419965e2a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0x69a94e7b48c5af68005d8ff899e35f83c19364311b9150f01bf8f754d9fa9a3a",
+      "normalizedExecutableHash": "0x49fa55602474c057073fe6e7dad79895ea081cec557a881fd25547e07523f9bc",
+      "tokenRuntimeCodeHash": "0x7fc15dbaf378e641eda586f82968a15f1208644eade96ee542468ee42b4ab481",
+      "decimals": 18,
+      "immutableReferences": {
+        "2096": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2099": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2096": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2099": "0x7901a3569679aec3501dbec59399f327854a70fe"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0x7901a3569679AEc3501dbeC59399F327854a70fe",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "12",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1741695195",
+        "lastCredit": "8237174513190140616408741"
+      },
+      "allocation": "38",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "5450742178514373907978",
+      "currentCredit": "8261772617169138820218991",
+      "pendingCredit": "254212437660857651382",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "pdai",
+      "address": "0xc13b8974CD5caa67D7e539D2654C872b5AcA5105",
+      "tokenAddress": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      "poolId": "14",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v4.9",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0xc13b8974CD5caa67D7e539D2654C872b5AcA5105#code",
+      "sourceCodeHash": "0x41910769e79c56ef9bbd61341d818df37e11e4bcbce17296cd611b19dac2b30f",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x41910769e79c56ef9bbd61341d818df37e11e4bcbce17296cd611b19dac2b30f",
+      "sourceFileHashes": {
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "FINAL-MAINNET/PulseDAO-main/contracts/pulse-ecosystem/tokenVault.sol": "0xee3f7a21091373c2342a04feb763c85691d51adecb9a2cb0dfc9d8a53d680c00",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Permit.sol": "0x1181001389c2b5292e4e417e10329d5e664492d685a11b2d3c500422324dc9b0",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0xa09e9f2d5b6317836ba17556a7385db4d50c3ebc83831ed49e078559d1667a63",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0x92599f7735f6aadf09f639d46f50314685f10c12d20db2cff24cee4e8a25624e",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol": "0x2d6fa3d821b8ee221ba2378b313c5ae0d1a300833faa6470553575d419965e2a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0xe4d87878cb9ef4de46065d49c44cfb0306e7a88a6aa25fc85c8874dddbe30587",
+      "normalizedExecutableHash": "0x49fa55602474c057073fe6e7dad79895ea081cec557a881fd25547e07523f9bc",
+      "tokenRuntimeCodeHash": "0x4e36f96ee1667a663dfaac57c4d185a0e369a3a217e0079d49620f34f85d1ac7",
+      "decimals": 18,
+      "immutableReferences": {
+        "2096": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2099": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2096": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2099": "0x6b175474e89094c44da98b954eedeac495271d0f"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "14",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1741695195",
+        "lastCredit": "1794358329254572519959154"
+      },
+      "allocation": "583",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "268404362282294636781945",
+      "currentCredit": "2039277087077883025647514",
+      "pendingCredit": "3900153977796842388311",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "atropa",
+      "address": "0x7c61919AccF037975bbD3a91b0F5811c640018b1",
+      "tokenAddress": "0xCc78A0acDF847A2C1714D2A925bB4477df5d48a6",
+      "poolId": "13",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v4.9",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0x7c61919AccF037975bbD3a91b0F5811c640018b1#code",
+      "sourceCodeHash": "0x41910769e79c56ef9bbd61341d818df37e11e4bcbce17296cd611b19dac2b30f",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x41910769e79c56ef9bbd61341d818df37e11e4bcbce17296cd611b19dac2b30f",
+      "sourceFileHashes": {
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "FINAL-MAINNET/PulseDAO-main/contracts/pulse-ecosystem/tokenVault.sol": "0xee3f7a21091373c2342a04feb763c85691d51adecb9a2cb0dfc9d8a53d680c00",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Permit.sol": "0x1181001389c2b5292e4e417e10329d5e664492d685a11b2d3c500422324dc9b0",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0xa09e9f2d5b6317836ba17556a7385db4d50c3ebc83831ed49e078559d1667a63",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0x92599f7735f6aadf09f639d46f50314685f10c12d20db2cff24cee4e8a25624e",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol": "0x2d6fa3d821b8ee221ba2378b313c5ae0d1a300833faa6470553575d419965e2a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0x660b549c1cf4063e45499b206185790ccba3ed88b8f92fbe747c176fc0d9dc26",
+      "normalizedExecutableHash": "0x49fa55602474c057073fe6e7dad79895ea081cec557a881fd25547e07523f9bc",
+      "tokenRuntimeCodeHash": "0xbdb34a5b8f52bcf6a50eca25dfe92351dda3f1e2d213cecf1f97c28838e54c54",
+      "decimals": 18,
+      "immutableReferences": {
+        "2096": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2099": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2096": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2099": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0xCc78A0acDF847A2C1714D2A925bB4477df5d48a6",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "13",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1741695195",
+        "lastCredit": "227104227385130833809044"
+      },
+      "allocation": "38",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "90779550031711729820",
+      "currentCredit": "251703074288198180414867",
+      "pendingCredit": "254212437660857651382",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "solidx",
+      "address": "0x2057dd1687eafCD809386a41012748AC509df542",
+      "tokenAddress": "0x8Da17Db850315A34532108f0f5458fc0401525f6",
+      "poolId": "15",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v4.9",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0x2057dd1687eafCD809386a41012748AC509df542#code",
+      "sourceCodeHash": "0x41910769e79c56ef9bbd61341d818df37e11e4bcbce17296cd611b19dac2b30f",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x41910769e79c56ef9bbd61341d818df37e11e4bcbce17296cd611b19dac2b30f",
+      "sourceFileHashes": {
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "FINAL-MAINNET/PulseDAO-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "FINAL-MAINNET/PulseDAO-main/contracts/pulse-ecosystem/tokenVault.sol": "0xee3f7a21091373c2342a04feb763c85691d51adecb9a2cb0dfc9d8a53d680c00",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Permit.sol": "0x1181001389c2b5292e4e417e10329d5e664492d685a11b2d3c500422324dc9b0",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0xa09e9f2d5b6317836ba17556a7385db4d50c3ebc83831ed49e078559d1667a63",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0x92599f7735f6aadf09f639d46f50314685f10c12d20db2cff24cee4e8a25624e",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol": "0x2d6fa3d821b8ee221ba2378b313c5ae0d1a300833faa6470553575d419965e2a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0x6e321e2e4be921a8506946a5d57b4e73ec0ee7b3c24b1f8fc2e517c7899425de",
+      "normalizedExecutableHash": "0x49fa55602474c057073fe6e7dad79895ea081cec557a881fd25547e07523f9bc",
+      "tokenRuntimeCodeHash": "0x91733197bdd14cc58b75127f5b04ce88746569ec93c45fe5041c8f83fe4d3e71",
+      "decimals": 18,
+      "immutableReferences": {
+        "2096": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2099": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2096": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2099": "0x8da17db850315a34532108f0f5458fc0401525f6"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0x8Da17Db850315A34532108f0f5458fc0401525f6",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "15",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1741695195",
+        "lastCredit": "482774739857699206438587"
+      },
+      "allocation": "77",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "10545824905481107943",
+      "currentCredit": "515123169305239372665444",
+      "pendingCredit": "515114676312790504116",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "pusdt",
+      "address": "0xed1b56c799d28a988bd79bbf2f7e238c2ba15c21",
+      "tokenAddress": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "poolId": "17",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v5.2/v5.3",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0xed1b56c799d28a988bd79bbf2f7e238c2ba15c21#code",
+      "sourceCodeHash": "0x0e597a81c26179820a99420f091800d94f1add835bedf43444ed7169f83521ca",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x0e597a81c26179820a99420f091800d94f1add835bedf43444ed7169f83521ca",
+      "sourceFileHashes": {
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC1363.sol": "0x544214ad6dbcb8f94156dac4c41c7521d621f51d604ad9c36c58143dc59783d1",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC165.sol": "0x3a84928aaac293594d04d05f33b2e9bf7a279099e2342596ab1152b97133ffa8",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC20.sol": "0xc58d0deb26e3afb14436ccd86de95de7a421b045c8b9e3906f7ab6b17da651bc",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0x8a780746d7625bad150d93c1de0066f4f24fd03d4cc759744d19e330acdc9e8a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0xa0a1dbe78bb0dc7049b8b3e88e269e56fc45cdddd59bc5c805e6fa8705a8c12a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/introspection/IERC165.sol": "0xb5a43ca508d611b92bd033a1f41bedc97f6daf59e7282d3d900c67a823b002a7",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7",
+        "PiggyBank-main/PiggyBank-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "PiggyBank-main/PiggyBank-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "PiggyBank-main/PiggyBank-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "PiggyBank-main/PiggyBank-main/contracts/pulse-ecosystem/tokenVault.sol": "0xee3f7a21091373c2342a04feb763c85691d51adecb9a2cb0dfc9d8a53d680c00"
+      },
+      "runtimeCodeHash": "0xab2ec17866990c1ed2eb01196bfc7b518d1719331a7c774cdfce726ed11bbc38",
+      "normalizedExecutableHash": "0x2be1bdd8714acc2db6423d5fc437d6bc5606f43af6d876b0574a19a5ab5a7aa1",
+      "tokenRuntimeCodeHash": "0xb44fb4e949d0f78f87f79ee46428f23a2a5713ce6fc6e0beb3dda78c2ac1ea55",
+      "decimals": 6,
+      "immutableReferences": {
+        "2013": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2016": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2013": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2016": "0xdac17f958d2ee523a2206206994597c13d831ec7"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "17",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1743627365",
+        "lastCredit": "248621994973569783931235"
+      },
+      "allocation": "38",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "1757199709",
+      "currentCredit": "273219851311211606809627",
+      "pendingCredit": "254212437660857651382",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "pusdc",
+      "address": "0xf46810ce204a9a85a673ea9bbcc1bf5481ee1328",
+      "tokenAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "poolId": "18",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v5.2/v5.3",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0xf46810ce204a9a85a673ea9bbcc1bf5481ee1328#code",
+      "sourceCodeHash": "0x0e597a81c26179820a99420f091800d94f1add835bedf43444ed7169f83521ca",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x0e597a81c26179820a99420f091800d94f1add835bedf43444ed7169f83521ca",
+      "sourceFileHashes": {
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC1363.sol": "0x544214ad6dbcb8f94156dac4c41c7521d621f51d604ad9c36c58143dc59783d1",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC165.sol": "0x3a84928aaac293594d04d05f33b2e9bf7a279099e2342596ab1152b97133ffa8",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC20.sol": "0xc58d0deb26e3afb14436ccd86de95de7a421b045c8b9e3906f7ab6b17da651bc",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0x8a780746d7625bad150d93c1de0066f4f24fd03d4cc759744d19e330acdc9e8a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0xa0a1dbe78bb0dc7049b8b3e88e269e56fc45cdddd59bc5c805e6fa8705a8c12a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/introspection/IERC165.sol": "0xb5a43ca508d611b92bd033a1f41bedc97f6daf59e7282d3d900c67a823b002a7",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7",
+        "PiggyBank-main/PiggyBank-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "PiggyBank-main/PiggyBank-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "PiggyBank-main/PiggyBank-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "PiggyBank-main/PiggyBank-main/contracts/pulse-ecosystem/tokenVault.sol": "0xee3f7a21091373c2342a04feb763c85691d51adecb9a2cb0dfc9d8a53d680c00"
+      },
+      "runtimeCodeHash": "0x454b17198184ba79d7149f7bcb2f42bbf03ec3954b9c9b4c1f8042c7220916bd",
+      "normalizedExecutableHash": "0x2be1bdd8714acc2db6423d5fc437d6bc5606f43af6d876b0574a19a5ab5a7aa1",
+      "tokenRuntimeCodeHash": "0xd80d4b7c890cb9d6a4893e6b52bc34b56b25335cb13716e0d1d31383e6b41505",
+      "decimals": 6,
+      "immutableReferences": {
+        "2013": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2016": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2013": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2016": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "18",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1743627375",
+        "lastCredit": "244724141051125764931183"
+      },
+      "allocation": "38",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "1644097969",
+      "currentCredit": "269039851336730912779688",
+      "pendingCredit": "254212437660857651382",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "pdrip",
+      "address": "0xc49EF441FFb79108047E4dF812F375A7E48FD3De",
+      "tokenAddress": "0xeB2CEed77147893Ba8B250c796c2d4EF02a72B68",
+      "poolId": "19",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v5.2/v5.3",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "0",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0xc49EF441FFb79108047E4dF812F375A7E48FD3De#code",
+      "sourceCodeHash": "0xedccfca5e91cddf70df79f5880dae97da90c0aa20c407d42d9e5f61321637804",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0xedccfca5e91cddf70df79f5880dae97da90c0aa20c407d42d9e5f61321637804",
+      "sourceFileHashes": {
+        "contracts/PiggyBank-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "contracts/PiggyBank-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "contracts/PiggyBank-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "contracts/PiggyBank-main/contracts/pulse-ecosystem/tokenVault.sol": "0x1899e3cee6c4029aac40924a4098de26f23e2d62c717d3169009d93db11367f6",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC1363.sol": "0x544214ad6dbcb8f94156dac4c41c7521d621f51d604ad9c36c58143dc59783d1",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC165.sol": "0x3a84928aaac293594d04d05f33b2e9bf7a279099e2342596ab1152b97133ffa8",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC20.sol": "0xc58d0deb26e3afb14436ccd86de95de7a421b045c8b9e3906f7ab6b17da651bc",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0x8a780746d7625bad150d93c1de0066f4f24fd03d4cc759744d19e330acdc9e8a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0xbb4735f5d21c4ae21f96c049afae2a3ff58b8d19cb70a843f669b8e72a19da40",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/introspection/IERC165.sol": "0xb5a43ca508d611b92bd033a1f41bedc97f6daf59e7282d3d900c67a823b002a7",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0x1c67e6f77b3e964457f47fffa51123d91be50405a1f6dbea1fbc70a6e9d012a9",
+      "normalizedExecutableHash": "0x2be1bdd8714acc2db6423d5fc437d6bc5606f43af6d876b0574a19a5ab5a7aa1",
+      "tokenRuntimeCodeHash": "0x6bec2bf64f7e824109f6ed55f77dd7665801d6195e461666ad6a5342a9f6daf5",
+      "decimals": 18,
+      "immutableReferences": {
+        "2016": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2022": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2016": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2022": "0xeb2ceed77147893ba8b250c796c2d4ef02a72b68"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0xeB2CEed77147893Ba8B250c796c2d4EF02a72B68",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "19",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "1745266315",
+        "lastCredit": "332822620553419132133851"
+      },
+      "allocation": "38",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "10012349791743824253478",
+      "currentCredit": "348787605905834997228281",
+      "pendingCredit": "254212437660857651382",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "emit",
+      "address": "0x1aB20028a50477e11bC4066047D8942De1375eF7",
+      "tokenAddress": "0x32fB5663619A657839A80133994E45c5e5cDf427",
+      "poolId": "20",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [
+        "No active reward allocation"
+      ],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v5.2/v5.3",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "250",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0x1aB20028a50477e11bC4066047D8942De1375eF7#code",
+      "sourceCodeHash": "0xe5ac0e3a5a3c0e53731c6bd7f36ab4bcdfed93c744e63fa8c3129e028e976ce4",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0xe5ac0e3a5a3c0e53731c6bd7f36ab4bcdfed93c744e63fa8c3129e028e976ce4",
+      "sourceFileHashes": {
+        "contracts/PiggyBank-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "contracts/PiggyBank-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "contracts/PiggyBank-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "contracts/PiggyBank-main/contracts/pulse-ecosystem/tokenVault.sol": "0x97f95aea89d82925d4cda65cde7824fb08acd546b3ee6694e364409e770c1c82",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC1363.sol": "0x544214ad6dbcb8f94156dac4c41c7521d621f51d604ad9c36c58143dc59783d1",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC165.sol": "0x3a84928aaac293594d04d05f33b2e9bf7a279099e2342596ab1152b97133ffa8",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC20.sol": "0xc58d0deb26e3afb14436ccd86de95de7a421b045c8b9e3906f7ab6b17da651bc",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0x8a780746d7625bad150d93c1de0066f4f24fd03d4cc759744d19e330acdc9e8a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0xbb4735f5d21c4ae21f96c049afae2a3ff58b8d19cb70a843f669b8e72a19da40",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/introspection/IERC165.sol": "0xb5a43ca508d611b92bd033a1f41bedc97f6daf59e7282d3d900c67a823b002a7",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0x9ee2dfb530c509f8e42d62e74d63533acac6048610baee02e10f2fbf21e0ba0d",
+      "normalizedExecutableHash": "0x2be1bdd8714acc2db6423d5fc437d6bc5606f43af6d876b0574a19a5ab5a7aa1",
+      "tokenRuntimeCodeHash": "0xfc47a5d6dd16377039e483a23ad342dd1296b0bd1f1ccfbb0c220c8ddb7b3542",
+      "decimals": 18,
+      "immutableReferences": {
+        "2016": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2022": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2016": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2022": "0x32fb5663619a657839a80133994e45c5e5cdf427"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0x32fB5663619A657839A80133994E45c5e5cDf427",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "20",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "0",
+        "lastCredit": "339275216181628198186154"
+      },
+      "allocation": "0",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "5684598780152029217",
+      "currentCredit": "339275216181628198186154",
+      "pendingCredit": "0",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "communitas",
+      "address": "0x4441c3bDB96139A45dF653Ec0432d076631A6D9F",
+      "tokenAddress": "0x5A9780Bfe63f3ec57f01b087cD65BD656C9034A8",
+      "poolId": "21",
+      "exactVaultModelCandidate": true,
+      "liveBlockers": [],
+      "executableMatchesCompiledSource": true,
+      "modelVariant": "SafeERC20 v5.2/v5.3",
+      "reviewedVaultCoreAndHelpersMatch": true,
+      "sourceNormalization": "Solidity tokens match after removing comments, whitespace, flattened file order, local source-root names and only the verified token/reward/chef/pool declaration initializers plus equivalent constructor assignments; the final four vaults initialize fundingRate at 250 instead of 0. Constructor pool payout settings and all runtime functions remain compared.",
+      "initialFundingRate": "250",
+      "sameOptimizedOriginalModelExecutable": false,
+      "sourceUrl": "https://scan.pulsechain.com/address/0x4441c3bDB96139A45dF653Ec0432d076631A6D9F#code",
+      "sourceCodeHash": "0x4596e3486fbeb76e0501ebbec4f82e0d85dc78226ad35cd073096795871731c0",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200,
+      "normalizedSourceCodeHash": "0x4596e3486fbeb76e0501ebbec4f82e0d85dc78226ad35cd073096795871731c0",
+      "sourceFileHashes": {
+        "contracts/PiggyBank-main/contracts/interface/IacPool.sol": "0x2906c5e1a1a9f13bba4130f1bf80e8728262c5779b23e416bd1e74e9f52a85b3",
+        "contracts/PiggyBank-main/contracts/interface/IGovernor.sol": "0xc30e683d7b5df5d32c466d3a17e3bc6efbfa5b866f0db5767d4e679f26b287ff",
+        "contracts/PiggyBank-main/contracts/interface/IMasterChef.sol": "0xcffc90a92e14ad48912913f0a54aad88a2155e5d1e8e19d89993b1075716a803",
+        "contracts/PiggyBank-main/contracts/pulse-ecosystem/tokenVault.sol": "0x59a19115cee8fb7423a63c90b12088befdc4c0362cd011a0bd2ee0a0b47e9a6b",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC1363.sol": "0x544214ad6dbcb8f94156dac4c41c7521d621f51d604ad9c36c58143dc59783d1",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC165.sol": "0x3a84928aaac293594d04d05f33b2e9bf7a279099e2342596ab1152b97133ffa8",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/interfaces/IERC20.sol": "0xc58d0deb26e3afb14436ccd86de95de7a421b045c8b9e3906f7ab6b17da651bc",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": "0x8a780746d7625bad150d93c1de0066f4f24fd03d4cc759744d19e330acdc9e8a",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol": "0xbb4735f5d21c4ae21f96c049afae2a3ff58b8d19cb70a843f669b8e72a19da40",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/introspection/IERC165.sol": "0xb5a43ca508d611b92bd033a1f41bedc97f6daf59e7282d3d900c67a823b002a7",
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/security/ReentrancyGuard.sol": "0x4f8821fc284bf169ec3488268351b420e33740287fd0b72deeca6f5b053344b7"
+      },
+      "runtimeCodeHash": "0xa3a859517efbd7e91921042cbdeada0e0927dd593c8651ab3cd688c42cf4f23b",
+      "normalizedExecutableHash": "0x2be1bdd8714acc2db6423d5fc437d6bc5606f43af6d876b0574a19a5ab5a7aa1",
+      "tokenRuntimeCodeHash": "0x7db9a94e27f245936f2ae956fc3c7931e3087fdb2628fae0afe0968141e0af3c",
+      "decimals": 12,
+      "immutableReferences": {
+        "2016": [
+          {
+            "length": 32,
+            "start": 12076
+          },
+          {
+            "length": 32,
+            "start": 13295
+          }
+        ],
+        "2022": [
+          {
+            "length": 32,
+            "start": 3777
+          },
+          {
+            "length": 32,
+            "start": 4872
+          },
+          {
+            "length": 32,
+            "start": 5418
+          },
+          {
+            "length": 32,
+            "start": 5867
+          },
+          {
+            "length": 32,
+            "start": 9539
+          },
+          {
+            "length": 32,
+            "start": 10025
+          },
+          {
+            "length": 32,
+            "start": 11543
+          },
+          {
+            "length": 32,
+            "start": 11904
+          },
+          {
+            "length": 32,
+            "start": 12218
+          },
+          {
+            "length": 32,
+            "start": 14289
+          }
+        ]
+      },
+      "immutableValues": {
+        "2016": "0xfaac6a85c3e123ab2cf7669b1024f146cfef0b38",
+        "2022": "0x5a9780bfe63f3ec57f01b087cd65bd656c9034a8"
+      },
+      "methodHashes": {
+        "deposit": "0xd4ff9ada1230a540f9a6789d8b3f5b755f86876afa4ad02219f5968399508edf",
+        "harvest": "0xd359fa96d00e517a4b4cf57434549ae0fa82e8806170077065d52ad34f4c5845",
+        "withdraw": "0x01b120a34266e8f268c7c4e92c76530085feee23d3a726d2dc55d6e737189c41",
+        "selfHarvest": "0x547ee0c272a715778f58eee39ec49013b4f8e71fb19ecbe5a7fdb19c54dabd09",
+        "emergencyWithdraw": "0x885a51d5a70722cf876b3f9a226e858d6b8ac38619b1a59903e160215f0f5f96",
+        "payFee": "0xf91cd60d71ff8ed3b596c97a28fcf74bf6e164eca7eb3f3d8f9fc192826c4235",
+        "_removeStake": "0xb639858cc1b6e9d7815dc5a115a2d74aff2e196e1ddc411688a7f382b24724d6",
+        "updateFees": "0x0717a803e9c305a45fb0b7080e77f3ca98531cdd9859f5d2652d2566384dcd04",
+        "updateTreasury": "0x77b0f968cd7de01106abeba4cabceffc6f91c70f16539ffa9cad439fcf39c69e",
+        "setPoolPayout": "0xa33b7a0a4b5dff0f96bdf5793dbfdf9d2a4ef0cfa3742be74417b3a2052f815c",
+        "updateSettings": "0xbd0abcc39f4512ff336f79135a8837535abb0ac2f0542b757b2627a3a95048ba"
+      },
+      "state": {
+        "stakeToken": "0x5A9780Bfe63f3ec57f01b087cD65BD656C9034A8",
+        "token": "0xFAaC6a85C3e123AB2CF7669B1024f146cFef0b38",
+        "masterchef": "0x486fEa20eA242456b450B005ED7D019E3E984f28",
+        "treasury": "0x331146b366c0Cd2AcA542ce71E5D6fb66bf07D16",
+        "treasuryWallet": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+        "poolID": "21",
+        "depositFee": "0",
+        "fundingRate": "250",
+        "maxFee": "500",
+        "maxFundingFee": "250",
+        "defaultDirectPayout": "50",
+        "lastFundingChangeTimestamp": "0",
+        "lastCredit": "508606750019533354012609"
+      },
+      "allocation": "389",
+      "lastRewardBlock": "27583196",
+      "vaultTokenBalance": "7929261029057875724710095",
+      "currentCredit": "548274130762267024329533",
+      "pendingCredit": "2602332585528253325992",
+      "totalAllocation": "390485",
+      "tokenBehaviorStatus": "Requires separate token source, transfer, approval and proxy verification before enabling writes"
+    },
+    {
+      "id": "ptgc",
+      "address": "0xa620473a3eb138c43e1f7065bda0ded0e039d8fd",
+      "tokenAddress": "0x94534EeEe131840b1c0F61847c572228bdfDDE93",
+      "poolId": "22",
+      "exactVaultModelCandidate": false,
+      "error": "ptgc source files differ from both reviewed tokenVault generations"
+    },
+    {
+      "id": "ufo",
+      "address": "0xce34298e7456fd748e432e02cc4f107ac864c739",
+      "tokenAddress": "0x456548A9B56eFBbD89Ca0309edd17a9E20b04018",
+      "poolId": "23",
+      "exactVaultModelCandidate": false,
+      "error": "ufo source files differ from both reviewed tokenVault generations"
+    }
+  ]
+}

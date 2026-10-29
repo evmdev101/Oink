@@ -1,0 +1,1421 @@
+{
+  "checks": [
+    {
+      "page": "Overview",
+      "regions": 10,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Portfolio",
+      "regions": 8,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Farms and HEX registration",
+      "regions": 7,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "My miners",
+      "regions": 5,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Deploy miners",
+      "regions": 3,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "OINK sale",
+      "regions": 3,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Referral",
+      "regions": 3,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Miner contracts",
+      "regions": 9,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Governance ordinary",
+      "regions": 12,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Miner voting",
+      "regions": 12,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Treasury and Senate",
+      "regions": 11,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Governor upgrades",
+      "regions": 8,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Docs treasury",
+      "regions": 14,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "Docs tools",
+      "regions": 5,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    },
+    {
+      "page": "NFT results",
+      "regions": 3,
+      "maxHeightChange": 0,
+      "maxPositionChange": 0
+    }
+  ],
+  "note": "Read-only rendered DOM measurements from initial placeholders to settled state in Chrome. NFT public status remained unavailable; its bounded results and badges were checked without a successful active allocation read.",
+  "observations": [
+    {
+      "page": "Overview",
+      "before": {
+        "busy": "true",
+        "panels": [
+          {
+            "height": 1614.515625,
+            "name": "treasury-left-column",
+            "top": 302.171875
+          },
+          {
+            "height": 1913.015625,
+            "name": "treasury-right-column",
+            "top": 302.171875
+          },
+          {
+            "height": 2769.578125,
+            "name": "dashboard-participation",
+            "top": 2245.1875
+          },
+          {
+            "height": 695.1875,
+            "name": "reference-panel reward-info-card allocation-wide",
+            "top": 2374.984375
+          },
+          {
+            "height": 869.203125,
+            "name": "reference-panel mining-comparison",
+            "top": 3086.171875
+          },
+          {
+            "height": 698.390625,
+            "name": "reference-panel distribution-card",
+            "top": 3971.375
+          },
+          {
+            "height": 698.390625,
+            "name": "reference-panel distribution-card",
+            "top": 3971.375
+          },
+          {
+            "height": 283,
+            "name": "participation-stats",
+            "top": 4687.765625
+          },
+          {
+            "height": 746.625,
+            "name": "reference-panel recent-protocol-activity",
+            "top": 5711.765625
+          },
+          {
+            "height": 118,
+            "name": "resource-footer",
+            "top": 6697.5625
+          }
+        ]
+      },
+      "after": {
+        "busy": "false",
+        "panels": [
+          {
+            "height": 1614.515625,
+            "name": "treasury-left-column",
+            "top": 302.171875
+          },
+          {
+            "height": 1913.015625,
+            "name": "treasury-right-column",
+            "top": 302.171875
+          },
+          {
+            "height": 2769.578125,
+            "name": "dashboard-participation",
+            "top": 2245.1875
+          },
+          {
+            "height": 695.1875,
+            "name": "reference-panel reward-info-card allocation-wide",
+            "top": 2374.984375
+          },
+          {
+            "height": 869.203125,
+            "name": "reference-panel mining-comparison",
+            "top": 3086.171875
+          },
+          {
+            "height": 698.390625,
+            "name": "reference-panel distribution-card",
+            "top": 3971.375
+          },
+          {
+            "height": 698.390625,
+            "name": "reference-panel distribution-card",
+            "top": 3971.375
+          },
+          {
+            "height": 283,
+            "name": "participation-stats",
+            "top": 4687.765625
+          },
+          {
+            "height": 746.625,
+            "name": "reference-panel recent-protocol-activity",
+            "top": 5711.765625
+          },
+          {
+            "height": 118,
+            "name": "resource-footer",
+            "top": 6697.5625
+          }
+        ]
+      }
+    },
+    {
+      "page": "Portfolio",
+      "before": {
+        "busy": "true",
+        "panels": [
+          {
+            "height": 121.078125,
+            "name": "page-intro",
+            "top": 108
+          },
+          {
+            "height": 479.484375,
+            "name": "professional-card portfolio-value-card",
+            "top": 255.078125
+          },
+          {
+            "height": 1394.578125,
+            "name": "professional-card overview-section portfolio-positions-panel",
+            "top": 758.5625
+          },
+          {
+            "height": 354.828125,
+            "name": "professional-card overview-section portfolio-history-summary",
+            "top": 2177.140625
+          },
+          {
+            "height": 431.1875,
+            "name": "professional-card overview-section portfolio-position-history",
+            "top": 2555.96875
+          },
+          {
+            "height": 498.5625,
+            "name": "professional-card overview-section portfolio-rewards-earned",
+            "top": 3011.15625
+          },
+          {
+            "height": 650.625,
+            "name": "professional-card overview-section",
+            "top": 3533.71875
+          },
+          {
+            "height": 117,
+            "name": "resource-footer",
+            "top": 4232.34375
+          }
+        ]
+      },
+      "after": {
+        "busy": "false",
+        "panels": [
+          {
+            "height": 121.078125,
+            "name": "page-intro",
+            "top": 108
+          },
+          {
+            "height": 479.484375,
+            "name": "professional-card portfolio-value-card",
+            "top": 255.078125
+          },
+          {
+            "height": 1394.578125,
+            "name": "professional-card overview-section portfolio-positions-panel",
+            "top": 758.5625
+          },
+          {
+            "height": 354.828125,
+            "name": "professional-card overview-section portfolio-history-summary",
+            "top": 2177.140625
+          },
+          {
+            "height": 431.1875,
+            "name": "professional-card overview-section portfolio-position-history",
+            "top": 2555.96875
+          },
+          {
+            "height": 498.5625,
+            "name": "professional-card overview-section portfolio-rewards-earned",
+            "top": 3011.15625
+          },
+          {
+            "height": 650.625,
+            "name": "professional-card overview-section",
+            "top": 3533.71875
+          },
+          {
+            "height": 117,
+            "name": "resource-footer",
+            "top": 4232.34375
+          }
+        ]
+      }
+    },
+    {
+      "page": "Farms and HEX registration",
+      "before": {
+        "loading": true,
+        "panels": [
+          {
+            "height": 291,
+            "name": "farm-rankings",
+            "top": 204
+          },
+          {
+            "height": 1657,
+            "name": "farms-shell",
+            "top": 519
+          },
+          {
+            "height": 274,
+            "name": "farms-summary",
+            "top": 733
+          },
+          {
+            "height": 1026,
+            "name": "farms-results-content",
+            "top": 1129
+          },
+          {
+            "height": 648,
+            "name": "farm-emission-split",
+            "top": 2176
+          },
+          {
+            "height": 630.90625,
+            "name": "",
+            "top": 2913
+          },
+          {
+            "height": 180,
+            "name": "hex-share-registration-slot",
+            "top": 3270.90625
+          }
+        ]
+      },
+      "after": {
+        "loading": false,
+        "panels": [
+          {
+            "height": 291,
+            "name": "farm-rankings",
+            "top": 204
+          },
+          {
+            "height": 1657,
+            "name": "farms-shell",
+            "top": 519
+          },
+          {
+            "height": 274,
+            "name": "farms-summary",
+            "top": 733
+          },
+          {
+            "height": 1026,
+            "name": "farms-results-content",
+            "top": 1129
+          },
+          {
+            "height": 648,
+            "name": "farm-emission-split",
+            "top": 2176
+          },
+          {
+            "height": 630.90625,
+            "name": "",
+            "top": 2913
+          },
+          {
+            "height": 180,
+            "name": "hex-share-registration-slot",
+            "top": 3270.90625
+          }
+        ]
+      }
+    },
+    {
+      "page": "My miners",
+      "before": {
+        "busy": "false",
+        "panels": [
+          {
+            "height": 41,
+            "name": "miners-tabs",
+            "top": 100
+          },
+          {
+            "height": 1100.390625,
+            "name": "",
+            "top": 173
+          },
+          {
+            "height": 49,
+            "name": "my-miners-heading",
+            "top": 312.59375
+          },
+          {
+            "height": 649.796875,
+            "name": "miner-positions-content miner-positions-grid",
+            "top": 580.59375
+          },
+          {
+            "height": 22.09375,
+            "name": "miner-original-link",
+            "top": 1297.390625
+          }
+        ]
+      },
+      "after": {
+        "busy": "false",
+        "panels": [
+          {
+            "height": 41,
+            "name": "miners-tabs",
+            "top": 100
+          },
+          {
+            "height": 1100.390625,
+            "name": "",
+            "top": 173
+          },
+          {
+            "height": 49,
+            "name": "my-miners-heading",
+            "top": 312.59375
+          },
+          {
+            "height": 649.796875,
+            "name": "miner-positions-content miner-positions-grid",
+            "top": 580.59375
+          },
+          {
+            "height": 22.09375,
+            "name": "miner-original-link",
+            "top": 1297.390625
+          }
+        ],
+        "state": "Miners 75 minersTime-locked OINK positionsGridList"
+      }
+    },
+    {
+      "page": "Deploy miners",
+      "before": {
+        "loading": false,
+        "panels": [
+          {
+            "height": 1265.1875,
+            "name": "deploy-miners-workspace",
+            "top": 179
+          },
+          {
+            "height": 64,
+            "name": "",
+            "top": 203
+          },
+          {
+            "height": 1129.1875,
+            "name": "deploy-miners-grid",
+            "top": 291
+          }
+        ]
+      },
+      "after": {
+        "panels": [
+          {
+            "height": 1265.1875,
+            "name": "deploy-miners-workspace",
+            "top": 179
+          },
+          {
+            "height": 64,
+            "name": "",
+            "top": 203
+          },
+          {
+            "height": 1129.1875,
+            "name": "deploy-miners-grid",
+            "top": 291
+          }
+        ]
+      }
+    },
+    {
+      "page": "OINK sale",
+      "before": {
+        "loading": true,
+        "panels": [
+          {
+            "height": 932.453125,
+            "name": "mining-offers",
+            "top": 195
+          },
+          {
+            "height": 452.28125,
+            "name": "",
+            "top": 195
+          },
+          {
+            "height": 932.453125,
+            "name": "professional-card",
+            "top": 195
+          }
+        ]
+      },
+      "after": {
+        "loading": false,
+        "panels": [
+          {
+            "height": 932.453125,
+            "name": "mining-offers",
+            "top": 195
+          },
+          {
+            "height": 452.28125,
+            "name": "",
+            "top": 195
+          },
+          {
+            "height": 932.453125,
+            "name": "professional-card",
+            "top": 195
+          }
+        ]
+      }
+    },
+    {
+      "page": "Referral",
+      "before": {
+        "panels": [
+          {
+            "height": 1114.328125,
+            "name": "referral-workspace",
+            "top": 187
+          },
+          {
+            "height": 365.5,
+            "name": "professional-card",
+            "top": 187
+          },
+          {
+            "height": 724.828125,
+            "name": "professional-card",
+            "top": 576.5
+          }
+        ],
+        "text": "alances\nReview referral claim\n\nClaims consume the selected points, including the part reduced by the destination payout. Both current and legacy redemptions are deducted."
+      },
+      "after": {
+        "panels": [
+          {
+            "height": 1114.328125,
+            "name": "referral-workspace",
+            "top": 187
+          },
+          {
+            "height": 365.5,
+            "name": "professional-card",
+            "top": 187
+          },
+          {
+            "height": 724.828125,
+            "name": "professional-card",
+            "top": 576.5
+          }
+        ]
+      }
+    },
+    {
+      "page": "Miner contracts",
+      "before": {
+        "panels": [
+          {
+            "height": 2209.328125,
+            "name": "workspace-grid mining-workspace miners-tab-contracts",
+            "top": 179
+          },
+          {
+            "height": 1252.3125,
+            "name": "time-miner-workspace",
+            "top": 313.515625
+          },
+          {
+            "height": 70,
+            "name": "time-miner-toolbar",
+            "top": 313.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 401.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 401.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 401.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 993.671875
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 993.671875
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 993.671875
+          }
+        ],
+        "reading": "Reading six time miners…Refreshing…"
+      },
+      "after": {
+        "panels": [
+          {
+            "height": 2209.328125,
+            "name": "workspace-grid mining-workspace miners-tab-contracts",
+            "top": 179
+          },
+          {
+            "height": 1252.3125,
+            "name": "time-miner-workspace",
+            "top": 313.515625
+          },
+          {
+            "height": 70,
+            "name": "time-miner-toolbar",
+            "top": 313.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 401.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 401.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 401.515625
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 993.671875
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 993.671875
+          },
+          {
+            "height": 572.15625,
+            "name": "time-miner-card",
+            "top": 993.671875
+          }
+        ],
+        "reading": "Snapshot · block 27,876,244 · 8:42:35 PMRefresh miners"
+      }
+    },
+    {
+      "page": "Governance ordinary",
+      "before": {
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 43.59375,
+            "name": "record-filter",
+            "top": 885.734375
+          },
+          {
+            "height": 2450.875,
+            "name": "governance-layout",
+            "top": 947.328125
+          },
+          {
+            "height": 263.5,
+            "name": "professional-card governance-information",
+            "top": 1222.984375
+          },
+          {
+            "height": 329.296875,
+            "name": "professional-card participation-actions",
+            "top": 1502.484375
+          },
+          {
+            "height": 642.03125,
+            "name": "professional-card governance-composer",
+            "top": 1847.78125
+          },
+          {
+            "height": 709.796875,
+            "name": "professional-card governance-panel",
+            "top": 2521.8125
+          },
+          {
+            "height": 703.15625,
+            "name": "professional-card current-configuration",
+            "top": 3322.203125
+          }
+        ]
+      },
+      "after": {
+        "busy": "false",
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 43.59375,
+            "name": "record-filter",
+            "top": 885.734375
+          },
+          {
+            "height": 2450.875,
+            "name": "governance-layout",
+            "top": 947.328125
+          },
+          {
+            "height": 263.5,
+            "name": "professional-card governance-information",
+            "top": 1222.984375
+          },
+          {
+            "height": 329.296875,
+            "name": "professional-card participation-actions",
+            "top": 1502.484375
+          },
+          {
+            "height": 642.03125,
+            "name": "professional-card governance-composer",
+            "top": 1847.78125
+          },
+          {
+            "height": 709.796875,
+            "name": "professional-card governance-panel",
+            "top": 2521.8125
+          },
+          {
+            "height": 703.15625,
+            "name": "professional-card current-configuration",
+            "top": 3322.203125
+          }
+        ]
+      }
+    },
+    {
+      "page": "Miner voting",
+      "before": {
+        "busy": "true",
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 1672.4375,
+            "name": "governance-layout",
+            "top": 885.734375
+          },
+          {
+            "height": 82.84375,
+            "name": "governance-section-heading",
+            "top": 916.734375
+          },
+          {
+            "height": 158.0625,
+            "name": "distinction-grid",
+            "top": 1019.578125
+          },
+          {
+            "height": 158.0625,
+            "name": "professional-card",
+            "top": 1019.578125
+          },
+          {
+            "height": 158.0625,
+            "name": "professional-card",
+            "top": 1019.578125
+          },
+          {
+            "height": 1310.53125,
+            "name": "professional-card governance-panel",
+            "top": 1191.640625
+          },
+          {
+            "height": 494.71875,
+            "name": "professional-card participation-actions",
+            "top": 1967.453125
+          }
+        ]
+      },
+      "after": {
+        "busy": "false",
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 1672.4375,
+            "name": "governance-layout",
+            "top": 885.734375
+          },
+          {
+            "height": 82.84375,
+            "name": "governance-section-heading",
+            "top": 916.734375
+          },
+          {
+            "height": 158.0625,
+            "name": "distinction-grid",
+            "top": 1019.578125
+          },
+          {
+            "height": 158.0625,
+            "name": "professional-card",
+            "top": 1019.578125
+          },
+          {
+            "height": 158.0625,
+            "name": "professional-card",
+            "top": 1019.578125
+          },
+          {
+            "height": 1310.53125,
+            "name": "professional-card governance-panel",
+            "top": 1191.640625
+          },
+          {
+            "height": 494.71875,
+            "name": "professional-card participation-actions",
+            "top": 1967.453125
+          }
+        ]
+      }
+    },
+    {
+      "page": "Treasury and Senate",
+      "before": {
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 43.59375,
+            "name": "record-filter",
+            "top": 885.734375
+          },
+          {
+            "height": 3172.953125,
+            "name": "governance-layout",
+            "top": 947.328125
+          },
+          {
+            "height": 1235.734375,
+            "name": "professional-card governance-panel",
+            "top": 1211.171875
+          },
+          {
+            "height": 776.09375,
+            "name": "professional-card governance-composer",
+            "top": 1527.78125
+          },
+          {
+            "height": 888.21875,
+            "name": "professional-card governance-composer",
+            "top": 2446.90625
+          },
+          {
+            "height": 697.15625,
+            "name": "professional-card governance-panel",
+            "top": 3367.125
+          }
+        ]
+      },
+      "after": {
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 43.59375,
+            "name": "record-filter",
+            "top": 885.734375
+          },
+          {
+            "height": 3172.953125,
+            "name": "governance-layout",
+            "top": 947.328125
+          },
+          {
+            "height": 1235.734375,
+            "name": "professional-card governance-panel",
+            "top": 1211.171875
+          },
+          {
+            "height": 776.09375,
+            "name": "professional-card governance-composer",
+            "top": 1527.78125
+          },
+          {
+            "height": 888.21875,
+            "name": "professional-card governance-composer",
+            "top": 2446.90625
+          },
+          {
+            "height": 697.15625,
+            "name": "professional-card governance-panel",
+            "top": 3367.125
+          }
+        ]
+      }
+    },
+    {
+      "page": "Governor upgrades",
+      "before": {
+        "busy": "true",
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 2149.75,
+            "name": "governance-layout",
+            "top": 885.734375
+          },
+          {
+            "height": 1980.875,
+            "name": "professional-card upgrade-card",
+            "top": 998.609375
+          },
+          {
+            "height": 518.65625,
+            "name": "professional-card governance-composer",
+            "top": 2148.25
+          }
+        ]
+      },
+      "after": {
+        "busy": "false",
+        "panels": [
+          {
+            "height": 207.984375,
+            "name": "settings-grid",
+            "top": 108
+          },
+          {
+            "height": 19.1875,
+            "name": "governance-summary-status",
+            "top": 343.984375
+          },
+          {
+            "height": 70,
+            "name": "governance-subnav",
+            "top": 377.171875
+          },
+          {
+            "height": 57.59375,
+            "name": "governance-read-status",
+            "top": 471.171875
+          },
+          {
+            "height": 322.96875,
+            "name": "governance-utility-disclosure",
+            "top": 540.765625
+          },
+          {
+            "height": 2149.75,
+            "name": "governance-layout",
+            "top": 885.734375
+          },
+          {
+            "height": 1980.875,
+            "name": "professional-card upgrade-card",
+            "top": 998.609375
+          },
+          {
+            "height": 518.65625,
+            "name": "professional-card governance-composer",
+            "top": 2148.25
+          }
+        ]
+      }
+    },
+    {
+      "page": "Docs treasury",
+      "before": {
+        "panels": [
+          {
+            "height": 3389.71875,
+            "name": "docs-content",
+            "top": 231.875
+          },
+          {
+            "height": 47,
+            "name": "card-heading-row",
+            "top": 231.875
+          },
+          {
+            "height": 21,
+            "name": "",
+            "top": 294.875
+          },
+          {
+            "height": 51.1875,
+            "name": "docs-read-status",
+            "top": 331.875
+          },
+          {
+            "height": 2358.78125,
+            "name": "professional-grid two-columns",
+            "top": 395.0625
+          },
+          {
+            "height": 76.796875,
+            "name": "deploy-draft-note docs-treasury-snapshot",
+            "top": 2765.84375
+          },
+          {
+            "height": 25.1875,
+            "name": "",
+            "top": 2854.640625
+          },
+          {
+            "height": 42,
+            "name": "",
+            "top": 2895.828125
+          },
+          {
+            "height": 38.390625,
+            "name": "deploy-draft-note docs-activity-check",
+            "top": 2953.828125
+          },
+          {
+            "height": 51.1875,
+            "name": "docs-read-status",
+            "top": 3004.21875
+          },
+          {
+            "height": 51.1875,
+            "name": "docs-activity-range",
+            "top": 3071.40625
+          },
+          {
+            "height": 420,
+            "name": "docs-activity-feed",
+            "top": 3138.59375
+          },
+          {
+            "height": 47,
+            "name": "",
+            "top": 3574.59375
+          },
+          {
+            "height": 117,
+            "name": "resource-footer",
+            "top": 3669.59375
+          }
+        ]
+      },
+      "after": {
+        "panels": [
+          {
+            "height": 3389.71875,
+            "name": "docs-content",
+            "top": 231.875
+          },
+          {
+            "height": 47,
+            "name": "card-heading-row",
+            "top": 231.875
+          },
+          {
+            "height": 21,
+            "name": "",
+            "top": 294.875
+          },
+          {
+            "height": 51.1875,
+            "name": "docs-read-status",
+            "top": 331.875
+          },
+          {
+            "height": 2358.78125,
+            "name": "professional-grid two-columns",
+            "top": 395.0625
+          },
+          {
+            "height": 76.796875,
+            "name": "deploy-draft-note docs-treasury-snapshot",
+            "top": 2765.84375
+          },
+          {
+            "height": 25.1875,
+            "name": "",
+            "top": 2854.640625
+          },
+          {
+            "height": 42,
+            "name": "",
+            "top": 2895.828125
+          },
+          {
+            "height": 38.390625,
+            "name": "deploy-draft-note docs-activity-check",
+            "top": 2953.828125
+          },
+          {
+            "height": 51.1875,
+            "name": "docs-read-status",
+            "top": 3004.21875
+          },
+          {
+            "height": 51.1875,
+            "name": "docs-activity-range",
+            "top": 3071.40625
+          },
+          {
+            "height": 420,
+            "name": "docs-activity-feed",
+            "top": 3138.59375
+          },
+          {
+            "height": 47,
+            "name": "",
+            "top": 3574.59375
+          },
+          {
+            "height": 117,
+            "name": "resource-footer",
+            "top": 3669.59375
+          }
+        ]
+      }
+    },
+    {
+      "page": "Docs tools",
+      "before": {
+        "panels": [
+          {
+            "height": 1273.359375,
+            "name": "docs-content",
+            "top": 231.875
+          },
+          {
+            "height": 577.171875,
+            "name": "professional-card access-tools distribution-status-card",
+            "top": 367.65625
+          },
+          {
+            "height": 577.171875,
+            "name": "professional-card access-tools distribution-status-card",
+            "top": 367.65625
+          },
+          {
+            "height": 560.40625,
+            "name": "professional-card access-tools maintenance-status-card",
+            "top": 944.828125
+          },
+          {
+            "height": 117,
+            "name": "resource-footer",
+            "top": 1553.234375
+          }
+        ],
+        "reading": [
+          "Checking distribution…",
+          "Connect a wallet to check its allocation.",
+          "Checking distribution…",
+          "Connect a wallet to check its allocation.",
+          "Checking maintenance status…"
+        ]
+      },
+      "after": {
+        "panels": [
+          {
+            "height": 1273.359375,
+            "name": "docs-content",
+            "top": 231.875
+          },
+          {
+            "height": 577.171875,
+            "name": "professional-card access-tools distribution-status-card",
+            "top": 367.65625
+          },
+          {
+            "height": 577.171875,
+            "name": "professional-card access-tools distribution-status-card",
+            "top": 367.65625
+          },
+          {
+            "height": 560.40625,
+            "name": "professional-card access-tools maintenance-status-card",
+            "top": 944.828125
+          },
+          {
+            "height": 117,
+            "name": "resource-footer",
+            "top": 1553.234375
+          }
+        ]
+      }
+    },
+    {
+      "page": "NFT results",
+      "before": {
+        "panels": [
+          {
+            "height": 867.59375,
+            "name": "nft-projects",
+            "top": 108
+          },
+          {
+            "height": 615.59375,
+            "name": "nft-projects-results",
+            "top": 335
+          },
+          {
+            "height": 36.390625,
+            "name": "nft-project-badges",
+            "top": 360
+          }
+        ],
+        "status": "Reward status unavailable"
+      },
+      "after": {
+        "panels": [
+          {
+            "height": 867.59375,
+            "name": "nft-projects",
+            "top": 108
+          },
+          {
+            "height": 615.59375,
+            "name": "nft-projects-results",
+            "top": 335
+          },
+          {
+            "height": 36.390625,
+            "name": "nft-project-badges",
+            "top": 360
+          }
+        ],
+        "status": "Reward status unavailable"
+      }
+    }
+  ]
+}

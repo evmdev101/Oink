@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-09-21T00:28:51.921Z",
+  "chainId": 369,
+  "block": 27597886,
+  "blockHash": "0x92e031d9070499e7e2ce1fdd66147adbaf091397a88c2c474f5ca0c4f971e811",
+  "blockTimestamp": 1789950525,
+  "rows": [
+    {
+      "id": "allocation",
+      "address": "0xD8508461e8134e25dc630871566B1551e797E1a7",
+      "runtimeCodeHash": "0x08869675ea8d65a83ad96c125412f775c6e1341b56e1b1c9bfee6208442bd098",
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0xD8508461e8134e25dc630871566B1551e797E1a7",
+      "sourceCodeHash": "0x618192da1641468da499947a9427e906f213bde97e80d3b091d329ede6311d9b",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "compilerHash": "0x3a420fa9963772eee5b9221ebb8cf9548eea8f88b09537390960ea9b440f333c",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "immutableReferences": {
+        "1065": [
+          {
+            "length": 32,
+            "start": 810
+          },
+          {
+            "length": 32,
+            "start": 846
+          },
+          {
+            "length": 32,
+            "start": 1804
+          },
+          {
+            "length": 32,
+            "start": 2409
+          },
+          {
+            "length": 32,
+            "start": 2679
+          },
+          {
+            "length": 32,
+            "start": 3277
+          },
+          {
+            "length": 32,
+            "start": 4257
+          },
+          {
+            "length": 32,
+            "start": 5014
+          },
+          {
+            "length": 32,
+            "start": 5558
+          },
+          {
+            "length": 32,
+            "start": 5739
+          }
+        ]
+      },
+      "executableMatches": true
+    }
+  ]
+}

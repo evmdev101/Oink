@@ -1,0 +1,231 @@
+{
+  "chainId": 369,
+  "blockNumber": 27586249,
+  "blockHash": "0x68a5533a4a5a359ba8d41e6c3a193aac387cf944974edfc7df342be631e7bd5c",
+  "blockTimestamp": 1789830465,
+  "checkedAt": "2026-09-19T15:09:18.643Z",
+  "readOnly": true,
+  "tokens": [
+    {
+      "id": "hex",
+      "tokenAddress": "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+      "vaultAddress": "0x164D4C1fDd74A5b7256Fd9Eca958c9ff70617c03",
+      "decimals": 8,
+      "runtimeCodeHash": "0x072dc3ede6578c96b5b547786fa670d627a18c956b0993a19c4435b8999563a6",
+      "runtimeBytes": 20989,
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+      "sourceHash": "0x4a17e1df0e450f213cdbcbd9291f46f4c339dbc3c5e5672a19fee6d71f9708f0",
+      "compiler": "v0.5.13+commit.5b0b510c",
+      "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.5.13+commit.5b0b510c.js",
+      "compilerTextHash": "0x2c7b2b4bfe208f30f731a296d4ef30d0b1fbd477d7d2be0bacbcca2523d43417",
+      "compilerSettings": {
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode"
+            ]
+          }
+        }
+      },
+      "executableMatches": true,
+      "immutableReferences": {},
+      "metadataIgnored": true,
+      "zeroAmountEthCallReturns": {
+        "approve": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transfer": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transferFrom": "0x0000000000000000000000000000000000000000000000000000000000000001"
+      },
+      "mutableState": {}
+    },
+    {
+      "id": "hoa",
+      "tokenAddress": "0x7901a3569679AEc3501dbeC59399F327854a70fe",
+      "vaultAddress": "0x9E70665aDee807f262Ae59Dc1f8D4Dd878320C21",
+      "decimals": 18,
+      "runtimeCodeHash": "0x7fc15dbaf378e641eda586f82968a15f1208644eade96ee542468ee42b4ab481",
+      "runtimeBytes": 4547,
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x7901a3569679AEc3501dbeC59399F327854a70fe",
+      "sourceHash": "0xd1bdd9a737b216910ce1c76c45e2baf8c990daa9d72581ab085f1586314392cd",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.8.20+commit.a1b79de6.js",
+      "compilerTextHash": "0x3a420fa9963772eee5b9221ebb8cf9548eea8f88b09537390960ea9b440f333c",
+      "compilerSettings": {
+        "optimizer": {
+          "enabled": false,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode"
+            ]
+          }
+        }
+      },
+      "executableMatches": true,
+      "immutableReferences": {},
+      "metadataIgnored": true,
+      "zeroAmountEthCallReturns": {
+        "approve": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transfer": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transferFrom": "0x0000000000000000000000000000000000000000000000000000000000000001"
+      },
+      "mutableState": {}
+    },
+    {
+      "id": "pdai",
+      "tokenAddress": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      "vaultAddress": "0xc13b8974CD5caa67D7e539D2654C872b5AcA5105",
+      "decimals": 18,
+      "runtimeCodeHash": "0x4e36f96ee1667a663dfaac57c4d185a0e369a3a217e0079d49620f34f85d1ac7",
+      "runtimeBytes": 7904,
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      "sourceHash": "0x350771194c225a957e384bc51bdc0673cdce3514ce0dd3ddbacb938f1afbd1d9",
+      "compiler": "v0.5.12+commit.7709ece9",
+      "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.5.12+commit.7709ece9.js",
+      "compilerTextHash": "0xd9a08eaf125656f3f54112be048895aaf9816181cce6851217188674b87c19d7",
+      "compilerSettings": {
+        "optimizer": {
+          "enabled": false,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode"
+            ]
+          }
+        }
+      },
+      "executableMatches": true,
+      "immutableReferences": {},
+      "metadataIgnored": true,
+      "zeroAmountEthCallReturns": {
+        "approve": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transfer": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transferFrom": "0x0000000000000000000000000000000000000000000000000000000000000001"
+      },
+      "mutableState": {}
+    },
+    {
+      "id": "atropa",
+      "tokenAddress": "0xCc78A0acDF847A2C1714D2A925bB4477df5d48a6",
+      "vaultAddress": "0x7c61919AccF037975bbD3a91b0F5811c640018b1",
+      "decimals": 18,
+      "runtimeCodeHash": "0xbdb34a5b8f52bcf6a50eca25dfe92351dda3f1e2d213cecf1f97c28838e54c54",
+      "runtimeBytes": 7571,
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0xCc78A0acDF847A2C1714D2A925bB4477df5d48a6",
+      "sourceHash": "0xc050cc55d00e78413cdf9df7cce83e17225fcd8ca12dfc0d9efee6ef9aa7f546",
+      "compiler": "v0.8.18+commit.87f61d96",
+      "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.8.18+commit.87f61d96.js",
+      "compilerTextHash": "0x9a8fa4183ef95496045189b80dfb39f745db89a903b398e40131f500953e5d57",
+      "compilerSettings": {
+        "optimizer": {
+          "enabled": false,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode"
+            ]
+          }
+        }
+      },
+      "executableMatches": true,
+      "immutableReferences": {},
+      "metadataIgnored": true,
+      "zeroAmountEthCallReturns": {
+        "approve": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transfer": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transferFrom": "0x0000000000000000000000000000000000000000000000000000000000000001"
+      },
+      "mutableState": {
+        "owner": "0x0000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "id": "solidx",
+      "tokenAddress": "0x8Da17Db850315A34532108f0f5458fc0401525f6",
+      "vaultAddress": "0x2057dd1687eafCD809386a41012748AC509df542",
+      "decimals": 18,
+      "runtimeCodeHash": "0x91733197bdd14cc58b75127f5b04ce88746569ec93c45fe5041c8f83fe4d3e71",
+      "runtimeBytes": 3098,
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x8Da17Db850315A34532108f0f5458fc0401525f6",
+      "sourceHash": "0xbb109a3bf97111e2f8ab822e5fb28802f70633e57e6992de3939a54ba0896f0c",
+      "compiler": "v0.8.19+commit.7dd6d404",
+      "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.8.19+commit.7dd6d404.js",
+      "compilerTextHash": "0x6be35b86f5656c06ae897ef311c28da375bdcbded68c4a81e124f2cb36adf830",
+      "compilerSettings": {
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode"
+            ]
+          }
+        }
+      },
+      "executableMatches": true,
+      "immutableReferences": {},
+      "metadataIgnored": true,
+      "zeroAmountEthCallReturns": {
+        "approve": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transfer": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "transferFrom": "0x0000000000000000000000000000000000000000000000000000000000000001"
+      },
+      "mutableState": {}
+    },
+    {
+      "id": "pusdt",
+      "tokenAddress": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "vaultAddress": "0xed1b56c799d28a988bd79bbf2f7e238c2ba15c21",
+      "decimals": 6,
+      "runtimeCodeHash": "0xb44fb4e949d0f78f87f79ee46428f23a2a5713ce6fc6e0beb3dda78c2ac1ea55",
+      "runtimeBytes": 11075,
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "sourceHash": "0x3e0d611f53491f313ae035797ed7ecfd1dfd8db8fef8f82737e6f0cd86d71de7",
+      "compiler": "v0.4.18+commit.9cf6e910",
+      "compilerUrl": "https://binaries.soliditylang.org/bin/soljson-v0.4.18+commit.9cf6e910.js",
+      "compilerTextHash": "0x0478b43de978b1af1d6d6d8c09e84cdb2cc8ed76218d38f17b841b6e539742f0",
+      "compilerSettings": {
+        "optimizer": {
+          "enabled": false,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode"
+            ]
+          }
+        }
+      },
+      "executableMatches": true,
+      "immutableReferences": {},
+      "metadataIgnored": true,
+      "zeroAmountEthCallReturns": {
+        "approve": "0x",
+        "transfer": "0x",
+        "transferFrom": "0x"
+      },
+      "mutableState": {
+        "deprecated": false,
+        "upgradedAddress": "0x0000000000000000000000000000000000000000",
+        "paused": false,
+        "basisPointsRate": "0",
+        "maximumFee": "0",
+        "owner": "0xC6CDE7C39eB2f0F0095F41570af89eFC2C1Ea828",
+        "vaultBlacklisted": false,
+        "sampleCallerBlacklisted": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "route": "/#/mining?tab=deploy",
+  "reviewDialogs": 0,
+  "consentCheckboxes": 0,
+  "deploymentActionButtons": 6,
+  "connectedWallet": false,
+  "realWalletRequests": 0,
+  "testsPassed": 1027,
+  "productionBuild": "passed",
+  "retained": "Wallet-native confirmation, live validation, transaction coordination and receipt verification"
+}

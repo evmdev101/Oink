@@ -1,0 +1,23 @@
+{
+  "readOnly": true,
+  "checkedAt": "2026-09-21T00:06:38.436Z",
+  "block": 27597755,
+  "memberCount": 0,
+  "rows": [
+    {
+      "action": "senate-credit",
+      "eligibility": "No distributable Senate credit is available."
+    },
+    {
+      "action": "senate-membership-vote",
+      "eligibility": "Only a current Senate member can change their ballot."
+    },
+    {
+      "action": "treasury-close",
+      "id": 429,
+      "result": "0x",
+      "block": 27597756,
+      "simulationPassed": true
+    }
+  ]
+}

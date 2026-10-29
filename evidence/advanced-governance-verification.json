@@ -1,0 +1,75 @@
+{
+  "checkedAt": "2026-09-20T23:56:26.030Z",
+  "chainId": 369,
+  "block": 27597699,
+  "blockHash": "0x074841c81fe24b7ff038fa0ebcbd8c28656fdc6d01a82880a35a1f243543880a",
+  "blockTimestamp": 1789948575,
+  "rows": [
+    {
+      "id": "senate",
+      "address": "0x147B43930283d1DDe43d805B7f17E4604b7ca493",
+      "runtimeCodeHash": "0x3cba09a59005ca67aa9dbe0b04b59e747cb574abc8e19d399378396c8f90aa0d",
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x147B43930283d1DDe43d805B7f17E4604b7ca493",
+      "sourceCodeHash": "0xd458ab8cf7f73be9f5305732efa890f3569e849ed723443826a1a5b8cb017d44",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "compilerHash": "0x3a420fa9963772eee5b9221ebb8cf9548eea8f88b09537390960ea9b440f333c",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "immutableReferences": {
+        "1329": [
+          {
+            "length": 32,
+            "start": 927
+          },
+          {
+            "length": 32,
+            "start": 1700
+          },
+          {
+            "length": 32,
+            "start": 3379
+          },
+          {
+            "length": 32,
+            "start": 4565
+          }
+        ],
+        "1333": [
+          {
+            "length": 32,
+            "start": 5009
+          }
+        ]
+      },
+      "executableMatches": true
+    },
+    {
+      "id": "treasury",
+      "address": "0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+      "runtimeCodeHash": "0x79c630fdba686ba767e8ffed9c15232d2ba54772883968138c5084ef9f0da4dd",
+      "sourceUrl": "https://api.scan.pulsechain.com/api?module=contract&action=getsourcecode&address=0x3a4DA32dc29b146F26D8527e37FeaAe45fBebe69",
+      "sourceCodeHash": "0xa4d5c7dbeba3ed66659e382e862b8e3065d1c853d2a5063428823aa45c01941a",
+      "compiler": "v0.8.20+commit.a1b79de6",
+      "compilerHash": "0x3a420fa9963772eee5b9221ebb8cf9548eea8f88b09537390960ea9b440f333c",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "immutableReferences": {
+        "275": [
+          {
+            "length": 32,
+            "start": 98
+          },
+          {
+            "length": 32,
+            "start": 162
+          }
+        ]
+      },
+      "executableMatches": true
+    }
+  ]
+}

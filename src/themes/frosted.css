@@ -1,0 +1,24 @@
+/* The saved glass preference applies to current page surfaces, not modal backdrops. */
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  body.theme-frosted .app-page :is(.reference-panel,.reference-stat,.professional-card,.my-miner-card,.browse-farm-card,.oink-card),
+  body.theme-frosted .oink-card {
+    background:color-mix(in srgb,var(--panel) 48%,transparent);
+    -webkit-backdrop-filter:blur(8px) saturate(125%);
+    backdrop-filter:blur(8px) saturate(125%);
+  }
+  body.theme-frosted .theme-window {
+    background:color-mix(in srgb,var(--panel) 38%,transparent);
+    -webkit-backdrop-filter:blur(3px) saturate(120%);
+    backdrop-filter:blur(3px) saturate(120%);
+    border-color:color-mix(in srgb,var(--fg) 25%,transparent);
+    box-shadow:0 20px 55px #0004,inset 0 1px 0 color-mix(in srgb,var(--fg) 8%,transparent);
+  }
+  body.theme-frosted .theme-window-body {
+    background:color-mix(in srgb,var(--panel) 12%,transparent);
+  }
+  body.theme-frosted .site-header:has(.site-header-inner) {
+    background:linear-gradient(100deg,color-mix(in srgb,var(--bg) 55%,transparent),color-mix(in srgb,var(--accent) 12%,transparent) 52%,color-mix(in srgb,var(--bg) 55%,transparent));
+    -webkit-backdrop-filter:blur(10px) saturate(130%);
+    backdrop-filter:blur(10px) saturate(130%);
+  }
+}

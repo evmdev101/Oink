@@ -1,0 +1,8 @@
+.participation-freshness { display:flex; align-items:center; flex-wrap:wrap; gap:12px; }
+.participation-freshness button { min-height:36px; padding:7px 12px; border:1px solid var(--border); border-radius:8px; background:var(--panel); color:var(--fg); font:inherit; cursor:pointer; }
+.participation-freshness button:hover { border-color:var(--accent); }
+.allocation-registry { margin-top:20px; padding-top:16px; border-top:1px solid var(--border); }
+.allocation-registry summary { color:var(--fg); font-size:14px; font-weight:600; cursor:pointer; }
+.allocation-registry .allocation-breakdown { margin-top:14px; }
+.allocation-registry a { color:var(--fg); }
+.allocation-registry .allocation-breakdown > div { align-items:baseline; }
