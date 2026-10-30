@@ -39,7 +39,6 @@
 .app-page.oink-farms-page :is(.bfc-actions button:not(.info-tooltip-trigger),.bfc-action-grid > button,.bfc-action-grid > .farm-exit-control > button,.farms-filter-tabs button,.farms-staked-toggle,.farms-view-toggle button,.farms-toolbar button,.farm-claim-all,.farm-claim-all:disabled) { min-height:44px; font-size:14px; line-height:20px; }
 .app-page.oink-farms-page :is(.farms-toolbar input,.farms-toolbar select,.bfc-amount) { block-size:46px; min-block-size:46px; font-size:16px; line-height:24px; }
 .app-page.oink-farms-page :is(.bfc-native-note,.bfc-actions > .farm-action-status) { font-size:13px; line-height:20px; }
-.app-page.oink-farms-page .farms-results-hint { block-size:44px; min-block-size:44px; font-size:14px; line-height:22px; }
 
 /* Miner views and referral tools; the compact sale estimate stays as designed. */
 .app-page.oink-mining-page :is(.my-miners-heading h1,.deploy-miners-workspace h1) { font-size:32px; line-height:1.25; }

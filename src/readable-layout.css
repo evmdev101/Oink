@@ -38,10 +38,13 @@
 .app-shell .reference-dashboard .treasury-inflow-summary strong.inflow-status { font-size:17px; }
 .app-shell .reference-dashboard .treasury-flow-list a { padding:16px; min-height:78px; box-sizing:border-box; }
 .app-shell .reference-dashboard .treasury-flow-list a :is(span,strong) { font-size:15px; line-height:22px; }
+.app-shell .reference-dashboard .treasury-flow-list a strong { font-size:20px; line-height:28px; gap:8px; }
+.app-shell .reference-dashboard .treasury-flow-list a strong img { width:24px; height:24px; flex-basis:24px; }
 .app-shell .reference-dashboard .treasury-flow-list a small { font-size:14px; line-height:20px; }
 .app-shell .reference-dashboard .treasury-wallet-scroll { height:min(480px,65dvh); max-height:min(480px,65dvh); }
 .app-shell .reference-dashboard .treasury-assets-card .treasury-holding-row { min-height:82px; padding:14px 0; }
-.app-shell .reference-dashboard .treasury-asset-identity strong { font-size:16px; }
+.app-shell .reference-dashboard .treasury-asset-identity strong { font-size:20px; line-height:28px; }
+.app-shell .reference-dashboard .treasury-asset-identity img { width:34px; height:34px; flex:0 0 34px; object-fit:contain; }
 .app-shell .reference-dashboard .treasury-asset-balance strong { font-size:22px; line-height:1.35; }
 .app-shell .reference-dashboard .treasury-asset-balance small { font-size:14px; line-height:20px; }
 .app-shell .reference-dashboard .treasury-value-total { font-size:22px; align-items:baseline; }

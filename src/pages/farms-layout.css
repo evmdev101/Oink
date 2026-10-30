@@ -490,11 +490,8 @@
 .oink-farms-page .hex-share-manager > .deploy-draft-note { block-size:4.8em; overflow:auto; line-height:1.6; }
 .oink-farms-page .hex-share-count-status { min-block-size:3em; line-height:1.5; }
 .oink-farms-page .hex-share-registration-slot { min-block-size:180px; }
-.oink-farms-page .farms-results-hint { min-block-size:3em; margin:0 0 12px; color:var(--farm-muted); font-size:12px; line-height:1.5; }
-.oink-farms-page .farms-results-content { block-size:clamp(760px,120dvh,1200px); overflow:auto; scrollbar-gutter:stable; overscroll-behavior:auto; padding:4px; border-radius:12px; }
-.oink-farms-page .farms-results-content > .farms-empty { min-block-size:100%; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 .oink-farms-page .farm-emission-list { block-size:540px; overflow:auto; scrollbar-gutter:stable; padding-right:8px; }
-.oink-farms-page :is(.farms-results-content,.farm-emission-list,.farms-read-status):focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.oink-farms-page :is(.farm-emission-list,.farms-read-status):focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
 .oink-farms-page .farms-topbar { min-block-size:60px; }
 .oink-farms-page .farms-brand h1 { line-height:32px; }
 .oink-farms-page .farms-count { line-height:20px; }
@@ -510,7 +507,6 @@
 .oink-farms-page .farms-toolbar label > span { block-size:20px; line-height:20px; }
 .oink-farms-page .farms-toolbar :is(input,select,button) { block-size:40px; min-block-size:40px; box-sizing:border-box; font:400 14px/20px "DM Sans",sans-serif; }
 .oink-farms-page .farms-read-status { block-size:42px; font:400 14px/21px "DM Sans",sans-serif; }
-.oink-farms-page .farms-results-hint { block-size:36px; min-block-size:36px; font:400 12px/18px "DM Sans",sans-serif; }
 .oink-farms-page .hex-share-manager { font:400 14px/21px "DM Sans",sans-serif; }
 .oink-farms-page .hex-share-read-status { block-size:42px; font:400 14px/21px "DM Sans",sans-serif; }
 .oink-farms-page .hex-share-count-status { block-size:42px; min-block-size:42px; overflow:auto; font:400 14px/21px "DM Sans",sans-serif; }
