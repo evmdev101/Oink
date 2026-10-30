@@ -1,4 +1,5 @@
 export type ThemeName = keyof typeof THEMES;
+export const DEFAULT_THEME: ThemeName = "oink";
 
 export const THEMES = {
   oink: {

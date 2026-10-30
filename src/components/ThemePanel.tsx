@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
-import { applyTheme, THEMES, NEW_THEME_NAMES, type ThemeName } from "../themes/themes";
+import { applyTheme, DEFAULT_THEME, THEMES, NEW_THEME_NAMES, type ThemeName } from "../themes/themes";
 import {
   applyBackground,
   BACKGROUND_PATTERNS,
@@ -29,10 +29,12 @@ const themeCollections: { title: string; names: readonly ThemeName[] }[] = [
 
 export function useTheme() {
   const [theme, setTheme] = useState<ThemeName>(() => {
-    const saved = localStorage.getItem("oink-react-theme") as ThemeName | null;
-    return saved && saved in THEMES ? saved : "oink";
+    try {
+      const saved = localStorage.getItem("oink-react-theme") as ThemeName | null;
+      return saved && Object.prototype.hasOwnProperty.call(THEMES, saved) ? saved : DEFAULT_THEME;
+    } catch { return DEFAULT_THEME; }
   });
-  useEffect(() => {
+  useLayoutEffect(() => {
     applyTheme(theme);
     try {
       const custom = JSON.parse(
@@ -46,6 +48,12 @@ export function useTheme() {
       localStorage.removeItem("oink-react-custom");
     }
     applyBackground(readBackground(theme), false);
+    try {
+      const root = document.documentElement;
+      localStorage.setItem("oink:paint-theme:v1", JSON.stringify(Object.fromEntries(
+        ["bg", "fg", "panel", "border", "accent"].map(key => [key, root.style.getPropertyValue(`--${key}`)]),
+      )));
+    } catch { /* Theme still works when storage is unavailable. */ }
   }, [theme]);
   return { theme, setTheme };
 }

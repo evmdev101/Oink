@@ -164,9 +164,7 @@ export function OinkReferral(){
       <label>Reward destination<select value={destination} onChange={e=>setDestination(e.target.value)}><option value="wallet">Your wallet</option>{TIME_MINER_CONTRACTS.map(v=><option key={v.id} value={v.id}>{v.label} miner</option>)}</select></label>
       <div className="offer-quote"><span>Estimated OINK received</span><strong>{option?displayFarmAmount(option.received):'—'}</strong></div>
       <p className="referral-destination-note">{option?<>{option.rate}% of the referral reward · {option.serve} days mandatory service{!option.enabled?' · Destination inactive':!option.funded?' · Reward contract currently underfunded':''}</>:account?'Reading destination payout and service period…':'Connect your wallet to see destination payout details.'}</p>
-      <button disabled={!account||busy} onClick={()=>setRefresh(v=>v+1)}>Refresh balances</button>
       <div className="offer-action-list"><ProtocolAction adapter={offerAdapter} label="Claim referral rewards" request={{module:'offers',action:'referral',args:{destination,points:data?.remaining??''}}} disabled={busy||!fresh||!data||data.account!==account||!option?.enabled||!option.funded||data.remaining==='0.0'} onConfirmed={()=>setRefresh(v=>v+1)}/></div>
-      <p className="deploy-draft-note">{data?'Block '+data.block.toLocaleString()+'. ':''}Claims consume the selected points, including the part reduced by the destination payout. Both current and legacy redemptions are deducted.</p>
     </article>
   </section>;
 }

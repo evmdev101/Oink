@@ -2,7 +2,6 @@ import { preloadRouteCode } from "./lib/preloadPage";
 import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Header } from "./components/Header";
-import { LoadingScreen } from "./components/LoadingScreen";
 import { useTheme } from "./components/ThemePanel";
 import { WalletProvider, useWallet } from "./components/WalletProvider";
 import { TransactionMonitor } from "./components/TransactionMonitor";
@@ -51,14 +50,16 @@ function ScrollToTop() {
 }
 
 function PageRoutes() {
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const wallet = useWallet();
   useEffect(() => preloadRouteCode(pathname), [pathname]);
   const walletPage = pathname === "/mining" || pathname === "/governance" || pathname === "/portfolio";
   const page = ({ "/": "Dashboard", "/portfolio": "Portfolio", "/how-it-works": "How it works", "/docs": "Docs", "/mining": "Miners", "/farms": "Farms", "/nfts": "NFTs", "/governance": "Governance", "/maintenance": "Maintenance", "/protocol": "Docs" } as Record<string, string>)[pathname] ?? "Home";
   const label = `Loading OINK ${page}`;
-  const pageKey = `${pathname}${search}:${walletPage ? `${wallet.account ?? "disconnected"}:${wallet.chainId ?? ""}` : "public"}`;
-  return <Suspense key={pageKey} fallback={<LoadingScreen label={label} />}>
+  // In-page tab/filter changes keep the route shell mounted. Wallet changes
+  // still reset private views so another account cannot inherit their state.
+  const pageKey = `${pathname}:${walletPage ? `${wallet.account ?? "disconnected"}:${wallet.chainId ?? ""}` : "public"}`;
+  return <Suspense key={pageKey} fallback={null}>
     <PageLoadBoundary label={label}>
       <WalletReadiness wait={walletPage && wallet.busy} />
       <Routes>

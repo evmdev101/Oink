@@ -7,6 +7,7 @@ import { displayFarmAmount, sumFarmAmounts } from "../lib/farmDisplay";
 import { portfolioMarketValue } from "../lib/portfolioValuation";
 import { displayRankValue } from "../lib/farmRankings";
 import { InfoTooltip } from "./InfoTooltip";
+import { useDeferredDisplayRead } from "./useDeferredDisplayRead";
 
 const historyViewCache = createViewSnapshotCache<PortfolioHistory>();
 export function PortfolioHistoryPanel({ account, revision, oinkPrice }: { account:string; revision:number; oinkPrice:string }) {
@@ -19,6 +20,7 @@ export function PortfolioHistoryShell({ pending }: { pending:boolean }) {
 }
 
 function PortfolioHistoryContent({ account, revision, oinkPrice, shellPending = false }: { account:string | null; revision:number; oinkPrice:string; shellPending?:boolean }) {
+  const { sectionRef, readReady } = useDeferredDisplayRead();
   const cacheKey = account ? `${account.toLowerCase()}:${revision}` : "";
   const [stored,setStored] = useState<PortfolioHistory | null>(() => account ? historyViewCache.get(cacheKey) ?? peekPortfolioHistory(account) : null);
   const [busy,setBusy] = useState(() => !!account || shellPending);
@@ -38,11 +40,13 @@ function PortfolioHistoryContent({ account, revision, oinkPrice, shellPending = 
   }, [account]);
   useEffect(() => {
     if (!account) { setBusy(shellPending); return; }
+    if (!readReady) return;
     let active = true;
     const controller = new AbortController();
     let timer:number | undefined;
     if (browsingHistory) { setBusy(false); return () => controller.abort(); }
     const load = async () => {
+      if (typeof document !== "undefined" && document.hidden) { timer = window.setTimeout(load, 60000); return; }
       setBusy(true);
       let delay = 60000;
       try {
@@ -59,7 +63,7 @@ function PortfolioHistoryContent({ account, revision, oinkPrice, shellPending = 
     };
     void load();
     return () => { active = false; controller.abort(); window.clearTimeout(timer); };
-  }, [account,revision,refresh,cacheKey,browsingHistory,shellPending]);
+  }, [account,revision,refresh,cacheKey,browsingHistory,shellPending,readReady]);
   useEffect(() => { setPage(0); }, [account,revision,refresh]);
   const rows = data?.rows ?? [];
   const partial = !!data && (data.failed > 0 || data.capped > 0 || !!data.loading);
@@ -75,7 +79,7 @@ function PortfolioHistoryContent({ account, revision, oinkPrice, shellPending = 
   ].filter((_,index) => flow === "both" || flow === String(index));
   const end = (data?.loadedAt ?? Date.now()) / 1000;
   return <>
-    <section className="professional-card overview-section portfolio-history-summary" aria-busy={busy}>
+    <section ref={sectionRef} className="professional-card overview-section portfolio-history-summary" aria-busy={busy}>
       <div className="portfolio-toolbar"><div className="info-heading"><h2>Your recorded activity</h2><InfoTooltip label="About recorded activity totals"><p>Totals come from the wallet's loaded contract events. Deposits include gifted miners received, while upgrades and extensions are excluded to avoid counting moved principal twice.</p><p>Harvest totals can include rewards sent into miners, rather than paid directly to your wallet. If history is partial, the totals cover only the loaded events.</p></InfoTooltip></div></div>
       <div className="portfolio-stat-strip">{[["OINK deposited",total("deposited")],["OINK withdrawn",total("withdrawn")],["Rewards harvested",total("harvested")],["Miner penalties",total("penalty")]].map(([label,value]) => <div key={label}><span>{label}</span><strong>{value} <small>OINK</small></strong></div>)}</div>
       <p className="portfolio-note">Deposits include gifts received. Upgrades and extensions are excluded from deposit totals to avoid counting moved principal twice. Harvest amounts follow contract events and may be routed into miners; they are not all direct wallet payouts.</p>

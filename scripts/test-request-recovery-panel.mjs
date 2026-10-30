@@ -39,6 +39,8 @@ async function panel(initial = {}) {
     assert.ok(names[path],'Missing UI test binding '+path);
     return `import ${spec} from ${JSON.stringify(data(`const e=globalThis[${JSON.stringify(key)}];${names[path].map(name=>`export const ${name}=e.${name};`).join('')}`))};`;
   });
+  const transactionsModule=data('const e=globalThis['+JSON.stringify(key)+'];export const listPendingTransactions=e.listPendingTransactions;');
+  compiled=compiled.replace(/import\(["']\.\.\/lib\/pendingTransactions["']\)/g,'import('+JSON.stringify(transactionsModule)+')');
   const {RequestRecovery}=await import(data(compiled));
   const resolve=(node,path='root')=>{
     if(Array.isArray(node))return node.map((child,index)=>resolve(child,path+':'+(child?.key??index)));
@@ -66,6 +68,6 @@ async function panel(initial = {}) {
   };
 }
 
-test('pending activity stays hidden during background updates and opens only from the wallet menu',async()=>{const p=await panel();try{p.emit('oink-request-recovery-needed');p.advance(300000);assert.equal(p.render(),null);p.emit('oink-open-request-recovery');assert.match(p.text(p.render()),/Claim OINK/);assert.equal(p.calls.length,0);p.click('Close');p.emit('oink-position-journal');assert.equal(p.render(),null);}finally{p.dispose();}});
+test('pending activity stays hidden during background updates and opens only from the wallet menu',async()=>{const p=await panel();try{p.emit('oink-request-recovery-needed');p.advance(300000);assert.equal(p.render(),null);p.emit('oink-open-request-recovery');await p.flush();assert.match(p.text(p.render()),/Claim OINK/);assert.equal(p.calls.length,0);p.click('Close');p.emit('oink-position-journal');assert.equal(p.render(),null);}finally{p.dispose();}});
 test('the transaction list closes on account changes and never sends or acknowledges',async()=>{const p=await panel();try{p.emit('oink-open-request-recovery');p.accountChange(p.other);assert.equal(p.render(),null);p.accountChange(p.account);assert.equal(p.render(),null);assert.equal(p.calls.length,0);}finally{p.dispose();}});
-test('settled receipts disappear from an explicitly opened list without reopening it',async()=>{const p=await panel();try{p.emit('oink-open-request-recovery');p.records.set(p.account,[]);p.emit('oink-position-journal');assert.match(p.text(p.render()),/No pending transactions/);p.click('Close');p.emit('oink-positions-changed');assert.equal(p.render(),null);}finally{p.dispose();}});
+test('settled receipts disappear from an explicitly opened list without reopening it',async()=>{const p=await panel();try{p.emit('oink-open-request-recovery');await p.flush();p.records.set(p.account,[]);p.emit('oink-position-journal');await p.flush();assert.match(p.text(p.render()),/No pending transactions/);p.click('Close');p.emit('oink-positions-changed');assert.equal(p.render(),null);}finally{p.dispose();}});

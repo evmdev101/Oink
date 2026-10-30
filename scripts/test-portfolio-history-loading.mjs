@@ -33,6 +33,7 @@ async function panel(initial={}){
     sumFarmAmounts:values=>formatEther(values.reduce((total,value)=>total+parseEther(value),0n)),
     portfolioMarketValue:()=>null,displayRankValue:value=>String(value),
     HistoryChart:function HistoryChart(){},InfoTooltip:function InfoTooltip(){},
+    useDeferredDisplayRead:()=>({sectionRef:{current:null},readReady:props.readReady??true}),
   };
   const names={
     react:['useState','useRef','useEffect'],'react/jsx-runtime':['jsx','jsxs','Fragment'],
@@ -43,6 +44,7 @@ async function panel(initial={}){
     '../lib/farmDisplay':['displayFarmAmount','sumFarmAmounts'],
     '../lib/portfolioValuation':['portfolioMarketValue'],
     '../lib/farmRankings':['displayRankValue'],'./InfoTooltip':['InfoTooltip'],
+    './useDeferredDisplayRead':['useDeferredDisplayRead'],
   };
   const globalKey=`__portfolioHistoryLoading${sequence++}`,previousWindow=globalThis.window;
   globalThis.window={
@@ -77,6 +79,19 @@ async function panel(initial={}){
     dispose(){for(const slot of slots)slot?.cleanup?.();globalThis.window=previousWindow;delete globalThis[globalKey];},
   };
 }
+
+test('history keeps its layout and cached charts while background work waits for visible balances',async()=>{
+  const p=await panel({readReady:false,retained:history()});
+  try{
+    assert.equal(p.pending.length,0);
+    assert.equal(p.charts().length,2);
+    assert.ok(p.summary().props.ref);
+    p.update({readReady:true});
+    assert.equal(p.pending.length,1);
+    assert.equal(p.charts().length,2);
+    p.pending[0].resolve(history());await p.flush();
+  }finally{p.dispose();}
+});
 
 test('partial public records show totals and charts before the full history read settles',async()=>{
   const p=await panel();

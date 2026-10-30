@@ -4,28 +4,48 @@ import { VERIFIED_FARM_WRITES } from "../config/farmWriteVerification";
 import { minerEvents,farmExitEvents } from "./positionTransactions";
 import { type FarmReadRpc } from "./farmTransactions";
 import { TREASURY_EXTRA_TOKENS } from "../config/treasuryAssets";
+import { snapshotRunner } from "./governanceReadSafety";
 export const treasuryAccounts=[{label:'Treasury wallet',address:TREASURY_WALLET},{label:'Governor',address:VERIFIED_FARM_WRITES[0].governor},{label:'Treasury locked miner',address:'0x4807bdD7039a1fc236c14dc60D73a64eEa450731'},{label:'NFT wallet',address:'0x26E6e614C46dA4c459d0dB2121A986672F603c00'}];
 const tokenAbi=new Interface(['function balanceOf(address) view returns(uint256)','function decimals() view returns(uint8)','event Transfer(address indexed from,address indexed to,uint256 value)']);
 export const treasuryActivityAssets=[{symbol:'OINK',address:OINK_TOKEN,decimals:18},...VERIFIED_FARM_WRITES.flatMap(farm=>farm.tokenAddress?[{symbol:farm.symbol,address:farm.tokenAddress,decimals:farm.decimals}]:[]),...TREASURY_EXTRA_TOKENS].filter((asset,index,list)=>list.findIndex(row=>getAddress(row.address)===getAddress(asset.address))===index);
 const assets=treasuryActivityAssets;
 async function snapshot(rpc:FarmReadRpc){if(BigInt(await rpc.send('eth_chainId',[]))!==369n)throw Error('Wrong chain');const block=await rpc.send('eth_getBlockByNumber',['latest',false]);if(!block?.hash||Date.now()-Number(BigInt(block.timestamp))*1000>120000)throw Error('Snapshot unavailable or stale');return block;}
 export async function readTreasuryHoldings(rpc:FarmReadRpc,accounts=treasuryAccounts,signal?:AbortSignal){
-  const block=await snapshot(rpc);
-  const rows=[];
-  // At most five asset reads at once, avoiding a burst of dozens of RPC calls.
-  for(const owner of accounts){
-    const allAssets=[{symbol:'PLS',address:null,decimals:18},...assets];
-    const balances=[];
-    for(let offset=0;offset<allAssets.length;offset+=5){
-      signal?.throwIfAborted();
-      balances.push(...await Promise.all(allAssets.slice(offset,offset+5).map(async asset=>{
-        try{let balance:bigint;if(!asset.address)balance=BigInt(await rpc.send('eth_getBalance',[owner.address,block.number]));else{const read=async(fn:string,args:unknown[])=>tokenAbi.decodeFunctionResult(fn,await rpc.send('eth_call',[{to:asset.address,data:tokenAbi.encodeFunctionData(fn,args)},block.number]))[0];if((await read('decimals',[]))!==BigInt(asset.decimals))throw Error('Decimals changed');balance=await read('balanceOf',[owner.address]);}return {...asset,balance:formatUnits(balance,asset.decimals)};}catch{return {...asset,balance:null};}
-      })));
-    }
-    rows.push({...owner,assets:balances});
-  }
   signal?.throwIfAborted();
-  if((await rpc.send('eth_getBlockByNumber',[block.number,false]))?.hash!==block.hash)throw Error('Snapshot changed');
+  const block=await snapshot(rpc);
+  const blockNumber=Number(BigInt(block.number));
+  const send=async(method:string,params:unknown[])=>{signal?.throwIfAborted();const result=await rpc.send(method,params);signal?.throwIfAborted();return result;};
+  // Reuse the same verified, block-pinned display batching used by farms.
+  // Simple RPC adapters retain bounded individual calls when batching is absent.
+  const runner=snapshotRunner({
+    snapshotBatching:(rpc as FarmReadRpc & {snapshotBatching?:boolean}).snapshotBatching,
+    getCode:async(address,at)=>send('eth_getCode',[address,toQuantity(Number(at))]),
+    call:async(tx)=>send('eth_call',[{to:tx.to,data:tx.data},toQuantity(blockNumber)]),
+  },blockNumber,signal);
+  const read=async(address:string,fn:string,args:unknown[])=>tokenAbi.decodeFunctionResult(fn,await runner.call!({to:address,data:tokenAbi.encodeFunctionData(fn,args)}))[0];
+  // Decimals are checked at this block, once per token rather than once per owner.
+  const decimals=new Map<string,Promise<bigint>>();
+  const tokenDecimals=(address:string)=>{
+    const key=address.toLowerCase();
+    let pending=decimals.get(key);
+    if(!pending){pending=read(address,'decimals',[]) as Promise<bigint>;decimals.set(key,pending);}
+    return pending;
+  };
+  const allAssets=[{symbol:'PLS',address:null,decimals:18},...assets];
+  const rows=await Promise.all(accounts.map(async owner=>({ ...owner, assets:await Promise.all(allAssets.map(async asset=>{
+    try{
+      let balance:bigint;
+      if(!asset.address)balance=BigInt(await send('eth_getBalance',[owner.address,block.number]));
+      else{
+        const [observedDecimals,amount]=await Promise.all([tokenDecimals(asset.address),read(asset.address,'balanceOf',[owner.address])]);
+        if(observedDecimals!==BigInt(asset.decimals))throw Error('Decimals changed');
+        balance=amount;
+      }
+      return {...asset,balance:formatUnits(balance,asset.decimals)};
+    }catch{signal?.throwIfAborted();return {...asset,balance:null};}
+  }))})));
+  signal?.throwIfAborted();
+  if((await send('eth_getBlockByNumber',[block.number,false]))?.hash!==block.hash)throw Error('Snapshot changed');
   return {block:Number(BigInt(block.number)),timestamp:Number(BigInt(block.timestamp)),rows};
 }
 export type ActivityRow={key:string;hash:string;block:number;index:number;label:string;amount:string;address:string;recipient?:string;timestamp?:number};

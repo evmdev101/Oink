@@ -13,6 +13,7 @@ import { displayFarmAmount, sumFarmAmounts, summarizeFarmWallet, farmWalletPosit
 import { farmAgeLabel, readFarmCreation } from "../lib/farmAge";
 import { decimalAmount, projectedReward } from "../lib/farmInsights";
 import { snapshotIsStale } from "../lib/governanceReadSafety";
+import { beginForegroundDisplayRead } from "../lib/displayReadPriority";
 import { ECOSYSTEM_MINER_CONTRACTS, explorerUrl } from "../config/contracts";
 import "./farms-layout.css";
 import { freshFarmPrice, displayFee, type FarmPrices } from "../lib/farmPrices";
@@ -261,6 +262,7 @@ export function FarmsPage() {
     setLoading(true);
     setError("");
     let retryDelay = 60000;
+    const releasePriority = beginForegroundDisplayRead(controller.signal);
     const publish = (result: FarmDisplaySnapshot) => {
       if (active) {
         setLoaded(result);
@@ -276,6 +278,7 @@ export function FarmsPage() {
     }).catch((reason) => {
       if (active) { replaceDiscoveredFarmSpecs([]); setError(String(reason.message ?? reason)); retryDelay = 5000; }
     }).finally(() => {
+      releasePriority();
       if (active) { setLoading(false); timer = window.setTimeout(() => setRefresh((r) => r + 1), retryDelay); }
     });
     return () => { active = false; controller.abort(); window.clearTimeout(timer); };

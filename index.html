@@ -1,8 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="oink">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>html{background:var(--bg,#241a20);color:var(--fg,#f2cfde)}</style>
+    <script>
+      // Restore presentation colors before styles and route code arrive.
+      try {
+        const colors = localStorage.getItem("oink-react-theme")
+          ? JSON.parse(localStorage.getItem("oink:paint-theme:v1") || "null") : null;
+        for (const key of ["bg", "fg", "panel", "border", "accent"]) {
+          if (colors && typeof colors[key] === "string" && /^#[0-9a-f]{3,8}$/i.test(colors[key])) {
+            document.documentElement.style.setProperty("--" + key, colors[key]);
+          }
+        }
+      } catch {}
+    </script>
     <meta name="description" content="Explore OINK on PulseChain. Create and manage miners, follow farms and rewards, and review Piggy Bank governance." />
     <title>OINK | Piggy Bank Protocol</title>
     <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png" />

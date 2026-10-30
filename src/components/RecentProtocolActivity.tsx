@@ -6,22 +6,26 @@ import { VERIFIED_FARM_WRITES } from "../config/farmWriteVerification";
 import { toQuantity } from "ethers";
 import { displayFarmAmount } from "../lib/farmDisplay";
 import { InfoTooltip } from "./InfoTooltip";
+import { useDeferredDisplayRead } from "./useDeferredDisplayRead";
 
 type Entry = ActivityRow & { category:string };
 export function RecentProtocolActivity() {
+  const { sectionRef, readReady } = useDeferredDisplayRead();
   const [rows, setRows] = useState<Entry[]>([]);
   const [filter, setFilter] = useState("All");
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState(true);
   const [error, setError] = useState("");
   const [range, setRange] = useState<{from:number;to:number;timestamp:number}|null>(null);
   const [end, setEnd] = useState<number>();
   const [revision, setRevision] = useState(0);
   const [limit, setLimit] = useState(20);
   useEffect(() => {
+    if (!readReady) return;
     let active = true;
     let deadline:number | undefined;
     let refreshTimer:number | undefined;
     const load = async () => {
+      if (typeof document !== "undefined" && document.hidden) { refreshTimer = window.setTimeout(load, 60000); return; }
       setBusy(true); setError("");
       let timedOut = false;
       let retryDelay = 60000;
@@ -58,9 +62,9 @@ export function RecentProtocolActivity() {
     };
     void load();
     return () => { active=false;window.clearTimeout(deadline);window.clearTimeout(refreshTimer); };
-  },[end,revision]);
+  },[end,revision,readReady]);
   const filtered = rows.filter(row => filter === "All" || row.category === filter);
-  return <section className="reference-panel recent-protocol-activity">
+  return <section ref={sectionRef} className="reference-panel recent-protocol-activity">
     <header><div className="info-heading"><h2>Recent activity</h2><InfoTooltip label="About recent protocol activity"><p>Recorded events from the listed miner, supported farm, treasury and governance contracts in the loaded block range. This feed covers the protocol, rather than only your wallet.</p><p>Some event types or older blocks may be outside the loaded range. Open a transaction to inspect its exact actions; one transaction can produce several events.</p></InfoTooltip></div></header>
     <div className="activity-filters" role="group" aria-label="Activity category">{["All","Miners","Farms","Treasury","Governance"].map(category => <button type="button" key={category} aria-pressed={filter===category} onClick={() => {setFilter(category);setLimit(20);}}>{category}</button>)}</div>
     <div className="protocol-activity-list" role="region" aria-label="Recent protocol events" aria-busy={busy && !rows.length} tabIndex={0}>

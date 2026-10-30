@@ -15,6 +15,7 @@ import { readMinerYield } from "../lib/minerLive";
 import { assetUrl } from "../lib/assets";
 import { rewardAllocation, type RewardAllocationRow } from "../lib/rewardAllocation";
 import { farmCountFromRegistry } from "../lib/farmRegistryCount";
+import { waitForForegroundDisplayReads } from "../lib/displayReadPriority";
 import "./participation-snapshot.css";
 
 const metrics = [
@@ -133,6 +134,7 @@ export function ParticipationSnapshot({ onFarmCount }: { onFarmCount?: (count: n
       const signal = controller.signal;
       try {
         const read = async () => {
+          await waitForForegroundDisplayReads(signal);
           const rpc = await getPublicProvider();
           if (BigInt(await rpc.send("eth_chainId",[])) !== 369n) throw Error("Wrong chain");
           const block = await rpc.getBlock("latest");

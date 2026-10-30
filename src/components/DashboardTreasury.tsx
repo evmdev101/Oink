@@ -15,10 +15,23 @@ import { OINK_TOKEN, TREASURY_WALLET } from "../config/contracts";
 import { inflowWindowSummary } from "../lib/dashboardStats";
 import { OinkContractShowcase } from "./OinkContractShowcase";
 import { InfoTooltip } from "./InfoTooltip";
+import { beginForegroundDisplayRead, waitForForegroundDisplayReads } from "../lib/displayReadPriority";
+import { readPublicRefreshDisplay, savePublicRefreshDisplay, publicDisplayRecord, publicDisplayAmount } from "../lib/publicRefreshDisplay";
 
 type Holdings = Awaited<ReturnType<typeof readTreasuryHoldings>>;
 type Liquidity = { pls: string | null; oink: string | null };
-const treasuryDisplay = { holdings:null as Holdings|null, activity:null as TreasuryInflows|null, liquidity:null as Liquidity|null, prices:{} as FarmPrices, retained:false, liquidityTimestamp:0 };
+type RefreshTreasury = { holdings: Holdings; liquidity: Liquidity | null; prices: FarmPrices; liquidityTimestamp: number };
+const restoredTreasury = readPublicRefreshDisplay("treasury", (value): value is RefreshTreasury => {
+  if (!publicDisplayRecord(value) || !publicDisplayRecord(value.holdings) || !publicDisplayRecord(value.prices)) return false;
+  const h = value.holdings;
+  return Number.isSafeInteger(h.block) && Number.isFinite(h.timestamp) && Array.isArray(h.rows)
+    && h.rows.every((row: unknown) => publicDisplayRecord(row) && typeof row.address === "string" && typeof row.label === "string" && Array.isArray(row.assets)
+      && row.assets.every((a: unknown) => publicDisplayRecord(a) && typeof a.symbol === "string" && (a.address === null || typeof a.address === "string") && Number.isInteger(a.decimals) && (a.balance === null || publicDisplayAmount(a.balance))))
+    && Object.values(value.prices).every(q => publicDisplayRecord(q) && publicDisplayAmount(q.usd) && typeof q.pair === "string" && Number.isFinite(q.fetchedAt))
+    && (value.liquidity === null || publicDisplayRecord(value.liquidity) && [value.liquidity.pls, value.liquidity.oink].every(a => a === null || publicDisplayAmount(a)))
+    && Number.isFinite(value.liquidityTimestamp);
+});
+const treasuryDisplay = { holdings:restoredTreasury?.holdings ?? null as Holdings|null, activity:null as TreasuryInflows|null, liquidity:restoredTreasury?.liquidity ?? null as Liquidity|null, prices:restoredTreasury?.prices ?? {} as FarmPrices, retained:!!restoredTreasury, liquidityTimestamp:restoredTreasury?.liquidityTimestamp ?? 0 };
 
 const priceIds: Record<string, keyof FarmPrices> = { PLS: "pls", ...Object.fromEntries(treasuryActivityAssets.flatMap(asset => {
   const match = Object.entries(FARM_PRICE_TOKENS).find(([, address]) => address.toLowerCase() === asset.address.toLowerCase());
@@ -102,6 +115,9 @@ export function DashboardTreasury() {
   const [inflowError, setInflowError] = useState("");
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
+    if (holdings) savePublicRefreshDisplay("treasury", { holdings, liquidity, prices, liquidityTimestamp: treasuryDisplay.liquidityTimestamp }, holdings.timestamp * 1000);
+  }, [holdings, liquidity, prices]);
+  useEffect(() => {
     const clock = window.setInterval(() => setNow(Date.now()), 15000);
     return () => window.clearInterval(clock);
   }, []);
@@ -112,6 +128,7 @@ export function DashboardTreasury() {
     const load = async () => {
       setInflowBusy(true);
       try {
+        await waitForForegroundDisplayReads(controller.signal);
         const rpc = await getPublicProvider();
         const result = await readTreasuryInflows(rpc, previous, AbortSignal.any([controller.signal, AbortSignal.timeout(90000)]));
         if (!controller.signal.aborted) {
@@ -141,6 +158,7 @@ export function DashboardTreasury() {
     const load = () => {
     if (document.hidden) { timer = setTimeout(load,25000); return; }
     setBusy(true);
+    const releasePriority = beginForegroundDisplayRead(controller.signal);
     void getPublicProvider().then(async rpc => {
       controller.signal.throwIfAborted();
       const nextHoldings = await readTreasuryHoldings(rpc, [treasuryAccounts[0]], controller.signal);
@@ -176,6 +194,7 @@ export function DashboardTreasury() {
     }).catch(() => {
       if (active) setError("Live refresh delayed. Showing last known treasury values.");
     }).finally(() => {
+      releasePriority();
       if (active) { setBusy(false); timer = setTimeout(load,25000); }
     });
     };

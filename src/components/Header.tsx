@@ -16,7 +16,7 @@ const nav: Array<[string, string]> = [
 ];
 
 const oinkNav: Array<[string, string]> = [
-  ["Miners", "/mining?tab=deploy"],
+  ["Miners", "/mining"],
   ["Farms", "/farms"],
   ["NFTs", "/nfts"],
   ["Sale", "/mining?tab=sale"],

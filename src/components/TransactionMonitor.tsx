@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useWallet } from "./WalletProvider";
 import { getPublicProvider } from "../lib/chain";
-import { checkSavedReceipts } from "../lib/transactionMonitor";
 
 /** Keeps confirmed requests from blocking future actions, without a status panel. */
 export function TransactionMonitor() {
@@ -14,7 +13,9 @@ export function TransactionMonitor() {
       if (!active || running) return;
       clearTimeout(timer); running = true;
       try {
-
+          // Receipt verification is unnecessary on a disconnected first visit.
+          const { checkSavedReceipts } = await import("../lib/transactionMonitor");
+          if (!active) return;
           const changed = await checkSavedReceipts(account, await getPublicProvider(), () => active);
           if (!active) return;
           if (changed.protocol) window.dispatchEvent(new Event("oink-protocol-confirmed"));

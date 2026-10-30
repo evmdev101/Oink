@@ -14,6 +14,7 @@ import { VERIFIED_FARM_READS } from "../config/farmReadVerification";
 import { readSpecialFarm, type SpecialFarmData } from "./specialFarms";
 import { discoverFarmPools, type DiscoveredFarm } from "./farmDiscovery";
 import { withFarmReadBudget } from "./farmReadBudget";
+import { farmDisplayIdentities } from "./farmIdentityCache.ts";
 
 type MinerPosition = ReturnType<typeof positionWindow> & {
   index: number; shares: string; gross: string; penalty: number | null;
@@ -116,7 +117,16 @@ async function fetchEcosystemVaults(signal?: AbortSignal, wallet?: string): Prom
   if (!block?.hash) throw new Error("Snapshot block unavailable.");
   type Record = { id: string; label: string; address: string; source?: string; discovery?: DiscoveredFarm };
   const knownRunner = snapshotRunner(rpc, block.number, signal);
-  const readRecord = async (record: Record, readSignal = signal) => {
+  // One canonical-origin probe per block, shared across all public identity hits.
+  const identityBlocks = new Map<string, Promise<boolean>>();
+  const canonicalIdentityBlock = (origin: { number: number; hash: string }) => {
+    const key = `${origin.number}:${origin.hash}`;
+    let work = identityBlocks.get(key);
+    if (!work) { work = rpc.getBlock(origin.number).then(value => value?.hash === origin.hash); identityBlocks.set(key, work); }
+    return work;
+  };
+  type ReadRow = Omit<EcosystemVaultRow, "loading">;
+  const readRecord = async (record: Record, readSignal = signal, onBalances?: (row: ReadRow) => Promise<void>): Promise<ReadRow> => {
     const runner = record.discovery ? snapshotRunner(rpc, block.number, readSignal) : knownRunner;
     try {
       readSignal?.throwIfAborted();
@@ -126,12 +136,20 @@ async function fetchEcosystemVaults(signal?: AbortSignal, wallet?: string): Prom
       if (!spec) throw new Error("Farm reader not verified.");
       verifyRuntime(await rpc.getCode(record.address, block.number), spec.runtimeCodeHash, "Farm");
       const c = new Contract(getAddress(record.address), ["function stakeToken() view returns(address)", "function depositFee() view returns(uint256)", "function fundingRate() view returns(uint256)", "function poolID() view returns(uint256)", "function publicBalanceOf() view returns(uint256)"], runner);
-      const [fee, rate, pool, rewards] = await Promise.all([c.depositFee(), c.fundingRate(), c.poolID(), c.publicBalanceOf()]);
-      const native = spec.tokenAddress === null;
-      const tokenAddress = native ? null : getAddress(await c.stakeToken());
+      const identityKey = ["369", getAddress(record.address), spec.runtimeCodeHash, spec.tokenAddress?.toLowerCase() ?? "native", spec.decimals, spec.poolId].join(":");
+      const identityRead = farmDisplayIdentities.read(identityKey, { number: block.number, hash: block.hash! }, async metadataSignal => {
+        const metadataRunner = snapshotRunner(rpc, block.number, metadataSignal);
+        const metadataFarm = new Contract(getAddress(record.address), ["function stakeToken() view returns(address)", "function poolID() view returns(uint256)"], metadataRunner);
+        const [pool, tokenAddress] = await Promise.all([metadataFarm.poolID(), spec.tokenAddress === null ? null : metadataFarm.stakeToken().then(getAddress)]);
+        const metadataToken = tokenAddress ? new Contract(tokenAddress, ["function decimals() view returns(uint8)", "function symbol() view returns(string)"], metadataRunner) : null;
+        const [decimals, symbol] = metadataToken ? await Promise.all([metadataToken.decimals(), metadataToken.symbol()]) : [18n, "PLS"];
+        if (tokenAddress?.toLowerCase() !== spec.tokenAddress?.toLowerCase() || Number(decimals) !== spec.decimals || pool.toString() !== spec.poolId) throw new Error("Farm token, decimals or pool changed. Refresh after re-verification.");
+        return { tokenAddress, decimals: Number(decimals), symbol: String(symbol), pool: pool.toString() };
+      }, canonicalIdentityBlock, readSignal);
+      const [fee, rate, rewards, identity] = await Promise.all([c.depositFee(), c.fundingRate(), c.publicBalanceOf(), identityRead]);
+      const { tokenAddress, decimals, symbol, pool } = identity;
       const token = tokenAddress ? new Contract(tokenAddress, ["function decimals() view returns(uint8)", "function symbol() view returns(string)", "function balanceOf(address) view returns(uint256)"], runner) : null;
-      const [decimals, symbol, balance] = token ? await Promise.all([token.decimals(), token.symbol(), token.balanceOf(record.address)]) : [18n, "PLS", await rpc.getBalance(record.address, block.number)];
-      if (tokenAddress?.toLowerCase() !== spec.tokenAddress?.toLowerCase() || Number(decimals) !== spec.decimals || pool.toString() !== spec.poolId) throw new Error("Farm token, decimals or pool changed. Refresh after re-verification.");
+      const balance = token ? await token.balanceOf(record.address) : await rpc.getBalance(record.address, block.number);
       let positions: Array<{ index: number; amount: string; feesPaid: string; pending: string }> | null = null;
       let accountError: string | null = null;
       let walletBalance: string | null = null;
@@ -161,8 +179,14 @@ async function fetchEcosystemVaults(signal?: AbortSignal, wallet?: string): Prom
         positions = positionResult.positions;
         accountError = positionResult.accountError;
       }
+      const balances: ReadRow = { ...record, special:null, error: null, data: { yieldEstimate:null, tokenAddress, symbol: String(symbol), balance: formatUnits(balance, Number(decimals)), fee: formatUnits(fee, 2), funding: formatUnits(rate, 4), pool: pool.toString(), rewardCredit: formatEther(rewards), positions, accountError, walletBalance, walletBalanceError } };
+      // Verified balances and wallet positions are useful before optional APR
+      // dependencies finish. Publish them at the same canonical snapshot first.
+      await onBalances?.(balances);
+      readSignal?.throwIfAborted();
       const yieldEstimate = await readFarmYield(record.id, runner, rpc, block.number, block.timestamp, record.discovery?.readSpec).catch(() => null);
-      return { ...record, special:null as SpecialFarmData | null, error: null, data: { yieldEstimate, tokenAddress, symbol: String(symbol), balance: formatUnits(balance, Number(decimals)), fee: formatUnits(fee, 2), funding: formatUnits(rate, 4), pool: pool.toString(), rewardCredit: formatEther(rewards), positions, accountError, walletBalance, walletBalanceError } };
+      readSignal?.throwIfAborted();
+      return { ...balances, data: { ...balances.data!, yieldEstimate } };
     } catch (e) { return { ...record, data: null, special:null as SpecialFarmData | null, error: e instanceof Error ? e.message : "Vault reads unavailable" }; }
   };
   const base = { account, block: block.number, blockHash: block.hash, timestamp: block.timestamp };
@@ -174,7 +198,10 @@ async function fetchEcosystemVaults(signal?: AbortSignal, wallet?: string): Prom
   const knownRows: EcosystemVaultRow[] = ECOSYSTEM_MINER_CONTRACTS.map(record => ({ ...record, loading: true, data: null, special: null, error: null }));
   const [loadedRows, discovered] = await Promise.all([
     Promise.all(ECOSYSTEM_MINER_CONTRACTS.map(async (record, index) => {
-      const row = { ...await readRecord(record), loading: false };
+      const row = { ...await readRecord(record, signal, async balances => {
+        knownRows[index] = { ...balances, loading: false };
+        await publish();
+      }), loading: false };
       knownRows[index] = row;
       await publish();
       return row;

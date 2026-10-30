@@ -1,4 +1,5 @@
 import { createViewSnapshotCache } from "../lib/viewSnapshotCache";
+import { beginForegroundDisplayRead } from "../lib/displayReadPriority";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useWallet } from "../components/WalletProvider";
@@ -37,6 +38,7 @@ export function PortfolioPage() {
     let active = true;
     const controller = new AbortController();
     const signal = AbortSignal.any([controller.signal, AbortSignal.timeout(60000)]);
+    const releasePriority = beginForegroundDisplayRead(signal);
     setLoading(true);
     const bounded = <T,>(promise:Promise<T>) => Promise.race([promise, new Promise<never>((_, reject) => signal.addEventListener("abort", () => reject(new Error("Read timed out")), { once:true }))]);
     // Reveal each section as it arrives instead of waiting on the slowest source.
@@ -60,7 +62,7 @@ export function PortfolioPage() {
       portfolioCache.set(cacheKey,next);
       setStored(next);
       setLoading(false); setNow(Date.now());
-    });
+    }).finally(releasePriority);
     return () => { active = false; controller.abort(); };
   }, [account, allowed, revision, refresh, cacheKey]);
   useEffect(() => {
@@ -88,7 +90,6 @@ export function PortfolioPage() {
   const rewards = rewardRows.map(row => farmWalletPositions(row));
   const pending = farmFresh && rewards.length && rewards.every(rows => rows != null) ? sumFarmAmounts(rewards.flatMap(rows => rows!.map(row => row.pending))) : null;
   return <main className="app-page overview-page portfolio-detail-page">
-    <section className="page-intro"><span className="page-kicker">Portfolio</span><h1>Your holdings. Your rewards. Your activity.</h1><p>Wallet OINK, time miners, farms and HEX share rewards — live values first, history underneath. <Link to="/how-it-works">Understand these numbers →</Link></p></section>
       <section className="professional-card portfolio-value-card" aria-busy={busy || loading}><div className="portfolio-value-heading"><span className="section-kicker">Portfolio value</span><InfoTooltip label="About portfolio value"><p>Market estimate before exit penalties and farm funding costs. Includes wallet OINK, time miners and supported farm deposits. Other wallet tokens, NFTs, HEX stakes and pending rewards are excluded. Miner growth is already included.</p><p>The combined total stays unavailable if a required balance or current price is missing. It is not the amount you would necessarily receive by exiting every position.</p></InfoTooltip></div><h2 className="portfolio-value">{total == null ? missingValue : "$" + ((total + 5n * 10n ** 17n) / (10n ** 18n)).toLocaleString("en-US")}</h2>
         <div className="portfolio-value-columns"><div className="portfolio-value-breakdown" tabIndex={0} role="region" aria-label="OINK value breakdown"><div className="portfolio-value-row portfolio-group-total"><strong>OINK</strong><strong>{usd(completePortfolioTotal([walletUsd,minerUsd]))}</strong></div><div className="portfolio-value-row"><span>In wallet</span><span>{usd(walletUsd)}</span></div><div className="portfolio-value-row"><span>In time miners</span><span>{usd(minerUsd)}</span></div><div className="portfolio-value-row"><span className="info-label">Pending farm &amp; HEX rewards <small> · excluded from total</small><InfoTooltip label="About pending farm and HEX rewards"><p>Gross OINK currently recorded as pending by the supported farms and HEX-share vault. Your selected claim destination can reduce the payout or create a locked miner.</p><p>These rewards are shown separately and are excluded from portfolio value to avoid mixing unclaimed rewards with deposited assets.</p></InfoTooltip></span><span>{usd(valueOf(pending,"oink",farmFresh))}</span></div>{rewardRows.filter(row => { const rows = farmWalletPositions(row); return rows && rows.some(p => /[1-9]/.test(p.pending)); }).map(row => { const value = sumFarmAmounts(farmWalletPositions(row)!.map(p => p.pending)); return <div className="portfolio-value-row portfolio-value-child" key={row.id}><span>{amount(value)} OINK from {row.label}</span><span>{usd(valueOf(value,"oink",farmFresh))}</span></div>; })}</div><div className="portfolio-value-breakdown" tabIndex={0} role="region" aria-label="Farm asset value breakdown"><div className="portfolio-value-row portfolio-group-total"><strong>Farm assets</strong><strong>{usd(farmUsd)}</strong></div>{farmRows.map((row,index) => { const rows = farmWalletPositions(row); if (rows?.length === 0) return null; return <div className="portfolio-value-row" key={row.id}><span>{row.label} deposited</span><span>{usd(farmValues[index])}</span></div>; })}{farms?.complete !== false && farmRows.length > 0 && farmRows.every(row => farmWalletPositions(row)?.length === 0) && <p className="portfolio-note">No supported farm deposits.</p>}</div></div>
         <p className="portfolio-note portfolio-value-status" role="status">{!allowed ? busy ? "Checking your wallet connection…" : account ? "Switch to PulseChain using the wallet control above to load your portfolio." : "Connect your wallet above to load your portfolio. Viewing balances does not request a signature." : total == null ? loading ? "Reading balances and current prices…" : "Some balances or current prices are unavailable. The combined value stays unavailable until all three categories can be valued." : "Values refresh in the background."}{farms?.discoveryError && " New pool discovery is unavailable; farm coverage uses the known pools."}</p>
