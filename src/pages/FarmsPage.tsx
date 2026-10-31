@@ -316,7 +316,7 @@ export function FarmsPage() {
     { key: "rewards", title: "Highest Rewards", description: "Annual gross pool emissions valued in USD, not remaining or wallet rewards" },
   ];
   const stale = snapshot && snapshotIsStale(snapshot.timestamp, now);
-  const readStatus = [error ? "Farm data unavailable. Retrying automatically." : stale ? "Farm data is out of date. Wait for updated values before relying on them." : "", loaded?.priceError, snapshot?.discoveryError ?? (snapshot?.registry?.partial ? "Some registered pools could not be checked. Retrying automatically." : "")].filter(Boolean).join(" ");
+  const readStatus = [error ? "Farm data unavailable. Retrying automatically." : stale ? "Farm data is out of date. Wait for updated values before relying on them." : "", loaded?.priceError].filter(Boolean).join(" ");
 
   return <main className="app-page oink-farms-page">
     <div className="farms-tvl"><span>{coveragePending ? "Value loaded so far" : !coverageIncomplete && rankings.tvl.length === depositFarmCount ? "Total Value Locked" : "Priced Value Locked"}</span><strong>{rankings.totalTvl == null ? loading ? "Loading…" : "Unavailable" : displayRankValue(rankings.totalTvl, "tvl")}</strong></div>

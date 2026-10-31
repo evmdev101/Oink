@@ -320,7 +320,7 @@ export function DashboardTreasury() {
             </div>)}
           </div>
           <div className="treasury-value-total"><span className="info-label">{valuation.complete ? "Total" : "Known value"}<InfoTooltip label="About treasury wallet value"><p>The sum of loaded wallet balances with available prices. “Known value” excludes assets whose balance or price is unavailable, so it can be incomplete.</p><p>Farming positions and liquidity are not included in this wallet total.</p></InfoTooltip></span><strong><LiveNumber value={valuation.total} format={value => displayUsd(Number(value))}/></strong></div>
-          <p className="treasury-accounts-note treasury-wallet-coverage" role="status">{error || (!valuation.complete && holdingsFresh ? "Some balances or prices are unavailable. The known value excludes them." : "")}</p>
+          <p className="treasury-accounts-note treasury-wallet-coverage" role="status">{!valuation.complete && holdingsFresh ? "Some balances or prices are unavailable. The known value excludes them." : ""}</p>
           <div className="treasury-accounts-note treasury-wallet-address"><span aria-label="Treasury wallet address">{TREASURY_WALLET}</span><button type="button" aria-label="Copy treasury wallet address" onClick={async () => { try { await navigator.clipboard.writeText(TREASURY_WALLET); setWalletCopy("copied"); } catch { setWalletCopy("failed"); } }}>{walletCopy === "copied" ? "Copied!" : "Copy"}</button>{walletCopy === "failed" && <small role="status">Select the address to copy it manually.</small>}</div>
           <p className="treasury-accounts-note"><button className="treasury-stats-link" type="button" onClick={() => document.getElementById("participation-heading")?.scrollIntoView({ behavior: "smooth", block: "start" })}>View reward allocation and mining stats ↓</button></p>
         <section className="treasury-liquidity-section" aria-labelledby="treasury-liquidity-heading">
@@ -337,7 +337,6 @@ export function DashboardTreasury() {
             </div>
           </div>
           <div className="treasury-value-total"><span>Liquidity value</span><strong><LiveNumber value={liquidityValue} format={value => displayUsd(Number(value))}/></strong></div>
-          <p className="treasury-accounts-note treasury-liquidity-status" role="status">{liquidity && (lastKnown || now / 1000 - treasuryDisplay.liquidityTimestamp >= 120) ? "Liquidity uses last observed balances and prices while updates reconnect." : ""}</p>
           <p>Treasury wallet’s share of the PLS / OINK pair, based on its LP tokens.</p>
         </section>
         </article>
