@@ -15,7 +15,7 @@ export type TreasuryInflows = {
 /** Read only incoming, tracked ERC20 transfers; never scans unrelated farm events.
  * A successful result covers the whole month. Refreshes reuse canonical history
  * and scan only new blocks. Errors leave the previous snapshot untouched. */
-export async function readTreasuryInflows(rpc: FarmReadRpc, previous: TreasuryInflows | null = null, signal?: AbortSignal): Promise<TreasuryInflows> {
+export async function readTreasuryInflows(rpc: FarmReadRpc, previous: TreasuryInflows | null = null, signal?: AbortSignal, options: { endBlock?: number; includeBoundaryRows?: boolean } = {}): Promise<TreasuryInflows> {
   const send = async (method: string, params: unknown[]) => {
     signal?.throwIfAborted();
     const value = await rpc.send(method, params);
@@ -29,8 +29,11 @@ export async function readTreasuryInflows(rpc: FarmReadRpc, previous: TreasuryIn
     return value;
   };
   if (BigInt(await send("eth_chainId", [])) !== 369n) throw Error("Wrong chain.");
-  const tip = await readBlock("latest"), to = Number(BigInt(tip.number)), toTimestamp = Number(BigInt(tip.timestamp));
-  if (!Number.isSafeInteger(to) || Date.now() / 1000 - toTimestamp >= 120 || toTimestamp > Date.now() / 1000 + 30) throw Error("Inflow snapshot is stale.");
+  const latest = await readBlock("latest"), head = Number(BigInt(latest.number)), headTimestamp = Number(BigInt(latest.timestamp));
+  if (!Number.isSafeInteger(head) || Date.now() / 1000 - headTimestamp >= 120 || headTimestamp > Date.now() / 1000 + 30) throw Error("Inflow snapshot is stale.");
+  if (options.endBlock != null && (!Number.isSafeInteger(options.endBlock) || options.endBlock < 0 || options.endBlock > head)) throw Error("Invalid inflow history range.");
+  const tip = options.endBlock == null ? latest : await readBlock(options.endBlock);
+  const to = Number(BigInt(tip.number)), toTimestamp = Number(BigInt(tip.timestamp));
   const cutoff = toTimestamp - monthSeconds;
   let reuse = previous && previous.to <= to && previous.fromTimestamp <= cutoff ? previous : null;
   if (reuse && (await readBlock(reuse.to)).hash !== reuse.toHash) reuse = null;
@@ -78,5 +81,15 @@ export async function readTreasuryInflows(rpc: FarmReadRpc, previous: TreasuryIn
   if (!finished) throw Error("Thirty-day inflow history is not fully loaded.");
   if ((await readBlock(to)).hash !== tip.hash) throw Error("Inflow snapshot changed.");
   return { from, to, fromTimestamp, toTimestamp, toHash: tip.hash, partial: false,
-    rows: [...rows.values()].filter(row => row.timestamp! >= cutoff).sort((a,b) => b.block - a.block || b.index - a.index) };
+    rows: [...rows.values()].filter(row => options.includeBoundaryRows || row.timestamp! >= cutoff).sort((a,b) => b.block - a.block || b.index - a.index) };
+}
+
+/** Follow the actual scanned boundary, preserving every transfer between pages. */
+export async function readOlderTreasuryInflows(rpc: FarmReadRpc, previous: TreasuryInflows, signal?: AbortSignal) {
+  signal?.throwIfAborted();
+  if (previous.from === 0) return null;
+  const anchor = await rpc.send("eth_getBlockByNumber", [toQuantity(previous.to), false]);
+  signal?.throwIfAborted();
+  if (anchor?.hash !== previous.toHash) throw Error("Inflow history changed. Reload older inflows to try again.");
+  return readTreasuryInflows(rpc, null, signal, { endBlock: previous.from - 1, includeBoundaryRows: true });
 }

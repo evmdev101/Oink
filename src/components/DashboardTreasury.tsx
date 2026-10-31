@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { readTreasuryHoldings, treasuryActivityAssets, treasuryAccounts } from "../lib/treasuryActivity";
 import { treasuryWalletDisplayValues } from "../lib/treasuryValuation";
 import { TreasuryStrategies } from "./TreasuryStrategies";
-import { readTreasuryInflows, type TreasuryInflows } from "../lib/treasuryInflows";
+import { readTreasuryInflows, readOlderTreasuryInflows, type TreasuryInflows } from "../lib/treasuryInflows";
 import { FARM_PRICE_TOKENS, freshFarmPrice, readFarmPrices, peekFarmPrices, type FarmPrices } from "../lib/farmPrices";
 import { displayPrice, mergeDisplayPrices, mergeTreasuryHoldings } from "../lib/retainedPublicDisplay";
 import { LiveNumber } from "./LiveNumber";
@@ -109,8 +109,14 @@ export function DashboardTreasury() {
   const [prices, setPrices] = useState<FarmPrices>(() => mergeDisplayPrices(treasuryDisplay.prices,peekFarmPrices()));
   const [retainedBalances, setRetainedBalances] = useState(treasuryDisplay.retained);
   const [visibleInflows, setVisibleInflows] = useState(10);
+  const [olderInflows, setOlderInflows] = useState<TreasuryInflows[]>([]);
+  const [olderBusy, setOlderBusy] = useState(false);
+  const [olderError, setOlderError] = useState("");
+  const [walletCopy, setWalletCopy] = useState<"idle" | "copied" | "failed">("idle");
+  const olderRequest = useRef<AbortController | null>(null);
+  useEffect(() => () => olderRequest.current?.abort(), []);
   const [error, setError] = useState("");
-  const [busy, setBusy] = useState(true);
+  const [, setBusy] = useState(true);
   const [inflowBusy, setInflowBusy] = useState(true);
   const [inflowError, setInflowError] = useState("");
   const [now, setNow] = useState(Date.now());
@@ -130,7 +136,7 @@ export function DashboardTreasury() {
       try {
         await waitForForegroundDisplayReads(controller.signal);
         const rpc = await getPublicProvider();
-        const result = await readTreasuryInflows(rpc, previous, AbortSignal.any([controller.signal, AbortSignal.timeout(90000)]));
+        const result = await readTreasuryInflows(rpc, previous, AbortSignal.any([controller.signal, AbortSignal.timeout(90000)]), { includeBoundaryRows: true });
         if (!controller.signal.aborted) {
           previous = result;
           treasuryDisplay.activity = result;
@@ -232,9 +238,31 @@ export function DashboardTreasury() {
   const valuation = useMemo(() => treasuryWalletDisplayValues(holdings?.rows[0]?.assets ?? [], prices, now), [holdings, prices, now]);
   const stalePrices = Object.values(prices).some(quote => !freshFarmPrice(quote,now));
   const lastKnown = !holdingsFresh || retainedBalances || stalePrices || !!error;
-  const inflowRows = useMemo(() => activity?.rows
+  const inflowRows = useMemo(() => [...new Map([...(activity?.rows ?? []), ...olderInflows.flatMap(page => page.rows)].map(row => [row.key, row])).values()]
     .filter(row => row.label === "Treasury received" && row.recipient?.toLowerCase() === TREASURY_WALLET.toLowerCase())
-    .sort((a, b) => b.block - a.block || b.index - a.index) ?? [], [activity]);
+    .sort((a, b) => b.block - a.block || b.index - a.index), [activity, olderInflows]);
+  const oldestInflows = olderInflows.at(-1) ?? activity;
+  const allHistoryLoaded = oldestInflows?.from === 0;
+  const showMoreInflows = async () => {
+    if (!activity || olderRequest.current) return;
+    if (visibleInflows < inflowRows.length) { setVisibleInflows(value => value + 10); return; }
+    if (!oldestInflows || allHistoryLoaded) return;
+    const controller = new AbortController();
+    olderRequest.current = controller;
+    setOlderBusy(true); setOlderError("");
+    try {
+      const page = await readOlderTreasuryInflows(await getPublicProvider(), oldestInflows, AbortSignal.any([controller.signal, AbortSignal.timeout(90000)]));
+      if (!controller.signal.aborted && page) {
+        setOlderInflows(pages => [...pages, page]);
+        setVisibleInflows(value => Math.max(value, inflowRows.length) + 10);
+      }
+    } catch (reason) {
+      if (!controller.signal.aborted) setOlderError(reason instanceof Error ? reason.message : "Older inflows could not load. Try again.");
+    } finally {
+      if (olderRequest.current === controller) olderRequest.current = null;
+      if (!controller.signal.aborted) setOlderBusy(false);
+    }
+  };
   const inflowWindows = useMemo(() => {
     return [
       { label: "24h", seconds: 86400 },
@@ -261,12 +289,10 @@ export function DashboardTreasury() {
             <small>{row.complete ? `${row.count} inflow${row.count === 1 ? "" : "s"}` : inflowBusy ? "Reading history" : "History unavailable"}</small>
           </div>)}
         </div>
-        <p className="dashboard-context-line">Tracked token transfers into the treasury wallet over the last 30 days, valued at current prices. Native PLS and untracked tokens are excluded.</p>
         <div className="treasury-flow-list">
-          {activity && now / 1000 - activity.toTimestamp >= 120 && <p className="treasury-accounts-note">Last known inflows · {new Date(activity.toTimestamp * 1000).toLocaleString()}. Refreshing in the background.</p>}
           {inflowError && <p role="status">{inflowError}</p>}
           {!activity && !inflowError && <p className="treasury-flow-loading" role="status">Reading treasury inflows…</p>}
-          {activity && !inflowRows.length && <p>No tracked treasury inflows in the last 30 days.</p>}
+          {activity && !inflowRows.length && <p>No tracked inflows in the loaded period. Use Show more inflows to check earlier history.</p>}
           {inflowRows.slice(0, visibleInflows).map(row => {
             const amount = amountParts(row.amount);
             return <a href={"https://scan.pulsechain.com/tx/" + row.hash} target="_blank" rel="noreferrer" key={row.key}>
@@ -276,7 +302,7 @@ export function DashboardTreasury() {
             </a>;
           })}
         </div>
-        <div className="treasury-flow-actions"><button className="treasury-show-more" type="button" disabled={!activity || visibleInflows >= inflowRows.length} onClick={() => setVisibleInflows(value => value + 10)}>{activity && visibleInflows >= inflowRows.length ? "All inflows loaded" : "Show more inflows"}</button></div>
+        <div className="treasury-flow-actions">{olderError && <p role="alert">{olderError}</p>}<button className="treasury-show-more" type="button" disabled={!activity || olderBusy || allHistoryLoaded && visibleInflows >= inflowRows.length} onClick={() => void showMoreInflows()}>Show more inflows</button></div>
       </article>
       <article className="reference-panel treasury-assets-card treasury-strategies-panel">
         <TreasuryStrategies prices={prices} walletValue={valuation.total} walletComplete={valuation.complete} walletCurrent={!lastKnown}/>
@@ -295,7 +321,7 @@ export function DashboardTreasury() {
           </div>
           <div className="treasury-value-total"><span className="info-label">{valuation.complete ? "Total" : "Known value"}<InfoTooltip label="About treasury wallet value"><p>The sum of loaded wallet balances with available prices. “Known value” excludes assets whose balance or price is unavailable, so it can be incomplete.</p><p>Farming positions and liquidity are not included in this wallet total.</p></InfoTooltip></span><strong><LiveNumber value={valuation.total} format={value => displayUsd(Number(value))}/></strong></div>
           <p className="treasury-accounts-note treasury-wallet-coverage" role="status">{error || (!valuation.complete && holdingsFresh ? "Some balances or prices are unavailable. The known value excludes them." : "")}</p>
-          <p className="treasury-accounts-note treasury-wallet-status"><a href={LINKS.scan(TREASURY_WALLET)} target="_blank" rel="noreferrer">View treasury wallet ↗</a>{holdings ? <> · {lastKnown ? "Last known" : "Updated"} {new Date(holdings.timestamp * 1000).toLocaleString()} · Block {holdings.block.toLocaleString()}</> : " · Reading current balances…"} · {busy && !holdings ? "Loading balances." : "Updates in the background."}</p>
+          <div className="treasury-accounts-note treasury-wallet-address"><span aria-label="Treasury wallet address">{TREASURY_WALLET}</span><button type="button" aria-label="Copy treasury wallet address" onClick={async () => { try { await navigator.clipboard.writeText(TREASURY_WALLET); setWalletCopy("copied"); } catch { setWalletCopy("failed"); } }}>{walletCopy === "copied" ? "Copied!" : "Copy"}</button>{walletCopy === "failed" && <small role="status">Select the address to copy it manually.</small>}</div>
           <p className="treasury-accounts-note"><button className="treasury-stats-link" type="button" onClick={() => document.getElementById("participation-heading")?.scrollIntoView({ behavior: "smooth", block: "start" })}>View reward allocation and mining stats ↓</button></p>
         <section className="treasury-liquidity-section" aria-labelledby="treasury-liquidity-heading">
           <div className="info-heading"><h3 id="treasury-liquidity-heading">Protocol-owned liquidity</h3><InfoTooltip label="About protocol-owned liquidity"><p>The treasury wallet owns LP tokens in the PLS / OINK trading pair. These balances show its proportional share of the pair, rather than the entire pool.</p><p>The displayed PLS and OINK amounts change with trades and the treasury's LP ownership.</p></InfoTooltip></div>

@@ -42,8 +42,26 @@
 .app-page.oink-farms-page .bfc-fees :is(dt,dd) { font-size:12px; line-height:15px; }
 .app-page.oink-farms-page :is(.farm-rank-name,.farm-rank-column h2) { font-size:16px; }
 .app-page.oink-farms-page .farm-rank-value { font-size:20px; }
-.app-page.oink-farms-page :is(.farms-summary-metrics strong,.farms-tvl strong) { font-size:28px; }
+.app-page.oink-farms-page .farms-tvl strong { font-size:28px; }
 .app-page.oink-farms-page .farms-summary-metrics span { font-size:14px; }
+.app-page.oink-farms-page .farms-summary { padding:14px 18px; }
+.app-page.oink-farms-page .farms-summary-metrics { gap:12px 24px; }
+.app-page.oink-farms-page .farms-summary-metrics > div { block-size:auto; grid-template-rows:20px minmax(42px,auto) auto; gap:2px; }
+.app-page.oink-farms-page .farms-summary-metrics strong { block-size:auto; min-block-size:42px; overflow:visible; font-size:34px; line-height:42px; }
+.app-page.oink-farms-page .farms-summary-metrics strong small { font-size:18px; }
+.app-page.oink-farms-page .farms-summary-metrics .farms-summary-note { block-size:auto; overflow:visible; line-height:20px; }
+.app-page.oink-farms-page .farms-summary-metrics .farms-summary-note:empty { display:none; }
+.app-page.oink-farms-page .farms-summary-bottom { margin-top:10px; gap:12px; }
+.app-page.oink-farms-page .farms-summary-bottom .farms-summary-actions { min-block-size:32px; font-size:16px; }
+.app-page.oink-farms-page .farms-summary-bottom .farms-reward-breakdown { gap:6px; }
+.app-page.oink-farms-page .farms-reward-heading { font-size:13px; }
+.app-page.oink-farms-page .farms-reward-content { min-block-size:0; max-block-size:none; overflow:visible; scrollbar-gutter:auto; }
+.app-page.oink-farms-page .farms-reward-chip { font-size:15px; padding:5px 10px; gap:7px; }
+.app-page.oink-farms-page .farms-reward-chip .bfc-token-logo { width:24px; height:24px; }
+@media(max-width:500px) {
+  .app-page.oink-farms-page .farms-summary { padding:12px; }
+  .app-page.oink-farms-page .farms-summary-metrics strong { font-size:28px; }
+}
 .app-page.oink-farms-page .farm-emission-split h2 { font-size:24px; }
 .app-page.oink-farms-page :is(.farm-emission-label span,.farm-emission-row dt,.farm-emission-total) { font-size:13px; }
 .app-page.oink-farms-page :is(.farm-emission-label strong,.farm-emission-row dd,.farm-emission-percent,.farm-emission-total strong) { font-size:15px; }

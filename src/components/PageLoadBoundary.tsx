@@ -1,5 +1,5 @@
 import { Component, createContext, useCallback, useContext, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { LoadingScreen } from "./LoadingScreen";
+import { recoverStalePage } from "../lib/stalePageRecovery";
 
 type LoadStatus = { ready: boolean; error: string | null; retry?: () => void };
 type LoadRegistry = {
@@ -33,9 +33,13 @@ export function PageLoadBoundary({ label, children }: { label: string; children:
 class PageLoadErrorBoundary extends Component<{ label: string; children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(error: Error) {
+    console.error("OINK page error", error);
+    recoverStalePage(error);
+  }
   render() {
     return this.state.failed
-      ? <LoadingScreen label={this.props.label} error="This page could not load. Reload the page to try again." onRetry={() => window.location.reload()} />
+      ? <div className="page-read-notice" role="alert">This page couldn’t open. <button type="button" onClick={() => window.location.reload()}>Reload</button></div>
       : this.props.children;
   }
 }

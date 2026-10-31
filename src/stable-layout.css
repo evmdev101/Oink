@@ -10,7 +10,7 @@ html { scrollbar-gutter:stable; }
    registry entries remain accessible without moving the following section. */
 .reference-dashboard .allocation-viewport {
   height:min(430px,65dvh); overflow:auto; scrollbar-gutter:stable;
-  scrollbar-width:thin; scrollbar-color:var(--border) transparent;
+
 }
 .reference-dashboard .allocation-viewport .allocation-breakdown > div { min-height:43px; }
 .reference-dashboard .allocation-viewport .allocation-breakdown strong { min-width:10ch; text-align:right; }

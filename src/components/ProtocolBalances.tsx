@@ -45,7 +45,7 @@ export function ProtocolBalances() {
         const row = data?.rows.find(row => row.id === record.id);
         return <div key={record.id}><span>{record.label}</span><strong>{!data ? "— OINK" : fresh && row?.value != null ? displayFarmAmount(row.value) + " OINK" : "Unavailable"}</strong></div>;
       })}</div>
-      <p className="snapshot-note protocol-balances-status" role="status">{error || (!data ? busy ? "Reading public OINK balances…" : "Balances unavailable." : fresh ? `Updated ${new Date(data.timestamp * 1000).toLocaleTimeString()} · block ${data.block.toLocaleString()} · refreshes every minute.` : "This snapshot is out of date. Waiting for current balances.")}{data?.rows.some(row => row.value == null) ? " Some contract reads are unavailable." : ""}</p>
+      <p className="snapshot-note protocol-balances-status" role="status">{error || (!data ? busy ? "Reading public OINK balances…" : "Balances unavailable." : fresh ? "" : "This snapshot is out of date. Waiting for current balances.")}{data?.rows.some(row => row.value == null) ? " Some contract reads are unavailable." : ""}</p>
       <p>Virtual supply includes protocol accounting credit and is not circulating token supply. Distribution reward credit is not an additional wallet token balance or a guarantee of a payable claim. These categories overlap and should not be added together.</p>
     </>}
   </details>;

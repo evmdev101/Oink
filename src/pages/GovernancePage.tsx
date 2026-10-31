@@ -308,7 +308,7 @@ export function GovernancePage() {
               <div className="card-heading-row"><div><span className="section-kicker">On-chain registry</span><h3>Public member list and recorded votes</h3></div><span className="status-pill status-safe">No wallet required</span></div>
               <div className="senate-member-registry" role="region" aria-label="Senate member registry" tabIndex={0}>
               {!snapshot && <p className="empty-state" role="status">Reading Senate membership…</p>}
-              {snapshot && snapshot.senate.members.length === 0 && <div className="empty-state prominent-empty"><strong>No registered Senate members</strong><span>The deployed contract reports an empty list at block {snapshot.blockNumber.toLocaleString()}. Off-chain nomination lists do not change this status.</span></div>}
+              {snapshot && snapshot.senate.members.length === 0 && <div className="empty-state prominent-empty"><strong>No registered Senate members</strong><span>The deployed contract reports an empty list. Off-chain nomination lists do not change this status.</span></div>}
               {snapshot?.senate.members.map((member, index) => <article className="member-row" key={member}><AddressLink value={member} /><span>{snapshot.senate.memberVotes === null ? "Ballots unavailable — membership actions cannot be verified" : snapshot.senate.memberVotes[index]?.length ? snapshot.senate.memberVotes[index].map((vote) => mappedPositions.get(vote) || `Unmapped recorded ballot ${vote}`).join("; ") : "No recorded ballots"}</span></article>)}
               </div>
               <AdvancedGovernanceControls active={activeSection === "senate"} section="senate" snapshot={snapshot} onConfirmed={refreshSnapshot} />

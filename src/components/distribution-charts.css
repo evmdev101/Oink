@@ -21,10 +21,7 @@
 .activity-filters { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
 .activity-filters button,.activity-pagination button,.recent-protocol-activity header > button { background:transparent; color:var(--fg); border:1px solid var(--border); border-radius:6px; padding:7px 12px; font:inherit; font-size:12px; cursor:pointer; }
 .activity-filters button[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 12%,var(--bg)); border-color:var(--accent); }
-.protocol-activity-list { max-height:460px; overflow-y:auto; padding-right:10px; scrollbar-gutter:stable; scrollbar-width:thin; scrollbar-color:color-mix(in srgb,var(--fg) 40%,var(--bg)) var(--bg); }
-.protocol-activity-list::-webkit-scrollbar { width:10px; }
-.protocol-activity-list::-webkit-scrollbar-track { background:var(--bg); }
-.protocol-activity-list::-webkit-scrollbar-thumb { background:color-mix(in srgb,var(--fg) 40%,var(--bg)); border-radius:5px; border:2px solid var(--bg); }
+.protocol-activity-list { max-height:460px; overflow-y:auto; padding-right:10px; scrollbar-gutter:stable;   }
 .protocol-activity-list a { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0; border-top:1px solid color-mix(in srgb,var(--fg) 10%,transparent); text-decoration:none; color:var(--fg); }
 .protocol-activity-list a:hover { background:color-mix(in srgb,var(--fg) 3%,transparent); }
 .protocol-activity-list a > div { display:grid; gap:5px; }

@@ -50,8 +50,8 @@
   max-height: min(420px, 60vh);
   overflow: auto;
   scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: var(--muted) var(--bg);
+
+
 }
 .portfolio-miners-scroll:focus-visible {
   outline: 2px solid var(--accent);
@@ -94,8 +94,8 @@
   max-height: min(440px, 60vh);
   overflow-y: auto;
   scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: var(--muted) var(--bg);
+
+
   padding-right: 12px;
 }
 .portfolio-activity-scroll:focus-visible {
@@ -145,8 +145,8 @@
   min-width:0;
   overflow:auto;
   scrollbar-gutter:stable;
-  scrollbar-width:thin;
-  scrollbar-color:var(--muted) var(--bg);
+
+
   padding-right:8px;
 }
 .portfolio-detail-page .portfolio-value-breakdown:focus-visible,
@@ -179,8 +179,8 @@
   height:min(260px,42vh);
   overflow:auto;
   scrollbar-gutter:stable;
-  scrollbar-width:thin;
-  scrollbar-color:var(--muted) var(--bg);
+
+
 }
 .portfolio-detail-page .portfolio-miners-scroll .portfolio-table {
   min-width:760px;

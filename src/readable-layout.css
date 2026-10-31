@@ -1,4 +1,8 @@
 /* Shared reading scale, loaded before any page or live data appears. */
+.treasury-wallet-address { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.treasury-wallet-address > span { flex:1 1 16rem; min-width:0; overflow-wrap:anywhere; user-select:all; }
+.treasury-wallet-address > button { flex:none; min-height:32px; padding:5px 10px; font:inherit; }
+.treasury-wallet-address > small { flex-basis:100%; }
 :root { --reading-width:1280px; --reading-body:16px; --reading-detail:14px; }
 .app-shell .app-page { font-size:var(--reading-body); line-height:1.55; }
 .app-shell .app-page:is(.reference-dashboard,.overview-page,.resources-library,.portfolio-detail-page) {

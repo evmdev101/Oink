@@ -350,8 +350,8 @@ a {
   border-radius: 8px;
   max-height: calc(100dvh - 240px);
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+
+
 }
 .theme-collection + .theme-collection { margin-top: 18px; }
 .theme-window-body h3 {

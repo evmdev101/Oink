@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { registerHooks } from 'node:module';
 import { Interface, toQuantity, zeroPadValue } from 'ethers';
 registerHooks({resolve(s,c,n){try{return n(s,c)}catch(e){if(s.startsWith('.')&&!/\.[a-z]+$/i.test(s))return n(s+'.ts',c);throw e}}});
-const { readTreasuryInflows } = await import('../src/lib/treasuryInflows.ts');
+const { readTreasuryInflows, readOlderTreasuryInflows } = await import('../src/lib/treasuryInflows.ts');
 const { inflowWindowSummary } = await import('../src/lib/dashboardStats.ts');
 const { OINK_TOKEN, TREASURY_WALLET } = await import('../src/config/contracts.ts');
 const abi = new Interface(['event Transfer(address indexed from,address indexed to,uint256 value)']);
@@ -103,4 +103,43 @@ test('a changed snapshot tip and cancellation prevent publishing results', async
   const aborted = fixture();
   await assert.rejects(readTreasuryInflows(aborted.rpc,null,controller.signal),{name:'AbortError'});
   assert.equal(aborted.ranges.length,0);
+});
+
+test('older pages meet at exact block boundaries without losing cutoff transfers', async () => {
+  const cutoffBlock = head-month/12;
+  const logs = [transfer(head-1),transfer(cutoffBlock),transfer(cutoffBlock-1),transfer(75000),transfer(1000)];
+  const latest = await readTreasuryInflows(fixture(logs).rpc,null,undefined,{includeBoundaryRows:true});
+  assert.ok(latest.rows.some(row=>row.block===cutoffBlock-1),'Retain the month boundary chunk for pagination');
+  const olderFixture=fixture(logs);
+  const older = await readOlderTreasuryInflows(olderFixture.rpc,latest);
+  assert.equal(older.to,latest.from-1);
+  assert.equal(olderFixture.ranges[0][1],latest.from-1);
+  const combined=[...latest.rows,...older.rows].sort((a,b)=>b.block-a.block);
+  assert.deepEqual(combined.map(row=>row.block),logs.map(log=>Number(BigInt(log.blockNumber))));
+  assert.equal(new Set(combined.map(row=>row.key)).size,combined.length);
+  assert.deepEqual(inflowWindowSummary(combined,latest,month,now,()=> '3'),{complete:true,count:2,usd:12});
+  assert.equal(older.from,0);
+  const done=fixture(logs);
+  assert.equal(await readOlderTreasuryInflows(done.rpc,older),null);
+  assert.equal(done.ranges.length,0);
+});
+
+test('older history validates its anchor, ranges, cancellation and incomplete responses', async () => {
+  const latest=await readTreasuryInflows(fixture([]).rpc,null,undefined,{includeBoundaryRows:true});
+  await assert.rejects(readOlderTreasuryInflows(fixture([],{readBlock:number=>block(number,number===latest.to?1:0)}).rpc,latest),/history changed/);
+  for(const endBlock of [-1,head+1,1.5])await assert.rejects(readTreasuryInflows(fixture([]).rpc,null,undefined,{endBlock}),/Invalid inflow/);
+  await assert.rejects(readOlderTreasuryInflows(fixture([],{readLogs:()=>{throw Error('Offline');}}).rpc,latest),/Offline/);
+  const controller=new AbortController();controller.abort();
+  const unused=fixture([]);
+  await assert.rejects(readOlderTreasuryInflows(unused.rpc,latest,controller.signal),{name:'AbortError'});
+  assert.equal(unused.ranges.length,0);
+});
+
+test('a live refresh retains loaded boundary transfers while adding only new blocks', async () => {
+  const boundary=transfer(head-month/12-1);
+  const first=await readTreasuryInflows(fixture([boundary]).rpc,null,undefined,{includeBoundaryRows:true});
+  const nextLog=transfer(head+1),next=fixture([nextLog],{head:head+2});
+  const result=await readTreasuryInflows(next.rpc,first,undefined,{includeBoundaryRows:true});
+  assert.deepEqual(next.ranges,[[head+1,head+2]]);
+  assert.deepEqual(result.rows.map(row=>row.block),[head+1,Number(BigInt(boundary.blockNumber))]);
 });

@@ -30,7 +30,6 @@ import { InfoTooltip } from "../components/InfoTooltip";
 type Snapshot = FarmSnapshot;
 type Farm = Omit<Snapshot["rows"][number], "error"> & { error: string | null };
 type FarmIconName = "star" | "grid" | "list" | "lock" | "search";
-const LOCKED_REASON = "Use Claim on an individual farm position. Batch claims are not enabled.";
 const LOGOS: Record<string, string> = { "t-share": "hex", communitas: "com" };
 
 function FarmIcon({ name }: { name: FarmIconName }) {
@@ -349,7 +348,7 @@ export function FarmsPage() {
             <div className="farms-reward-content"><div className="farms-reward-chips">{pendingByFarm.map((farm) => <span className="farms-reward-chip" key={farm.id} title={farm.label + ": " + farm.pending + " gross OINK"}><FarmLogo id={farm.id} logoId={rows.find(row => row.id === farm.id)?.discovery?.logoId} /><strong>{displayFarmAmount(farm.pending)}</strong><span>{farm.label}</span></span>)}</div>
             {!pendingByFarm.length && <p>{!account ? "Connect your wallet to see rewards" : totals?.grossPending == null ? loading ? "Reading rewards…" : "Rewards unavailable" : "No pending rewards in available reads"}</p>}</div>
           </div>
-          <div className="farms-summary-actions"><strong>{totals ? totals.positionCount + (coverageIncomplete || totals.partial ? " known positions" : " positions found") : "Positions not loaded"}</strong><button type="button" className="farm-claim-all" disabled title={LOCKED_REASON}><FarmIcon name="lock" /> Claim all</button></div></div>
+          <div className="farms-summary-actions"><strong>{totals ? totals.positionCount + (coverageIncomplete || totals.partial ? " known positions" : " positions found") : "Positions not loaded"}</strong></div></div>
       </div>
       <div className={"farms-read-status" + (readStatus ? " is-warning" : "")} role="status" tabIndex={readStatus ? 0 : undefined}>{readStatus}</div>
       <div className={"browse-farms-grid" + (view === "list" ? " farms-list-view" : "")}>{visible.map((row) => <FarmCardRouter key={row.id} row={row} metrics={rankings.metrics[row.id]} highlighted={farmJump?.id === row.id} prices={prices} timestamp={snapshot?.timestamp ?? null} snapshotAccount={snapshot?.account ?? null} hasWallet={!!account} loading={loading && row.loading} favorite={favorites.includes(row.id)} onFavorite={() => setFavorites((current) => current.includes(row.id) ? current.filter((id) => id !== row.id) : [...current, row.id])} onConfirmed={() => setRefresh((value) => value + 1)} />)}</div>

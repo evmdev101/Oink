@@ -76,7 +76,6 @@ export function MaintenanceStatus(){
     <div className="access-facts">{facts.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
     {!MAINTENANCE_ACTIONS_DISABLED && <p className="maintenance-wallet-status">{!wallet.account?"Connect your wallet from the header to continue.":wallet.chainId!==369n?"Switch your wallet to PulseChain to continue.":"Select an action to run live checks and open your wallet for confirmation."}</p>}
     <div className="maintenance-actions-grid">{COMMUNITY_MAINTENANCE_ACTIONS.map(action=><MaintenanceActionCard key={action.id} action={action} availability={data?.actions[action.id]} buyback={data?.buyback} disabled={!!error || !data} onConfirmed={refresh}/>)}</div>
-    <p className="deploy-draft-note access-read-note">{data?"Checked "+new Date(data.timestamp*1000).toLocaleTimeString()+" · Block "+data.block.toLocaleString()+". Updates in the background; every transaction gets a fresh check.":"Reading current protocol maintenance conditions."}</p>
   </section>;
 }
 

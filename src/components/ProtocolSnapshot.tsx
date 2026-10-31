@@ -146,10 +146,6 @@ export function ProtocolSnapshot() {
               )}
             </strong>
           </div>
-          <div>
-            <span>Observed block</span>
-            <strong>{value(snapshot?.blockNumber.toLocaleString())}</strong>
-          </div>
         </div>
       )}
     </section>

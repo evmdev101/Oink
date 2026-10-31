@@ -34,3 +34,4 @@ import "./stable-layout.css";
 import "./components/info-tooltip.css";
 import "./readable-layout.css";
 import "./pages/secondary-readability.css";
+import "./scrollbars.css";

@@ -83,7 +83,7 @@ export function FarmRecovery() {
     {wallet.account && wallet.chainId !== 369n && <p>Switch your wallet to PulseChain to continue.</p>}
     {error && <p className="farm-action-error" role="alert">{error}</p>}
     {snapshot && <>
-      <p className="farm-recovery-snapshot" role="status">{stale ? "Snapshot expired. Reload positions before continuing." : `Snapshot block ${snapshot.block.toLocaleString()} · ${new Date(snapshot.timestamp * 1000).toLocaleTimeString()}`}</p>
+      {stale && <p role="status">Snapshot expired. Reload positions before continuing.</p>}
       {!snapshot.count ? <p>No positions in this farm for the connected wallet.</p> : <>
         <label htmlFor={id + "-position"}>Position<select id={id + "-position"} value={selected} onChange={event => { setSelected(event.target.value); }} disabled={busy || stale}>{snapshot.positions.map(row => <option key={row.index} value={row.index}>#{row.index} · {displayFarmAmount(row.amount)} {snapshot.symbol}</option>)}</select></label>
         <p>Showing indexes {snapshot.start}–{snapshot.start + snapshot.positions.length - 1} of {snapshot.count.toLocaleString()} positions. Amounts are recorded stakes before funding fees.</p>

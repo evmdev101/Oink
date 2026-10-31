@@ -41,7 +41,6 @@ function DistributionCard({id}:{id:DistributionId}){
         <ProtocolAction request={{module:"distribution",action:"claim",args:{distribution:id,amount,destination}}} adapter={distributionAdapter} label="Claim allocation" disabled={!canClaim||!amount}/>
       </fieldset>
     </details>
-    <p className="deploy-draft-note access-read-note">{data?"Block "+data.block.toLocaleString()+". Published proofs are checked against the contract's current root.":"Checking the current contract root and allocation."}</p>
   </article>;
 }
 export function DistributionClaims(){return <section className="access-tools" aria-label="Distribution claims"><h2>Launch distribution claims</h2><p>Check contributor and launch reward allocations. These are separate from your farm and ongoing referral rewards.</p><div className="professional-grid two-columns">{DISTRIBUTIONS.map(row=><DistributionCard key={row.id} id={row.id}/>)}</div></section>}

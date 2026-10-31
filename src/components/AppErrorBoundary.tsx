@@ -1,5 +1,4 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { LoadingScreen } from "./LoadingScreen";
 
 type Props = { children: ReactNode };
 type State = { error: Error | null; retryCount: number };
@@ -40,6 +39,6 @@ export class AppErrorBoundary extends Component<Props, State> {
         </main>
       );
     }
-    return <LoadingScreen fullscreen />;
+    return null;
   }
 }
