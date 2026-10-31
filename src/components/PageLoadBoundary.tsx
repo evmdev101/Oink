@@ -39,7 +39,7 @@ class PageLoadErrorBoundary extends Component<{ label: string; children: ReactNo
   }
   render() {
     return this.state.failed
-      ? <div className="page-read-notice" role="alert">This page couldn’t open. <button type="button" onClick={() => window.location.reload()}>Reload</button></div>
+      ? <div className="page-read-notice" role="alert">This page is temporarily unavailable.</div>
       : this.props.children;
   }
 }
@@ -65,10 +65,9 @@ function PageLoadContent({ label, children }: { label: string; children: ReactNo
 
   const pending = Object.values(reads).filter(read => !read.ready);
   const errors = [...new Set(pending.flatMap(read => read.error ? [read.error] : []))];
-  const retries = [...new Set(pending.flatMap(read => read.retry ? [read.retry] : []))];
 
   return <PageLoadContext.Provider value={registry}>
-    {errors.length > 0 && <div className="page-read-notice" role="status"><span>{errors.join(" ")}</span>{retries.length > 0 && <button type="button" onClick={() => retries.forEach(retry => retry())}>Retry</button>}</div>}
+    {errors.length > 0 && <div className="page-read-notice" role="status"><span>{errors.join(" ")}</span></div>}
     <div className="page-load-content" aria-label={label.replace(/^Loading /, "")}>{children}</div>
   </PageLoadContext.Provider>;
 }

@@ -123,7 +123,7 @@ export function GovernancePage() {
     void readGovernanceSummary(controller.signal).then(value => { if (active) setSummary(value); }).catch(() => { if (active) setSummaryError(true); });
     const timeout = new Promise<never>((_, reject) => {
       readTimer = window.setTimeout(() => {
-        reject(new Error("Governance data is taking too long to load. Please retry."));
+        reject(new Error("Governance data is temporarily unavailable. Checking again automatically."));
         controller.abort();
       }, 120_000);
     });
@@ -203,7 +203,7 @@ export function GovernancePage() {
         {governanceSections.map(([id, label]) => <a href={`#/governance#${id}`} aria-current={activeSection === id ? "page" : undefined} key={id}>{label}</a>)}
       </nav>
 
-      <div className="governance-read-status" aria-live="polite">{snapshot && error ? <p role="alert">{error} <button className="secondary-action" type="button" onClick={refreshSnapshot}>Retry</button></p> : <p>{refreshing ? <>{progress}. {scope === "treasury" || scope === "miner-voting" ? "Settings and balances are shown while this registry loads." : ""}</> : ""}</p>}</div>
+      <div className="governance-read-status" aria-live="polite">{snapshot && error ? <p role="alert">{error}</p> : <p>{refreshing ? <>{progress}. {scope === "treasury" || scope === "miner-voting" ? "Settings and balances are shown while this registry loads." : ""}</> : ""}</p>}</div>
       <details className="governance-utility-disclosure" open>
         <summary>Governance utility</summary>
       <section className="governance-action-center" aria-label="Governance action center">

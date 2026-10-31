@@ -12,11 +12,11 @@ import "./access-tools.css";
 function DistributionCard({id}:{id:DistributionId}){
   const wallet=useWallet(),[amount,setAmount]=useState(""),[destination,setDestination]=useState("wallet");
   useEffect(()=>{setAmount("");setDestination("wallet")},[wallet.account]);
-  const {data,error,busy,refresh}=useAccessRead("distribution-"+id+"-"+(wallet.account??"public"),()=>getPublicProvider().then(rpc=>readDistribution(rpc,id,wallet.account)));
+  const {data,error,busy}=useAccessRead("distribution-"+id+"-"+(wallet.account??"public"),()=>getPublicProvider().then(rpc=>readDistribution(rpc,id,wallet.account)));
   const label=DISTRIBUTIONS.find(v=>v.id===id)!.label;
   const canClaim=!!data&&data.remaining!==null&&BigInt(data.remaining)>0n&&BigInt(data.credit)>0n&&!!wallet.account&&wallet.chainId===369n&&!busy;
   return <article className="professional-card access-tools distribution-status-card">
-    <header className="card-heading-row"><h3>{label}</h3><button disabled={busy} onClick={refresh}>Refresh</button></header>
+    <header className="card-heading-row"><h3>{label}</h3></header>
     <p className="access-read-status" role="status">{error||(!data&&busy?"Checking distribution…":"")}</p>
     <div className="access-facts">
       <div><span className="info-label">Contract reward credit<InfoTooltip label="About distribution reward credit">This is the distribution contract's remaining reward credit, shared across eligible claims. It is not your personal allocation. An eligible wallet can still be unable to claim if contract credit is exhausted or current claim conditions fail.</InfoTooltip></span><strong>{data?displayFarmAmount(formatEther(data.credit))+" OINK":"—"}</strong></div>

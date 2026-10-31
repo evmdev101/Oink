@@ -16,8 +16,7 @@ export function FarmRecovery() {
   const [farmId, setFarmId] = useState("pls"), [data, setData] = useState<FarmRecoverySnapshot | null>(null);
   const [selected, setSelected] = useState(""), [jump, setJump] = useState("0");
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [now, setNow] = useState(Date.now());
-  const [discovering, setDiscovering] = useState(false), [discoveryError, setDiscoveryError] = useState("");
-  const discoveryController = useRef<AbortController | null>(null);
+  const [discoveryError, setDiscoveryError] = useState("");
   const generation = useRef(0), controller = useRef<AbortController | null>(null);
   const spec = getFarmWriteSpec(farmId);
   const identity = `${wallet.account}:${wallet.chainId}:${wallet.revision}:${farmId}:${spec ? farmSpecIdentity(spec) : "unavailable"}`, current = useRef(identity);
@@ -33,15 +32,22 @@ export function FarmRecovery() {
   const stale = !!snapshot && (now - snapshot.timestamp * 1000 >= 120000 || snapshot.timestamp * 1000 - now > 30000);
   const position = snapshot?.positions.find(row => row.index.toString() === selected);
   const connected = !!wallet.account && wallet.chainId === 369n && !wallet.busy;
-  const refreshFarms = async () => {
-    discoveryController.current?.abort();
-    const abort = new AbortController(); discoveryController.current = abort;
-    setDiscovering(true); setDiscoveryError("");
-    try { await refreshDiscoveredFarmCatalog(await getPublicProvider(), abort.signal); }
-    catch (reason) { if (!abort.signal.aborted) setDiscoveryError(reason instanceof Error ? reason.message : "New farms could not be checked. Try again."); }
-    finally { if (!abort.signal.aborted) setDiscovering(false); }
-  };
-  useEffect(() => { void refreshFarms(); return () => { discoveryController.current?.abort(); }; }, []);
+  useEffect(() => {
+    const abort = new AbortController();
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const discover = async () => {
+      let delay = 60000;
+      try {
+        await refreshDiscoveredFarmCatalog(await getPublicProvider(), abort.signal);
+        if (!abort.signal.aborted) setDiscoveryError("");
+      } catch (reason) {
+        if (!abort.signal.aborted) setDiscoveryError(reason instanceof Error ? reason.message : "New farms are temporarily unavailable.");
+        delay = 10000;
+      } finally { if (!abort.signal.aborted) timer = setTimeout(discover, delay); }
+    };
+    void discover();
+    return () => { abort.abort(); clearTimeout(timer); };
+  }, []);
 
   const load = async (start: number) => {
     if (!connected || !wallet.account || !getFarmWriteSpec(farmId)) return;
@@ -74,9 +80,8 @@ export function FarmRecovery() {
     <div className="info-heading"><h2 id={id + "-heading"}>Emergency farm recovery</h2><InfoTooltip label="About emergency farm recovery">Emergency withdrawal closes the entire selected position and forfeits its pending OINK rewards. Accrued funding deductions still apply to the asset returned. It skips normal reward harvesting, which can help when that reward path is failing; use the normal Unstake route when you want to settle rewards too.</InfoTooltip></div>
     <p>Use this when normal farm withdrawals cannot settle rewards. Select a supported farm below to withdraw a full position and forfeit its OINK rewards. Funding fees still apply.</p>
     <div className="farm-recovery-controls">
-      <label htmlFor={id + "-farm"}>Farm<select id={id + "-farm"} value={farmId} onChange={event => setFarmId(event.target.value)}>{!spec && <option value={farmId}>Farm unavailable · refresh the list</option>}{farms.map(farm => <option key={farm.id} value={farm.id}>{farm.symbol}{farm.discoveryTemplateId ? " · pool " + farm.poolId : ""}</option>)}</select></label>
+      <label htmlFor={id + "-farm"}>Farm<select id={id + "-farm"} value={farmId} onChange={event => setFarmId(event.target.value)}>{!spec && <option value={farmId}>Farm temporarily unavailable</option>}{farms.map(farm => <option key={farm.id} value={farm.id}>{farm.symbol}{farm.discoveryTemplateId ? " · pool " + farm.poolId : ""}</option>)}</select></label>
       <button type="button" disabled={!connected || !spec || busy} onClick={() => void load(0)}>{busy ? "Reading positions…" : "Load positions"}</button>
-      <button type="button" disabled={discovering} onClick={() => void refreshFarms()}>{discovering ? "Checking available farms…" : "Refresh available farms"}</button>
     </div>
     {discoveryError && <p className="farm-action-error" role="alert">{discoveryError}</p>}
     {!wallet.account && <p>Connect your wallet from the header to load its positions.</p>}

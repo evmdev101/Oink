@@ -1677,34 +1677,6 @@ fieldset.protocol-form:disabled button {
   font: 500 0.64rem/1.5 "DM Sans", sans-serif;
 }
 
-.app-error-screen {
-  width: min(720px, calc(100% - 32px));
-  margin: 12vh auto;
-  padding: 28px;
-  border: 1px solid color-mix(in srgb, #e5ae66 55%, var(--border));
-  border-radius: 16px;
-  background: var(--panel);
-}
-
-.app-error-screen h1 {
-  margin: 10px 0;
-  font: 850 2rem/1.15 "DM Sans", sans-serif;
-}
-
-.app-error-screen p {
-  color: var(--soft-text);
-}
-
-.app-error-screen button {
-  min-height: 40px;
-  padding: 0 14px;
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  color: var(--bg);
-  background: var(--accent);
-  cursor: pointer;
-}
-
 .evidence-key dl {
   grid-template-columns: 1fr;
   margin-bottom: 0;

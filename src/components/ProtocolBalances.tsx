@@ -40,7 +40,6 @@ export function ProtocolBalances() {
     <summary>Show all OINK balances &amp; supply</summary>
     {open && <>
       <p className="info-label">Issued supply, protocol reserves and distribution credit from the current chain state.<InfoTooltip label="About OINK balances and supply"><p>Issued supply counts existing tokens. Virtual supply also includes protocol accounting credit that may not yet have been minted.</p><p>Wallet balances, Governor reserves and distribution credit overlap these supply figures. Do not add the categories together. Reward credit is not a guarantee that a claim is currently payable.</p></InfoTooltip></p>
-      <button type="button" disabled={busy} onClick={() => setRevision(value => value + 1)}>{busy ? "Refreshing…" : "Refresh balances"}</button>
       <div className="access-facts protocol-balance-facts" aria-busy={!data}>{protocolBalanceRows.map(record => {
         const row = data?.rows.find(row => row.id === record.id);
         return <div key={record.id}><span>{record.label}</span><strong>{!data ? "— OINK" : fresh && row?.value != null ? displayFarmAmount(row.value) + " OINK" : "Unavailable"}</strong></div>;

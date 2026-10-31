@@ -31,7 +31,6 @@ export function OinkContractShowcase() {
   const [sources, setSources] = useState<Record<string, string>>({});
   const source = sources[sourceFile] ?? "";
   const [error, setError] = useState("");
-  const [retry, setRetry] = useState(0);
   const [copied, setCopied] = useState("");
   const [copyError, setCopyError] = useState("");
   const [expanded, setExpanded] = useState(false);
@@ -50,15 +49,21 @@ export function OinkContractShowcase() {
   useEffect(() => {
     if (source) return;
     const controller = new AbortController();
+    let timer: ReturnType<typeof setTimeout> | undefined;
     setError("");
-    fetch(assetUrl("contracts/" + sourceFile), { signal: controller.signal }).then(async response => {
+    const load = () => fetch(assetUrl("contracts/" + sourceFile), { signal: controller.signal }).then(async response => {
       if (!response.ok) throw Error("Source unavailable");
       const text = (await response.text()).replace(/\r\n/g, "\n");
       if (!text.includes("contract XPD") || text.length > 300000) throw Error("Source unavailable");
       if (!controller.signal.aborted) setSources(current => ({ ...current, [sourceFile]: text }));
-    }).catch(() => { if (!controller.signal.aborted) setError("Source unavailable. Select Retry source to try again."); });
-    return () => controller.abort();
-  }, [sourceFile, source, retry]);
+    }).catch(() => {
+      if (controller.signal.aborted) return;
+      setError("Contract source is temporarily unavailable.");
+      timer = setTimeout(load, 10000);
+    });
+    void load();
+    return () => { controller.abort(); clearTimeout(timer); };
+  }, [sourceFile, source]);
   const copy = async (value: string, label: string) => {
     setCopyError("");
     try {
@@ -82,7 +87,7 @@ export function OinkContractShowcase() {
       <label className="contract-source-select"><span className="contract-sr-only">Contract source file</span><select value={sourceFile} onChange={event => { setError(""); setSourceFile(event.target.value); }}><option value="OINK-XPD-explorer.sol">Full contract + dependencies</option><option value="OINK-XPD.sol">Token contract only · project source</option></select></label>
       <div className="contract-source-toolbar"><button type="button" disabled={!source} onClick={jumpToToken}>Jump to OINK</button><label><input type="checkbox" checked={wrap} onChange={event => setWrap(event.target.checked)} />Wrap lines</label><button type="button" disabled={!source} onClick={() => setExpanded(true)}>Expand ↗</button></div>
       {codeView()}
-      <div className="contract-editor-footer"><span>{sourceFile === "OINK-XPD-explorer.sol" ? "Explorer source · XPD" : "Published project source · XPD"}</span>{error ? <button type="button" onClick={() => setRetry(value => value + 1)}>Retry source</button> : <button type="button" disabled={!source} onClick={() => void copy(source, "code")}>{copied === "code" ? "Copied!" : "Copy code"}</button>}</div>
+      <div className="contract-editor-footer"><span>{sourceFile === "OINK-XPD-explorer.sol" ? "Explorer source · XPD" : "Published project source · XPD"}</span><button type="button" disabled={!source} onClick={() => void copy(source, "code")}>{copied === "code" ? "Copied!" : "Copy code"}</button></div>
       <div className="contract-editor-sheen" aria-hidden="true" />
     </div>
     </div>

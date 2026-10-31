@@ -31,12 +31,7 @@ export class AppErrorBoundary extends Component<Props, State> {
     if (!this.state.error) return this.props.children;
     if (this.state.retryCount > 0) {
       return (
-        <main className="app-error-screen" role="alert">
-          <span className="section-kicker">Interface error</span>
-          <h1>OINK could not load this page.</h1>
-          <p>{this.state.error.message}</p>
-          <button type="button" onClick={() => window.location.reload()}>Reload page</button>
-        </main>
+        <p className="page-read-notice" role="alert">The interface is temporarily unavailable.</p>
       );
     }
     return null;

@@ -18,7 +18,6 @@
 .miner-rollover-dialog .miner-rollover-cancel { background:#d9363e; color:white; }
 .miner-rollover-dialog button:disabled { opacity:.5; cursor:not-allowed; }
 .miner-rollover-dialog :is(button,select):focus-visible { outline:3px solid #8cc3ef; outline-offset:3px; }
-.miner-rollover-dialog .miner-rollover-refresh { padding:7px 12px; border:1px solid var(--border); border-radius:4px; color:var(--fg); background:transparent; }
 .miner-rollover-error { color:var(--accent); margin:12px 0; }
 .miner-rollover-progress { padding:4px 0 0; min-height:300px; display:flex; flex-direction:column; align-items:center; }
 .miner-rollover-progress h2 { font-weight:700; }

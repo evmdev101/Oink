@@ -59,20 +59,31 @@ export function MinerRolloverDialog({ row, onClose }: { row: MinerActionPosition
 
   useEffect(() => {
     let active = true;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     setLoading(true); setError(""); setOptions(null);
     if (!wallet.account || wallet.chainId !== 369n) {
       setError("Connect your wallet on PulseChain to load rollover bonuses."); setLoading(false);
       return;
     }
     const account = wallet.account;
-    void getPublicProvider().then(rpc => readMinerRolloverOptions(rpc, row.pool.id, account, row.index)).then(result => {
-      if (!active) return;
-      // The card can change while a read is in flight; never renew a different position.
-      if (result.source.id !== row.pool.id || result.source.index !== row.index || BigInt(result.source.shares) !== parseEther(row.shares) || BigInt(result.source.deposited) !== BigInt(row.deposited)) throw Error("This miner changed. Close this window and refresh your miners.");
-      setOptions(result); setNow(Date.now());
-      setTarget(previous => result.options.some(option => option.id === previous) ? previous : result.options[0]?.id ?? row.pool.id);
-    }).catch(reason => { if (active) setError(message(reason)); }).finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
+    const load = async () => {
+      let delay = 45000;
+      try {
+        const result = await getPublicProvider().then(rpc => readMinerRolloverOptions(rpc, row.pool.id, account, row.index));
+        if (!active) return;
+        // The card can change while a read is in flight; never renew a different position.
+        if (result.source.id !== row.pool.id || result.source.index !== row.index || BigInt(result.source.shares) !== parseEther(row.shares) || BigInt(result.source.deposited) !== BigInt(row.deposited)) throw Error("This miner changed. Reopen it for the current terms.");
+        setOptions(result); setNow(Date.now()); setError("");
+        setTarget(previous => result.options.some(option => option.id === previous) ? previous : result.options[0]?.id ?? row.pool.id);
+      } catch (reason) {
+        if (active) setError(message(reason));
+        delay = 10000;
+      } finally {
+        if (active) { setLoading(false); timer = setTimeout(load, delay); }
+      }
+    };
+    void load();
+    return () => { active = false; clearTimeout(timer); };
   }, [wallet.account, wallet.chainId, wallet.revision, row.pool.id, row.index, row.shares, row.deposited, refresh]);
 
   const extend = async () => {
@@ -121,8 +132,6 @@ export function MinerRolloverDialog({ row, onClose }: { row: MinerActionPosition
       </section>
       {!loading && selected && !selected.available && <p className="miner-rollover-error" role="alert">{selected.error ?? "This duration is currently unavailable."}</p>}
       {error && !isCancelledFeedback(error) && !isRecoveryFeedback(error) && <p className="miner-rollover-error" role="alert">{error}</p>}
-      {expired && <p className="miner-rollover-error" role="status">Refresh bonuses before extending your miner.</p>}
-      {!loading && (error || expired || !selected?.available) && <button type="button" className="miner-rollover-refresh" onClick={() => setRefresh(value => value + 1)}>Refresh bonuses</button>}
       <div className="miner-rollover-buttons"><button type="button" className="miner-rollover-confirm" disabled={loading || expired || !selected?.available || !selected.quote || !wallet.provider || wallet.chainId !== 369n} onClick={() => void extend()}>Extend My Miner!</button><button type="button" className="miner-rollover-cancel" onClick={close}>Cancel</button></div>
     </> : <div className="miner-rollover-progress" role="status" aria-live="polite">
       <h2 id={id + "-title"}>{title}</h2>
