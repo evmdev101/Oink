@@ -65,7 +65,7 @@ export function Header({
               target="_blank"
               rel="noreferrer"
               aria-label={link.label}
-              title={link.label}
+              aria-description={link.label}
               key={link.label}
             >
               <SocialIcon icon={link.icon} />

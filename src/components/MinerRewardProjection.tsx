@@ -25,9 +25,9 @@ export function MinerRewardProjection({ amount, estimate, durationDays, label, n
     {open && <section id={id} className="miner-projection-panel" aria-label={label + " rewards projection"}>
       <h3>Rewards Projection</h3>
       {projection.error ? <p role="status">{projection.error}</p> : <>
-        <p className="miner-projection-amount">Starting amount: <strong title={amount}>{displayFarmAmount(amount)} OINK</strong></p>
+        <p className="miner-projection-amount">Starting amount: <strong aria-description={amount}>{displayFarmAmount(amount)} OINK</strong></p>
         <table><caption>Projected OINK · {label}</caption><thead><tr><th scope="col">Period</th><th scope="col">New rewards</th><th scope="col">Total</th></tr></thead>
-          <tbody>{projection.rows.map(row => <tr key={row.label}><th scope="row">{row.label}{row.label === "Full term" && <small>{row.days} days</small>}</th><td title={row.rewards + " OINK"}>{displayFarmAmount(row.rewards)}</td><td title={row.total + " OINK"}>{displayFarmAmount(row.total)}</td></tr>)}</tbody>
+          <tbody>{projection.rows.map(row => <tr key={row.label}><th scope="row">{row.label}{row.label === "Full term" && <small>{row.days} days</small>}</th><td aria-description={row.rewards + " OINK"}>{displayFarmAmount(row.rewards)}</td><td aria-description={row.total + " OINK"}>{displayFarmAmount(row.total)}</td></tr>)}</tbody>
         </table>
         <p className="miner-projection-note">Total = starting amount + new rewards. Uses your pool share after deposit at current emissions; no compounding. Rates and pool shares can change. Excludes exit penalties and gas—not a withdrawal quote.</p>
       </>}

@@ -93,7 +93,7 @@ export function OinkContractShowcase() {
     </div>
     <div className="contract-effects-controls">
       <button type="button" aria-pressed={lightOn} onClick={() => setLightOn(value => !value)}>{lightOn ? "Light Off" : "Light On"}</button>
-      <button type="button" aria-pressed={motionPaused} title="Pause the card’s movement for reading" onClick={() => setMotionPaused(value => !value)}>{motionPaused ? "Resume motion" : "Pause motion"}</button>
+      <button type="button" aria-pressed={motionPaused} aria-description="Pause the card’s movement for reading" onClick={() => setMotionPaused(value => !value)}>{motionPaused ? "Resume motion" : "Pause motion"}</button>
     </div>
     <span className="contract-copy-status contract-sr-only" role="status">{copyError || (copied ? "Code copied." : "")}</span>
     <dialog className="contract-source-dialog" ref={dialog} aria-labelledby="expanded-contract-title" onCancel={() => setExpanded(false)} onClose={() => setExpanded(false)}>{expanded && <><header><h3 id="expanded-contract-title">OINK · Solidity source</h3><button type="button" onClick={() => setExpanded(false)}>Close</button></header>{codeView(true)}</>}</dialog>

@@ -97,5 +97,5 @@ for(const name of ['PositionTransaction','ProtocolAction'])test(name+': cancelli
 
 test('maintenance controls show the pause and cannot start a wallet request even if their handler is invoked',async()=>{
  const c=await control('ProtocolAction',{request:{module:'community-maintenance',action:'buyback',args:{}}});
- try{const button=c.button('Continue');assert.equal(button.props.disabled,true);assert.match(button.props.title,/Protocol maintenance actions are temporarily disabled/);assert.match(c.text(),/Maintenance actions are temporarily disabled/);await button.props.onClick();assert.equal(c.sends(),0);}finally{c.dispose();}
+ try{const button=c.button('Continue');assert.equal(button.props.disabled,true);assert.match(button.props['aria-description'],/Protocol maintenance actions are temporarily disabled/);assert.match(c.text(),/Maintenance actions are temporarily disabled/);await button.props.onClick();assert.equal(c.sends(),0);}finally{c.dispose();}
 });

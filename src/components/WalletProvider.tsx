@@ -103,7 +103,7 @@ export function WalletControl() {
   return <div className="wallet-control">
     <button className={`wallet-button${wrongNetwork ? " wallet-wrong-network" : ""}`} type="button"
       aria-expanded={open || picking} aria-haspopup="dialog" aria-controls={wallet.account ? "wallet-session-panel" : "wallet-picker"}
-      title={wallet.account ? `${wallet.account}${wrongNetwork ? " — switch to PulseChain" : ""}` : "Connect your browser wallet"}
+      aria-description={wallet.account ? `${wallet.account}${wrongNetwork ? " — switch to PulseChain" : ""}` : "Connect your browser wallet"}
       onClick={() => { if (wallet.busy) setPicking(true); else if (wallet.account) setOpen((current) => !current); else openPicker(); }}>
       {wallet.busy ? "Connecting…" : wallet.account ? shortAddress(wallet.account) : "Connect Wallet"}
       {wrongNetwork && <span className="wallet-network-warning" aria-label="Wrong network">!</span>}
@@ -114,14 +114,14 @@ export function WalletControl() {
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setOpen(false);
     }}>
       <button className="wallet-account-close" type="button" onClick={() => setOpen(false)} aria-label="Close wallet panel"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5 5 6 6m0-6-6 6" /></svg></button>
-      <button className="wallet-account-avatar" type="button" disabled={wallet.busy} onClick={openPicker} aria-label="Change wallet" title={`${wallet.selectedName} · Change wallet`} />
-      <p className="wallet-account-address" title={wallet.account ?? ""}><span aria-hidden="true">{shortAddress(wallet.account)}</span><span className="wallet-visually-hidden">{wallet.account}</span></p>
+      <button className="wallet-account-avatar" type="button" disabled={wallet.busy} onClick={openPicker} aria-label="Change wallet" aria-description={`${wallet.selectedName} · Change wallet`} />
+      <p className="wallet-account-address" aria-description={wallet.account ?? ""}><span aria-hidden="true">{shortAddress(wallet.account)}</span><span className="wallet-visually-hidden">{wallet.account}</span></p>
       <button className="wallet-change-wallet" type="button" onClick={openPicker}>{wallet.selectedName} · Change wallet</button>
-      <p className="wallet-account-balance" role="status" title="Native wallet balance on PulseChain, read when this popup opens">{wrongNetwork ? "Switch to PulseChain" : balance?.account === wallet.account ? balance?.text : "Loading PLS balance…"}</p>
+      <p className="wallet-account-balance" role="status" aria-description="Native wallet balance on PulseChain, read when this popup opens">{wrongNetwork ? "Switch to PulseChain" : balance?.account === wallet.account ? balance?.text : "Loading PLS balance…"}</p>
       {wrongNetwork && <button className="wallet-account-switch" type="button" disabled={wallet.busy} onClick={() => void wallet.switchToPulseChain()}>Switch / add PulseChain</button>}
       <div className="wallet-account-actions">
         <button type="button" onClick={() => void copyAddress()} disabled={!wallet.account}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9h11v12H9zM15 9V3H4v12h5" /></svg><span>{copied ? "Copied" : "Copy Address"}</span></button>
-        <button type="button" onClick={() => { wallet.disconnect(); setOpen(false); }} title="Disconnect this site only. Token approvals and wallet permissions are unchanged."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8l4 4-4 4M21 12H9a5 5 0 0 1 0-10" /></svg><span>Disconnect</span></button>
+        <button type="button" onClick={() => { wallet.disconnect(); setOpen(false); }} aria-description="Disconnect this site only. Token approvals and wallet permissions are unchanged."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8l4 4-4 4M21 12H9a5 5 0 0 1 0-10" /></svg><span>Disconnect</span></button>
       </div>
       <button className="wallet-change-wallet wallet-manage-transactions" type="button" onClick={() => { setOpen(false); window.dispatchEvent(new Event("oink-open-request-recovery")); }}>Transactions</button>
       {copyError && <p className="wallet-account-error" role="alert">{copyError}<span className="wallet-account-copy-fallback">{wallet.account}</span></p>}

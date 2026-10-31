@@ -106,7 +106,7 @@ export function FarmExitPreview({ farmId, positions, kind, compact = false }: { 
           <option value="wallet">Your wallet · {payoutLabel("wallet")}</option>
           {TIME_MINER_CONTRACTS.map((v) => <option value={v.id} key={v.id} disabled={destinationState(v.id) === "below-minimum" || payouts?.rates[v.id] === "0"}>{v.label} miner · {payoutLabel(v.id)}{destinationState(v.id) === "below-minimum" ? " · below minimum" : ""}</option>)}
         </select><p className="farm-reward-payout" role="status">{payoutLabel(destination)}{payouts && !payoutError ? " of gross OINK rewards." : ""}{destination !== "wallet" && " Miner withdrawal penalties and locks apply separately."}{payoutError && payouts && " Showing the last loaded rate; current terms are checked before the wallet opens."}</p>
-        <section className="farm-reward-breakdown" aria-label="Estimated rewards by destination" title="Estimated OINK rewards for the selected position">
+        <section className="farm-reward-breakdown" aria-label="Estimated rewards by destination" aria-description="Estimated OINK rewards for the selected position">
           <h3>Harvest Rewards:</h3>
           <dl>{rewardOptions.map(option => {
             const amount = rewardDestinationAmount(grossRewards, payouts?.rates[option.id]);
@@ -114,7 +114,7 @@ export function FarmExitPreview({ farmId, positions, kind, compact = false }: { 
             const penalty = rewardRateText(rate)?.replace(" penalty", "");
             return <div key={option.id}>
               <dt>{option.label}:</dt>
-              <dd title={amount ?? undefined}>{amount == null ? "—" : displayFarmAmount(amount)} OINK{rate === "10000" ? "(100%)" : penalty ? `(-${penalty})` : "(—)"}</dd>
+              <dd aria-description={amount ?? undefined}>{amount == null ? "—" : displayFarmAmount(amount)} OINK{rate === "10000" ? "(100%)" : penalty ? `(-${penalty})` : "(—)"}</dd>
             </div>;
           })}</dl>
         </section></>}

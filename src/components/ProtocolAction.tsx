@@ -61,7 +61,7 @@ export function ProtocolAction({request,adapter,label,disabled=false,onConfirmed
   const feedback = error || (outcome?.state === "failed" || outcome?.state === "resolved" ? outcome.message : "");
   const actionableError = !isRecoveryFeedback(feedback) && !isCancelledFeedback(feedback) && !isRoutineRecoveryResult(feedback) ? feedback : "";
   return <>
-    <button type="button" title={governancePaused ? actionPauseNotice(request) : undefined} disabled={disabled||busy||protocolJournalBlocks(outcome)||!wallet.account||!wallet.provider||wallet.chainId!==369n} onClick={()=>void act()}>{busy?stage==="wallet"?"Confirm in wallet…":"Checking…":outcome?.state==="pending"?"Submitted":label}</button>
+    <button type="button" aria-description={governancePaused ? actionPauseNotice(request) : undefined} disabled={disabled||busy||protocolJournalBlocks(outcome)||!wallet.account||!wallet.provider||wallet.chainId!==369n} onClick={()=>void act()}>{busy?stage==="wallet"?"Confirm in wallet…":"Checking…":outcome?.state==="pending"?"Submitted":label}</button>
     {governancePaused&&<p className="governance-pause-note">{request.module === "community-maintenance" ? "Maintenance actions are temporarily disabled." : "Governance actions are temporarily disabled."}</p>}
     {actionableError&&<p className="farm-action-error" role="alert">{actionableError}</p>}
   </>;

@@ -29,7 +29,7 @@ function DeployCard({ miner, balance, estimate, now, loading }: { miner: (typeof
   }
   return <article className="deploy-miner-card deploy-design-premium">
     <header className="deploy-card-heading">
-      <span className="deploy-yield-badge" data-unavailable={freshEstimate?.apr == null || undefined} title="Annualized current emissions / gross pool value. Not compounded; fees and future changes excluded.">{freshEstimate?.apr!=null?<>{freshEstimate.apr}% <span className="deploy-apr-label">APR</span></>:loading?"Loading APR…":"APR unavailable"}</span>
+      <span className="deploy-yield-badge" data-unavailable={freshEstimate?.apr == null || undefined} aria-description="Annualized current emissions / gross pool value. Not compounded; fees and future changes excluded.">{freshEstimate?.apr!=null?<>{freshEstimate.apr}% <span className="deploy-apr-label">APR</span></>:loading?"Loading APR…":"APR unavailable"}</span>
       <h2><span className="deploy-duration-number">{duration}</span><span className="deploy-duration-unit">{unit}<small>Miner</small></span></h2>
     </header>
     <div className="deploy-yield-row">

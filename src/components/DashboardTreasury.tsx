@@ -315,7 +315,7 @@ export function DashboardTreasury() {
           <div className="treasury-holdings-list treasury-wallet-scroll" role="region" aria-label="Treasury wallet assets" tabIndex={0}>
             {valuation.rows.map(row => <div className="treasury-holding-row" key={row.symbol}>
               <div className="treasury-asset-identity"><img src={assetUrl(tokenIcon(row.symbol))} alt="" /><strong>{row.symbol}</strong></div>
-              <div className="treasury-asset-balance" title={row.balance ?? undefined}><strong><LiveNumber value={row.balance} format={displayFarmAmount}/></strong><small><LiveNumber value={row.usd} format={value => displayUsd(Number(value))}/></small></div>
+              <div className="treasury-asset-balance" aria-description={row.balance ?? undefined}><strong><LiveNumber value={row.balance} format={displayFarmAmount}/></strong><small><LiveNumber value={row.usd} format={value => displayUsd(Number(value))}/></small></div>
               {row.components && <details className="treasury-token-details"><summary>View all three HEX Time Tokens</summary>{row.components.map(token => <div key={token.symbol}><span>{token.symbol}</span><strong>{token.balance == null ? "Unavailable" : displayFarmAmount(token.balance)}</strong><span>{token.usd == null ? "USD unavailable" : displayUsd(token.usd)}</span></div>)}</details>}
             </div>)}
           </div>

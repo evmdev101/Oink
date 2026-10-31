@@ -183,7 +183,7 @@ export function MinerActions({ row, account, revision, chainId, triggerKind = "m
   const withdrawalError = withdrawStage === "rejected" && !isCancelledFeedback(withdrawMessage) && !isRecoveryFeedback(withdrawMessage) ? withdrawMessage : "";
   return <div className="miner-action-control" ref={root}>
     {triggerKind === "rollover"
-      ? <button ref={trigger} className="miner-rollover-badge" type="button" aria-haspopup="dialog" title="Renew this matured miner. Withdrawal is separate and may still have a penalty; check End Miner (Withdraw) for the current fee." onClick={() => open("rollover")}>Roll-Over</button>
+      ? <button ref={trigger} className="miner-rollover-badge" type="button" aria-haspopup="dialog" aria-description="Renew this matured miner. Withdrawal is separate and may still have a penalty; check End Miner (Withdraw) for the current fee." onClick={() => open("rollover")}>Roll-Over</button>
       : <button ref={trigger} className="miner-action-trigger" type="button" aria-expanded={menuOpen} aria-controls={id + "-options"} onClick={() => setMenuOpen((value) => !value)}>Actions <span aria-hidden="true">▾</span></button>}
     {menuOpen && <div className="miner-action-options" id={id + "-options"}>
       <button type="button" onClick={() => open("upgrade")}>Upgrade Miner</button>

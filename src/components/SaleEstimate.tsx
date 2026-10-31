@@ -25,7 +25,7 @@ export function SaleEstimate({ data, fresh, busy, amount, amountValid, asset, du
       <strong className="sale-estimate-total">{ready ? displayFarmAmount(data!.quote!) : "—"} <span>OINK</span></strong>
       <p className="sale-estimate-destination">{wallet ? "Sent to your wallet as liquid OINK" : `Deposited into your ${minerLabel} miner`}</p>
       <dl className="sale-estimate-breakdown">
-        <div className="sale-payment-total"><dt>You pay · estimated</dt><dd title={ready ? data!.paymentAmount ?? amount : undefined}>{ready ? displayFarmAmount(data!.paymentAmount ?? amount) : "—"} {asset}</dd></div>
+        <div className="sale-payment-total"><dt>You pay · estimated</dt><dd aria-description={ready ? data!.paymentAmount ?? amount : undefined}>{ready ? displayFarmAmount(data!.paymentAmount ?? amount) : "—"} {asset}</dd></div>
         {!wallet && <>
           <div><dt>Base OINK</dt><dd>{ready ? displayFarmAmount(data!.baseQuote!) : "—"} OINK</dd></div>
           <div><dt>Extra OINK for your miner</dt><dd>{ready ? "+" + displayFarmAmount(data!.bonusQuote!) : "—"} OINK</dd></div>

@@ -22,7 +22,7 @@ export function ContractList({
               href={explorerUrl(contract.address)}
               target="_blank"
               rel="noreferrer"
-              title={`Open ${contract.label} on the PulseChain explorer`}
+              aria-description={`Open ${contract.label} on the PulseChain explorer`}
             >
               {contract.address}
             </a>

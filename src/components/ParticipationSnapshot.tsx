@@ -215,7 +215,7 @@ export function ParticipationSnapshot({ onFarmCount }: { onFarmCount?: (count: n
       <article className="reference-panel reward-info-card allocation-wide" aria-busy={!snapshot}>
         <div className="info-heading"><h3>Piggy Bank reward allocation</h3><InfoTooltip label="About Piggy Bank reward allocation"><p>Each percentage is a pool's allocation points divided by total protocol allocation points. It shows how OINK emissions are shared among pools.</p><p>These are protocol reward weights, rather than guaranteed returns or your wallet's share. Your rewards also depend on the pool's balance and your position.</p></InfoTooltip></div>
         <p className="dashboard-context-line">{!snapshot ? "Reading protocol emission allocation…" : fresh && !failed ? "Current protocol emission allocation." : "Last known protocol emission allocation."}</p>
-        <div className="allocation-bar" aria-label="Current reward allocation">{snapshot?.allocations.map(row => <div key={row.id} style={{flexGrow:row.percent,background:row.color}} title={`${row.label}: ${row.percent}%`} tabIndex={0} aria-label={`${row.label}: ${row.percent}%`} />)}</div>
+        <div className="allocation-bar" aria-label="Current reward allocation">{snapshot?.allocations.map(row => <div key={row.id} style={{flexGrow:row.percent,background:row.color}} aria-description={`${row.label}: ${row.percent}%`} tabIndex={0} aria-label={`${row.label}: ${row.percent}%`} />)}</div>
         <div className="allocation-viewport" role="region" aria-label="Reward allocation by pool" tabIndex={0}>
           <div className="allocation-breakdown">{snapshot ? snapshot.allocations.map(row=><div key={row.id}><img src={assetUrl(allocationLogo(row.label))} alt="" /><span>{row.label}</span><strong>{row.percent.toLocaleString(undefined,{maximumFractionDigits:4})}%</strong></div>) : ["OINK miners",...ECOSYSTEM_MINER_CONTRACTS.map(row=>row.label + " miners")].map(label=><div key={label}><img src={assetUrl(allocationLogo(label))} alt="" /><span>{label}</span><strong>—</strong></div>)}</div>
           {snapshot && !snapshot.allocations.length && <p>No pools currently have reward allocation.</p>}
@@ -228,7 +228,7 @@ export function ParticipationSnapshot({ onFarmCount }: { onFarmCount?: (count: n
     </div>
     <div className="participation-stats">{metrics.map(([label,description],index) => {
       const value = snapshot?.values[index] ?? null;
-      return <div className="reference-stat" key={label}>{metricHelp[label] ? <span className="stat-token-label info-label"><StatTokenLabel label={label} /><InfoTooltip label={"About " + label}><p>{metricHelp[label]}</p></InfoTooltip></span> : <StatTokenLabel label={label} />}<strong title={value ?? "Unavailable"}><LiveNumber value={value} format={compact}/></strong><small>{description}</small></div>;
+      return <div className="reference-stat" key={label}>{metricHelp[label] ? <span className="stat-token-label info-label"><StatTokenLabel label={label} /><InfoTooltip label={"About " + label}><p>{metricHelp[label]}</p></InfoTooltip></span> : <StatTokenLabel label={label} />}<strong aria-description={value ?? "Unavailable"}><LiveNumber value={value} format={compact}/></strong><small>{description}</small></div>;
     })}</div>
     <p className="snapshot-note participation-read-status" role="status">{snapshot?.values.some(value => value == null) ? "Some values have not loaded yet. Previously confirmed values stay visible while the connection recovers." : !snapshot ? "Reading public protocol values…" : ""}</p>
   </section>;

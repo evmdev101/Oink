@@ -128,7 +128,7 @@ export function MinerRolloverDialog({ row, onClose }: { row: MinerActionPosition
       </select>
       <section className="miner-rollover-bonuses" aria-labelledby={id + "-bonuses"}>
         <h3 id={id + "-bonuses"}>Available Bonuses</h3>
-        {loading ? <p role="status"><span className="miner-rollover-small-spinner" aria-hidden="true" /> Loading current bonuses…</p> : options ? <ul>{options.options.map(option => <li key={option.id} title={option.error} data-unavailable={!option.available || undefined}>{durationLabel(option.label)}: {option.available && option.bonusAmount != null ? <><strong>+{amount(option.bonusAmount)} OINK</strong> bonus</> : <span>Unavailable</span>}</li>)}</ul> : <p>Bonuses could not be loaded.</p>}
+        {loading ? <p role="status"><span className="miner-rollover-small-spinner" aria-hidden="true" /> Loading current bonuses…</p> : options ? <ul>{options.options.map(option => <li key={option.id} aria-description={option.error} data-unavailable={!option.available || undefined}>{durationLabel(option.label)}: {option.available && option.bonusAmount != null ? <><strong>+{amount(option.bonusAmount)} OINK</strong> bonus</> : <span>Unavailable</span>}</li>)}</ul> : <p>Bonuses could not be loaded.</p>}
       </section>
       {!loading && selected && !selected.available && <p className="miner-rollover-error" role="alert">{selected.error ?? "This duration is currently unavailable."}</p>}
       {error && !isCancelledFeedback(error) && !isRecoveryFeedback(error) && <p className="miner-rollover-error" role="alert">{error}</p>}

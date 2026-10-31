@@ -21,19 +21,19 @@ function Progress({ label, start, end, time }: { label: string; start: number; e
 }
 function MinerDate({ timestamp }: { timestamp: number }) {
   const date = new Date(timestamp * 1000);
-  return <time dateTime={date.toISOString()} title={date.toLocaleString()}>{date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}<small>{date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", timeZoneName: "short" })}</small></time>;
+  return <time dateTime={date.toISOString()} aria-description={date.toLocaleString()}>{date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}<small>{date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", timeZoneName: "short" })}</small></time>;
 }
 function MinerPenalty({ row, time }: { row: MinerActionPosition & { penalty: number | null }; time: number }) {
   const { account, revision, chainId } = useWallet();
   const display = minerPenaltyDisplay(row, time);
   if (display.rollover) return <MinerActions row={row} account={account} revision={revision} chainId={chainId} triggerKind="rollover" />;
-  return <span title="Withdrawal penalty at the latest snapshot. Rechecked before withdrawal; mandatory service may still block an exit.">{display.label}</span>;
+  return <span aria-description="Withdrawal penalty at the latest snapshot. Rechecked before withdrawal; mandatory service may still block an exit.">{display.label}</span>;
 }
 function MinerStatus({ row, time }: { row: MinerFilterRow; time: number }) {
   if (time > row.graceEnd && time > row.mandatoryUntil) return <span className="miner-position-status" aria-hidden="true" />;
   return <span className="miner-position-status">
     {time <= row.graceEnd && <span className="miner-state-badge" data-status={time >= row.maturity ? "mature" : "active"}>{time >= row.maturity ? "Mature · in grace" : matchesMinerStatus(row, "soon", time) ? "Maturing in 7 days" : "Not yet mature"}</span>}
-    {time <= row.mandatoryUntil && <span className="miner-state-badge" title={"Mandatory service ends after " + new Date(row.mandatoryUntil * 1000).toLocaleString()}>Mandatory lock</span>}
+    {time <= row.mandatoryUntil && <span className="miner-state-badge" aria-description={"Mandatory service ends after " + new Date(row.mandatoryUntil * 1000).toLocaleString()}>Mandatory lock</span>}
   </span>;
 }
 const minerViewCache = createViewSnapshotCache<Awaited<ReturnType<typeof readMinerPositions>>>();
@@ -104,19 +104,19 @@ export function MinerPortfolio() {
   const awaitingPositions = (!account && walletBusy) || (!!account && chainId === 369n && !positions.length && !snapshot?.complete && !error && !failed.length);
   const readStatus = [error, snapshot && snapshotIsStale(snapshot.timestamp, now) ? "These values are out of date. Wait for updated balances and progress." : "", snapshot && !snapshot.complete ? `Loading remaining miner durations… ${snapshot.pools.filter(pool => !pool.loading).length} of ${TIME_MINER_CONTRACTS.length} loaded.` : awaitingPositions ? "Reading your miner positions…" : "", failed.length ? `Reads unavailable: ${failed.map(pool => pool.label).join(", ")}. Totals are incomplete.` : ""].filter(Boolean).join(" ");
   return <section>
-    <div className="miner-wallet-totals">{[["Wallet balance", snapshot?.walletBalance], [complete ? "Total miners" : "Miners subtotal", total], ["Combined balance", combined]].map(([label, value]) => <div key={label}><span>{label}</span><strong title={value ?? undefined}>{value != null ? displayFarmAmount(value) : account && loading ? "Loading…" : "—"} <small className="miner-summary-token"><span className="miner-summary-pig" aria-hidden="true"><img src={assetUrl("img/oink.png")} alt="" /></span>OINK</small></strong></div>)}</div>
+    <div className="miner-wallet-totals">{[["Wallet balance", snapshot?.walletBalance], [complete ? "Total miners" : "Miners subtotal", total], ["Combined balance", combined]].map(([label, value]) => <div key={label}><span>{label}</span><strong aria-description={value ?? undefined}>{value != null ? displayFarmAmount(value) : account && loading ? "Loading…" : "—"} <small className="miner-summary-token"><span className="miner-summary-pig" aria-hidden="true"><img src={assetUrl("img/oink.png")} alt="" /></span>OINK</small></strong></div>)}</div>
     <header className="my-miners-heading"><div><h1>Miners <InfoTooltip label="About miner balances"><p>Miner balances are the gross OINK represented by your shares, before withdrawal penalties. Open End Miner (Withdraw) for a current estimate of what returns to your wallet.</p><p>Wallet balance is liquid OINK. Combined balance adds it to gross miner value. A miners subtotal includes only positions successfully loaded so far; the combined total waits for all durations.</p></InfoTooltip> <small role="status">{snapshot ? (visible.length !== positions.length ? `${visible.length} of ` : "") + positions.length + (complete ? " miners" : " known miners") : ""}</small></h1><p>Time-locked OINK positions</p></div><div className="miner-view-controls"><button aria-pressed={view === "grid"} onClick={() => setView("grid")}>Grid</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>List</button></div></header>
     <div className="miners-toolbar" role="search" aria-label="Find miners">
       <label>Search miners<input type="search" placeholder="Duration, miner # or contract address" value={query} onChange={event => setQuery(event.target.value)} /></label>
       <label>Duration<select value={duration} onChange={event => setDuration(event.target.value)}><option value="all">All durations{snapshot ? ` (${positions.length})` : ""}</option>{TIME_MINER_CONTRACTS.map(miner => <option key={miner.id} value={miner.id}>{miner.label}{snapshot ? ` (${positions.filter(row => row.pool.id === miner.id).length})` : ""}</option>)}</select></label>
-      <label>Status<select value={status} title={MINER_FILTERS.find(filter => filter.value === status)?.description} onChange={event => setStatus(event.target.value as MinerStatusFilter)}>{MINER_FILTERS.map(filter => <option key={filter.value} value={filter.value}>{filter.label}{snapshot ? ` (${durationPositions.filter(row => matchesMinerStatus(row, filter.value, snapshotTime)).length})` : ""}</option>)}</select></label>
+      <label>Status<select value={status} aria-description={MINER_FILTERS.find(filter => filter.value === status)?.description} onChange={event => setStatus(event.target.value as MinerStatusFilter)}>{MINER_FILTERS.map(filter => <option key={filter.value} value={filter.value}>{filter.label}{snapshot ? ` (${durationPositions.filter(row => matchesMinerStatus(row, filter.value, snapshotTime)).length})` : ""}</option>)}</select></label>
       <label>Sort by<select value={sort} onChange={event => setSort(event.target.value as MinerSort)}>{MINER_SORTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
       <button type="button" onClick={clearFilters}>Clear filters</button>
     </div>
     <div className="miner-deadline-shortcuts" role="group" aria-label="Miner deadlines at latest snapshot">
       {([
         ["mature", "Mature"], ["grace-soon", "Grace ending in 48h"], ["overdue", "Overdue"]
-      ] as const).map(([value, label]) => <button type="button" key={value} disabled={!snapshot} aria-pressed={status === value} title={MINER_FILTERS.find(filter => filter.value === value)?.description} onClick={() => { setQuery(""); setStatus(status === value ? "all" : value); setSort("grace"); }}>{label} <strong>{snapshot ? durationPositions.filter(row => matchesMinerStatus(row, value, snapshotTime)).length : "—"}</strong></button>)}
+      ] as const).map(([value, label]) => <button type="button" key={value} disabled={!snapshot} aria-pressed={status === value} aria-description={MINER_FILTERS.find(filter => filter.value === value)?.description} onClick={() => { setQuery(""); setStatus(status === value ? "all" : value); setSort("grace"); }}>{label} <strong>{snapshot ? durationPositions.filter(row => matchesMinerStatus(row, value, snapshotTime)).length : "—"}</strong></button>)}
       <InfoTooltip label="About maturity, grace and mandatory service"><p>Maturity marks the end of the miner's nominal term. Its grace period follows maturity; withdrawing within that window has no early or late exit penalty, provided mandatory service has ended.</p><p>Mandatory service is a separate withdrawal lock. After grace, a late penalty can apply. Rollover recommits a mature miner and restarts its term; it does not pay liquid OINK to your wallet.</p></InfoTooltip>
     </div>
     <p className="miner-read-status" role={error ? "alert" : "status"} tabIndex={readStatus ? 0 : undefined}>{readStatus}</p>
@@ -128,7 +128,7 @@ export function MinerPortfolio() {
       <table className="miner-table"><caption className="miner-table-caption">Your miners · dates in your local timezone · penalties and rollover status at latest snapshot</caption><thead><tr><th scope="col">Miner</th><th scope="col">Balance · OINK</th><th scope="col">Maturity</th><th scope="col">Grace ends</th><th scope="col">Penalty</th><th scope="col">Manage</th></tr></thead>
         <tbody>{awaitingPositions && Array.from({ length: 3 }, (_, index) => <tr className="miner-loading-table-row" aria-hidden="true" key={"loading-" + index}>{Array.from({ length: 6 }, (_, column) => <td key={column}><span className="miner-loading-bar" /></td>)}</tr>)}{visible.map(row => <tr key={row.pool.id + ":" + row.index}>
           <th scope="row"><strong>{row.pool.label} <small>#{row.index}</small></strong><MinerStatus row={row} time={snapshotTime} /><span className="miner-countdown">{minerDeadline(row, snapshotTime, now / 1000)}</span></th>
-          <td className="miner-table-balance" title={liveGross(row)}>{displayFarmAmount(liveGross(row))}</td>
+          <td className="miner-table-balance" aria-description={liveGross(row)}>{displayFarmAmount(liveGross(row))}</td>
           <td><MinerDate timestamp={row.maturity} /></td><td><MinerDate timestamp={row.graceEnd} /></td>
           <td><MinerPenalty row={row} time={snapshotTime} /></td>
           <td><div className="miner-table-actions"><MinerActions row={row} account={account} revision={revision} chainId={chainId} /></div></td>
@@ -137,7 +137,7 @@ export function MinerPortfolio() {
     </div>}
     {view === "grid" && !awaitingPositions && <div className="my-miner-grid">{visible.map((row) => <article className="my-miner-card" key={row.pool.id + ":" + row.index}>
       <header><h2>{row.pool.label}</h2><span>#{row.index}</span></header>
-      <div className="miner-hero-value"><strong title={liveGross(row)}>{displayFarmAmount(liveGross(row))}</strong><span className="miner-token-label"><span className="miner-token-pig" aria-hidden="true"><img src={assetUrl("img/oink.png")} alt="" /></span>OINK</span></div>
+      <div className="miner-hero-value"><strong aria-description={liveGross(row)}>{displayFarmAmount(liveGross(row))}</strong><span className="miner-token-label"><span className="miner-token-pig" aria-hidden="true"><img src={assetUrl("img/oink.png")} alt="" /></span>OINK</span></div>
       <Progress label="Lock progress" start={row.deposited} end={row.maturity} time={snapshot!.timestamp} />
       <Progress label="Mandatory service" start={row.deposited} end={row.mandatoryUntil} time={snapshot!.timestamp} />
       <MinerStatus row={row} time={snapshotTime} />
