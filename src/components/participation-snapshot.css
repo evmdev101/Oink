@@ -5,4 +5,5 @@
 .allocation-registry summary { color:var(--fg); font-size:14px; font-weight:600; cursor:pointer; }
 .allocation-registry .allocation-breakdown { margin-top:14px; }
 .allocation-registry a { color:var(--fg); }
-.allocation-registry .allocation-breakdown > div { align-items:baseline; }
+.allocation-registry .allocation-breakdown > div { grid-template-columns:minmax(0,1fr) auto; align-items:baseline; }
+.allocation-breakdown > div > span { min-width:0; overflow-wrap:anywhere; }

@@ -1,23 +1,44 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { formatEther, parseEther } from "ethers";
 import type { FarmYield } from "../lib/farmYield";
 import { displayFarmAmount } from "../lib/farmDisplay";
 import { decimalAmount, FARM_PERIODS, percentage, projectedReward, recordShare, rewardApr, type ShareReading } from "../lib/farmInsights";
+import { infoTooltipPosition } from "../lib/infoTooltipPosition";
 
 type Props = { estimate: FarmYield | null; stake: string | null; pool: string; symbol: string; assetPrice: string; rewardPrice: string };
 export function FarmInsightPopover({ mode, values }: { mode: "apr" | "rewards"; values: Props }) {
   const ref = useRef<HTMLDetailsElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
   const { estimate, stake, pool, assetPrice, rewardPrice } = values;
   const apr = estimate ? rewardApr(estimate.dailyPool, pool, assetPrice, rewardPrice) : null;
+  useLayoutEffect(() => {
+    const details = ref.current, popup = panel.current;
+    if (!open || !details || !popup) return;
+    const place = () => {
+      const anchor = details.querySelector("summary")?.getBoundingClientRect();
+      if (!anchor) return;
+      const origin = details.getBoundingClientRect();
+      const next = infoTooltipPosition(anchor, { width: popup.offsetWidth, height: popup.offsetHeight }, { width: document.documentElement.clientWidth, height: innerHeight });
+      // Keep the existing card styles, but clamp the panel to the visible screen.
+      Object.assign(popup.style, { left: `${next.left - origin.left}px`, top: `${next.top - origin.top}px`, right: "auto", bottom: "auto", transform: "none" });
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    observer.observe(popup);
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    return () => { observer.disconnect(); window.removeEventListener("resize", place); window.removeEventListener("scroll", place, true); };
+  }, [open]);
   useEffect(() => {
     const outside = (event: PointerEvent) => { if (!ref.current?.contains(event.target as Node)) ref.current?.removeAttribute("open"); };
     const escape = (event: KeyboardEvent) => { if (event.key === "Escape" && ref.current?.open) { ref.current.removeAttribute("open"); ref.current.querySelector("summary")?.focus(); } };
     document.addEventListener("pointerdown", outside); document.addEventListener("keydown", escape);
     return () => { document.removeEventListener("pointerdown", outside); document.removeEventListener("keydown", escape); };
   }, []);
-  return <details className={"farm-insight farm-insight-" + mode} ref={ref} onMouseEnter={() => { if (matchMedia("(hover: hover)").matches && ref.current) ref.current.open = true; }} onMouseLeave={() => { if (matchMedia("(hover: hover)").matches && !ref.current?.contains(document.activeElement) && ref.current) ref.current.open = false; }}>
+  return <details className={"farm-insight farm-insight-" + mode} ref={ref} onToggle={event => setOpen(event.currentTarget.open)} onMouseEnter={() => { if (matchMedia("(hover: hover)").matches && ref.current) ref.current.open = true; }} onMouseLeave={() => { if (matchMedia("(hover: hover)").matches && !ref.current?.contains(document.activeElement) && ref.current) ref.current.open = false; }}>
     <summary onClick={event => { if (event.detail > 0 && ref.current) { event.preventDefault(); ref.current.open = true; } }} aria-label={mode === "apr" ? "APR breakdown" : "Rewards projection"}>{mode === "apr" ? <>{apr == null ? "—" : apr + "%"} <span aria-hidden="true">🧮</span></> : <span aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 3v13h14M5 12l4-4 3 2 4-5M12 5h4v4" /></svg></span>}</summary>
-    <div className="farm-insight-panel">
+    {open && <div ref={panel} className="farm-insight-panel" style={{ maxHeight: "calc(100dvh - 24px)", overflow: "auto" }}>
       <h3><span aria-hidden="true">{mode === "apr" ? "🧮" : "📈"}</span>{mode === "apr" ? "APR Breakdown" : "Rewards Projection"}</h3>
       {!estimate ? <p>This vault's emission model is not verified yet.</p> : <>
         <table><tbody>{FARM_PERIODS.map(([period, days]) => {
@@ -28,7 +49,7 @@ export function FarmInsightPopover({ mode, values }: { mode: "apr" | "rewards"; 
         })}</tbody></table>
 
       </>}
-    </div>
+    </div>}
   </details>;
 }
 

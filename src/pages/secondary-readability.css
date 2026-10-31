@@ -132,3 +132,16 @@
   .app-page.maintenance-page .maintenance-action-card { padding:20px; }
   .app-page.nft-projects-page .nft-reward-badge { width:auto; min-width:172px; }
 }
+
+@media(max-width:600px) {
+  .app-page.nft-projects-page .nft-projects-header { flex-wrap:wrap; gap:8px; }
+  .app-page.nft-projects-page .nft-projects-header > div { flex:1 1 240px; min-width:0; }
+  .app-page.nft-projects-page .nft-projects-toolbar label { min-width:0; }
+  .app-page.nft-projects-page .nft-project-rewards { flex-wrap:wrap; }
+  .app-page.nft-projects-page .nft-project-rewards > span { flex-basis:100%; }
+}
+@media(max-width:400px) {
+  .app-page.oink-farms-page .bfc-stats-grid:not(.bfc-stats-top) { grid-template-columns:minmax(0,1fr); }
+  .app-page.nft-projects-page .nft-project-identity { flex-wrap:wrap; }
+  .app-page.nft-projects-page .nft-project-identity h3 { flex-basis:100%; min-width:0; overflow-wrap:anywhere; font-size:24px; }
+}
