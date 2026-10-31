@@ -8,7 +8,7 @@ import { useWallet } from "./WalletProvider";
 import "./farm-transactions.css";
 import { assertNoPendingFarm, positionLock } from "../lib/positionTransactions";
 import { useReferralSelection } from "./ReferralNotice";
-import { FARM_QUICK_PERCENTAGES, farmQuickAmount, type FarmQuickBalance } from "../lib/farmQuickAmounts";
+import { farmQuickAmount, type FarmQuickBalance } from "../lib/farmQuickAmounts";
 import { InfoTooltip } from "./InfoTooltip";
 import { isCancelledFeedback, isRecoveryFeedback, isRoutineRecoveryResult } from "../lib/transactionFeedback";
 import { listPendingTransactions as listRecoverableRequests } from "../lib/pendingTransactions";
@@ -77,12 +77,6 @@ export function FarmDepositActions({ farmId, onConfirmed, claimControl, unstakeC
   const transactionPending = journalBlocks(submitted);
   const canPrepare = !!spec && connected && journalReady === journalIdentity && !journalError && !referralSelection.error && !busy && !transactionPending;
   const canFill = connected && !busy && !transactionPending && !journalError;
-  const quickAmounts = FARM_QUICK_PERCENTAGES.map(percent => ({percent,value:canFill ? farmQuickAmount(percent,balanceSnapshot,wallet,spec) : null}));
-  const fillAmount = (percent: number) => {
-    if (!canFill) return;
-    const value = farmQuickAmount(percent,balanceSnapshot,wallet,spec,Date.now());
-    if (value != null) { setAmount(value); setError(""); }
-  };
   useEffect(() => {
     if (!maxRequest) return;
     const requestKey = maxRequest.account.toLowerCase() + ":" + maxRequest.revision;
@@ -110,7 +104,7 @@ export function FarmDepositActions({ farmId, onConfirmed, claimControl, unstakeC
   };
 
   const prepare = async (kind: FarmWriteKind) => {
-    if (!spec || !wallet.account || !wallet.provider || !canPrepare || busyLock.current || (kind !== "reset-approval" && !validAmount)) return;
+    if (!spec || !wallet.account || !wallet.provider || !canPrepare || busyLock.current || (kind !== "reset-approval" && kind !== "approve-max" && !validAmount)) return;
     if (!navigator.locks) { setError("This browser cannot coordinate wallet requests between tabs."); return; }
     busyLock.current = true;
     const run = ++generation.current, revision = wallet.revision;
@@ -157,11 +151,9 @@ export function FarmDepositActions({ farmId, onConfirmed, claimControl, unstakeC
       {claimControl ?? <button type="button" className="bfc-harvest-btn" disabled>Claim</button>}
       <label className="farm-sr-only" htmlFor={"farm-amount-" + farmId}>Deposit amount{spec ? " in " + spec.symbol : " (unavailable)"}</label>
       <input id={"farm-amount-" + farmId} className="bfc-amount" type="text" inputMode="decimal" maxLength={110} placeholder={spec ? "Deposit amount · " + spec.symbol : "Amount · not enabled"} value={amount} onChange={(event) => { setAmount(event.target.value); setError(""); }} disabled={!spec || !!busy || transactionPending || !!journalError} />
-      {spec?.tokenAddress && <div className="farm-quick-amounts" role="group" aria-label={"Fill " + spec.symbol + " deposit amount from wallet balance"}>{quickAmounts.map(({percent,value}) => <button type="button" key={percent} disabled={value == null} aria-label={"Use " + (percent === 100 ? "maximum" : percent + "% of") + " " + spec.symbol + " wallet balance"} title="Fill the deposit amount only. Approval and staking are separate wallet transactions." onClick={() => fillAmount(percent)}>{percent === 100 ? "Max" : percent + "%"}</button>)}</div>}
       <div className="bfc-action-grid"><button type="button" className="bfc-deposit-review" disabled={!canPrepare || !validAmount} onClick={() => void prepare("deposit")}>{actionLabel("deposit", "Stake")}</button>{unstakeControl}</div>
-      {spec && !spec.tokenAddress ? <div className="bfc-native-note">Native PLS · no token approval</div> : <button type="button" className="bfc-approve-btn" disabled={!canPrepare || !validAmount} onClick={() => void prepare("approve")}>{actionLabel("approve", "Approve exact amount")}</button>}
-      {spec?.tokenAddress && <button type="button" className="farm-reset-allowance" disabled={!canPrepare} onClick={() => void prepare("reset-approval")}>{actionLabel("reset-approval", "Reset allowance")}</button>}
-      {spec ? <p className="farm-action-status">{!wallet.account ? "Connect your browser wallet to stake." : !connected ? "Switch your wallet to PulseChain to continue." : null} <InfoTooltip label="About staking and approvals">For tokens, approval gives this vault permission to transfer the exact amount shown in your wallet; it does not stake it. Stake is a separate transaction. Native PLS needs no token approval. Filling Max or a percentage changes the amount field only.</InfoTooltip></p> : <p className="farm-action-status">This farm's transactions are not yet verified.</p>}
+      {spec && !spec.tokenAddress ? <div className="bfc-native-note">Native PLS · no token approval</div> : <button type="button" className="bfc-approve-btn" disabled={!canPrepare} onClick={() => void prepare("approve-max")}>{actionLabel("approve-max", "Approve MAX")}</button>}
+      {spec ? <p className="farm-action-status">{!wallet.account ? "Connect your browser wallet to stake." : !connected ? "Switch your wallet to PulseChain to continue." : null} <InfoTooltip label="About staking and approvals">For tokens, Approve MAX gives this vault the maximum token allowance, including for future deposits; it does not stake it. Stake is a separate transaction. Native PLS needs no token approval. Filling Max or a percentage changes the amount field only.</InfoTooltip></p> : <p className="farm-action-status">This farm's transactions are not yet verified.</p>}
       {actionableError && <p className="farm-action-error" role="alert">{actionableError}</p>}
       {referralSelection.error && <p className="farm-action-error" role="alert">{referralSelection.error}</p>}
     </div>

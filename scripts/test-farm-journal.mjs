@@ -158,3 +158,16 @@ test("journal rejects missing or corrupt USDC implementation pins", () => {
     assert.throws(() => readFarmJournal(address(9), "pls", target), /journal is invalid/);
   }
 });
+
+
+test("MAX approval journals preserve the full allowance and reject smaller amounts", () => {
+  const saved = entry(), store = storage();
+  saved.review.kind = "approve-max";
+  saved.review.spec.tokenAddress = address(7); saved.review.spec.tokenRuntimeCodeHash = HASH;
+  saved.review.amount = (1n << 256n) - 1n;
+  saved.review.transaction.to = address(7); saved.review.transaction.value = "0x0";
+  writeFarmJournal(saved, store);
+  assert.deepEqual(readFarmJournal(saved.review.account, saved.review.spec.id, store), saved);
+  saved.review.amount = 100n;
+  assert.throws(() => writeFarmJournal(saved, storage()), /maximum allowance/);
+});

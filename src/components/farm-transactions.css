@@ -6,7 +6,6 @@
 .oink-farms-page .farm-quick-amounts button:disabled { opacity:.5; cursor:not-allowed; }
 .oink-farms-page .farm-quick-amounts button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 .protocol-review-fact { display:contents; }
-.oink-farms-page .farm-reset-allowance { border:0; padding:3px; background:transparent; font-size:10px; text-decoration:underline; }
 .oink-farms-page .farm-action-status { margin:3px 0; color:var(--farm-muted); font-size:10px; line-height:1.5; }
 .oink-farms-page .farm-action-error { margin:4px 0; border:1px solid var(--accent); background:color-mix(in srgb,var(--accent) 9%,var(--panel)); padding:10px; border-radius:6px; font-size:11px; overflow-wrap:anywhere; }
 .oink-farms-page .farm-submission { padding:10px; border:1px solid var(--farm-border-soft); border-radius:6px; font-size:11px; overflow-wrap:anywhere; }

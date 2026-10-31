@@ -16,7 +16,7 @@ export type FarmWriteSpec = {
 };
 export type FarmSpecAuthority = (spec: FarmWriteSpec) => void;
 export type FarmReadRpc = { send(method: string, params: unknown[]): Promise<any> };
-export type FarmWriteKind = "deposit" | "approve" | "reset-approval";
+export type FarmWriteKind = "deposit" | "approve" | "approve-max" | "reset-approval";
 export const FARM_CHAIN_ID = 369n;
 export const REVIEW_LIFETIME_MS = 60_000;
 export const farmVaultInterface = new Interface([
@@ -121,7 +121,7 @@ export async function prepareFarmTransaction(
   requireAddress(rewardOwner[0], spec.masterchef, "OINK owner");
   const depositFee = BigInt(depositFeeResult[0]), fundingRate = BigInt(fundingResult[0]), directPayout = BigInt(directResult[0]);
   if (depositFee < 0n || depositFee > 500n || fundingRate < 0n || fundingRate > 250n || directPayout < 0n || directPayout > 10_000n) throw new Error("Fees or payouts are outside the verified limits.");
-  const amount = kind === "reset-approval" ? 0n : parseFarmDepositAmount(input, spec.decimals);
+  const amount = kind === "reset-approval" ? 0n : kind === "approve-max" ? MaxUint256 : parseFarmDepositAmount(input, spec.decimals);
   const nativeBalance = BigInt(await rpc.send("eth_getBalance", [account, tag]));
   let walletBalance = nativeBalance;
   let allowance: bigint | null = null;
@@ -134,7 +134,6 @@ export async function prepareFarmTransaction(
     if (Number(precision[0]) !== spec.decimals) throw new Error("Deposit token decimals changed.");
     walletBalance = BigInt(balance[0]); allowance = BigInt(allowed[0]);
     if (kind === "deposit" && allowance < amount) throw new Error("Approve the exact deposit amount first, then review the deposit separately.");
-    if (kind === "approve" && allowance !== 0n) throw new Error("A nonzero allowance already exists. Use it for a covered deposit or reset it to zero before requesting a new exact allowance.");
     if (kind === "reset-approval" && allowance === 0n) throw new Error("This vault already has zero allowance.");
   } else if (kind !== "deposit") throw new Error("Native PLS deposits need no token approval.");
   if (kind === "deposit") {
@@ -147,7 +146,7 @@ export async function prepareFarmTransaction(
     if (pool[0] <= 0n || totalAllocation[0] <= 0n) throw new Error("This pool does not have an active reward allocation.");
     if (credit[0] + pendingCredit[0] < lastCredit[0]) throw new Error("Vault reward credit is inconsistent. Deposit preparation is blocked.");
   }
-  if (amount > walletBalance) throw new Error("The connected wallet does not hold this amount.");
+  if (kind !== "approve-max" && amount > walletBalance) throw new Error("The connected wallet does not hold this amount.");
   const referralSelection=effectiveReferral(account,referred[0],kind==='deposit'?requestedReferral:ZeroAddress);
   const tx = { from: account, to: kind === "deposit" ? spec.address : spec.tokenAddress!,
     data: kind === "deposit" ? farmVaultInterface.encodeFunctionData("deposit", [amount, referralSelection.calldata]) : farmTokenInterface.encodeFunctionData("approve", [spec.address, amount]),

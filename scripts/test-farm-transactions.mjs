@@ -235,9 +235,13 @@ test("approval is an exact amount to the reviewed vault, never unlimited by defa
   assert.equal(review.transaction.to, review.spec.tokenAddress); assert.equal(review.transaction.value, "0x0");
   assert.equal(decoded.args[0], review.spec.address); assert.equal(decoded.args[1], 2n * UNIT); assert.notEqual(decoded.args[1], MaxUint256);
 });
-test("nonzero allowances require reset before replacement", async () => {
+test("nonzero allowances can be replaced directly with the exact approved amount", async () => {
   const fixture = mockRpc({ allowance: 1n });
-  await assert.rejects(prepareFarmTransaction(fixture.rpc, fixture.spec, ACCOUNT, "2", "approve"), /nonzero allowance/);
+  const approval = await prepareFarmTransaction(fixture.rpc, fixture.spec, ACCOUNT, "2", "approve");
+  const approved = farmTokenInterface.parseTransaction(approval.transaction);
+  assert.equal(approved.args[0], fixture.spec.address);
+  assert.equal(approved.args[1], 2n * UNIT);
+  assert.equal(approval.allowance, 1n);
   const reset = await prepareFarmTransaction(fixture.rpc, fixture.spec, ACCOUNT, "", "reset-approval");
   assert.equal(reset.amount, 0n); assert.equal(farmTokenInterface.parseTransaction(reset.transaction).args[1], 0n);
   fixture.state.allowance = 0n;
@@ -474,9 +478,11 @@ for (const precision of [6, 8, 12, 18]) test(`${precision}-decimal asset approva
   }
 });
 
-test("USDT's empty-return approvals still require a zero reset and exact allowance", async () => {
+test("USDT approval respects token simulation failures and verifies exact allowance", async () => {
   const f = mockRpc({ tokenPolicy: "usdt", precision: 6n, allowance: 123n });
-  await assert.rejects(prepareFarmTransaction(f.rpc, f.spec, ACCOUNT, "1.000001", "approve"), /nonzero allowance/);
+  f.state.simulateError = "Token requires zero allowance";
+  await assert.rejects(prepareFarmTransaction(f.rpc, f.spec, ACCOUNT, "1.000001", "approve"), /Token requires zero allowance/);
+  f.state.simulateError = null;
   const reset = await prepareFarmTransaction(f.rpc, f.spec, ACCOUNT, "", "reset-approval");
   const calldata = farmTokenInterface.parseTransaction(reset.transaction);
   assert.equal(calldata.args[0], f.spec.address); assert.equal(calldata.args[1], 0n); assert.equal(reset.amount, 0n);
@@ -534,4 +540,26 @@ test("deposit receipt catches a reorg during token-policy verification", async (
   };
   assert.equal((await verifyFarmReceipt(f.rpc, f.review, HASH)).state, "unverified");
   assert.equal(checkedImplementation, true);
+});
+
+
+test("MAX approval needs no deposit input or token balance and verifies the full allowance", async () => {
+  const f = await reviewed({ allowance: 1n, tokenBalance: 0n }, "approve-max", "");
+  const decoded = farmTokenInterface.parseTransaction(f.review.transaction);
+  assert.equal(f.review.amount, MaxUint256);
+  assert.equal(decoded.args[0], f.spec.address);
+  assert.equal(decoded.args[1], MaxUint256);
+  assert.equal(f.review.transaction.to, f.spec.tokenAddress);
+  assert.equal(f.review.transaction.value, "0x0");
+  f.state.receipt = receiptFor(f.review); f.state.transaction = transactionFor(f.review); f.state.allowance = MaxUint256;
+  assert.equal((await verifyFarmReceipt(f.rpc, f.review, HASH)).state, "confirmed");
+  f.state.allowance = 1n;
+  assert.equal((await verifyFarmReceipt(f.rpc, f.review, HASH)).state, "unverified");
+});
+
+test("MAX approval still checks token simulation and rejects native PLS approvals", async () => {
+  const f = mockRpc({ simulateApproval: false });
+  await assert.rejects(prepareFarmTransaction(f.rpc, f.spec, ACCOUNT, "", "approve-max"), /did not confirm/);
+  const native = mockRpc({ native: true });
+  await assert.rejects(prepareFarmTransaction(native.rpc, native.spec, ACCOUNT, "", "approve-max"), /no token approval/);
 });

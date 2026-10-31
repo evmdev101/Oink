@@ -58,7 +58,7 @@ function validateEntry(value: unknown): asserts value is FarmJournalEntry {
     }
   }
   if (typeof spec.sourceUrl !== "string" || !spec.sourceUrl.startsWith("https://") || typeof spec.verifiedAt !== "string" || !Number.isFinite(Date.parse(spec.verifiedAt)) || !time(spec.verifiedBlock)) invalid("verification record");
-  if (!["deposit", "approve", "reset-approval"].includes(String(review.kind)) || !time(review.block) || !time(review.createdAt) || !hash(review.blockHash)) invalid("review identity");
+  if (!["deposit", "approve", "approve-max", "reset-approval"].includes(String(review.kind)) || !time(review.block) || !time(review.createdAt) || !hash(review.blockHash)) invalid("review identity");
   const account = address(review.account);
   address(review.referral);
   if(review.requestedReferral!==undefined)address(review.requestedReferral);
@@ -71,6 +71,7 @@ function validateEntry(value: unknown): asserts value is FarmJournalEntry {
   if (typeof tx.data !== "string" || !/^0x(?:[0-9a-f]{2}){4,}$/i.test(tx.data) || !quantity(tx.value) || !quantity(tx.gas) || BigInt(tx.gas) <= 0n) invalid("transaction calldata or gas");
   if (BigInt(tx.value) !== (review.kind === "deposit" && spec.tokenAddress === null ? review.amount : 0n)) invalid("transaction native value");
   if (review.kind === "reset-approval" ? review.amount !== 0n : review.amount === 0n) invalid("transaction amount");
+  if (review.kind === "approve-max" && review.amount !== MaxUint256) invalid("maximum allowance");
 }
 
 function encode(entry: FarmJournalEntry) {
