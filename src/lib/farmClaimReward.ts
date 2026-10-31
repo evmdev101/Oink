@@ -1,3 +1,4 @@
+import { readFarmRewardBalance, variableFarmTransfers } from "./farmAccounting";
 import { Interface, ZeroAddress, formatEther, getAddress } from "ethers";
 import { getFarmWriteSpec, farmSpecIdentity, assertCurrentFarmSpec } from "./farmCatalog";
 import { accessSnapshot, sameAccessAddress, verifyAccessCore } from "./accessSnapshot";
@@ -11,7 +12,7 @@ if (typeof window !== "undefined") window.addEventListener("oink-positions-chang
 export const farmClaimRewardAbi = new Interface([
   "function userInfo(address,uint256) view returns(uint256,uint256,uint256,uint256)",
   "function getNrOfStakes(address) view returns(uint256)",
-  "function accDtxPerShare() view returns(uint256)",
+  "function accDtxPerShare() view returns(uint256)", "function vaultBalance() view returns(uint256)",
   "function lastCredit() view returns(uint256)",
   "function balanceOf(address) view returns(uint256)",
 ]);
@@ -42,10 +43,10 @@ export async function loadFarmClaimReward(rpc: FarmReadRpc, farmId: string, acco
   const [position, accumulator, lastCredit, credit, pending, balance] = await Promise.all([
     read("userInfo", [account, index]), read("accDtxPerShare"), read("lastCredit"),
     snapshot.read(core.masterchef, "credit", [spec.address]), snapshot.read(core.masterchef, "pendingDtx", [BigInt(spec.poolId)]),
-    spec.tokenAddress ? snapshot.read(spec.tokenAddress, "balanceOf", [spec.address], farmClaimRewardAbi).then(result => BigInt(result[0])) : rpc.send("eth_getBalance", [spec.address, snapshot.tag]).then(BigInt),
+    readFarmRewardBalance(rpc, spec, snapshot.tag),
   ]);
   const amount = BigInt(position[0]), debt = BigInt(position[1]), available = BigInt(balance);
-  if (amount <= 0n || available <= 0n || amount > available || BigInt(credit[0]) + BigInt(pending[0]) < BigInt(lastCredit[0])) throw Error("Farm reward accounting is unavailable or inconsistent.");
+  if (amount <= 0n || available <= 0n || (!variableFarmTransfers(spec) && amount > available) || BigInt(credit[0]) + BigInt(pending[0]) < BigInt(lastCredit[0])) throw Error("Farm reward accounting is unavailable or inconsistent.");
   const accAfterHarvest = BigInt(accumulator[0]) + (BigInt(credit[0]) + BigInt(pending[0]) - BigInt(lastCredit[0])) * 1000000000000n / available;
   if (accAfterHarvest < debt) throw Error("Farm reward accounting is unavailable or inconsistent.");
   const gross = amount * (accAfterHarvest - debt) / 1000000000000n;

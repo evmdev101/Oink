@@ -45,6 +45,7 @@ function fixture(options={}) {
       case'lastCredit':result=[options.lastCredit??20n*U];break;
       case'credit':result=[options.credit??50n*U];break;
       case'pendingDtx':result=[options.pending??10n*U];break;
+      case'vaultBalance':result=[options.rewardBalance??100n*U];break;
       case'balanceOf':result=[options.balance??100n*U];break;
       default:throw Error('Unexpected read '+parsed.name);
     }
@@ -95,4 +96,11 @@ test('shared reward reads cache by account, farm and index and support cancellat
   const controller=new AbortController();controller.abort(Error('Read cancelled'));
   await assert.rejects(readFarmClaimReward('pls',account,0,controller.signal),/Read cancelled/);
   delete globalThis.__farmClaimRewardRpc;
+});
+
+for (const farmId of ['ptgc','ufo']) test(farmId+' claims divide by recorded vaultBalance, not reflection liquidity',async()=>{
+ const f=fixture({farmId,balance:200n*U,rewardBalance:100n*U});
+ const value=await loadFarmClaimReward(f.rpc,farmId,account,0);
+ assert.equal(value.gross,'48.0');
+ assert.ok(f.calls.some(([method,params])=>method==='eth_call'&&abi.parseTransaction(params[0]).name==='vaultBalance'));
 });

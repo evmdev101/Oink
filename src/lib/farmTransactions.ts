@@ -1,6 +1,8 @@
 import { Interface, MaxUint256, ZeroAddress, formatUnits, getAddress, keccak256, parseUnits, toQuantity, type Eip1193Provider } from "ethers";
 import { verifyFarmApprovalResult, verifyFarmTokenState, type FarmTokenPolicy } from "./farmTokenSafety";
 import { effectiveReferral } from "./referralSelection";
+import { farmSpendableBalance, readFarmLockedBalance } from "./farmSpendableBalance";
+import { readFarmRewardBalance, receivedFarmAccounting } from "./farmAccounting";
 import { assertCurrentFarmSpec } from "./farmCatalog";
 
 // This describes individually verified deployments, not every contract with a
@@ -27,12 +29,13 @@ export const farmVaultInterface = new Interface([
   "function defaultDirectPayout() view returns(uint256)", "function treasury() view returns(address)",
   "function treasuryWallet() view returns(address)", "function referredBy(address) view returns(address)",
   "function getNrOfStakes(address) view returns(uint256)",
-  "function lastCredit() view returns(uint256)",
+  "function lastCredit() view returns(uint256)", "function vaultBalance() view returns(uint256)",
   "function maxFee() view returns(uint256)", "function maxFundingFee() view returns(uint256)",
   "event Deposit(address indexed sender,uint256 amount,uint256 debt,uint256 depositFee,address indexed referral)",
 ]);
 export const farmTokenInterface = new Interface([
   "function approve(address spender,uint256 amount) returns(bool)",
+  "function lockedAmount(address) view returns(uint256)",
   "function allowance(address owner,address spender) view returns(uint256)",
   "function balanceOf(address owner) view returns(uint256)", "function decimals() view returns(uint8)",
 ]);
@@ -126,24 +129,28 @@ export async function prepareFarmTransaction(
   let walletBalance = nativeBalance;
   let allowance: bigint | null = null;
   if (spec.tokenAddress) {
-    const [asset, precision, balance, allowed] = await Promise.all([
+    const [asset, precision, balance, allowed, locked] = await Promise.all([
       read(spec.address, farmVaultInterface, "stakeToken"), read(spec.tokenAddress, farmTokenInterface, "decimals"),
       read(spec.tokenAddress, farmTokenInterface, "balanceOf", [account]), read(spec.tokenAddress, farmTokenInterface, "allowance", [account, spec.address]),
+      kind === "deposit" ? readFarmLockedBalance(rpc, spec, account, tag) : Promise.resolve(0n),
     ]);
     requireAddress(asset[0], spec.tokenAddress, "Deposit asset");
     if (Number(precision[0]) !== spec.decimals) throw new Error("Deposit token decimals changed.");
     walletBalance = BigInt(balance[0]); allowance = BigInt(allowed[0]);
+    if (kind === "deposit" && locked > 0n && amount > farmSpendableBalance(walletBalance, locked)) throw new Error("Only " + formatUnits(farmSpendableBalance(walletBalance, locked), spec.decimals) + " " + spec.symbol + " is available to stake; " + formatUnits(locked, spec.decimals) + " is locked by the token’s staking contract.");
     if (kind === "deposit" && allowance < amount) throw new Error("Approve the exact deposit amount first, then review the deposit separately.");
     if (kind === "reset-approval" && allowance === 0n) throw new Error("This vault already has zero allowance.");
   } else if (kind !== "deposit") throw new Error("Native PLS deposits need no token approval.");
   if (kind === "deposit") {
     const [vaultBalance, lastCredit, credit, pendingCredit, totalAllocation] = await Promise.all([
-      spec.tokenAddress ? read(spec.tokenAddress, farmTokenInterface, "balanceOf", [spec.address]).then((result) => BigInt(result[0])) : rpc.send("eth_getBalance", [spec.address, tag]).then(BigInt),
+      readFarmRewardBalance(rpc, spec, tag),
       read(spec.address, farmVaultInterface, "lastCredit"), read(spec.masterchef, chefInterface, "credit", [spec.address]),
       read(spec.masterchef, chefInterface, "pendingDtx", [BigInt(spec.poolId)]), read(spec.masterchef, chefInterface, "totalAllocPoint"),
     ]);
     if (vaultBalance <= 0n) throw new Error("This vault has no pre-deposit asset balance. Its harvest denominator cannot be used safely.");
-    if (pool[0] <= 0n || totalAllocation[0] <= 0n) throw new Error("This pool does not have an active reward allocation.");
+    if (totalAllocation[0] <= 0n) throw new Error("This pool does not have an active reward allocation.");
+    // A registered zero-allocation farm can still accept deposits. Its exact
+    // contract call is simulated below; zero APR must not disable the interface.
     if (credit[0] + pendingCredit[0] < lastCredit[0]) throw new Error("Vault reward credit is inconsistent. Deposit preparation is blocked.");
   }
   if (kind !== "approve-max" && amount > walletBalance) throw new Error("The connected wallet does not hold this amount.");
@@ -247,9 +254,15 @@ export async function verifyFarmReceipt(rpc: FarmReadRpc, review: FarmTransactio
     const deposits = (receipt.logs as { address: string; topics: string[]; data: string; removed?: boolean }[]).filter((log) => log && !log.removed && matchesAddress(log.address, review.spec.address)).flatMap((log) => {
       try { const parsed = farmVaultInterface.parseLog(log); return parsed?.name === "Deposit" ? [parsed] : []; } catch { return []; }
     });
-    const match = deposits.find((event) => sameAddress(event.args.sender, review.account) && event.args.amount === review.recordedAmount && event.args.depositFee === review.feeAmount && sameAddress(event.args.referral, review.referral));
+    const matches = deposits.filter(event => sameAddress(event.args.sender, review.account) && sameAddress(event.args.referral, review.referral));
+    const event = matches.length === 1 ? matches[0] : null;
+    // Reflection-aware vaults measure their actual balance delta. The deposit
+    // event, not the entered gross amount, determines the credited position.
+    const match = event && (receivedFarmAccounting(review.spec)
+      ? event.args.amount > 0n && event.args.depositFee === (event.args.amount + event.args.depositFee) * review.depositFee / 10000n
+      : event.args.amount === review.recordedAmount && event.args.depositFee === review.feeAmount);
     if (!await blockIsCanonical()) return unverified("The receipt block changed while checking the deposit.");
-    return match ? { state: "confirmed" as const, message: "Deposit confirmed; the vault's recorded amount and deposit fee match this review." } : { state: "unverified" as const, message: "Transaction succeeded, but the deposit event did not match the review. Inspect the receipt; do not repeat it." };
+    return match ? { state: "confirmed" as const, message: "Deposit confirmed; the vault's recorded amount and deposit fee were verified." } : { state: "unverified" as const, message: "Transaction succeeded, but the deposit event did not match the review. Inspect the receipt; do not repeat it." };
   }
   const result = await rpc.send("eth_call", [{ to: review.spec.tokenAddress, data: farmTokenInterface.encodeFunctionData("allowance", [review.account, review.spec.address]) }, receipt.blockNumber]);
   const allowance = farmTokenInterface.decodeFunctionResult("allowance", result)[0];

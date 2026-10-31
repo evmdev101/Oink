@@ -96,6 +96,8 @@ function mockRpc(options = {}) {
           depositFee: [state.depositFee], fundingRate: [state.fundingRate], defaultDirectPayout: [state.directPayout],
           treasury: [spec.governor], treasuryWallet: [spec.treasuryWallet], owner: [tx.to === spec.rewardToken ? spec.masterchef : spec.governor], governor: [spec.governor],
           maxFee: [500n], maxFundingFee: [250n], feeAddress: [spec.governor], dtx: [spec.rewardToken],
+          vaultBalance: [state.rewardBalance ?? state.vaultBalance],
+          lockedAmount: [state.lockedAmount ?? 0n],
           poolInfo: [state.allocation, 10n, spec.address], referredBy: [state.referred], stakeToken: [spec.tokenAddress],
           decimals: [state.precision], balanceOf: [decoded.args.length && decoded.args[0] === ACCOUNT ? state.tokenBalance : state.vaultBalance],
           allowance: [state.allowance], getNrOfStakes: [2n], lastCredit: [state.lastCredit], credit: [state.credit],
@@ -283,8 +285,8 @@ test("unverified fee and payout ranges are unavailable", async () => {
     await assert.rejects(prepareFarmTransaction(fixture.rpc, fixture.spec, ACCOUNT, "1", "deposit"), /fee limits/);
   }
 });
-test("empty vault, inactive allocations and inconsistent reward credit block deposits", async () => {
-  for (const [options, match] of [[{ vaultBalance: 0n }, /pre-deposit asset balance/], [{ allocation: 0n }, /active reward allocation/], [{ totalAllocation: 0n }, /active reward allocation/], [{ lastCredit: 100n }, /reward credit is inconsistent/]]) {
+test("empty vault, inactive global allocation and inconsistent reward credit block deposits", async () => {
+  for (const [options, match] of [[{ vaultBalance: 0n }, /pre-deposit asset balance/], [{ totalAllocation: 0n }, /active reward allocation/], [{ lastCredit: 100n }, /reward credit is inconsistent/]]) {
     const fixture = mockRpc(options);
     await assert.rejects(prepareFarmTransaction(fixture.rpc, fixture.spec, ACCOUNT, "1", "deposit"), match);
   }
@@ -562,4 +564,54 @@ test("MAX approval still checks token simulation and rejects native PLS approval
   await assert.rejects(prepareFarmTransaction(f.rpc, f.spec, ACCOUNT, "", "approve-max"), /did not confirm/);
   const native = mockRpc({ native: true });
   await assert.rejects(prepareFarmTransaction(native.rpc, native.spec, ACCOUNT, "", "approve-max"), /no token approval/);
+});
+
+test("registered zero-allocation farms retain deposits when their contract simulation passes", async () => {
+ const f = await reviewed({allocation:0n});
+ assert.equal(f.review.kind, "deposit");
+ const rejected = mockRpc({allocation:0n,simulateError:"Contract rejected deposit"});
+ await assert.rejects(prepareFarmTransaction(rejected.rpc,rejected.spec,ACCOUNT,"1","deposit"),/Contract rejected/);
+});
+
+test("received-token vaults confirm actual credited deposits after token fees", async () => {
+ const f = mockRpc({vaultBalance:0n,rewardBalance:100n*UNIT});
+ f.spec.tokenPolicy = {kind:"variable-transfer",accounting:"received"};
+ const review = await prepareFarmTransaction(f.rpc,f.spec,ACCOUNT,"2","deposit");
+ assert.equal(review.amount,2n*UNIT);
+ f.state.transaction = transactionFor(review);
+ const actual = {amount:147n*UNIT/100n,fee:3n*UNIT/100n};
+ f.state.receipt = receiptFor(review,[depositLog(review,actual)]);
+ assert.equal((await verifyFarmReceipt(f.rpc,review,HASH)).state,"confirmed");
+ f.state.receipt = receiptFor(review,[depositLog(review,{...actual,fee:actual.fee+1n})]);
+ assert.equal((await verifyFarmReceipt(f.rpc,review,HASH)).state,"unverified");
+ f.state.receipt = receiptFor(review,[depositLog(review,{...actual,sender:OTHER})]);
+ assert.equal((await verifyFarmReceipt(f.rpc,review,HASH)).state,"unverified");
+});
+
+
+function lockedTokenFixture(locked = 25n * UNIT) {
+ const f = mockRpc({tokenBalance:100n*UNIT,lockedAmount:locked,allowance:MaxUint256});
+ f.spec.tokenPolicy={kind:"variable-transfer",accounting:"received",lockedBalance:"lockedAmount"};
+ return f;
+}
+test("token-locked wallet balances cannot be deposited and explain the available amount", async () => {
+ const f=lockedTokenFixture();
+ await assert.rejects(prepareFarmTransaction(f.rpc,f.spec,ACCOUNT,"100","deposit"),/Only 75.0 TEST is available to stake; 25.0 is locked/);
+ const exact=await prepareFarmTransaction(f.rpc,f.spec,ACCOUNT,"75","deposit");
+ assert.equal(exact.amount,75n*UNIT);
+ assert.equal(exact.walletBalance,100n*UNIT,"total wallet holdings retain their meaning");
+ await assert.rejects(prepareFarmTransaction(f.rpc,f.spec,ACCOUNT,"75.000000000000000001","deposit"),/Only 75.0/);
+});
+test("a token lock added before signing prevents the wallet transaction", async () => {
+ const f=lockedTokenFixture(),review=await prepareFarmTransaction(f.rpc,f.spec,ACCOUNT,"75","deposit"),wallet=mockWallet();
+ f.state.lockedAmount=50n*UNIT;
+ await assert.rejects(requestReviewedFarmTransaction(review,wallet.provider,f.rpc,()=>true),/Only 50.0/);
+ assert.equal(wallet.calls.filter(call=>call.method==="eth_sendTransaction").length,0);
+});
+test("MAX approval remains available even when the token balance is completely locked", async () => {
+ const f=lockedTokenFixture(100n*UNIT);
+ const review=await prepareFarmTransaction(f.rpc,f.spec,ACCOUNT,"","approve-max");
+ assert.equal(review.amount,MaxUint256);
+ assert.equal(f.calls.some(call=>call.method==="eth_call"&&call.params[0].data.startsWith(farmTokenInterface.getFunction("lockedAmount").selector)),false);
+ await assert.rejects(prepareFarmTransaction(f.rpc,f.spec,ACCOUNT,"1","deposit"),/Only 0.0/);
 });

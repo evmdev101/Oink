@@ -2,17 +2,20 @@ import { Interface, getAddress, keccak256 } from "ethers";
 import type { FarmReadRpc, FarmWriteSpec } from "./farmTransactions";
 
 export type FarmTokenPolicy =
+  | { kind: "variable-transfer"; accounting: "nominal" | "received"; lockedBalance?: "lockedAmount"; implementation?: { slot: string; address: string; runtimeCodeHash: string } }
   | { kind: "usdt" }
   | { kind: "usdc"; implementation: { slot: string; address: string; runtimeCodeHash: string } };
 
 export function farmTokenPolicyWarnings(spec: FarmWriteSpec): string[] {
   if (!spec.tokenPolicy) return [];
+  if (spec.tokenPolicy.kind === "variable-transfer") return ["Token transfer fees or reflections can change the tokens received. Recorded stake is not a guaranteed wallet payout." + (spec.tokenPolicy.implementation ? " The current proxy implementation is pinned, but its source is unpublished." : "")];
   return [spec.tokenPolicy.kind === "usdt"
     ? "The pUSDT administrator can pause transfers, block addresses, enable transfer fees or replace the token implementation. These settings are checked again before opening your wallet but can change before mining."
     : "The pUSDC administrator can pause transfers, block addresses or upgrade the token implementation. These settings are checked again before opening your wallet but can change before mining."];
 }
 
 export const farmTokenSafetyAbi = new Interface([
+  "function lockedAmount(address) view returns(uint256)",
   "function paused() view returns(bool)", "function deprecated() view returns(bool)",
   "function basisPointsRate() view returns(uint256)", "function maximumFee() view returns(uint256)",
   "function isBlackListed(address) view returns(bool)", "function isBlacklisted(address) view returns(bool)",
@@ -25,6 +28,16 @@ export async function verifyFarmTokenState(rpc: FarmReadRpc, spec: FarmWriteSpec
   if (code === "0x" || keccak256(code).toLowerCase() !== spec.tokenRuntimeCodeHash?.toLowerCase()) throw new Error("Deposit token runtime does not match the verified deployment.");
   const policy = spec.tokenPolicy;
   if (!policy) return;
+  if (policy.kind === "variable-transfer") {
+    if (policy.implementation) {
+      const pin = policy.implementation;
+      const word = await rpc.send("eth_getStorageAt", [spec.tokenAddress, pin.slot, tag]);
+      if (typeof word !== "string" || !/^0x0{24}[0-9a-f]{40}$/i.test(word) || getAddress("0x" + word.slice(-40)) !== getAddress(pin.address)) throw Error("Token implementation changed. This farm needs a new verification before use.");
+      const implementation = await rpc.send("eth_getCode", [pin.address, tag]);
+      if (keccak256(implementation).toLowerCase() !== pin.runtimeCodeHash.toLowerCase()) throw Error("Token implementation runtime changed.");
+    }
+    return; // Transfer feasibility is checked by simulating the exact user call.
+  }
   if (policy.kind !== "usdt" && policy.kind !== "usdc") throw new Error("Unsupported deposit token policy.");
   const read = async (method: string, args: unknown[] = []) => farmTokenSafetyAbi.decodeFunctionResult(method,
     await rpc.send("eth_call", [{ to: spec.tokenAddress, data: farmTokenSafetyAbi.encodeFunctionData(method, args) }, tag]))[0];

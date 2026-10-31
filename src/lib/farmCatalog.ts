@@ -18,7 +18,9 @@ export const getFarmWriteSpecs = (): readonly FarmWriteSpec[] => [...VERIFIED_FA
 export const getFarmWriteSpec = (id: string): FarmWriteSpec | undefined => VERIFIED_FARM_WRITES.find(spec => spec.id === id) ?? discovered.find(spec => spec.id === id);
 
 const address = (value: string) => getAddress(value).toLowerCase();
-const policyIdentity = (spec: FarmWriteSpec) => spec.tokenPolicy?.kind === "usdc"
+const policyIdentity = (spec: FarmWriteSpec) => spec.tokenPolicy?.kind === "variable-transfer"
+  ? ["variable-transfer", spec.tokenPolicy.accounting, spec.tokenPolicy.lockedBalance ?? null, spec.tokenPolicy.implementation ? [spec.tokenPolicy.implementation.slot.toLowerCase(), address(spec.tokenPolicy.implementation.address), spec.tokenPolicy.implementation.runtimeCodeHash.toLowerCase()] : null]
+  : spec.tokenPolicy?.kind === "usdc"
   ? ["usdc", spec.tokenPolicy.implementation.slot.toLowerCase(), address(spec.tokenPolicy.implementation.address), spec.tokenPolicy.implementation.runtimeCodeHash.toLowerCase()]
   : spec.tokenPolicy?.kind ?? null;
 // Snapshot age is checked by live reads. Re-verifying unchanged permissions at
@@ -48,7 +50,8 @@ function validateDiscoveredSpec(spec: FarmWriteSpec): void {
     if (address(spec[key]) !== address(common[key])) throw new Error("Discovered farm dependency is not reviewed.");
   for (const key of ["masterchefRuntimeCodeHash", "governorRuntimeCodeHash", "rewardTokenRuntimeCodeHash"] as const)
     if (spec[key].toLowerCase() !== common[key].toLowerCase()) throw new Error("Discovered farm dependency runtime is not reviewed.");
-  const token = VERIFIED_FARM_WRITES.find(candidate => candidate.tokenAddress === null ? spec.tokenAddress === null : !!spec.tokenAddress && address(candidate.tokenAddress) === address(spec.tokenAddress));
+  const token: FarmWriteSpec | undefined = VERIFIED_FARM_WRITES.find(candidate => candidate.tokenAddress === null ? spec.tokenAddress === null : !!spec.tokenAddress && address(candidate.tokenAddress) === address(spec.tokenAddress));
+  if (token?.tokenPolicy?.kind === "variable-transfer") throw Error("Token-specific farms require their explicitly reviewed vault model.");
   if (!token || spec.decimals !== token.decimals || spec.symbol !== token.symbol
     || spec.tokenRuntimeCodeHash?.toLowerCase() !== token.tokenRuntimeCodeHash?.toLowerCase()
     || JSON.stringify(policyIdentity(spec)) !== JSON.stringify(policyIdentity(token))) throw new Error("Discovered farm asset is not independently reviewed.");

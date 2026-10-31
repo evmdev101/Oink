@@ -9,6 +9,8 @@ import "./farm-transactions.css";
 import { assertNoPendingFarm, positionLock } from "../lib/positionTransactions";
 import { useReferralSelection } from "./ReferralNotice";
 import { farmQuickAmount, type FarmQuickBalance } from "../lib/farmQuickAmounts";
+import { farmTokenPolicyWarnings } from "../lib/farmTokenSafety";
+import { receivedFarmAccounting } from "../lib/farmAccounting";
 import { InfoTooltip } from "./InfoTooltip";
 import { isCancelledFeedback, isRecoveryFeedback, isRoutineRecoveryResult } from "../lib/transactionFeedback";
 import { listPendingTransactions as listRecoverableRequests } from "../lib/pendingTransactions";
@@ -153,7 +155,7 @@ export function FarmDepositActions({ farmId, onConfirmed, claimControl, unstakeC
       <input id={"farm-amount-" + farmId} className="bfc-amount" type="text" inputMode="decimal" maxLength={110} placeholder={spec ? "Deposit amount · " + spec.symbol : "Amount · not enabled"} value={amount} onChange={(event) => { setAmount(event.target.value); setError(""); }} disabled={!spec || !!busy || transactionPending || !!journalError} />
       <div className="bfc-action-grid"><button type="button" className="bfc-deposit-review" disabled={!canPrepare || !validAmount} onClick={() => void prepare("deposit")}>{actionLabel("deposit", "Stake")}</button>{unstakeControl}</div>
       {spec && !spec.tokenAddress ? <div className="bfc-native-note">Native PLS · no token approval</div> : <button type="button" className="bfc-approve-btn" disabled={!canPrepare} onClick={() => void prepare("approve-max")}>{actionLabel("approve-max", "Approve MAX")}</button>}
-      {spec ? <p className="farm-action-status">{!wallet.account ? "Connect your browser wallet to stake." : !connected ? "Switch your wallet to PulseChain to continue." : null} <InfoTooltip label="About staking and approvals">For tokens, Approve MAX gives this vault the maximum token allowance, including for future deposits; it does not stake it. Stake is a separate transaction. Native PLS needs no token approval. Filling Max or a percentage changes the amount field only.</InfoTooltip></p> : <p className="farm-action-status">This farm's transactions are not yet verified.</p>}
+      {spec ? <p className="farm-action-status">{!wallet.account ? "Connect your browser wallet to stake." : !connected ? "Switch your wallet to PulseChain to continue." : null} <InfoTooltip label="About staking and approvals">For tokens, Approve MAX gives this vault the maximum token allowance, including for future deposits; it does not stake it. Stake is a separate transaction. Native PLS needs no token approval. {spec && farmTokenPolicyWarnings(spec).join(" ")} {spec && receivedFarmAccounting(spec) && "Your position is credited with tokens actually received by the vault, after transfer effects and deposit fees."}</InfoTooltip></p> : <p className="farm-action-status">This farm's transactions are not yet verified.</p>}
       {actionableError && <p className="farm-action-error" role="alert">{actionableError}</p>}
       {referralSelection.error && <p className="farm-action-error" role="alert">{referralSelection.error}</p>}
     </div>

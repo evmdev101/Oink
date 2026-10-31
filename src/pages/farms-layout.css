@@ -514,3 +514,5 @@
 .oink-farms-page .hex-share-manager .access-facts span { font:400 12px/20px "DM Sans",sans-serif; }
 .oink-farms-page .hex-share-manager .access-facts strong { font-size:14px; line-height:24px; }
 .oink-farms-page .hex-share-manager > .deploy-draft-note { block-size:58px; font:400 12px/19.2px "DM Sans",sans-serif; }
+
+.oink-farms-page .farm-spendable-caption { display:grid; gap:2px; min-height:2.8em; margin-top:4px; }

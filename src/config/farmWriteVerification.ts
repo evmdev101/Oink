@@ -1,4 +1,5 @@
 import type { FarmWriteSpec } from "../lib/farmTransactions";
+import { ORIGINAL_FARM_WRITES } from "./originalFarmWriteVerification";
 import { EXPANDED_FARM_WRITES } from "./expandedFarmWriteVerification";
 
 // Explicit farm transaction allowlist. Sending always needs a fresh review and wallet confirmation.
@@ -55,6 +56,7 @@ export const VERIFIED_FARM_WRITES = [
     tokenRuntimeCodeHash: "0x2f96a22dfc774288303b34d1bb4f743821296fe0a65660abd0f4ca2729ff809c",
     sourceUrl: "https://scan.pulsechain.com/address/0x852443CB5b5f5B10e514CA74104bBF2Cd6CeF868#code",
   },
+  ...ORIGINAL_FARM_WRITES.map((entry) => ({ ...COMMON, ...entry })),
   ...EXPANDED_FARM_WRITES.map((entry) => ({ ...COMMON, ...entry })),
 ] as const satisfies readonly FarmWriteSpec[];
 

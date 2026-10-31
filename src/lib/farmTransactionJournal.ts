@@ -51,8 +51,10 @@ function validateEntry(value: unknown): asserts value is FarmJournalEntry {
   if (spec.tokenAddress === null ? spec.tokenRuntimeCodeHash !== null : !hash(spec.tokenRuntimeCodeHash)) invalid("deposit token runtime hash");
   if (spec.tokenPolicy !== undefined) {
     const policy = spec.tokenPolicy;
-    if (spec.tokenAddress === null || !object(policy) || !["usdt", "usdc"].includes(String(policy.kind))) invalid("deposit token policy");
-    if (policy.kind === "usdc") {
+    if (spec.tokenAddress === null || !object(policy) || !["usdt", "usdc", "variable-transfer"].includes(String(policy.kind))) invalid("deposit token policy");
+    if (policy.kind === "variable-transfer" && !["nominal", "received"].includes(String(policy.accounting))) invalid("farm accounting model");
+    if (policy.kind === "variable-transfer" && policy.lockedBalance !== undefined && policy.lockedBalance !== "lockedAmount") invalid("token lock getter");
+    if (policy.kind === "usdc" || (policy.kind === "variable-transfer" && policy.implementation !== undefined)) {
       if (!object(policy.implementation) || !hash(policy.implementation.slot) || !hash(policy.implementation.runtimeCodeHash)) invalid("deposit token implementation");
       address(policy.implementation.address);
     }

@@ -33,8 +33,8 @@ test('all 15 standard farms have pinned readers and exact-address market sources
   assert.equal(getAddress(FARM_READ_CHEF.rewardToken),getAddress(OINK_TOKEN));
 });
 
-test('transaction allowlist includes only the eleven independently reviewed farm assets',()=>{
-  assert.deepEqual(VERIFIED_FARM_WRITES.map(s=>s.id),['pls','plsx','inc','hex','hoa','pdai','atropa','solidx','pusdt','pusdc','communitas']);
+test('transaction allowlist includes all fifteen original farm assets',()=>{
+  assert.deepEqual(VERIFIED_FARM_WRITES.map(s=>s.id),['pls','plsx','inc','pdrip','emit','ptgc','ufo','hex','hoa','pdai','atropa','solidx','pusdt','pusdc','communitas']);
   for(const write of VERIFIED_FARM_WRITES) {
     const read=VERIFIED_FARM_READS.find(r=>r.id===write.id);
     for(const key of ['address','runtimeCodeHash','poolId','tokenAddress','decimals'])assert.equal(read[key],write[key]);
@@ -45,7 +45,7 @@ test('expanded transaction bindings match independent vault and token evidence',
   const readEvidence = name => JSON.parse(fs.readFileSync(new URL('../evidence/' + name, import.meta.url), 'utf8'));
   const vaults=readEvidence('expanded-farm-vaults.json');
   const tokens=[...readEvidence('expanded-tokens-a.json').tokens,...readEvidence('expanded-tokens-b.json').tokens];
-  for(const spec of VERIFIED_FARM_WRITES.slice(3)) {
+  for(const spec of VERIFIED_FARM_WRITES.slice(3).filter(row=>row.tokenPolicy?.kind!=='variable-transfer')) {
     const vault=vaults.rows.find(r=>r.id===spec.id), token=tokens.find(r=>r.id===spec.id);
     assert.equal(vault.executableMatchesCompiledSource,true,spec.id);
     assert.equal(vault.exactVaultModelCandidate,true,spec.id);

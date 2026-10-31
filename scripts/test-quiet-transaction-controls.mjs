@@ -48,6 +48,7 @@ async function control(name, initial = {}) {
     writeFarmJournal() { throw Error('No journal may change in this fixture.'); },
     assertNoPendingFarm() {}, assertNoPendingPosition() { if (state.guardError) throw Error(state.guardError); }, positionLock: () => 'lock',
     useReferralSelection: () => ({ referral: null, error: '' }),
+    farmTokenPolicyWarnings: () => [], receivedFarmAccounting: () => false,
     FARM_QUICK_PERCENTAGES: [25, 50, 75, 100], farmQuickAmount: () => null,
     ZeroAddress: '0x' + '00'.repeat(20), InfoTooltip: function InfoTooltip() {},
   };

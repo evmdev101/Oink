@@ -1,3 +1,6 @@
+import { farmHasTransferLocks, farmSpendableBalance } from "./farmSpendableBalance";
+import { receivedFarmAccounting } from "./farmAccounting";
+import { getFarmWriteSpec } from "./farmCatalog";
 import { sharedDisplayReads } from "./sharedReadCache.ts";
 import { DisplayReadProgress } from "./displayReadProgress.ts";
 import { Contract, formatEther, formatUnits, getAddress } from "ethers";
@@ -98,6 +101,7 @@ export type EcosystemVaultRow = {
     pool: string; rewardCredit: string;
     positions: Array<{ index: number; amount: string; feesPaid: string; pending: string }> | null;
     accountError: string | null; walletBalance: string | null; walletBalanceError: string | null;
+    walletAvailableBalance?: string | null; walletLockedBalance?: string | null;
   };
 };
 export type EcosystemVaultSnapshot = {
@@ -148,19 +152,24 @@ async function fetchEcosystemVaults(signal?: AbortSignal, wallet?: string): Prom
       }, canonicalIdentityBlock, readSignal);
       const [fee, rate, rewards, identity] = await Promise.all([c.depositFee(), c.fundingRate(), c.publicBalanceOf(), identityRead]);
       const { tokenAddress, decimals, symbol, pool } = identity;
-      const token = tokenAddress ? new Contract(tokenAddress, ["function decimals() view returns(uint8)", "function symbol() view returns(string)", "function balanceOf(address) view returns(uint256)"], runner) : null;
-      const balance = token ? await token.balanceOf(record.address) : await rpc.getBalance(record.address, block.number);
+      const token = tokenAddress ? new Contract(tokenAddress, ["function decimals() view returns(uint8)", "function symbol() view returns(string)", "function balanceOf(address) view returns(uint256)", "function lockedAmount(address) view returns(uint256)"], runner) : null;
+      const writeSpec = getFarmWriteSpec(record.id);
+      const balance = writeSpec && receivedFarmAccounting(writeSpec) ? await new Contract(record.address, ["function vaultBalance() view returns(uint256)"], runner).vaultBalance() : token ? await token.balanceOf(record.address) : await rpc.getBalance(record.address, block.number);
       let positions: Array<{ index: number; amount: string; feesPaid: string; pending: string }> | null = null;
       let accountError: string | null = null;
       let walletBalance: string | null = null;
       let walletBalanceError: string | null = null;
+      let walletAvailableBalance: string | null = null, walletLockedBalance: string | null = null;
       if (account) {
         const [balanceResult, positionResult] = await Promise.all([
           (async () => {
             try {
-              const liquidBalance = token ? await token.balanceOf(account) : await rpc.getBalance(account, block.number);
-              return { walletBalance: formatUnits(liquidBalance, Number(decimals)), walletBalanceError: null };
-            } catch { return { walletBalance: null, walletBalanceError: "Wallet balance could not be read at this snapshot." }; }
+              const [liquidBalance, locked] = await Promise.all([
+                token ? token.balanceOf(account) : rpc.getBalance(account, block.number),
+                token && farmHasTransferLocks(writeSpec) ? token.lockedAmount(account) : Promise.resolve(0n),
+              ]);
+              return { walletBalance: formatUnits(liquidBalance, Number(decimals)), walletAvailableBalance: formatUnits(farmSpendableBalance(liquidBalance, locked), Number(decimals)), walletLockedBalance: formatUnits(locked, Number(decimals)), walletBalanceError: null };
+            } catch { return { walletBalance: null, walletAvailableBalance: null, walletLockedBalance: null, walletBalanceError: "Wallet balance could not be read at this snapshot." }; }
           })(),
           (async () => {
             try {
@@ -176,10 +185,11 @@ async function fetchEcosystemVaults(signal?: AbortSignal, wallet?: string): Prom
         ]);
         walletBalance = balanceResult.walletBalance;
         walletBalanceError = balanceResult.walletBalanceError;
+        walletAvailableBalance = balanceResult.walletAvailableBalance; walletLockedBalance = balanceResult.walletLockedBalance;
         positions = positionResult.positions;
         accountError = positionResult.accountError;
       }
-      const balances: ReadRow = { ...record, special:null, error: null, data: { yieldEstimate:null, tokenAddress, symbol: String(symbol), balance: formatUnits(balance, Number(decimals)), fee: formatUnits(fee, 2), funding: formatUnits(rate, 4), pool: pool.toString(), rewardCredit: formatEther(rewards), positions, accountError, walletBalance, walletBalanceError } };
+      const balances: ReadRow = { ...record, special:null, error: null, data: { yieldEstimate:null, tokenAddress, symbol: String(symbol), balance: formatUnits(balance, Number(decimals)), fee: formatUnits(fee, 2), funding: formatUnits(rate, 4), pool: pool.toString(), rewardCredit: formatEther(rewards), positions, accountError, walletBalance, walletBalanceError, walletAvailableBalance, walletLockedBalance } };
       // Verified balances and wallet positions are useful before optional APR
       // dependencies finish. Publish them at the same canonical snapshot first.
       await onBalances?.(balances);

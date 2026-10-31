@@ -3,6 +3,7 @@ import { VERIFIED_FARM_WRITES } from "../config/farmWriteVerification";
 import { MINER_PREVIEW_SPECS } from "../config/minerPreviewVerification";
 import { farmExitAmounts, farmFundingAmounts, minerExitAmounts } from "./positionPreviewMath";
 import { verifyRuntime, parseFarmDepositAmount, type FarmReadRpc } from "./farmTransactions";
+import { readFarmRewardBalance, variableFarmTransfers } from "./farmAccounting";
 import { farmTokenPolicyWarnings, verifyFarmTokenState } from "./farmTokenSafety";
 import { assertCurrentFarmSpec, farmSpecIdentity, getFarmWriteSpec } from "./farmCatalog";
 
@@ -185,14 +186,14 @@ export async function previewFarmExit(rpc: FarmReadRpc, farmId: string, account:
     assertCurrentFarmSpec(spec);
     return { title: "Review emergency withdrawal", account: s.account, block: Number(BigInt(s.block.number)), blockHash: s.block.hash, timestamp: s.timestamp, source: spec.sourceUrl, simulation,
       execution: { to: spec.address, data: previewAbi.encodeFunctionData("emergencyWithdraw", [id]), fingerprint: [farmSpecIdentity(spec), position.join(":"), rate[0], changed[0], amounts.fundingFee, s.account].join("|"), minimumOutput: amounts.principalAfterFee.toString(), event: "FarmEmergencyWithdraw", shares: "0", recipient: s.account, amount: position[0].toString() },
-      facts: [["Position", spec.symbol + " #" + index], ["Recipient wallet", s.account], ["Recorded stake", formatUnits(position[0], spec.decimals) + " " + spec.symbol], ["Funding rate", formatUnits(rate[0], 4) + "% / hour"], ["Accrued funding deduction", formatUnits(amounts.fundingFee, spec.decimals) + " " + spec.symbol], ["Estimated principal returned", formatUnits(amounts.principalAfterFee, spec.decimals) + " " + spec.symbol], ["OINK rewards received", "0 OINK"], ["Pending rewards", "All pending OINK rewards for this position are forfeited"]],
+      facts: [["Position", spec.symbol + " #" + index], ["Recipient wallet", s.account], ["Recorded stake", formatUnits(position[0], spec.decimals) + " " + spec.symbol], ["Funding rate", formatUnits(rate[0], 4) + "% / hour"], ["Accrued funding deduction", formatUnits(amounts.fundingFee, spec.decimals) + " " + spec.symbol], [variableFarmTransfers(spec) ? "Nominal principal before token transfer effects" : "Estimated principal returned", formatUnits(amounts.principalAfterFee, spec.decimals) + " " + spec.symbol], ["OINK rewards received", "0 OINK"], ["Pending rewards", "All pending OINK rewards for this position are forfeited"]],
       warnings: [...farmTokenPolicyWarnings(spec), "This removes the entire selected farm position and forfeits its pending OINK rewards. Use a normal withdrawal to settle rewards when that route is available.", "Accrued funding fees still apply. Only the remaining staked asset returns to your wallet.", "Other position indexes may change afterward. Do not modify this position elsewhere while the request is pending."] };
   }
   const [position, rate, changed, payout, accumulator, lastCredit, credit, pending, balance] = await Promise.all([
     s.read(spec.address, "userInfo", [s.account, id], farmPositionAbi), s.read(spec.address, "fundingRate"), s.read(spec.address, "lastFundingChangeTimestamp"),
     s.read(spec.address, "defaultDirectPayout"), s.read(spec.address, "accDtxPerShare"), s.read(spec.address, "lastCredit"),
     s.read(common.masterchef, "credit", [spec.address]), s.read(common.masterchef, "pendingDtx", [BigInt(spec.poolId)]),
-    spec.tokenAddress ? s.read(spec.tokenAddress, "balanceOf", [spec.address]).then((r) => r[0] as bigint) : rpc.send("eth_getBalance", [spec.address, s.block.number]).then(BigInt),
+    readFarmRewardBalance(rpc, spec, s.block.number),
   ]);
   if (balance <= 0n || credit[0] + pending[0] < lastCredit[0]) throw new Error("Vault harvest accounting is inconsistent.");
   // Unlike virtualAccDtxPerShare(), harvest also includes credited-but-uncollected rewards.
@@ -212,7 +213,7 @@ export async function previewFarmExit(rpc: FarmReadRpc, farmId: string, account:
   }
   const amounts = farmExitAmounts(position[0], position[1], accAfterHarvest, position[3], changed[0], rate[0], payoutRate, BigInt(s.timestamp));
   if (destination !== "wallet" && amounts.rewardReceived < (await s.read(into, "minimumGift"))[0]) throw new Error("Reward is below this destination's minimum miner amount.");
-  if (position[0] <= 0n || amounts.principalAfterFee > balance) throw new Error("Position amount or vault liquidity is invalid.");
+  if (position[0] <= 0n || (kind === "withdraw" && !variableFarmTransfers(spec) && amounts.principalAfterFee > balance)) throw new Error("Position amount or vault liquidity is invalid.");
   const args = [kind === "claim" ? [id] : id, into], method = kind === "claim" ? "selfHarvest" : "withdraw(uint256,address)";
   const simulation = await simulate(rpc, s, spec.address, method, args);
   await s.finish();
@@ -220,7 +221,7 @@ export async function previewFarmExit(rpc: FarmReadRpc, farmId: string, account:
   return { title: kind === "claim" ? "Review OINK claim" : "Review full position withdrawal", account: s.account, block: Number(BigInt(s.block.number)), blockHash:s.block.hash, timestamp: s.timestamp, source: spec.sourceUrl, simulation,
     execution: { to: spec.address, data: previewAbi.encodeFunctionData(method,args), fingerprint: [farmSpecIdentity(spec), position.join(":"), rate[0], changed[0], payoutRate, minServe, into, destinationDays, amounts.fundingFee].join("|"), minimumOutput: amounts.rewardReceived.toString(), event: kind === "claim" ? "SelfHarvest" : "FarmWithdraw", shares: "0", recipient: into, amount: position[0].toString() },
     facts: [["Position", spec.symbol + " #" + index], ["Reward destination", (destination === "wallet" ? "Your wallet" : MINER_PREVIEW_SPECS.find(v => v.id === destination)!.label + " miner") + " · " + into], ["Nominal destination duration", destinationDays + " days"], ["Mandatory service at destination", (Number(minServe) / 86400) + " days"], ["Recorded stake", formatUnits(position[0], spec.decimals) + " " + spec.symbol],
-      ["Funding rate", formatUnits(rate[0], 4) + "% / hour"], ["Accrued funding deduction", formatUnits(amounts.fundingFee, spec.decimals) + " " + spec.symbol], [kind === "claim" ? "Stake remaining after claim" : "Estimated principal returned", formatUnits(amounts.principalAfterFee, spec.decimals) + " " + spec.symbol],
+      ["Funding rate", formatUnits(rate[0], 4) + "% / hour"], ["Accrued funding deduction", formatUnits(amounts.fundingFee, spec.decimals) + " " + spec.symbol], [kind === "claim" ? "Stake remaining after claim" : variableFarmTransfers(spec) ? "Nominal principal before token transfer effects" : "Estimated principal returned", formatUnits(amounts.principalAfterFee, spec.decimals) + " " + spec.symbol],
       ["Gross OINK rewards", formatEther(amounts.grossReward) + " OINK"], ["Destination payout rate", formatUnits(payoutRate, 2) + "%"], ["Reward deduction to Governor", formatEther(amounts.governorReward) + " OINK · " + formatUnits(10000n-payoutRate,2) + "%"], [destination === "wallet" ? "OINK received in wallet" : "OINK committed to locked miner", formatEther(amounts.rewardReceived) + " OINK (at snapshot)"], ["Miner exit penalty", destination === "wallet" ? "Not applicable to this farm action" : "Not charged now; future miner withdrawal has separate lock and penalty rules"]],
     warnings: [...farmTokenPolicyWarnings(spec), kind === "claim" ? "Claiming also collects funding fees from your stake; it does not withdraw the remaining principal." : "Withdraws the entire selected position and settles its rewards. Other position indexes may change afterward.", destination === "wallet" ? "Direct-wallet rewards can be much smaller than gross rewards." : "Rewards create a new time-locked miner owned by your wallet, not a liquid wallet payment.", "Terms and position indexes may change before mining. Do not modify this position in another interface while this request is pending."] };
 }

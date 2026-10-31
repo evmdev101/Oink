@@ -17,9 +17,9 @@ const U=10n**18n,account=getAddress('0x0000000000000000000000000000000000000011'
 // Test-local allowlists only. No network calls or real wallet provider.
 for(const m of miners)m.runtimeCodeHash=codeHash;
 for(const f of farms)for(const field of ['runtimeCodeHash','tokenRuntimeCodeHash','masterchefRuntimeCodeHash','governorRuntimeCodeHash','rewardTokenRuntimeCodeHash'])if(f[field]!==null)f[field]=codeHash;
-for(const f of farms)if(f.tokenPolicy?.kind==='usdc')f.tokenPolicy.implementation.runtimeCodeHash=codeHash;
+for(const f of farms)if(f.tokenPolicy?.implementation)f.tokenPolicy.implementation.runtimeCodeHash=codeHash;
 const minerAbi=new Interface([...previewAbi.fragments,'function userInfo(address,uint256) view returns(uint256,uint256,uint256,uint256,uint256)','function balanceOf() view returns(uint256)']);
-const farmAbi=new Interface([...previewAbi.fragments,...farmTokenSafetyAbi.fragments,'function userInfo(address,uint256) view returns(uint256,uint256,uint256,uint256)']);
+const farmAbi=new Interface(['function vaultBalance() view returns(uint256)',...previewAbi.fragments,...farmTokenSafetyAbi.fragments,'function userInfo(address,uint256) view returns(uint256,uint256,uint256,uint256)']);
 const assetUnit=farm=>10n**BigInt(farm.decimals);
 const atAddress=(address,expected)=>getAddress(address)===getAddress(expected);
 function fixture(options={}){
@@ -31,12 +31,12 @@ function fixture(options={}){
   if(method==='eth_getCode'){
    if(atAddress(params[0],account))return options.contractWallet?code:'0x';
    if(options.badTokenCode&&activeFarms.some(f=>f.tokenAddress&&atAddress(params[0],f.tokenAddress)))return '0x60ff';
-   if(options.badImplementationCode&&activeFarms.some(f=>f.tokenPolicy?.kind==='usdc'&&atAddress(params[0],f.tokenPolicy.implementation.address)))return '0x60ff';
+   if(options.badImplementationCode&&activeFarms.some(f=>f.tokenPolicy?.implementation&&atAddress(params[0],f.tokenPolicy.implementation.address)))return '0x60ff';
    return options.badCode?'0x60ff':code;
   }
   if(method==='eth_getStorageAt'){
    const farm=activeFarms.find(f=>f.tokenAddress&&atAddress(params[0],f.tokenAddress));
-   assert.equal(farm?.tokenPolicy?.kind,'usdc');assert.equal(params[1],farm.tokenPolicy.implementation.slot);
+   assert.ok(farm?.tokenPolicy?.implementation);assert.equal(params[1],farm.tokenPolicy.implementation.slot);
    return '0x'+'0'.repeat(24)+(options.badImplementation?recipient:farm.tokenPolicy.implementation.address).slice(2).toLowerCase();
   }
   if(method==='eth_getBalance')return options.noGas? '0x0':toQuantity(getAddress(params[0])===account?10000n*U:options.liquidity??10000n*U);
@@ -60,6 +60,7 @@ function fixture(options={}){
    case 'withdrawFeePeriod':result=[options.durationById?.[miner.id]??BigInt(miner.durationDays)*86400n];break;
    case 'gracePeriod':result=[BigInt(miner.graceDays)*86400n];break;
    case 'totalShares':result=[options.totalById?.[miner?.id]??100n*U];break;
+   case 'vaultBalance':result=[options.rewardBalance??options.liquidity??10000n*unit];break;
    case 'balanceOf':result=[miner?options.balanceById?.[miner.id]??options.minerBalance??10000n*U:p.args.length&&getAddress(p.args[0])===getAddress(core.governor)?options.reserve??10000n*U:options.liquidity??10000n*unit];break;
    case 'migrationPool':result=[options.migration??ZeroAddress];break;
    case 'minimumGift':result=[options.minimumGift??1n];break;
@@ -71,6 +72,7 @@ function fixture(options={}){
    case 'trustedPool':case 'trustedSender':result=[options.trust?.(miner.id,name,p.args[0])??!options.untrusted];break;
    case 'stakeToken':result=[farm.tokenAddress];break;
    case 'decimals':result=[BigInt(tokenFarm?.decimals??18)];break;
+   case 'lockedAmount':result=[options.tokenLocked??0n];break;
    case 'paused':result=[options.tokenPaused??false];break;
    case 'deprecated':result=[options.tokenDeprecated??false];break;
    case 'basisPointsRate':result=[options.tokenRate??0n];break;
@@ -130,7 +132,7 @@ for(const farm of farms)for(const kind of ['claim','withdraw'])test(farm.id+' '+
  assert.equal(r.quote.execution.amount,principal.toString());assert.equal(r.quote.execution.minimumOutput,received.toString());assert.equal(r.quote.execution.recipient,account);
  assert.equal(facts['Recorded stake'],formatUnits(principal,farm.decimals)+' '+farm.symbol);
  assert.equal(facts['Accrued funding deduction'],formatUnits(funding,farm.decimals)+' '+farm.symbol);
- assert.equal(facts[kind==='claim'?'Stake remaining after claim':'Estimated principal returned'],formatUnits(principal-funding,farm.decimals)+' '+farm.symbol);
+ assert.equal(facts[kind==='claim'?'Stake remaining after claim':farm.tokenPolicy?.kind==='variable-transfer'?'Nominal principal before token transfer effects':'Estimated principal returned'],formatUnits(principal-funding,farm.decimals)+' '+farm.symbol);
  assert.equal(facts['Gross OINK rewards'],formatUnits(gross,18)+' OINK');
  assert.equal(facts['OINK received in wallet'],formatUnits(received,18)+' OINK (at snapshot)');assert.equal(facts['Destination payout rate'],'0.5%');
  assert(!calls.some(([m])=>m==='eth_sendTransaction'));
@@ -254,7 +256,7 @@ for(const farm of farms)test(farm.id+' emergency withdrawal returns net principa
  const unit=assetUnit(farm),principal=10n*unit+1n,{rpc,calls}=fixture({rewardUnavailable:true,principal}),review=await engine.preparePositionTransaction(rpc,account,{...emergency,id:farm.id}),parsed=farmAbi.parseTransaction(review.transaction),facts=Object.fromEntries(review.quote.facts),funding=principal*10n/1000000n;
  assert.equal(parsed.name,'emergencyWithdraw');assert.equal(parsed.args[0],0n);assert.equal(review.quote.execution.event,'FarmEmergencyWithdraw');assert.equal(review.quote.execution.recipient,account);
  assert.equal(review.quote.execution.amount,principal.toString());assert.equal(BigInt(review.quote.execution.minimumOutput),principal-funding);
- assert.equal(facts['Recorded stake'],formatUnits(principal,farm.decimals)+' '+farm.symbol);assert.equal(facts['Accrued funding deduction'],formatUnits(funding,farm.decimals)+' '+farm.symbol);assert.equal(facts['Estimated principal returned'],formatUnits(principal-funding,farm.decimals)+' '+farm.symbol);assert.equal(facts['OINK rewards received'],'0 OINK');assert.match(facts['Pending rewards'],/forfeited/);
+ assert.equal(facts['Recorded stake'],formatUnits(principal,farm.decimals)+' '+farm.symbol);assert.equal(facts['Accrued funding deduction'],formatUnits(funding,farm.decimals)+' '+farm.symbol);assert.equal(facts[farm.tokenPolicy?.kind==='variable-transfer'?'Nominal principal before token transfer effects':'Estimated principal returned'],formatUnits(principal-funding,farm.decimals)+' '+farm.symbol);assert.equal(facts['OINK rewards received'],'0 OINK');assert.match(facts['Pending rewards'],/forfeited/);
  const reads=calls.filter(([method])=>method==='eth_call').map(([,params])=>{try{return farmAbi.parseTransaction(params[0]).name;}catch{return ''}});
  assert(!reads.some(name=>['credit','pendingDtx','accDtxPerShare','lastCredit','defaultDirectPayout','selfHarvest'].includes(name)));
  assert(!calls.some(([method])=>method==='eth_sendTransaction'));
@@ -399,7 +401,7 @@ for(const farm of farms)for(const kind of ['claim','withdraw','emergency'])test(
  if(farm.tokenAddress){const changed=receiptFixture(review,[farmActionLog(review)],{badTokenCode:true});assert.equal((await engine.verifyPositionReceipt(changed.rpc,review,hash)).state,'uncertain','a changed token runtime cannot confirm despite a valid vault event');}
 });
 
-for(const farm of farms.filter(candidate=>candidate.tokenPolicy))test(farm.id+' changed token policy prevents preparation, final send and receipt confirmation',async()=>{
+for(const farm of farms.filter(candidate=>candidate.tokenPolicy&&candidate.tokenPolicy.kind!=='variable-transfer'))test(farm.id+' changed token policy prevents preparation, final send and receipt confirmation',async()=>{
  const request={type:'farm',id:farm.id,index:0,kind:'withdraw',destination:'wallet'},review=await engine.preparePositionTransaction(fixture().rpc,account,request);
  const invalid=[
   [{tokenPaused:true},/paused/],
@@ -414,4 +416,12 @@ for(const farm of farms.filter(candidate=>candidate.tokenPolicy))test(farm.id+' 
   await assert.rejects(engine.requestPositionTransaction(review,provider,fixture(options).rpc,()=>true),pattern);
   assert.equal(sends,0,'fresh token guard rejects before opening a transaction confirmation');
  }
+});
+
+for(const id of ['ptgc','ufo'])test(id+' claim quotes use the ledger despite a different reflection token balance',async()=>{
+ const request={type:'farm',id,index:0,kind:'claim',destination:'wallet'};
+ const ordinary=await engine.preparePositionTransaction(fixture().rpc,account,request);
+ const reflected=await engine.preparePositionTransaction(fixture({liquidity:20000n*U,rewardBalance:10000n*U}).rpc,account,request);
+ assert.equal(reflected.quote.execution.minimumOutput,ordinary.quote.execution.minimumOutput);
+ assert.deepEqual(reflected.quote.facts,ordinary.quote.facts);
 });

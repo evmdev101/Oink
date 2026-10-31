@@ -20,7 +20,7 @@ const {sharedDisplayReads}=await import('../src/lib/sharedReadCache.ts');
 const account='0x0000000000000000000000000000000000000001';
 const deferred=()=>{let resolve;const promise=new Promise(r=>{resolve=r;});return {promise,resolve};};
 const abi=new Interface([
-  'function stakeToken() view returns(address)','function depositFee() view returns(uint256)',
+  'function lockedAmount(address) view returns(uint256)', 'function vaultBalance() view returns(uint256)', 'function stakeToken() view returns(address)','function depositFee() view returns(uint256)',
   'function fundingRate() view returns(uint256)','function poolID() view returns(uint256)',
   'function publicBalanceOf() view returns(uint256)','function decimals() view returns(uint8)',
   'function symbol() view returns(string)','function balanceOf(address) view returns(uint256)',
@@ -43,7 +43,9 @@ function fixture({yieldRead=async()=>null,failedPool}={}){
       const vault=VERIFIED_FARM_READS.find(spec=>spec.address.toLowerCase()===tx.to.toLowerCase());
       const token=VERIFIED_FARM_READS.find(spec=>spec.tokenAddress?.toLowerCase()===tx.to.toLowerCase());
       let values;
-      if(fragment.name==='stakeToken')values=[vault.tokenAddress];
+      if(fragment.name==='lockedAmount')values=[parseEther('25')];
+      else if(fragment.name==='vaultBalance')values=[parseUnits('100',vault.decimals)];
+      else if(fragment.name==='stakeToken')values=[vault.tokenAddress];
       else if(fragment.name==='depositFee'||fragment.name==='fundingRate')values=[0n];
       else if(fragment.name==='poolID')values=[BigInt(vault.poolId)];
       else if(fragment.name==='publicBalanceOf')values=[parseEther('5')];
@@ -71,6 +73,7 @@ test('all verified balances appear while optional APR reads are still delayed, w
     const early=await allBalances.promise;
     assert.equal(elapsed,0);assert.equal(finished,false);assert.equal(early.complete,false);
     assert.equal(early.account,account);assert.ok(early.rows.filter(row=>row.data).every(row=>row.loading===false&&row.data.yieldEstimate===null));
+    const ptgc=early.rows.find(row=>row.id==='ptgc');assert.equal(ptgc.data.walletBalance,'100.0');assert.equal(ptgc.data.walletAvailableBalance,'75.0');assert.equal(ptgc.data.walletLockedBalance,'25.0');
     const native=early.rows.find(row=>row.id==='pls');assert.equal(native.data.balance,'100.0');assert.equal(native.data.positions[0].amount,'2.0');assert.equal(native.data.positions[0].pending,'3.0');
     assert.equal(peekEcosystemVaults(account).complete,false,'the complete shared cache must not accept partial coverage');
     const balanceCalls=rpc.counts.calls;
