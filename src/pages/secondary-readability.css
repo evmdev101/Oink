@@ -7,6 +7,7 @@
 .app-page.portfolio-detail-page .portfolio-value-row.portfolio-value-child { font-size:14px; }
 .app-page.portfolio-detail-page .portfolio-value-row small { font-size:14px; }
 .app-page.portfolio-detail-page .portfolio-value-heading .section-kicker { font-size:14px; }
+.app-page.portfolio-detail-page .portfolio-stat-strip { grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); }
 .app-page.portfolio-detail-page .portfolio-stat-strip strong { font-size:26px; line-height:1.3; }
 .app-page.portfolio-detail-page :is(.portfolio-stat-strip > div > span,.portfolio-stat-strip small,.portfolio-note,.portfolio-chart-legend,.portfolio-activity-list small,.portfolio-pagination,.portfolio-history-coverage) { font-size:14px; line-height:1.5; }
 .app-page.portfolio-detail-page .portfolio-reward-total { font-size:24px; }
