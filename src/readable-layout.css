@@ -1,7 +1,14 @@
 /* Shared reading scale, loaded before any page or live data appears. */
 .treasury-wallet-address { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
 .treasury-wallet-address > span { flex:1 1 16rem; min-width:0; overflow-wrap:anywhere; user-select:all; }
-.treasury-wallet-address > button { flex:none; min-height:32px; padding:5px 10px; font:inherit; }
+.reference-dashboard .treasury-wallet-address > button.treasury-copy-icon {
+  display:inline-flex; align-items:center; justify-content:center; flex:none;
+  width:20px; height:20px; min-width:20px; min-height:20px; padding:0;
+  border:1px solid var(--border); border-radius:50%; background:transparent;
+  color:var(--soft-text); box-shadow:none; line-height:1; cursor:pointer;
+}
+.reference-dashboard .treasury-copy-icon:hover { color:var(--fg); border-color:currentColor; }
+.reference-dashboard .treasury-copy-icon:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
 .treasury-wallet-address > small { flex-basis:100%; }
 :root { --reading-width:1280px; --reading-body:16px; --reading-detail:14px; }
 .app-shell .app-page { font-size:var(--reading-body); line-height:1.55; }
