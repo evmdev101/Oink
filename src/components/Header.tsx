@@ -1,5 +1,7 @@
 import { preloadNavigationIntent, preloadNavigationCode, cancelNavigationIntent } from "../lib/preloadPage";
 import { NavLink, useLocation } from "react-router-dom";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { LINKS } from "../config/links";
 import type { ThemeName } from "../themes/themes";
 import { ThemePanel } from "./ThemePanel";
@@ -51,6 +53,61 @@ export function Header({
 }) {
   const wallet = useWallet();
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ left: 0, top: 0, maxHeight: 0 });
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const menu = useRef<HTMLElement>(null);
+
+  useEffect(() => { setMenuOpen(false); }, [location]);
+
+  useLayoutEffect(() => {
+    if (!menuOpen) return;
+    const positionMenu = () => {
+      const button = menuButton.current;
+      const panel = menu.current;
+      if (!button || !panel) return;
+      const anchor = button.getBoundingClientRect();
+      // The menu lives outside the scrolling navigation so it cannot be clipped.
+      const viewport = window.visualViewport;
+      const leftEdge = (viewport?.offsetLeft ?? 0) + 8;
+      const topEdge = (viewport?.offsetTop ?? 0) + 8;
+      const rightEdge = leftEdge + (viewport?.width ?? document.documentElement.clientWidth) - 16;
+      const bottomEdge = topEdge + (viewport?.height ?? window.innerHeight) - 16;
+      const top = Math.max(topEdge, Math.min(anchor.bottom + 6, bottomEdge - 44));
+      setMenuPosition({
+        left: Math.max(leftEdge, Math.min(anchor.right - panel.offsetWidth, rightEdge - panel.offsetWidth)),
+        top,
+        maxHeight: Math.max(0, bottomEdge - top),
+      });
+    };
+    positionMenu();
+    menu.current?.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true });
+    const dismissOutside = (event: Event) => {
+      if (event.target instanceof Node && !menu.current?.contains(event.target) && !menuButton.current?.contains(event.target)) setMenuOpen(false);
+    };
+    const dismissEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setMenuOpen(false);
+      menuButton.current?.focus({ preventScroll: true });
+    };
+    document.addEventListener("pointerdown", dismissOutside);
+    document.addEventListener("focusin", dismissOutside);
+    document.addEventListener("keydown", dismissEscape);
+    window.addEventListener("resize", positionMenu);
+    window.addEventListener("scroll", positionMenu, true);
+    window.visualViewport?.addEventListener("resize", positionMenu);
+    window.visualViewport?.addEventListener("scroll", positionMenu);
+    return () => {
+      document.removeEventListener("pointerdown", dismissOutside);
+      document.removeEventListener("focusin", dismissOutside);
+      document.removeEventListener("keydown", dismissEscape);
+      window.removeEventListener("resize", positionMenu);
+      window.removeEventListener("scroll", positionMenu, true);
+      window.visualViewport?.removeEventListener("resize", positionMenu);
+      window.visualViewport?.removeEventListener("scroll", positionMenu);
+    };
+  }, [menuOpen]);
   const preload = (path:string) => { preloadNavigationIntent(path,wallet.chainId === 369n ? wallet.account : null); };
   const oinkActive = location.pathname === "/mining" || location.pathname === "/farms" || location.pathname === "/nfts" || location.pathname === "/maintenance";
   return (
@@ -101,19 +158,43 @@ export function Header({
               OINK
             </NavLink>
             <button
+              ref={menuButton}
               type="button"
               className="nav-dropdown-trigger nav-oink-arrow"
               aria-label="Open OINK menu"
-              aria-haspopup="true"
+              aria-expanded={menuOpen}
+              aria-controls="oink-navigation-menu"
+              onClick={() => setMenuOpen(open => !open)}
+              onKeyDown={event => {
+                if (event.key === "ArrowDown") {
+                  event.preventDefault();
+                  setMenuOpen(true);
+                }
+              }}
               onMouseEnter={() => { void preloadNavigationCode("/mining"); }}
               onFocus={() => { void preloadNavigationCode("/mining"); }}
             >
               <span aria-hidden="true">▾</span>
             </button>
-            <div className="nav-dropdown-menu" role="menu">
+          </div>
+          {menuOpen && createPortal(
+            <nav ref={menu} id="oink-navigation-menu" className="oink-navigation-menu" aria-label="OINK pages" style={menuPosition}
+              onKeyDown={event => {
+                if (event.key !== "Tab") return;
+                const links = menu.current?.querySelectorAll("a");
+                const atStart = event.shiftKey && event.target === links?.[0];
+                const atEnd = !event.shiftKey && event.target === links?.[links.length - 1];
+                if (!atStart && !atEnd) return;
+                const next = atStart ? menuButton.current : menuButton.current?.closest(".nav-dropdown")?.nextElementSibling;
+                if (next instanceof HTMLElement) {
+                  event.preventDefault();
+                  setMenuOpen(false);
+                  next.focus({ preventScroll: true });
+                }
+              }}>
               {oinkNav.map(([label, path]) => (
                 <NavLink
-                  role="menuitem"
+                  onClick={() => setMenuOpen(false)}
                   onMouseEnter={() => preload(path)}
                   onFocus={() => preload(path)}
                   onMouseLeave={cancelNavigationIntent}
@@ -126,8 +207,8 @@ export function Header({
                   {label}
                 </NavLink>
               ))}
-            </div>
-          </div>
+            </nav>, document.body,
+          )}
           {nav.slice(2).map(([label, path]) => (
             <NavLink
               onMouseEnter={() => preload(path)}
