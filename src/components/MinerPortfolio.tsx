@@ -14,6 +14,9 @@ import { useSavedPreference } from "../lib/useSavedPreference";
 import { TIME_MINER_CONTRACTS } from "../config/contracts";
 import { usePageLoadStatus } from "./PageLoadBoundary";
 import { InfoTooltip } from "./InfoTooltip";
+import { freshFarmPrice, peekFarmPrices, readFarmPrices, type FarmPrices } from "../lib/farmPrices";
+import { portfolioMarketValue } from "../lib/portfolioValuation";
+import { displayRankValue } from "../lib/farmRankings";
 
 function Progress({ label, start, end, time }: { label: string; start: number; end: number; time: number }) {
   const value = minerProgress(start, end, time);
@@ -63,6 +66,19 @@ export function MinerPortfolio() {
   const [sort, setSort] = useSavedPreference<MinerSort>("oink:miners:sort", "progress", MINER_SORTS.map(option => option.value));
   const clearFilters = () => { setQuery(""); setStatus("all"); setDuration("all"); setSort("progress"); };
   const [now, setNow] = useState(Date.now());
+  const [prices, setPrices] = useState<FarmPrices>(peekFarmPrices);
+  useEffect(() => {
+    if (!account || chainId !== 369n) return;
+    const controller = new AbortController();
+    const update = () => {
+      void readFarmPrices(controller.signal).then(value => {
+        if (!controller.signal.aborted) { setPrices(value); setNow(Date.now()); }
+      }).catch(() => { /* Existing quotes expire through freshFarmPrice. */ });
+    };
+    update();
+    const timer = window.setInterval(update, 60000);
+    return () => { controller.abort(); window.clearInterval(timer); };
+  }, [account, chainId]);
   useEffect(() => {
     if (!account || chainId !== 369n) { setStored(null); setError(""); setLoading(false); return; }
     let active = true;
@@ -98,13 +114,18 @@ export function MinerPortfolio() {
   const liveGross = (row:typeof positions[number]) => row.pool.yieldEstimate && snapshot && !snapshotIsStale(snapshot.timestamp,now) ? formatEther(estimateMinerValue(parseEther(row.gross),parseEther(row.shares),parseEther(row.pool.totalShares),parseEther(row.pool.yieldEstimate.dailyPool),now/1000-snapshot.timestamp)) : row.gross;
   const total = snapshot?.pools.some((pool) => !pool.loading && !pool.error) ? sumFarmAmounts(positions.map(liveGross)) : null;
   const combined = complete && total != null && snapshot.walletBalance != null ? sumFarmAmounts([total, snapshot.walletBalance]) : null;
+  const oinkPrice = freshFarmPrice(prices.oink, now);
+  const balanceFresh = !!snapshot && !snapshotIsStale(snapshot.timestamp, now);
   const snapshotTime = snapshot?.timestamp ?? 0;
   const durationPositions = positions.filter(row => duration === "all" || row.pool.id === duration);
   const visible = selectMiners(positions, { query, status, duration, sort, time: snapshotTime, balance: liveGross });
   const awaitingPositions = (!account && walletBusy) || (!!account && chainId === 369n && !positions.length && !snapshot?.complete && !error && !failed.length);
   const readStatus = [error, snapshot && snapshotIsStale(snapshot.timestamp, now) ? "These values are out of date. Wait for updated balances and progress." : "", snapshot && !snapshot.complete ? `Loading remaining miner durations… ${snapshot.pools.filter(pool => !pool.loading).length} of ${TIME_MINER_CONTRACTS.length} loaded.` : awaitingPositions ? "Reading your miner positions…" : "", failed.length ? `Reads unavailable: ${failed.map(pool => pool.label).join(", ")}. Totals are incomplete.` : ""].filter(Boolean).join(" ");
   return <section>
-    <div className="miner-wallet-totals">{[["Wallet balance", snapshot?.walletBalance], [complete ? "Total miners" : "Miners subtotal", total], ["Combined balance", combined]].map(([label, value]) => <div key={label}><span>{label}</span><strong aria-description={value ?? undefined}>{value != null ? displayFarmAmount(value) : account && loading ? "Loading…" : "—"} <small className="miner-summary-token"><span className="miner-summary-pig" aria-hidden="true"><img src={assetUrl("img/oink.png")} alt="" /></span>OINK</small></strong></div>)}</div>
+    <div className="miner-wallet-totals">{[["Wallet balance", snapshot?.walletBalance], [complete ? "Total miners" : "Miners subtotal", total], ["Combined balance", combined]].map(([label, value]) => {
+      const usd = portfolioMarketValue(value ?? null, oinkPrice, balanceFresh);
+      return <div key={label}><span>{label}</span><strong aria-description={value ?? undefined}>{value != null ? displayFarmAmount(value) : account && loading ? "Loading…" : "—"} <small className="miner-summary-token"><span className="miner-summary-pig" aria-hidden="true"><img src={assetUrl("img/oink.png")} alt="" /></span>OINK</small><small className="miner-summary-usd">{usd == null ? "— USD" : displayRankValue(usd, "tvl")}</small></strong></div>;
+    })}</div>
     <header className="my-miners-heading"><div><h1>Miners <InfoTooltip label="About miner balances"><p>Miner balances are the gross OINK represented by your shares, before withdrawal penalties. Open End Miner (Withdraw) for a current estimate of what returns to your wallet.</p><p>Wallet balance is liquid OINK. Combined balance adds it to gross miner value. A miners subtotal includes only positions successfully loaded so far; the combined total waits for all durations.</p></InfoTooltip> <small role="status">{snapshot ? (visible.length !== positions.length ? `${visible.length} of ` : "") + positions.length + (complete ? " miners" : " known miners") : ""}</small></h1><p>Time-locked OINK positions</p></div><div className="miner-view-controls"><button aria-pressed={view === "grid"} onClick={() => setView("grid")}>Grid</button><button aria-pressed={view === "list"} onClick={() => setView("list")}>List</button></div></header>
     <div className="miners-toolbar" role="search" aria-label="Find miners">
       <label>Search miners<input type="search" placeholder="Duration, miner # or contract address" value={query} onChange={event => setQuery(event.target.value)} /></label>

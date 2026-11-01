@@ -170,6 +170,7 @@
 .miner-token-pig img { display:block; width:70px; max-width:none; height:27px; object-fit:contain; }
 
 .miner-wallet-totals .miner-summary-token { display:inline-flex; align-items:center; gap:5px; vertical-align:middle; white-space:nowrap; }
+.miner-wallet-totals strong .miner-summary-usd { display:block; margin-top:6px; color:var(--muted); font:400 14px/20px var(--font-ui); overflow-wrap:anywhere; }
 .miner-summary-pig { display:inline-block; width:20px; height:20px; overflow:hidden; flex-shrink:0; }
 .miner-summary-pig img { display:block; width:52px; max-width:none; height:20px; object-fit:contain; }
 
