@@ -3,6 +3,7 @@ import { ParticipationSnapshot } from "../components/ParticipationSnapshot";
 import { ProtocolBalances } from "../components/ProtocolBalances";
 import { HomeSnapshot } from "../components/HomeSnapshot";
 import { DashboardTreasury } from "../components/DashboardTreasury";
+import { OinkBuybacks } from "../components/OinkBuybacks";
 import { DashboardInsights } from "../components/DashboardInsights";
 import { ResourceFooter } from "../components/ResourceFooter";
 import { RecentProtocolActivity } from "../components/RecentProtocolActivity";
@@ -17,6 +18,7 @@ export function DashboardPage() {
   const updateFarmCount = useCallback((count:number|null) => { if (count != null) { lastFarmCount=count; setFarmCount(count); } },[]);
   return <main className="app-page oink-home reference-dashboard">
     <HomeSnapshot farmCount={farmCount} />
+    <OinkBuybacks />
     <DashboardTreasury />
     <ParticipationSnapshot onFarmCount={updateFarmCount} />
     <ProtocolBalances />
